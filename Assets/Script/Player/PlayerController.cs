@@ -8,24 +8,16 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [Header("Game Object and Component References")]
-    [Tooltip("The sprite renderer that represents the player.")]
     public SpriteRenderer spriteRenderer = null;
-    [Tooltip("The health component attached to the player.")]
-    public Health playerHealth;
-    [Tooltip("The camera that will follow the player.")]
     public Camera playerCamera;
-
-    [Header("Movement Settings")]
-    [Tooltip("The speed at which to move the player")]
     public float movementSpeed = 4.0f;
-
-    [Header("Input Actions & Controls")]
-    [Tooltip("The input action(s) that map to player movement")]
     public InputAction moveAction;
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
+
+    public int damage;
+    public float health;
 
     #region Player State Variables
     public enum PlayerState
@@ -160,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
     private void DetermineState()
     {
-        if (playerHealth != null && playerHealth.currentHealth <= 0)
+        if (health != null && health <= 0)
         {
             state = PlayerState.Dead;
         }
@@ -171,6 +163,25 @@ public class PlayerController : MonoBehaviour
         else
         {
             state = PlayerState.Idle;
+        }
+    }
+
+    // Detect if player is colliding with enemy
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            collision.GetComponent<Enemy>().TakeDamage(damage);
+        }
+    }
+    
+    public void TakeDamage(int damageAmount)
+    {
+        health -= damageAmount;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
