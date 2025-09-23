@@ -1,0 +1,1198 @@
+fileFormatVersion: 2
+guid: 6050dad4f7b5a4c3b8fffc8d17494b4f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -780768351052564468
+    second: cavemanfinalidle_0
+  - first:
+      213: -7675904948031721186
+    second: cavemanfinalidle_1
+  - first:
+      213: 1763217128856597938
+    second: cavemanfinalidle_2
+  - first:
+      213: -7194056092229989070
+    second: cavemanfinalidle_3
+  - first:
+      213: -5751906800663283568
+    second: cavemanfinalidle_4
+  - first:
+      213: -5176665324249520653
+    second: cavemanfinalidle_5
+  - first:
+      213: 5647681372277276390
+    second: cavemanfinalidle_6
+  - first:
+      213: 1014409046733522029
+    second: cavemanfinalidle_7
+  - first:
+      213: -2408173134345982265
+    second: cavemanfinalidle_8
+  - first:
+      213: -1606951921899433109
+    second: cavemanfinalidle_9
+  - first:
+      213: 3681632221972024260
+    second: cavemanfinalidle_10
+  - first:
+      213: 4899233217625386286
+    second: cavemanfinalidle_11
+  - first:
+      213: 6780803332109418298
+    second: cavemanfinalidle_12
+  - first:
+      213: 6887299138639009881
+    second: cavemanfinalidle_13
+  - first:
+      213: -8878885138286565463
+    second: cavemanfinalidle_14
+  - first:
+      213: -4735377364703670219
+    second: cavemanfinalidle_15
+  - first:
+      213: 7497076801559819871
+    second: cavemanfinalidle_16
+  - first:
+      213: -3190374144098854191
+    second: cavemanfinalidle_17
+  - first:
+      213: 6531779527943296050
+    second: cavemanfinalidle_18
+  - first:
+      213: -1578755103632066577
+    second: cavemanfinalidle_19
+  - first:
+      213: -50647383091401879
+    second: cavemanfinalidle_20
+  - first:
+      213: 4784642518590597245
+    second: cavemanfinalidle_21
+  - first:
+      213: -7109802252890440638
+    second: cavemanfinalidle_22
+  - first:
+      213: -1475947341416242312
+    second: cavemanfinalidle_23
+  - first:
+      213: -4130208258084841778
+    second: cavemanfinalidle_24
+  - first:
+      213: -7974429468367748593
+    second: cavemanfinalidle_25
+  - first:
+      213: 7700640953360104269
+    second: cavemanfinalidle_26
+  - first:
+      213: 2478479160604441650
+    second: cavemanfinalidle_27
+  - first:
+      213: 1119413786126045188
+    second: cavemanfinalidle_28
+  - first:
+      213: 1216225364374911651
+    second: cavemanfinalidle_29
+  - first:
+      213: -3585846948810868316
+    second: cavemanfinalidle_30
+  - first:
+      213: -6305388229368800092
+    second: cavemanfinalidle_31
+  - first:
+      213: -4890318043045707865
+    second: cavemanfinalidle_32
+  - first:
+      213: -8589392870176517795
+    second: cavemanfinalidle_33
+  - first:
+      213: -7988722712778141802
+    second: cavemanfinalidle_34
+  - first:
+      213: -1883214167929911242
+    second: cavemanfinalidle_35
+  - first:
+      213: -3300767481861127614
+    second: cavemanfinalidle_36
+  - first:
+      213: 2106875675529981876
+    second: cavemanfinalidle_37
+  - first:
+      213: -2759544439652931729
+    second: cavemanfinalidle_38
+  - first:
+      213: -2366321112027902589
+    second: cavemanfinalidle_39
+  - first:
+      213: 3835279641895571251
+    second: cavemanfinalidle_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cavemanfinalidle_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 306
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c08f4a742572a25f0800000000000000
+      internalID: -780768351052564468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_1
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 306
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e11f7e25e15b97590800000000000000
+      internalID: -7675904948031721186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 306
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b5b16303a4387810800000000000000
+      internalID: 1763217128856597938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_3
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 306
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23d85609914992c90800000000000000
+      internalID: -7194056092229989070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_4
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 306
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 098bf4d5d3f1d20b0800000000000000
+      internalID: -5751906800663283568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_5
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 306
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f56603905ac828b0800000000000000
+      internalID: -5176665324249520653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_6
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 306
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ee7d2f0948906e40800000000000000
+      internalID: 5647681372277276390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_7
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 306
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d648e7747a7e31e00800000000000000
+      internalID: 1014409046733522029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_8
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 263
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ce2ba91b43749ed0800000000000000
+      internalID: -2408173134345982265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_9
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 263
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b639d04bdb5f2b9e0800000000000000
+      internalID: -1606951921899433109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_10
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 263
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cb4640fff8c71330800000000000000
+      internalID: 3681632221972024260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_11
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 263
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2dea5877a29df340800000000000000
+      internalID: 4899233217625386286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_12
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 263
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3fba2e44b04a1e50800000000000000
+      internalID: 6780803332109418298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_13
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 263
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9589e6c731a949f50800000000000000
+      internalID: 6887299138639009881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_14
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 263
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a72fe2520dd7c480800000000000000
+      internalID: -8878885138286565463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_15
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 263
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 530996b306f884eb0800000000000000
+      internalID: -4735377364703670219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_16
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 220
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f567bca31a7fa0860800000000000000
+      internalID: 7497076801559819871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_17
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 220
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1da95688e9389b3d0800000000000000
+      internalID: -3190374144098854191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_18
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 220
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2349a32bfda85aa50800000000000000
+      internalID: 6531779527943296050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_19
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 220
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe7fcac0992271ae0800000000000000
+      internalID: -1578755103632066577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_20
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 220
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96ba80239701c4ff0800000000000000
+      internalID: -50647383091401879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_21
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 220
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d78a2d14507766240800000000000000
+      internalID: 4784642518590597245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_22
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 220
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24c71353588e45d90800000000000000
+      internalID: -7109802252890440638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_23
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 220
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 873e3bf76b1648be0800000000000000
+      internalID: -1475947341416242312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_24
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 177
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec6d778d87d8ea6c0800000000000000
+      internalID: -4130208258084841778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_25
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 177
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f02888b16a2255190800000000000000
+      internalID: -7974429468367748593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_26
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 177
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4bbad7b52c2eda60800000000000000
+      internalID: 7700640953360104269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_27
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 177
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23c390f3aa3556220800000000000000
+      internalID: 2478479160604441650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_28
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 177
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 400d7b658e4f88f00800000000000000
+      internalID: 1119413786126045188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_29
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 177
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aaf26a6686e0e010800000000000000
+      internalID: 1216225364374911651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_30
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 177
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a9b53dd2338c3ec0800000000000000
+      internalID: -3585846948810868316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_31
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 177
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ac1b8110d2ce78a0800000000000000
+      internalID: -6305388229368800092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_32
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 134
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7afb39d56a9122cb0800000000000000
+      internalID: -4890318043045707865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_33
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 134
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d511bd071b85cc880800000000000000
+      internalID: -8589392870176517795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_34
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 134
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69f83cfc40b522190800000000000000
+      internalID: -7988722712778141802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_35
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 134
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6380e8421ba7dd5e0800000000000000
+      internalID: -1883214167929911242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_36
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 134
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 242c185a6715132d0800000000000000
+      internalID: -3300767481861127614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_37
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 134
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bf20e1a3402d3d10800000000000000
+      internalID: 2106875675529981876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_38
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 134
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f67259ce3f024b9d0800000000000000
+      internalID: -2759544439652931729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_39
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 134
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38dc1156c73292fd0800000000000000
+      internalID: -2366321112027902589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cavemanfinalidle_40
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 91
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33f097d9386a93530800000000000000
+      internalID: 3835279641895571251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e15e9b5b3269e469581f4537175e7775
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      cavemanfinalidle_0: -780768351052564468
+      cavemanfinalidle_1: -7675904948031721186
+      cavemanfinalidle_10: 3681632221972024260
+      cavemanfinalidle_11: 4899233217625386286
+      cavemanfinalidle_12: 6780803332109418298
+      cavemanfinalidle_13: 6887299138639009881
+      cavemanfinalidle_14: -8878885138286565463
+      cavemanfinalidle_15: -4735377364703670219
+      cavemanfinalidle_16: 7497076801559819871
+      cavemanfinalidle_17: -3190374144098854191
+      cavemanfinalidle_18: 6531779527943296050
+      cavemanfinalidle_19: -1578755103632066577
+      cavemanfinalidle_2: 1763217128856597938
+      cavemanfinalidle_20: -50647383091401879
+      cavemanfinalidle_21: 4784642518590597245
+      cavemanfinalidle_22: -7109802252890440638
+      cavemanfinalidle_23: -1475947341416242312
+      cavemanfinalidle_24: -4130208258084841778
+      cavemanfinalidle_25: -7974429468367748593
+      cavemanfinalidle_26: 7700640953360104269
+      cavemanfinalidle_27: 2478479160604441650
+      cavemanfinalidle_28: 1119413786126045188
+      cavemanfinalidle_29: 1216225364374911651
+      cavemanfinalidle_3: -7194056092229989070
+      cavemanfinalidle_30: -3585846948810868316
+      cavemanfinalidle_31: -6305388229368800092
+      cavemanfinalidle_32: -4890318043045707865
+      cavemanfinalidle_33: -8589392870176517795
+      cavemanfinalidle_34: -7988722712778141802
+      cavemanfinalidle_35: -1883214167929911242
+      cavemanfinalidle_36: -3300767481861127614
+      cavemanfinalidle_37: 2106875675529981876
+      cavemanfinalidle_38: -2759544439652931729
+      cavemanfinalidle_39: -2366321112027902589
+      cavemanfinalidle_4: -5751906800663283568
+      cavemanfinalidle_40: 3835279641895571251
+      cavemanfinalidle_5: -5176665324249520653
+      cavemanfinalidle_6: 5647681372277276390
+      cavemanfinalidle_7: 1014409046733522029
+      cavemanfinalidle_8: -2408173134345982265
+      cavemanfinalidle_9: -1606951921899433109
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
