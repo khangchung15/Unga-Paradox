@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_ActionId: 15cef263-9014-4fd5-94d9-4e4a6234a6ef
---- !u!1001 &255585713
+--- !u!1001 &240505313
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -216,123 +216,55 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 666633540603953187, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: wanderRadius
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1793705713531557420, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 1793705713531557420, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_Name
-      value: ShieldGorilla (3)
+      value: ShieldGorilla (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: maxRestTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: minRestTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[0].x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[0].y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[1].x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[1].y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[2].x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[2].y
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[3].x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[3].y
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[4].x
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[4].y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[5].x
-      value: -9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: patrolPoints.Array.data[5].y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.92
+      value: -4.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.44
+      value: 1.72
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6271604323554941815, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
+<<<<<<< HEAD
   m_SourcePrefab: {fileID: 100100000, guid: 81448ab303603d145a4d3350004e4250, type: 3}
 --- !u!1 &320353191
 GameObject:
@@ -463,6 +395,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
 --- !u!1 &339866344
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,13 +409,11 @@ GameObject:
   - component: {fileID: 339866346}
   - component: {fileID: 339866348}
   - component: {fileID: 339866349}
+  - component: {fileID: 339866352}
   - component: {fileID: 339866353}
-  - component: {fileID: 339866355}
-  - component: {fileID: 339866354}
-  - component: {fileID: 339866356}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -494,10 +427,11 @@ Transform:
   m_GameObject: {fileID: 339866344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.88, y: 0.84, z: 0}
+  m_LocalPosition: {x: 0.04, y: 1.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 628863120}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &339866348
@@ -512,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6ee009d37a08c40a17ef12ce8935ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controller
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 628863122}
   playerHealth: {fileID: 0}
   playerCamera: {fileID: 519420031}
   movementSpeed: 4
@@ -579,6 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
   playerController: {fileID: 339866348}
+<<<<<<< HEAD
 <<<<<<< HEAD
   animator: {fileID: 0}
 --- !u!50 &339866353
@@ -690,6 +625,11 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!70 &339866356
 CapsuleCollider2D:
+=======
+  animator: {fileID: 628863121}
+--- !u!61 &339866352
+BoxCollider2D:
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -722,9 +662,45 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.005785227, y: 0.016890049}
-  m_Size: {x: 0.45757627, y: 0.9662199}
-  m_Direction: 0
+  m_Offset: {x: -0.0022390336, y: -0.040255994}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.436408, y: 0.93455034}
+  m_EdgeRadius: 0
+--- !u!50 &339866353
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339866344}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &451349672
 =======
   animator: {fileID: 628863121}
@@ -743,8 +719,9 @@ GameObject:
   - component: {fileID: 451349674}
   - component: {fileID: 451349676}
   - component: {fileID: 451349678}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Wall Tilemap
+<<<<<<< HEAD
   m_TagString: Obstacle
 =======
   - component: {fileID: 489052787}
@@ -754,6 +731,9 @@ GameObject:
   m_Name: Inventory (3)
   m_TagString: Untagged
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+  m_TagString: Untagged
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2978,6 +2958,7 @@ CanvasRenderer:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+<<<<<<< HEAD
 --- !u!1001 &496005365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3043,6 +3024,8 @@ PrefabInstance:
   m_GameObject: {fileID: 489052786}
   m_CullTransparentMesh: 1
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3265,7 +3248,10 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
 --- !u!1 &628863119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3293,7 +3279,11 @@ Transform:
   m_GameObject: {fileID: 628863119}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 0, y: 0, z: 0}
+=======
+  m_LocalPosition: {x: -0, y: -0.05, z: 0}
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3365,9 +3355,15 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
+<<<<<<< HEAD
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
+=======
+  m_SortingLayerID: 299022299
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
   m_Sprite: {fileID: -4228483744936433478, guid: 6dcb58ea6cfff14478d95f5e0e35ce29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3379,6 +3375,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
 --- !u!1 &688025035
 GameObject:
   m_ObjectHideFlags: 0
@@ -3458,6 +3455,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySwitcher
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
 --- !u!114 &696732272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3472,6 +3471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_ActionId: 7607c7b6-cd76-4816-beef-bd0341cfe950
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &835361937
 PrefabInstance:
@@ -3755,6 +3755,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 970778535}
   m_CullTransparentMesh: 1
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
 --- !u!114 &982878659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3993,51 +3995,63 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 666633540603953187, guid: 81448ab303603d145a4d3350004e4250, type: 3}
-      propertyPath: wanderRadius
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1793705713531557420, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 1793705713531557420, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_Name
       value: ShieldGorilla (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 3390874730581675158, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3390874730581675158, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.57
+      value: -2.34
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 3390874730581675158, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.38
+      value: 0.71
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7557334702737264498, guid: 81448ab303603d145a4d3350004e4250, type: 3}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -4045,6 +4059,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
+<<<<<<< HEAD
   m_SourcePrefab: {fileID: 100100000, guid: 81448ab303603d145a4d3350004e4250, type: 3}
 =======
 --- !u!1 &1149771557
@@ -4158,6 +4173,9 @@ CanvasRenderer:
   m_GameObject: {fileID: 1207044686}
   m_CullTransparentMesh: 1
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
 --- !u!1 &1260907012
 GameObject:
   m_ObjectHideFlags: 0
@@ -4575,7 +4593,7 @@ GameObject:
   - component: {fileID: 1850833397}
   - component: {fileID: 1850833399}
   - component: {fileID: 1850833398}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8880,7 +8898,7 @@ GameObject:
   - component: {fileID: 1981864796}
   - component: {fileID: 1981864798}
   - component: {fileID: 1981864797}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground Decoration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9014,10 +9032,14 @@ Tilemap:
       - {fileID: -1347532211411968617, guid: 9e3a50d917cb5d5438df217aea88e758, type: 3}
       - {fileID: -7645372005702169758, guid: 9e3a50d917cb5d5438df217aea88e758, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_AnimationSpeed: 2.2524498
 =======
       m_AnimationSpeed: 0.8062126
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+      m_AnimationSpeed: 1.6223546
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 3, y: -2, z: 0}
@@ -9027,10 +9049,14 @@ Tilemap:
       - {fileID: -1347532211411968617, guid: 9e3a50d917cb5d5438df217aea88e758, type: 3}
       - {fileID: -7645372005702169758, guid: 9e3a50d917cb5d5438df217aea88e758, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_AnimationSpeed: 2.736199
 =======
       m_AnimationSpeed: 2.1997652
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+      m_AnimationSpeed: 1.4466543
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -6, y: -1, z: 0}
@@ -9040,10 +9066,14 @@ Tilemap:
       - {fileID: -1347532211411968617, guid: 9e3a50d917cb5d5438df217aea88e758, type: 3}
       - {fileID: -7645372005702169758, guid: 9e3a50d917cb5d5438df217aea88e758, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_AnimationSpeed: 2.6338015
 =======
       m_AnimationSpeed: 2.1784894
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+      m_AnimationSpeed: 2.8945546
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -4, y: 3, z: 0}
@@ -9053,10 +9083,14 @@ Tilemap:
       - {fileID: -1347532211411968617, guid: 9e3a50d917cb5d5438df217aea88e758, type: 3}
       - {fileID: -7645372005702169758, guid: 9e3a50d917cb5d5438df217aea88e758, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_AnimationSpeed: 1.7190166
 =======
       m_AnimationSpeed: 2.071418
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+      m_AnimationSpeed: 2.9827688
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -9135,6 +9169,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &2002150678
 =======
@@ -9414,6 +9449,8 @@ CanvasRenderer:
   m_GameObject: {fileID: 2001923077}
   m_CullTransparentMesh: 1
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
 --- !u!114 &2109604828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9442,6 +9479,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
+--- !u!1001 &3468573015161994871
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1793705713531557420, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_Name
+      value: ShieldGorilla
+      objectReference: {fileID: 0}
+    - target: {fileID: 3390874730581675158, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 3390874730581675158, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557334702737264498, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3b95ddab4b4d7654ea00fb2466e9f563, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -9449,11 +9551,13 @@ SceneRoots:
   - {fileID: 1891453740}
   - {fileID: 519420032}
   - {fileID: 339866346}
+  - {fileID: 3468573015161994871}
   - {fileID: 1260907014}
   - {fileID: 619394802}
   - {fileID: 1978253882}
 <<<<<<< HEAD
   - {fileID: 1252843718}
+<<<<<<< HEAD
   - {fileID: 496005365}
   - {fileID: 835361937}
   - {fileID: 255585713}
@@ -9463,3 +9567,6 @@ SceneRoots:
 =======
   - {fileID: 1632714534}
 >>>>>>> 97e5d1442cfabdce2f26640afa1657a026648eea
+=======
+  - {fileID: 240505313}
+>>>>>>> parent of c5013f3 (added the basic of wandering state for general enemy mechanic, needs to fix player's collision bug when collide with enemy, along with adding some states to smooth out animation transition instead of hardcoding)
