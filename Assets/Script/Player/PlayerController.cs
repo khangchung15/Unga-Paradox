@@ -185,4 +185,20 @@ public class PlayerController : MonoBehaviour
             state = PlayerState.Idle;
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        }
+    }
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            var rb = GetComponent<Rigidbody2D>();
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
 }
