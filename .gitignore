@@ -76,3 +76,4 @@ crashlytics-build.properties
 .plastic/plastic.wktree
 
 .vscode/
+.vscode/settings.json
