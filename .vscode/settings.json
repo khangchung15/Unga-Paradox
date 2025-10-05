@@ -66,6 +66,10 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
+<<<<<<< HEAD
     "dotnet.defaultSolution": "Unga Paradox.sln",
     "dotnet.preferCSharpExtension": true
+=======
+    "dotnet.defaultSolution": "Unga-Paradox.sln"
+>>>>>>> parent of fc100b86 (changed settings.json)
 }
