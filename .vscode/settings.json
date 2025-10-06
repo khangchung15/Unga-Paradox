@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "Unga-Paradox.sln"
+    "dotnet.defaultSolution": "Unga Paradox.sln"
 }

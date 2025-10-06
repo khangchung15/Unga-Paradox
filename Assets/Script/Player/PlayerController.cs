@@ -20,17 +20,14 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The speed at which to move the player")]
     public float movementSpeed = 4.0f;
 
-    //[Header("Input Actions & Controls")]
-    //[Tooltip("The input action(s) that map to player movement")]
-    //public InputAction moveAction;
+    [Header("Input Actions & Controls")]
+    [Tooltip("The input action(s) that map to player movement")]
+    public InputAction moveAction;
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
 
-    // The input action that maps to player movement
-    private PlayerControls controls;
-
-    //#region Player State Variables
+    #region Player State Variables
     public enum PlayerState
     {
         Idle,
@@ -39,87 +36,79 @@ public class PlayerController : MonoBehaviour
     }
 
     public PlayerState state = PlayerState.Idle;
-    //#endregion
+    #endregion
 
-    //#region Directional facing
-    //public enum PlayerDirection
-    //{
-    //    Right,
-    //    Left
-    //}
-
-    //public PlayerDirection facing
-    //{
-    //    get
-    //    {
-    //        if (currentVelocity.x > 0.1f)
-    //        {
-    //            return PlayerDirection.Right;
-    //        }
-    //        else if (currentVelocity.x < -0.1f)
-    //        {
-    //            return PlayerDirection.Left;
-    //        }
-    //        else
-    //        {
-    //            if (spriteRenderer != null && spriteRenderer.flipX == true)
-    //                return PlayerDirection.Left;
-    //            return PlayerDirection.Right;
-    //        }
-    //    }
-    //}
-    //#endregion
-
-    private void Awake()
+    #region Directional facing
+    public enum PlayerDirection
     {
-        controls = new PlayerControls();
+        Right,
+        Left
     }
+
+    public PlayerDirection facing
+    {
+        get
+        {
+            if (currentVelocity.x > 0.1f)
+            {
+                return PlayerDirection.Right;
+            }
+            else if (currentVelocity.x < -0.1f)
+            {
+                return PlayerDirection.Left;
+            }
+            else
+            {
+                if (spriteRenderer != null && spriteRenderer.flipX == true)
+                    return PlayerDirection.Left;
+                return PlayerDirection.Right;
+            }
+        }
+    }
+    #endregion
 
     void OnEnable()
     {
-        controls.Player.Enable();
+        moveAction.Enable();
     }
 
     void OnDisable()
     {
-        controls.Player.Disable();
+        moveAction.Disable();
     }
 
-    //private void Start()
-    //{
-    //    // If no camera is assigned, try to find the main camera
-    //    if (playerCamera == null)
-    //    {
-    //        playerCamera = Camera.main;
-    //    }
+    private void Start()
+    {
+        // If no camera is assigned, try to find the main camera
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+        }
 
-    //    // Ensure the camera exists
-    //    if (playerCamera == null)
-    //    {
-    //        Debug.LogWarning("No camera assigned to player controller and no main camera found in scene!");
-    //    }
-    //}
-
-
+        // Ensure the camera exists
+        if (playerCamera == null)
+        {
+            Debug.LogWarning("No camera assigned to player controller and no main camera found in scene!");
+        }
+    }
 
     private void Update()
     {
-        HandleMovementInput();
-        //ProcessInput();
+        ProcessInput();
         HandleSpriteDirection();
         DetermineState();
         MovePlayer();
         UpdateCameraPosition();
     }
 
-    //private void ProcessInput()
-    //{
-    //    HandleMovementInput();
-    //}
+    private void ProcessInput()
+    {
+        HandleMovementInput();
+    }
 
     private void HandleMovementInput()
     {
-        Vector2 input = controls.Player.Move.ReadValue<Vector2>();
+        Vector2 input = moveAction.ReadValue<Vector2>();
         
         if (state != PlayerState.Dead)
         {
@@ -158,15 +147,14 @@ public class PlayerController : MonoBehaviour
     {
         if (spriteRenderer != null)
         {
-            //if (facing == PlayerDirection.Left)
-            //{
-            //    spriteRenderer.flipX = true;
-            //}
-            //else
-            //{
-            //    spriteRenderer.flipX = false;
-            //}
-            spriteRenderer.flipX = currentVelocity.x < -0.1f;
+            if (facing == PlayerDirection.Left)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
         }
     }
 
@@ -183,22 +171,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             state = PlayerState.Idle;
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        }
-    }
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            var rb = GetComponent<Rigidbody2D>();
-            rb.linearVelocity = Vector2.zero;
         }
     }
 }
