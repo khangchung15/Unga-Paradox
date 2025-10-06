@@ -16,7 +16,7 @@ public class General_Enemy_Detection : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        if (transform.parent != null )
+        if (transform.parent != null)
         {
             transform.position = transform.parent.position;
         }
@@ -25,9 +25,9 @@ public class General_Enemy_Detection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    
+
     void FixedUpdate()
     {
 
@@ -51,7 +51,7 @@ public class General_Enemy_Detection : MonoBehaviour
                 hasLineOfSight = false;
                 //Debug.Log((transform.parent != null ? transform.parent.gameObject.name : gameObject.name) + ": The player is in my range but is behind a wall!");
                 DrawDetectionLine(Color.red);
-                break;   
+                break;
             default:
                 hasLineOfSight = false;
                 break;
@@ -104,4 +104,3 @@ public class General_Enemy_Detection : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, Detection_Range);
     }
 }
-

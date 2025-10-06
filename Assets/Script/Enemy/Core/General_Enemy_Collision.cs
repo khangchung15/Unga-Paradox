@@ -20,7 +20,7 @@ public class General_Enemy_Collision : MonoBehaviour
             StopAllCoroutines(); // Stop any current wandering coroutine  
             StartCoroutine(enemyWandering.IdleAndSetNewWanderPoint());
         }
-       
-       
+
+
     }
 }

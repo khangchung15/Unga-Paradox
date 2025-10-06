@@ -29,7 +29,7 @@ public class General_Enemy_Movement : MonoBehaviour
             }
         }
 
-            rb.linearVelocity = direction * moveSpeed;
+        rb.linearVelocity = direction * moveSpeed;
     }
 
     public void Stop()

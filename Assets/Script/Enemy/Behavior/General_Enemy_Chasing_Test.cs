@@ -31,7 +31,7 @@ public class General_Enemy_Chasing_Test : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -39,15 +39,15 @@ public class General_Enemy_Chasing_Test : MonoBehaviour
     {
         if (currentPath == null || currentPath.vectorPath.Count == 0)
         {
-            enemyMovement.Stop();
-            anim.Play("Idle");
+            //enemyMovement.Stop();
+            //anim.Play("Idle");
             return;
         }
 
         if (currentWaypointIndex >= currentPath.vectorPath.Count)
         {
-            enemyMovement.Stop();
-            anim.Play("Idle");
+            //enemyMovement.Stop();
+            //anim.Play("Idle");
             return;
         }
 
@@ -62,6 +62,7 @@ public class General_Enemy_Chasing_Test : MonoBehaviour
             {
                 enemyMovement.Stop();
                 //anim.Play("Idle");
+                return;
             }
         }
     }
@@ -75,7 +76,7 @@ public class General_Enemy_Chasing_Test : MonoBehaviour
     }
     private void OnPathComplete(Path p)
     {
-        if(!p.error && p.vectorPath != null)
+        if (!p.error && p.vectorPath != null)
         {
             currentPath = p;
             currentWaypointIndex = 0;

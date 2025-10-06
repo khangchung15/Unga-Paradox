@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - Obstacle
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -12,9 +14,9 @@ TagManager:
   - No Light
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Unwalkable
   - 
   - 
   - 

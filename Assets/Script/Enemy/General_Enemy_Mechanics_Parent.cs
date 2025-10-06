@@ -10,7 +10,7 @@ public class General_Enemy_Mechanics_Parent : MonoBehaviour
     private General_Enemy_Chasing_Test chasingScript;
     private General_Enemy_Collision collisionScript;
     private Seeker seeker;
-    
+
     private void Awake()
     {
         detectionScript = GetComponentInChildren<General_Enemy_Detection>();
@@ -31,7 +31,7 @@ public class General_Enemy_Mechanics_Parent : MonoBehaviour
         if (chasingScript != null)
         {
             chasingScript.enabled = false; // disable chasing at start
-            
+
         }
         seeker.drawGizmos = false; // disable path gizmos at start
 
@@ -48,14 +48,14 @@ public class General_Enemy_Mechanics_Parent : MonoBehaviour
             if (wanderingScript.enabled)
             {
                 wanderingScript.enabled = false;
-               
+
             }
             if (!chasingScript.enabled)
             {
                 chasingScript.enabled = true;
-                
+
             }
-           
+
         }
         else if (!detectionScript.hasLineOfSight)
         {
@@ -67,16 +67,16 @@ public class General_Enemy_Mechanics_Parent : MonoBehaviour
             if (!wanderingScript.enabled)
             {
                 wanderingScript.enabled = true;
-                
+
             }
         }
     }
     void OnCollisionEnter2D(Collision2D collision) // handle collision
-    {    
+    {
         if (collisionScript != null)
         {
             collisionScript.OnParentCollision(collision);
         }
-            
+
     }
 }

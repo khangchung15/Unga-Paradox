@@ -50,7 +50,7 @@ public class General_Enemy_Wandering : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -74,7 +74,7 @@ public class General_Enemy_Wandering : MonoBehaviour
                 enemyMovement.Stop();
                 StartCoroutine(IdleAndSetNewWanderPoint());
             }
-        }   
+        }
     }
     public IEnumerator IdleAndSetNewWanderPoint()
     {
@@ -116,7 +116,7 @@ public class General_Enemy_Wandering : MonoBehaviour
             Vector2 potentialPoint = homeLocation + randomPoint;
             lastSelectedWanderPoint = potentialPoint; // for debugging purposes
             Collider2D hit = Physics2D.OverlapCircle(homeLocation + randomPoint, 0.2f, LayerMask.GetMask("Unwalkable")); // check if this dumbass chooses a wall to walk to again
-         
+
 
             if (hit == null)
             {
