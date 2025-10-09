@@ -1,15 +1,38 @@
+using Unity.Burst;
 using UnityEngine;
 
-public class General_Enemy_Movement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Rigidbody2D rb;
     private Transform parentTransform;
 
+    private float defaultMoveSpeed;
+    public float DefaultMoveSpeed
+    {
+        get => defaultMoveSpeed;
+        set => defaultMoveSpeed = Mathf.Max(0f, value);
+    }
+    public float GetCurrentMovementSpeed
+    {
+        get 
+        {
+            if (rb != null)
+                return rb.linearVelocity.magnitude;
+            else
+                return 0f;
+        }
+    }
+
     public void Initialized(Rigidbody2D rb, Transform parentTransform)
     {
         this.rb = rb;
         this.parentTransform = parentTransform;
+    }
+
+    public void MoveTowards(Vector2 target)
+    {
+        MoveTowards(target, DefaultMoveSpeed);
     }
 
     public void MoveTowards(Vector2 target, float moveSpeed)

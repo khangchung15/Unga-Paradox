@@ -23,8 +23,8 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = startingHealth;
         audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
-        wandering = GetComponentInChildren<General_Enemy_Wandering>().gameObject;
-        chasing = GetComponentInChildren<General_Enemy_Chasing_Test>().gameObject;
+        wandering = GetComponentInChildren<EnemyWandering>().gameObject;
+        chasing = GetComponentInChildren<EnemyChasing>().gameObject;
         hurtSounds = new AudioClip[] { hurtSound1, hurtSound2, hurtSound3 };
         rb = GetComponent<Rigidbody2D>();
         flash = GetComponent<Flash>();

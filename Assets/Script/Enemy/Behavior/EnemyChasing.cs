@@ -2,7 +2,7 @@ using Pathfinding;
 using UnityEngine;
 
 // testing script for enemy chasing behavior using A* Pathfinding
-public class General_Enemy_Chasing_Test : MonoBehaviour
+public class EnemyChasing : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("Chasing Settings")]
@@ -11,7 +11,7 @@ public class General_Enemy_Chasing_Test : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
-    private General_Enemy_Movement enemyMovement;
+    private EnemyMovement enemyMovement;
     private Seeker seeker;
     private Path currentPath;
     private GameObject player;
@@ -23,7 +23,7 @@ public class General_Enemy_Chasing_Test : MonoBehaviour
     {
         rb = GetComponentInParent<Rigidbody2D>(); // from parent gameObject
         anim = GetComponentInParent<Animator>(); // from parent gameObject
-        enemyMovement = gameObject.AddComponent<General_Enemy_Movement>();
+        enemyMovement = gameObject.AddComponent<EnemyMovement>();
         enemyMovement.Initialized(rb, transform.parent);
         seeker = GetComponentInParent<Seeker>();
         player = GameObject.FindGameObjectWithTag("Player");
