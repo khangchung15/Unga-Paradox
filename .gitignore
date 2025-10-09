@@ -76,3 +76,6 @@ crashlytics-build.properties
 .plastic/plastic.wktree
 
 .vscode/
+
+.DS_Store
+**/.DS_Store
