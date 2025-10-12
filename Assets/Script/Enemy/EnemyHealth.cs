@@ -19,7 +19,7 @@ public class EnemyHealth : MonoBehaviour
     private Rigidbody2D rb;
     private Flash flash;
     
-    public UnityEvent onDeath;
+    //public UnityEvent onDeath;
 
     private void Start()
     {
@@ -62,7 +62,7 @@ public class EnemyHealth : MonoBehaviour
             anim.Play("Dead");
             audioSource.PlayOneShot(deathSound);
             
-            onDeath.Invoke();
+            //onDeath.Invoke();
             Destroy(gameObject, deathSound.length);
         }
     }

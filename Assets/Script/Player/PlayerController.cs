@@ -15,17 +15,25 @@ public class PlayerController : MonoBehaviour
     public Health playerHealth;
     [Tooltip("The camera that will follow the player.")]
     public Camera playerCamera;
+    [SerializeField] private TrailRenderer myTrailRenderer;
+
 
     [Header("Movement Settings")]
     [Tooltip("The speed at which to move the player")]
-    public float movementSpeed = 4.0f;
+    [SerializeField] private float movementSpeed = 4.0f;
+    [Tooltip("The speed at which to dash the player")]
+    [SerializeField] private float dashSpeed = 4.0f;
 
-    [Header("Input Actions & Controls")]
-    [Tooltip("The input action(s) that map to player movement")]
-    public InputAction moveAction;
+    //[Header("Input Actions & Controls")]
+    //[Tooltip("The input action(s) that map to player movement")]
+    //public InputAction moveAction;
+
+    private PlayerControls playerControls;
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
+
+    private bool isDashing = false;
 
     #region Player State Variables
     public enum PlayerState
@@ -67,14 +75,9 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    void OnEnable()
+    private void Awake()
     {
-        moveAction.Enable();
-    }
-
-    void OnDisable()
-    {
-        moveAction.Disable();
+        playerControls = new PlayerControls();
     }
 
     private void Start()
@@ -90,6 +93,18 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("No camera assigned to player controller and no main camera found in scene!");
         }
+
+        playerControls.Player.Dash.performed += _ => Dash();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
     }
 
     private void Update()
@@ -108,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovementInput()
     {
-        Vector2 input = moveAction.ReadValue<Vector2>();
+        Vector2 input = playerControls.Player.Move.ReadValue<Vector2>();
         
         if (state != PlayerState.Dead)
         {
@@ -172,5 +187,27 @@ public class PlayerController : MonoBehaviour
         {
             state = PlayerState.Idle;
         }
+    }
+
+    private void Dash() 
+    {
+        if (!isDashing)
+        {
+            isDashing = true;
+            movementSpeed *= dashSpeed;
+            myTrailRenderer.emitting = true;
+            StartCoroutine(EndDashRoutine());
+        }
+    }
+
+    private IEnumerator EndDashRoutine()
+    {
+        float dashTime = 0.2f;
+        float dashCD = 0.25f;
+        yield return new WaitForSeconds(dashTime);
+        movementSpeed /= dashSpeed;
+        myTrailRenderer.emitting = false;
+        yield return new WaitForSeconds(dashCD);
+        isDashing = false;
     }
 }
