@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "name": "TopDownTemplate",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "c1753141-bc40-4941-965a-4ab4a25f1a7a",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "7c7999d5-3d22-4000-b348-c3a443aaa8da",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "476cb3a1-76d2-4aeb-ab85-7d0cefb928e8",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf6fc80f-d7c1-447f-b5c9-5f41b8e482f0",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
