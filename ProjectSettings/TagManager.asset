@@ -59,5 +59,11 @@ TagManager:
   - name: No Light
     uniqueID: 406297769
     locked: 0
+  - name: Player
+    uniqueID: 1907551111
+    locked: 0
+  - name: Decor
+    uniqueID: 3866232463
+    locked: 0
   m_RenderingLayers:
   - Default

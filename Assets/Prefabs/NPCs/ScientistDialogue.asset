@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343f22fbc319f40df97cd7d0984ab6fb, type: 3}
+  m_Name: ScientistDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: Scientist
+  npcPortrait: {fileID: -7539746500335010751, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+  dialogueLines:
+  - "No, no, no my time drive and weapons are gone. Those\u2026 primates stripped
+    the machine."
+  - "Listen without those parts, I\u2019m stuck in 975 B.C."
+  - "Deal. Recover the power core, quantum lens, and stabilizer coil. I\u2019ll handle
+    the calibration."
+  autoProgressLines: 
+  autoProgressDelay: 1.5
+  typingSpeed: 0.05
+  voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
+  voicePitch: 1
