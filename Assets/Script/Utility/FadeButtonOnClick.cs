@@ -26,21 +26,8 @@ public class FadeButtonOnClick : MonoBehaviour
         buttonImage = GetComponent<Image>();
         buttonText = GetComponentInChildren<Text>();
         
-        // Add click listener
-        if (button != null)
-        {
-            button.onClick.AddListener(OnButtonClicked);
-        }
-        else
-        {
-            Debug.LogWarning("Button component not found on " + gameObject.name);
-        }
-        
-        // Validate scene name if this is a load scene button
-        if (buttonType == ButtonType.LoadScene && string.IsNullOrEmpty(sceneName))
-        {
-            Debug.LogWarning("Scene name is not set for load scene button on " + gameObject.name);
-        }
+        button.onClick.AddListener(OnButtonClicked);
+
     }
 
     void OnButtonClicked()
@@ -127,21 +114,8 @@ public class FadeButtonOnClick : MonoBehaviour
 
     void LoadTargetScene()
     {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            try
-            {
-                SceneManager.LoadScene(sceneName);
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError("Error loading scene: " + sceneName + "\n" + e.Message);
-            }
-        }
-        else
-        {
-            Debug.LogError("Scene name is not set for button on " + gameObject.name);
-        }
+        SceneManager.LoadScene(sceneName);
+
     }
 
     void ExitGame()

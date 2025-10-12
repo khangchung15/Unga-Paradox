@@ -21,13 +21,6 @@ public class CountdownSceneTransition : MonoBehaviour
         // Initialize countdown
         currentTime = countdownDuration;
         
-        // Validate target scene
-        if (string.IsNullOrEmpty(targetSceneName))
-        {
-            Debug.LogError("Target scene name is not set!");
-            return;
-        }
-        
         // Start the countdown automatically
         StartCountdown();
     }
@@ -52,23 +45,15 @@ public class CountdownSceneTransition : MonoBehaviour
 
     public void StartCountdown()
     {
-        if (string.IsNullOrEmpty(targetSceneName))
-        {
-            Debug.LogError("Cannot start countdown: Target scene name is not set!");
-            return;
-        }
-        
         countdownStarted = true;
         currentTime = countdownDuration;
         UpdateCountdownUI();
         
-        Debug.Log($"Countdown started! Transitioning to {targetSceneName} in {countdownDuration} seconds.");
     }
 
     public void StopCountdown()
     {
         countdownStarted = false;
-        Debug.Log("Countdown stopped!");
     }
 
     void UpdateCountdownUI()
@@ -89,17 +74,8 @@ public class CountdownSceneTransition : MonoBehaviour
 
     void LoadTargetScene()
     {
-        countdownStarted = false;
-        
-        try
-        {
-            Debug.Log($"Loading scene: {targetSceneName}");
-            SceneManager.LoadScene(targetSceneName);
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Error loading scene: {targetSceneName}\n{e.Message}");
-        }
+
+        SceneManager.LoadScene(targetSceneName);
     }
 
     // Public method to change target scene during runtime
@@ -115,7 +91,6 @@ public class CountdownSceneTransition : MonoBehaviour
         countdownDuration = newDuration;
         currentTime = countdownDuration;
         UpdateCountdownUI();
-        Debug.Log($"Countdown duration changed to: {countdownDuration} seconds");
     }
 
     // Public property to check current countdown time

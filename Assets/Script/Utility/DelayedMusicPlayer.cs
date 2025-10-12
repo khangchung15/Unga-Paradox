@@ -62,8 +62,6 @@ public class DelayedMusicPlayer : MonoBehaviour
     
     IEnumerator PlayMusicAfterDelay()
     {
-        Debug.Log("Music will play in " + delayInSeconds + " seconds");
-        
         // Wait for the specified delay
         yield return new WaitForSeconds(delayInSeconds);
         
@@ -72,7 +70,6 @@ public class DelayedMusicPlayer : MonoBehaviour
         {
             audioSource.clip = musicClip;
             audioSource.Play();
-            Debug.Log("Now playing: " + musicClip.name);
         }
     }
     
@@ -84,7 +81,6 @@ public class DelayedMusicPlayer : MonoBehaviour
         if (audioSource != null && audioSource.isPlaying)
         {
             audioSource.Stop();
-            Debug.Log("Music stopped");
         }
     }
     

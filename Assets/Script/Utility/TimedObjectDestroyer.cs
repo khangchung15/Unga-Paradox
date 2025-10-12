@@ -63,7 +63,6 @@ public class TimedObjectDestroyer : MonoBehaviour
         {
             countdownStarted = true;
             timeAlive = 0.0f;
-            Debug.Log("Countdown started! Object will be destroyed in " + lifetime + " seconds.");
         }
     }
 
@@ -78,7 +77,6 @@ public class TimedObjectDestroyer : MonoBehaviour
     public void StopCountdown()
     {
         countdownStarted = false;
-        Debug.Log("Countdown stopped!");
     }
 
     /// <summary>
@@ -93,7 +91,6 @@ public class TimedObjectDestroyer : MonoBehaviour
     {
         timeAlive = 0.0f;
         countdownStarted = false;
-        Debug.Log("Countdown reset!");
     }
 
     /// <summary>

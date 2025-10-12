@@ -60,11 +60,6 @@ public class SceneLoaderOnRange : MonoBehaviour
     
     void StartLoadSequence()
     {
-        if (string.IsNullOrEmpty(sceneName))
-        {
-            Debug.LogWarning("Scene name is not set!");
-            return;
-        }
         
         if (oneTimeLoad)
         {
