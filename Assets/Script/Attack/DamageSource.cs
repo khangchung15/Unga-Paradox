@@ -17,5 +17,13 @@ public class DamageSource : MonoBehaviour
             enemyHealth.TakeDamage(damageAmount);
             //knockback.GetKnockedBack(transform, 10);
         }
+
+        // Player takes damage
+        if (other.gameObject.GetComponent<Health>())
+        {
+            Debug.Log("Health Component Found");
+            Health playerHealth = other.gameObject.GetComponent<Health>();
+            playerHealth.TakeDamage(damageAmount);
+        }
     }
 }

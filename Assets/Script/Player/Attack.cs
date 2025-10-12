@@ -2,6 +2,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Attack : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Attack : MonoBehaviour
     private bool playOnce = false;      // bool for attack cooldown
 
     [Header("Attack Settings")]
+    [Tooltip("True for melee, false for ranged")]
+    public bool attackType;
     [Tooltip("Attack effect (Also holds damage)")]
     public GameObject attackEffect;
     [Tooltip("Attack sound")]
@@ -31,13 +34,19 @@ public class Attack : MonoBehaviour
     private void OnEnable()
     {
         controls.Player.Enable();
-        controls.Player.Attack.performed += onAttack;
+        if (attackType == true)
+            controls.Player.Attack.performed += onAttack;
+        else if (attackType == false)
+            controls.Player.Attack.performed += onAttackRanged;
     }
 
     // Disable attack
     private void OnDisable()
     {
-        controls.Player.Attack.performed -= onAttack;
+        if (attackType == true)
+            controls.Player.Attack.performed -= onAttack;
+        else if (attackType == false)
+            controls.Player.Attack.performed -= onAttackRanged;
         controls.Player.Disable();
     }
 
@@ -87,6 +96,36 @@ public class Attack : MonoBehaviour
         // Instantiate attack effect
         GameObject attack = Instantiate(attackEffect, spawnPos, Quaternion.Euler(0, 0, angle));
         attack.transform.SetParent(transform);
+
+        // Play attack sound
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
+    }
+
+    private void onAttackRanged(InputAction.CallbackContext context)
+    {
+        // Reset timer for cooldown
+        timer = 0.0f;
+
+        // Get mouse position in world
+        Vector2 mouseScreenPos = controls.Player.MousePosition.ReadValue<Vector2>();
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        mouseWorldPos.z = 0f;
+
+        // Direction from player to mouse
+        Vector2 direction = (mouseWorldPos - transform.position).normalized;
+
+        //// Angle in degrees
+        //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Spawn position = player position + offset in mouse direction
+        Vector3 spawnPos = transform.position + (Vector3)direction * attackDistance;
+
+        // Instantiate attack effect
+        GameObject attack = Instantiate(attackEffect, spawnPos, Quaternion.Euler(0, 0, 0));
+        //attack.transform.SetParent(transform);
 
         // Play attack sound
         if (audioSource != null)
