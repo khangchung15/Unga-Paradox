@@ -357,7 +357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5871305356687049079, guid: 257cb6824f9edf8419b77f484c688820, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Cutscene
+      value: Huy-Test
       objectReference: {fileID: 0}
     - target: {fileID: 6837885615295579578, guid: 257cb6824f9edf8419b77f484c688820, type: 3}
       propertyPath: m_Name

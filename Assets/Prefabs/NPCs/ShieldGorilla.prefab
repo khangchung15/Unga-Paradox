@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 8050355482461810790}
   - component: {fileID: 4550693193071543147}
   - component: {fileID: 8954316339554204880}
+  - component: {fileID: -4961222171499436235}
   m_Layer: 8
   m_Name: ShieldGorilla
   m_TagString: Enemy
@@ -292,6 +293,21 @@ MonoBehaviour:
   hurtSound3: {fileID: 8300000, guid: f6b56fbe26ed8b44ab20c08b1032f206, type: 3}
   hurtSounds: []
   currentHealth: 0
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -4961222171499436235}
+        m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
+        m_MethodName: RandomlyDropCollectable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5774953433506124525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +445,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4961222171499436235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2378590449411482196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6052570e9fdc440beb85978a3ee53ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollectableDrop
+  _chanceOfCollectableDrop: 0.3
 --- !u!1 &2847268091583954535
 GameObject:
   m_ObjectHideFlags: 0

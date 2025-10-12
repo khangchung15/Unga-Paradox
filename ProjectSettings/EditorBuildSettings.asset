@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Arrival Past Cutscene.unity
     guid: b0c4e6f39a83a134cb97ce37037e9c53
+  - enabled: 1
+    path: Assets/_Scenes/Huy-Test.unity
+    guid: 4836490ab78e578499fa590084b4c77f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

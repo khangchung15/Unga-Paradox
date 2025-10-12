@@ -1,5 +1,6 @@
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class EnemyHealth : MonoBehaviour
     private GameObject chasing;
     private Rigidbody2D rb;
     private Flash flash;
+    
+    public UnityEvent onDeath;
 
     private void Start()
     {
@@ -33,6 +36,11 @@ public class EnemyHealth : MonoBehaviour
     // Damage the enemy
     public void TakeDamage(int damage)
     {
+        if (currentHealth <= 0)
+        {
+            return;
+        }
+        
         currentHealth -= damage;
         if (currentHealth > 0)
         {
@@ -53,6 +61,8 @@ public class EnemyHealth : MonoBehaviour
             chasing.SetActive(false);
             anim.Play("Dead");
             audioSource.PlayOneShot(deathSound);
+            
+            onDeath.Invoke();
             Destroy(gameObject, deathSound.length);
         }
     }
