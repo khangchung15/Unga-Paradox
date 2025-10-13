@@ -12,7 +12,9 @@ public class Attack : MonoBehaviour
 
     [Header("Attack Settings")]
     [Tooltip("True for melee, false for ranged")]
-    public bool attackType;
+    public bool isMelee;
+    [Tooltip("Attack Weapon")]
+    public GameObject attackWeapon;
     [Tooltip("Attack effect (Also holds damage)")]
     public GameObject attackEffect;
     [Tooltip("Attack sound")]
@@ -21,6 +23,11 @@ public class Attack : MonoBehaviour
     public float attackDistance = 1.0f;
     [Tooltip("Attack cooldown")]
     public float attackCooldown = 1.0f;
+
+    [Header ("Ranged Attack Settings")]
+    [Tooltip("Attack Velocity")]
+    public GameObject attackProjectile;
+    public float attackVelocity = 1.0f;
 
     private AudioSource audioSource;
 
@@ -34,18 +41,18 @@ public class Attack : MonoBehaviour
     private void OnEnable()
     {
         controls.Player.Enable();
-        if (attackType == true)
+        if (isMelee == true)
             controls.Player.Attack.performed += onAttack;
-        else if (attackType == false)
+        else if (isMelee == false)
             controls.Player.Attack.performed += onAttackRanged;
     }
 
     // Disable attack
     private void OnDisable()
     {
-        if (attackType == true)
+        if (isMelee == true)
             controls.Player.Attack.performed -= onAttack;
-        else if (attackType == false)
+        else if (isMelee == false)
             controls.Player.Attack.performed -= onAttackRanged;
         controls.Player.Disable();
     }
@@ -117,15 +124,15 @@ public class Attack : MonoBehaviour
         // Direction from player to mouse
         Vector2 direction = (mouseWorldPos - transform.position).normalized;
 
-        //// Angle in degrees
-        //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // Angle in degrees
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // Spawn position = player position + offset in mouse direction
         Vector3 spawnPos = transform.position + (Vector3)direction * attackDistance;
 
-        // Instantiate attack effect
-        GameObject attack = Instantiate(attackEffect, spawnPos, Quaternion.Euler(0, 0, 0));
-        //attack.transform.SetParent(transform);
+        // Instantiate projectile
+        GameObject projectile = Instantiate(attackProjectile, spawnPos, Quaternion.Euler(0, 0, angle));
+        projectile.GetComponent<Rigidbody2D>().linearVelocity = direction * attackVelocity;
 
         // Play attack sound
         if (audioSource != null)

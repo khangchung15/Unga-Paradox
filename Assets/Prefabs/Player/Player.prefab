@@ -367,7 +367,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -379,7 +379,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6208056872323571458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,11 +425,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d20576338ff72469248d397aa1cc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attack
-  attackType: 1
+  isMelee: 0
+  attackWeapon: {fileID: 0}
   attackEffect: {fileID: 3853189956808588641, guid: 6e5bac6d0c0f4784ab0e398cf82f912a, type: 3}
   attackSound: {fileID: 8300000, guid: 90d3c2b6bea3faa41a6c318f16e82a34, type: 3}
   attackDistance: 1
   attackCooldown: 0.75
+  attackProjectile: {fileID: 0}
+  attackVelocity: 1
 --- !u!114 &3427427672410123108
 MonoBehaviour:
   m_ObjectHideFlags: 0
