@@ -43,11 +43,6 @@ public class SoundEffectManager : MonoBehaviour
         voiceAudioSource.PlayOneShot(audioClip);
     }
 
-    //Start is called before the first frame update
-    void Start()
-    {
-        sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
-    }
 
     public static void SetVolume(float volume)
     {
