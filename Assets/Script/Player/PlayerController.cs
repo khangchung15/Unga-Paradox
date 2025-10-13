@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
+    // Knockback state
 
     #region Player State Variables
     public enum PlayerState
@@ -173,4 +174,7 @@ public class PlayerController : MonoBehaviour
             state = PlayerState.Idle;
         }
     }
+
+    // Public API: apply knockback force and disable player input for duration seconds.
+   
 }

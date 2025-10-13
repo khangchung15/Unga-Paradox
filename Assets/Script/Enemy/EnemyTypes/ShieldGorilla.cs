@@ -7,11 +7,14 @@ public class ShieldGorilla : Enemy
     [Header("Shield Gorilla Stats")]
     [SerializeField] private float detectionRange = 4.5f;
     [SerializeField] private float wanderingMoveSpeed = 1.5f;
+    [SerializeField] private float chasingMoveSpeed = 3.0f;
+    [SerializeField] private int maxHealth = 150;
     protected override void Awake()
     {
         base.Awake();
         // set a custom detection range for this instance (does not require modifying the ScriptableObject)
-        
+        enemyHealth.StartingHealth = maxHealth;
+
     }
 
     protected override void Start()
@@ -36,6 +39,26 @@ public class ShieldGorilla : Enemy
         {
             Debug.LogWarning($"{name}: EnemyMovement not found; cannot set walking speed.");
         }
+
+        if (enemyChasing != null)
+        {
+            enemyChasing.ChaseSpeed = chasingMoveSpeed;
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: EnemyChasing not found; cannot set chase speed.");
+        }
+
+        if (enemyHealth != null)
+        {
+            enemyHealth.StartingHealth = maxHealth;
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: EnemyHealth not found; cannot set health.");
+        }
+
+
     }
 
     // Update is called once per frame

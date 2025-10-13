@@ -64,8 +64,8 @@ public class EnemyWandering : MonoBehaviour
 
     private void OnEnable()
     {
-        if (stateMachine.GetState() == EnemyStateMachine.EnemyState.Wandering)
-            StartCoroutine(IdleAndSetNewWanderPoint());
+        //if (stateMachine.GetState() == EnemyStateMachine.EnemyState.Wandering)
+        //    StartCoroutine(IdleAndSetNewWanderPoint());
     }
     private void Start()
     {
@@ -163,7 +163,11 @@ public class EnemyWandering : MonoBehaviour
         target = GetRandomWanderPoint();
         Debug.Log(HelperFuncs.GetOwnerName(transform) + " New Wander Point Set: " + target);
 
-        seeker.StartPath(rb.position, target, OnPathComplete);
+        if (seeker != null && behaviorRunning)
+        {
+            seeker.StartPath(rb.position, target, OnPathComplete);
+        }
+
         isResting = false;
         idleCoroutine = null;
         OnIdleComplete?.Invoke();

@@ -21,7 +21,7 @@ public class EnemyDetection : MonoBehaviour
     public enum SightState { None, Player, Obstacle, OutOfRange }
     public event Action<SightState> OnSightStateChanged;
 
-    readonly float detectionInterval = 0.2f; // how often to check for player, optimize performance for less constant checks
+    readonly float detectionInterval = 0.5f; // how often to check for player, optimize performance for less constant checks
     private float detectionTimer = 0f;
 
     private void Start()

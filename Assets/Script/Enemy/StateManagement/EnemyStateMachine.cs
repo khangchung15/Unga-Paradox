@@ -21,25 +21,47 @@ public class EnemyStateMachine : MonoBehaviour
 
     /// <summary>Invoked after a successful state change: (oldState, newState).</summary>
     public event Action<EnemyState, EnemyState> OnStateChanged;
+    private EnemyState? pendingState;
 
     /// <summary>Change to a new state; no-op if state is identical.</summary>
     public void ChangeState(EnemyState newState)
     {
-        if (newState == CurrentState) 
+        if (newState == CurrentState)
             return;
+
+        // If currently attacking, queue outgoing changes instead of switching immediately.
+        if (CurrentState == EnemyState.BasicAttack && newState != EnemyState.BasicAttack)
+        {
+            pendingState = newState;
+            //Debug.Log($"[EnemyStateMachine] ChangeState: queued '{newState}' while in BasicAttack");
+            return;
+        }
 
         var old = CurrentState;
         CurrentState = newState;
         OnStateChanged?.Invoke(old, newState);
     }
 
-    /// <summary>Forcefully set state without invoking animation (rare). Use ChangeState normally.</summary>
-    public void SetStateWithoutAnimation(EnemyState newState)
+    
+    public void ForceChangeState(EnemyState newState)
     {
         if (newState == CurrentState) return;
         var old = CurrentState;
         CurrentState = newState;
         OnStateChanged?.Invoke(old, newState);
+    }
+
+    /// <summary>
+    /// Apply any pending state that was queued while in BasicAttack.
+    /// Will force the change even if the state machine still reports BasicAttack.
+    /// </summary>
+    public void ApplyPendingState()
+    {
+        if (!pendingState.HasValue) return;
+        var target = pendingState.Value;
+        pendingState = null;
+        //Debug.Log($"[EnemyStateMachine] ApplyPendingState -> applying '{target}'");
+        ForceChangeState(target);
     }
 
     public EnemyState GetState() => CurrentState;
