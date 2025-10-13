@@ -54,7 +54,7 @@ public class EnemyDetection : MonoBehaviour
         {
             case SightState.Player:
                 
-                DrawDetectionLine(Color.blueViolet);
+                DrawDetectionLine(Color.cyan);
                 break;
             case SightState.Obstacle:
                 DrawDetectionLine(Color.red);

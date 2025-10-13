@@ -82,9 +82,8 @@ public class EnemyWandering : MonoBehaviour
             enemyMovement.Stop();
             return;
         }
-        //Debug.Log("balls");
         Vector2 nextWayPoint = currentPath.vectorPath[currentWaypointIndex];
-        float moveSpeed = enemyMovement.DefaultMoveSpeed; // use configured speed
+        float moveSpeed = enemyMovement.DefaultMoveSpeed; // use enemy individual movement speed, found in inherited enemy scripts to each enemy type
         enemyMovement.MoveTowards(nextWayPoint, moveSpeed);
 
         if (Vector2.Distance(transform.parent.position, nextWayPoint) < wayPointThreshold)
@@ -140,7 +139,6 @@ public class EnemyWandering : MonoBehaviour
     }
     public IEnumerator IdleAndSetNewWanderPoint()
     {
-        //Debug.Log("Fuck you");
         if (!behaviorRunning)
         {
             idleCoroutine = null;
@@ -161,7 +159,7 @@ public class EnemyWandering : MonoBehaviour
 
        
         target = GetRandomWanderPoint();
-        Debug.Log(HelperFuncs.GetOwnerName(transform) + " New Wander Point Set: " + target);
+        //.Log(HelperFuncs.GetOwnerName(transform) + " New Wander Point Set: " + target);
 
         if (seeker != null && behaviorRunning)
         {
@@ -212,7 +210,6 @@ public class EnemyWandering : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        //Debug.Log(gameObject.name + " spawnLocation: " + homeLocation);
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(homeLocation, wanderRadius); // homeLocation will look weird before running the editor.
 

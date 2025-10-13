@@ -65,7 +65,6 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
     public EnemyState GetState() => CurrentState;
-
     public bool HasState() => true; // always has an enum state
     
 }
