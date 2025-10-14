@@ -16,8 +16,6 @@ public class PineappleGrenade : MonoBehaviour, IWeapon
     public AudioClip attackSound;
     [Tooltip("Attack distance")]
     public float attackDistance = 1.0f;
-    [Tooltip("Attack cooldown")]
-    public float attackCooldown = 1.0f;
 
     [Header("Ranged Attack Settings")]
     [Tooltip("Attack Velocity")]

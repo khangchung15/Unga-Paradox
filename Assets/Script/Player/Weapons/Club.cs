@@ -16,8 +16,6 @@ public class Club : MonoBehaviour, IWeapon
     public AudioClip attackSound;
     [Tooltip("Attack distance")]
     public float attackDistance = 1.0f;
-    [Tooltip("Attack cooldown")]
-    public float attackCooldown = 1.0f;
 
     private AudioSource audioSource;
 

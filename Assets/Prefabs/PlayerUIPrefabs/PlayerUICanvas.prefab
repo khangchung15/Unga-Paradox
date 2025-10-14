@@ -1204,7 +1204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2873649829314555649
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1252,7 +1252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -7398290590244787686, guid: 55cafe0b09d40574ea50cc971b0c3452, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  weaponInfo: {fileID: 0}
+  weaponInfo: {fileID: 11400000, guid: e91f2a0d8634b654591f60c19eff3140, type: 2}
 --- !u!1 &7069424046538534088
 GameObject:
   m_ObjectHideFlags: 0
