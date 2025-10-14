@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -53,15 +54,25 @@ public class PlayerController : MonoBehaviour
         Left
     }
 
+    #endregion
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+
+
     public PlayerDirection facing
     {
         get
         {
-            if (currentVelocity.x > 0.1f)
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 playerScreenPoint = playerCamera.WorldToScreenPoint(transform.position);
+            if (mousePos.x > playerScreenPoint.x)
             {
                 return PlayerDirection.Right;
             }
-            else if (currentVelocity.x < -0.1f)
+            else if (mousePos.x < playerScreenPoint.x)
             {
                 return PlayerDirection.Left;
             }
@@ -71,13 +82,21 @@ public class PlayerController : MonoBehaviour
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
             }
+            //if (currentVelocity.x > 0.1f)
+            //{
+            //    return PlayerDirection.Right;
+            //}
+            //else if (currentVelocity.x < -0.1f)
+            //{
+            //    return PlayerDirection.Left;
+            //}
+            //else
+            //{
+            //    if (spriteRenderer != null && spriteRenderer.flipX == true)
+            //        return PlayerDirection.Left;
+            //    return PlayerDirection.Right;
+            //}
         }
-    }
-    #endregion
-
-    private void Awake()
-    {
-        playerControls = new PlayerControls();
     }
 
     private void Start()

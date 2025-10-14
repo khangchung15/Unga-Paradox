@@ -34,7 +34,7 @@ public class Sword : MonoBehaviour
 
     private void MouseFollowWithOffset()
     {
-        Vector2 mousePos = playerControls.Player.MousePosition.ReadValue<Vector2>();
+        Vector2 mousePos = Input.mousePosition;
         Vector2 playerScreenPoint = Camera.main.WorldToScreenPoint(playerController.transform.position);
         Vector2 direction = mousePos - playerScreenPoint;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
