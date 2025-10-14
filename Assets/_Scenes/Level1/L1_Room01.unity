@@ -23609,14 +23609,14 @@ PrefabInstance:
     - target: {fileID: 8356546928918462638, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
       propertyPath: _connection
       value: 
-      objectReference: {fileID: 11400000, guid: e0c63c3a6a45c423e933fa259d6f26d0, type: 2}
+      objectReference: {fileID: 11400000, guid: 67ea9619b269c4d19aeeb349ebcbbfc7, type: 2}
     - target: {fileID: 8356546928918462638, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
       propertyPath: _spawnPoint
       value: 
       objectReference: {fileID: 1573974524}
     - target: {fileID: 8356546928918462638, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
       propertyPath: _targetSceneName
-      value: L1_Room02
+      value: MonkeyBossFight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

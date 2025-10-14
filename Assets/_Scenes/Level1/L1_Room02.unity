@@ -17503,7 +17503,7 @@ PrefabInstance:
     - target: {fileID: 8356546928918462638, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
       propertyPath: _connection
       value: 
-      objectReference: {fileID: 11400000, guid: e0c63c3a6a45c423e933fa259d6f26d0, type: 2}
+      objectReference: {fileID: 11400000, guid: b1009881d2c944c699336ca7f65eac28, type: 2}
     - target: {fileID: 8356546928918462638, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
       propertyPath: _spawnPoint
       value: 
