@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3cb70e81fcf8cad428e57a6bcd90aba6
+guid: 50810e36569fc3e429f59751973598bd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2852610726315664299
-    second: club_0
+      213: 5907130587529274049
+    second: pineappleNade_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: club_0
+      name: pineappleNade_0
       rect:
         serializedVersion: 2
-        x: 49
-        y: 19
-        width: 212
-        height: 282
+        x: 0
+        y: 0
+        width: 8
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ba3a3808752869720800000000000000
-      internalID: 2852610726315664299
+      spriteID: 1c2e687d8f75af150800000000000000
+      internalID: 5907130587529274049
       vertices: []
       indices: 
       edges: []
@@ -138,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9141d40889e60724c894f13467b5fc89
     internalID: 0
     vertices: []
     indices: 
@@ -146,9 +133,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":8.0,"y":8.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      club_0: 2852610726315664299
+      pineappleNade_0: 5907130587529274049
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

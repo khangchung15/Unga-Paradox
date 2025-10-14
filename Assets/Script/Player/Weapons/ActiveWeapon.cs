@@ -12,9 +12,8 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
 
     protected override void Awake()
     {
-        base.Awake();
-
         playerControls = new PlayerControls();
+        base.Awake();
     }
 
     public PlayerControls GetPlayerControls()
@@ -59,7 +58,7 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
         if (attackButtonDown && !isAttacking)
         {
             isAttacking = true;
-            (currentActiveWeapon as WeaponInterface).Attack();
+            (currentActiveWeapon as IWeapon).Attack();
         }
     }
 }
