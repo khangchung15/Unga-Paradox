@@ -24068,35 +24068,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1833568943503611214, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
   m_PrefabInstance: {fileID: 1741444158}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1827930716 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8343709223146807442, guid: 41b6b03eab39346cf9be639b66ee7938, type: 3}
-  m_PrefabInstance: {fileID: 3263106523741658159}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1827930720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827930716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2509024fd2cdc41f0a7828791e68935b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AimedAttackHitbox
-  damage: 25
-  targetTag: Player
-  disableColliderOnStart: 1
-  aimAtTargetOnEnable: 1
-  frontOffset: 0.5
-  owner: {fileID: 0}
-  sfxSource: {fileID: 0}
-  hitSfx: {fileID: 8300000, guid: 778250b027e759c48b84097a5472e57e, type: 3}
-  sfxVolume: 1
-  enableKnockback: 1
-  knockbackForce: 5
-  knockbackDuration: 0.2
 --- !u!1001 &1927109784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25240,7 +25211,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 826319985424966274, guid: 41b6b03eab39346cf9be639b66ee7938, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 826319985424966274, guid: 41b6b03eab39346cf9be639b66ee7938, type: 3}
       propertyPath: knockbackForce
@@ -25305,10 +25276,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8343709223146807442, guid: 41b6b03eab39346cf9be639b66ee7938, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1827930720}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b6b03eab39346cf9be639b66ee7938, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
