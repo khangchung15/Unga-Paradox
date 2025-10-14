@@ -1,47 +1,81 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
-public class Sword : MonoBehaviour
+public class Sword : MonoBehaviour, IWeapon
 {
-    [SerializeField] private GameObject slashAnimPrefab;
-    [SerializeField] private Transform slashAnimSpawnPoint;
-    private PlayerControls playerControls;
-    private Animator myAnimator;
-    private PlayerController playerController;
-    private ActiveWeapon activeWeapon;
-    private GameObject slashAnim;
+    [SerializeField] private WeaponInfo weaponInfo;
+
+    [Header("Attack Settings")]
+    [Tooltip("Attack effect (Also holds damage)")]
+    public GameObject attackEffect;
+    [Tooltip("Attack sound")]
+    public AudioClip attackSound;
+    [Tooltip("Attack distance")]
+    public float attackDistance = 1.0f;
+    [Tooltip("Attack cooldown")]
+    public float attackCooldown = 1.0f;
+
+    private AudioSource audioSource;
 
     private void Awake()
     {
-        playerController = GetComponentInParent<PlayerController>();
-        activeWeapon = GetComponentInParent<ActiveWeapon>();
-        myAnimator = GetComponent<Animator>();
-        playerControls = new PlayerControls();
-    }
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
-    void Start()
-    {
-        playerControls.Player.Attack.started += _ => Attack();
+        audioSource = GetComponent<AudioSource>();
     }
 
-    private void Update() { MouseFollowWithOffset(); }
+    private void Update()
+    {
+        MouseFollowWithOffset();
+    }
 
-    private void Attack() { myAnimator.SetTrigger("Attack"); }
+    public WeaponInfo GetWeaponInfo()
+    {
+        return weaponInfo;
+    }
 
     private void MouseFollowWithOffset()
     {
         Vector2 mousePos = Input.mousePosition;
-        Vector2 playerScreenPoint = Camera.main.WorldToScreenPoint(playerController.transform.position);
+        Vector2 playerScreenPoint = Camera.main.WorldToScreenPoint(PlayerController.Instance.transform.position);
         Vector2 direction = mousePos - playerScreenPoint;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         if (mousePos.x < playerScreenPoint.x)
         {
-            activeWeapon.transform.rotation = Quaternion.Euler(180, 0, -angle);
+            ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(180, 0, -angle);
         }
-        else { activeWeapon.transform.rotation = Quaternion.Euler(0, 0, angle); }
+        else
+        {
+            ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+    }
+
+    public void Attack()
+    {
+        // Get mouse position in world
+        Vector2 mouseScreenPos = Input.mousePosition;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        mouseWorldPos.z = 0f;
+
+        // Direction from player to mouse
+        Vector2 direction = (mouseWorldPos - PlayerController.Instance.transform.position).normalized;
+
+        // Angle in degrees
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Spawn position = player position + offset in mouse direction
+        Vector3 spawnPos = PlayerController.Instance.transform.position + (Vector3)direction * attackDistance;
+
+        // Instantiate attack effect
+        GameObject attack = Instantiate(attackEffect, spawnPos, Quaternion.Euler(0, 0, angle));
+        attack.transform.SetParent(PlayerController.Instance.transform);
+
+        // Play attack sound
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
     }
 }

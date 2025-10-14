@@ -160,6 +160,50 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &4755222672299508519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7075650276313029560}
+  - component: {fileID: 3770993189001624837}
+  m_Layer: 7
+  m_Name: Active Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7075650276313029560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4755222672299508519}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6717301259787470461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3770993189001624837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4755222672299508519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f908d6722cc854c8080474bb7d5aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveWeapon
 --- !u!1 &5398025421634499297
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +330,6 @@ GameObject:
   - component: {fileID: 4314042104161216094}
   - component: {fileID: 6208056872323571458}
   - component: {fileID: 8664975309024174321}
-  - component: {fileID: 2069058523727177112}
   - component: {fileID: 3427427672410123108}
   - component: {fileID: 2444098976905175761}
   - component: {fileID: 6355745688687896366}
@@ -314,6 +357,7 @@ Transform:
   m_Children:
   - {fileID: 7718632335232726511}
   - {fileID: 4915543658786897587}
+  - {fileID: 7075650276313029560}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &7362918956466233706
@@ -413,26 +457,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
   playerController: {fileID: 6208056872323571458}
   animator: {fileID: 3115784048661969168}
---- !u!114 &2069058523727177112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8146792267698005228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6d20576338ff72469248d397aa1cc13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Attack
-  isMelee: 0
-  attackWeapon: {fileID: 0}
-  attackEffect: {fileID: 3853189956808588641, guid: 6e5bac6d0c0f4784ab0e398cf82f912a, type: 3}
-  attackSound: {fileID: 8300000, guid: 90d3c2b6bea3faa41a6c318f16e82a34, type: 3}
-  attackDistance: 1
-  attackCooldown: 0.75
-  attackProjectile: {fileID: 0}
-  attackVelocity: 1
 --- !u!114 &3427427672410123108
 MonoBehaviour:
   m_ObjectHideFlags: 0
