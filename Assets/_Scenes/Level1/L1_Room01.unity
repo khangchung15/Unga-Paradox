@@ -6101,7 +6101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &114415942
 MonoBehaviour:
@@ -6504,7 +6504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &122125302
 MonoBehaviour:
@@ -7010,6 +7010,10 @@ PrefabInstance:
     - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
       propertyPath: m_Name
       value: rock_18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7615,7 +7619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &397532282
 MonoBehaviour:
@@ -8058,7 +8062,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 440658825}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8152,7 +8156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &521666935
 MonoBehaviour:
@@ -8555,7 +8559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &557939151
 MonoBehaviour:
@@ -8958,7 +8962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &571893909
 MonoBehaviour:
@@ -9361,7 +9365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &622819290
 MonoBehaviour:
@@ -10015,6 +10019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_26 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5165711096306083629, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10133,7 +10141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &757699652
 MonoBehaviour:
@@ -19327,6 +19335,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_26 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5165711096306083629, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19925,6 +19937,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_26
       objectReference: {fileID: 0}
+    - target: {fileID: 5165711096306083629, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19990,6 +20006,10 @@ PrefabInstance:
     - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
       propertyPath: m_Name
       value: rock_18 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20256,6 +20276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_18 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20266,6 +20290,135 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1833568943503611214, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
   m_PrefabInstance: {fileID: 1070269108}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1119847236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1119847238}
+  - component: {fileID: 1119847237}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1119847237
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119847236}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: ed7e2500c2fce994d9e985081b240cd2, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1119847238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119847236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.83392, y: 12.55443, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1148641437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24058,6 +24211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_18 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24123,6 +24280,10 @@ PrefabInstance:
     - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
       propertyPath: m_Name
       value: rock_18 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24381,7 +24542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &2006772099
 MonoBehaviour:
@@ -25217,6 +25378,10 @@ PrefabInstance:
       propertyPath: knockbackForce
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2611266233982717221, guid: 41b6b03eab39346cf9be639b66ee7938, type: 3}
+      propertyPath: Layers_To_Detect.m_Bits
+      value: 136
+      objectReference: {fileID: 0}
     - target: {fileID: 3841501344115770862, guid: 41b6b03eab39346cf9be639b66ee7938, type: 3}
       propertyPath: wanderRadius
       value: 6
@@ -25290,3 +25455,4 @@ SceneRoots:
   - {fileID: 1307996025}
   - {fileID: 774739988}
   - {fileID: 1434985901}
+  - {fileID: 1119847238}
