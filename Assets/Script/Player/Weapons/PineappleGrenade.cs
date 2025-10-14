@@ -5,23 +5,29 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class Club : MonoBehaviour, IWeapon
+public class PineappleGrenade : MonoBehaviour, IWeapon
 {
+    private SpriteRenderer spriteRenderer;
+
     [SerializeField] private WeaponInfo weaponInfo;
 
     [Header("Attack Settings")]
-    [Tooltip("Attack effect (Also holds damage)")]
-    public GameObject attackEffect;
     [Tooltip("Attack sound")]
     public AudioClip attackSound;
     [Tooltip("Attack distance")]
     public float attackDistance = 1.0f;
+
+    [Header("Ranged Attack Settings")]
+    [Tooltip("Attack Velocity")]
+    public GameObject attackProjectile;
+    public float attackVelocity = 7.0f;
 
     private AudioSource audioSource;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -52,6 +58,8 @@ public class Club : MonoBehaviour, IWeapon
 
     public void Attack()
     {
+        spriteRenderer.enabled = false;
+
         // Get mouse position in world
         Vector2 mouseScreenPos = Input.mousePosition;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
@@ -66,9 +74,9 @@ public class Club : MonoBehaviour, IWeapon
         // Spawn position = player position + offset in mouse direction
         Vector3 spawnPos = PlayerController.Instance.transform.position + (Vector3)direction * attackDistance;
 
-        // Instantiate attack effect
-        GameObject attack = Instantiate(attackEffect, spawnPos, Quaternion.Euler(0, 0, angle));
-        attack.transform.SetParent(PlayerController.Instance.transform);
+        // Instantiate projectile
+        GameObject projectile = Instantiate(attackProjectile, spawnPos, Quaternion.Euler(0, 0, angle));
+        projectile.GetComponent<Rigidbody2D>().linearVelocity = direction * attackVelocity;
 
         // Play attack sound
         if (audioSource != null)

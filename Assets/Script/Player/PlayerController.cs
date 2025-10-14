@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Class which handles player movement (no gravity version)
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     [Header("Game Object and Component References")]
     [Tooltip("The sprite renderer that represents the player.")]
@@ -56,8 +56,9 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerControls = new PlayerControls();
     }
 
