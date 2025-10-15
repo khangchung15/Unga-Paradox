@@ -7615,7 +7615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
   Layers_To_Detect:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   hasLineOfSight: 1
 --- !u!114 &397532282
 MonoBehaviour:
