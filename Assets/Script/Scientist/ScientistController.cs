@@ -23,6 +23,8 @@ public class ScientistController : MonoBehaviour
     [Header("Input Actions & Controls")]
     [Tooltip("The input action(s) that map to player movement")]
     public InputAction moveAction;
+    [Tooltip("The input action for interaction")]
+    public InputAction interactAction;
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
@@ -70,11 +72,39 @@ public class ScientistController : MonoBehaviour
     void OnEnable()
     {
         moveAction.Enable();
+        interactAction.Enable();
+        interactAction.performed += OnInteract;
     }
 
     void OnDisable()
     {
         moveAction.Disable();
+        interactAction.Disable();
+        interactAction.performed -= OnInteract;
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            PerformInteraction();
+        }
+    }
+
+    private void PerformInteraction()
+    {
+        // Your interaction logic here
+        Debug.Log("Player interacted!");
+        
+        // Example: Check for interactable objects in front of player
+        Vector2 direction = facing == PlayerDirection.Right ? Vector2.right : Vector2.left;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 1.5f);
+        
+        if (hit.collider != null)
+        {
+            Debug.Log($"Hit: {hit.collider.gameObject.name}");
+            // You can add logic here to interact with specific objects
+        }
     }
 
     private void Start()

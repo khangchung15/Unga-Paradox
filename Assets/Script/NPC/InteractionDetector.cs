@@ -5,28 +5,43 @@ using UnityEngine;
 
 public class InteractionDetector : MonoBehaviour
 {
-    private IInteractable interactableInRange = null;  //Closet Interactable
+    private IInteractable interactableInRange = null;
     public GameObject interactionIcon;
 
     void Start()
     {
-        interactionIcon.SetActive(false);
+        if (interactionIcon != null)
+            interactionIcon.SetActive(false);
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && interactableInRange != null)
         {
-            interactableInRange?.Interact();
+            Debug.Log($"Attempting to interact with: {interactableInRange}");
+            interactableInRange.Interact();
+        }
+        else if (context.performed)
+        {
+            Debug.Log("Interact button pressed but no interactable in range");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IInteractable interactable) && interactable.CanInteract())
+        if (collision.TryGetComponent(out IInteractable interactable))
         {
-            interactableInRange = interactable;
-            interactionIcon.SetActive(true);
+            if (interactable.CanInteract())
+            {
+                interactableInRange = interactable;
+                Debug.Log($"Interactable found: {interactable}. Can interact: true");
+                if (interactionIcon != null)
+                    interactionIcon.SetActive(true);
+            }
+            else
+            {
+                Debug.Log($"Interactable found: {interactable}. Can interact: false");
+            }
         }
     }
     
@@ -34,8 +49,10 @@ public class InteractionDetector : MonoBehaviour
     {
         if (collision.TryGetComponent(out IInteractable interactable) && interactable == interactableInRange)
         {
+            Debug.Log($"Interactable left range: {interactable}");
             interactableInRange = null;
-            interactionIcon.SetActive(false);
+            if (interactionIcon != null)
+                interactionIcon.SetActive(false);
         }
     }
 }
