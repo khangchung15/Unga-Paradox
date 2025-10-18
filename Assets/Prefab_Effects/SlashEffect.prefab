@@ -202,4 +202,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852c4e5701a64ba42ab39d33f84b130d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageSource
-  damageAmount: 25
+  damageAmount: 35

@@ -10,12 +10,30 @@ public class DamageSource : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Enemy takes damage
-        if (other.gameObject.GetComponent<EnemyHealth>())
+        if (other.gameObject.GetComponent<EnemyHealth>() || other.gameObject.GetComponent<BossHealth>())
         {
-            EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+            // Probably gotta come back around to clean this up later.
+            if (other.gameObject.GetComponent<EnemyHealth>())
+            {
+                EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+                enemyHealth.TakeDamage(damageAmount);
+            }
+            
+            if (other.gameObject.GetComponent<BossHealth>())
+            {
+                BossHealth bossHealth = other.gameObject.GetComponent<BossHealth>();
+                bossHealth.TakeDamage(damageAmount);
+            }
             //Knockback knockback = other.gameObject.GetComponent<Knockback>();
-            enemyHealth.TakeDamage(damageAmount);
             //knockback.GetKnockedBack(transform, 10);
+        }
+
+        // Player takes damage
+        if (other.gameObject.GetComponent<Health>())
+        {
+            Debug.Log("Health Component Found");
+            Health playerHealth = other.gameObject.GetComponent<Health>();
+            playerHealth.TakeDamage(damageAmount);
         }
     }
 }

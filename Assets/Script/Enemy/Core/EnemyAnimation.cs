@@ -18,7 +18,7 @@ public class EnemyAnimation : MonoBehaviour
     [SerializeField] private string deadAnim = "Dead";
 
     [Header("Crossfade settings")]
-    [SerializeField] private float transitionDuration = 0.2f;
+    [SerializeField] private float transitionDuration = 0.05f;
     [SerializeField] private int animatorLayer = 0;
 
     public event Action AttackAnimationCompleted;

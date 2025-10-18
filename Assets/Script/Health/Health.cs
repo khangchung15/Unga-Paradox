@@ -78,6 +78,7 @@ public class Health : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
+            healthBar.SetValue((int)currentHealth);
         }
         
 

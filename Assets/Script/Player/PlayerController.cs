@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
 /// Class which handles player movement (no gravity version)
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     [Header("Game Object and Component References")]
     [Tooltip("The sprite renderer that represents the player.")]
@@ -15,18 +16,25 @@ public class PlayerController : MonoBehaviour
     public Health playerHealth;
     [Tooltip("The camera that will follow the player.")]
     public Camera playerCamera;
+    [SerializeField] private TrailRenderer myTrailRenderer;
+
 
     [Header("Movement Settings")]
     [Tooltip("The speed at which to move the player")]
-    public float movementSpeed = 4.0f;
+    [SerializeField] private float movementSpeed = 4.0f;
+    [Tooltip("The speed at which to dash the player")]
+    [SerializeField] private float dashSpeed = 4.0f;
 
-    [Header("Input Actions & Controls")]
-    [Tooltip("The input action(s) that map to player movement")]
-    public InputAction moveAction;
+    //[Header("Input Actions & Controls")]
+    //[Tooltip("The input action(s) that map to player movement")]
+    //public InputAction moveAction;
+
+    private PlayerControls playerControls;
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
-    // Knockback state
+
+    private bool isDashing = false;
 
     #region Player State Variables
     public enum PlayerState
@@ -46,15 +54,26 @@ public class PlayerController : MonoBehaviour
         Left
     }
 
+    #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+        playerControls = new PlayerControls();
+    }
+
+
     public PlayerDirection facing
     {
         get
         {
-            if (currentVelocity.x > 0.1f)
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 playerScreenPoint = playerCamera.WorldToScreenPoint(transform.position);
+            if (mousePos.x > playerScreenPoint.x)
             {
                 return PlayerDirection.Right;
             }
-            else if (currentVelocity.x < -0.1f)
+            else if (mousePos.x < playerScreenPoint.x)
             {
                 return PlayerDirection.Left;
             }
@@ -64,18 +83,21 @@ public class PlayerController : MonoBehaviour
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
             }
+            //if (currentVelocity.x > 0.1f)
+            //{
+            //    return PlayerDirection.Right;
+            //}
+            //else if (currentVelocity.x < -0.1f)
+            //{
+            //    return PlayerDirection.Left;
+            //}
+            //else
+            //{
+            //    if (spriteRenderer != null && spriteRenderer.flipX == true)
+            //        return PlayerDirection.Left;
+            //    return PlayerDirection.Right;
+            //}
         }
-    }
-    #endregion
-
-    void OnEnable()
-    {
-        moveAction.Enable();
-    }
-
-    void OnDisable()
-    {
-        moveAction.Disable();
     }
 
     private void Start()
@@ -91,6 +113,18 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("No camera assigned to player controller and no main camera found in scene!");
         }
+
+        playerControls.Player.Dash.performed += _ => Dash();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
     }
 
     private void Update()
@@ -109,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovementInput()
     {
-        Vector2 input = moveAction.ReadValue<Vector2>();
+        Vector2 input = playerControls.Player.Move.ReadValue<Vector2>();
         
         if (state != PlayerState.Dead)
         {
@@ -175,6 +209,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Public API: apply knockback force and disable player input for duration seconds.
-   
+    private void Dash() 
+    {
+        if (!isDashing)
+        {
+            isDashing = true;
+            movementSpeed *= dashSpeed;
+            myTrailRenderer.emitting = true;
+            StartCoroutine(EndDashRoutine());
+        }
+    }
+
+    private IEnumerator EndDashRoutine()
+    {
+        float dashTime = 0.2f;
+        float dashCD = 0.25f;
+        yield return new WaitForSeconds(dashTime);
+        movementSpeed /= dashSpeed;
+        myTrailRenderer.emitting = false;
+        yield return new WaitForSeconds(dashCD);
+        isDashing = false;
+    }
 }

@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &200269560417523885
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3917131570115167023, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c7b0f1bf658734352b7caf7670d53da2, type: 3}
+    - target: {fileID: 3917131570115167023, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574432761031134673, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8977793654926027305, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      propertyPath: m_Name
+      value: MegaHealthDrop
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8977793654926027305, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2809648270894856961}
+    - targetCorrespondingSourceObject: {fileID: 403648550247423056, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1269356475696317871}
+  m_SourcePrefab: {fileID: 100100000, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+--- !u!1 &530734457806374141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 403648550247423056, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+  m_PrefabInstance: {fileID: 200269560417523885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1269356475696317871
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530734457806374141}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6dc92a1d1f0754f6f93da8c946c6253f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &9101783479474827908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8977793654926027305, guid: fdf17537bb34c4d39a9b4e11a20fdcd4, type: 3}
+  m_PrefabInstance: {fileID: 200269560417523885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2809648270894856961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9101783479474827908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a8f503ccd3a4f199275b495bd67057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthCollectable
+  _healthAmount: 100
