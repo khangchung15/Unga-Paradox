@@ -20,18 +20,6 @@ MonoBehaviour:
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05
-  - speakerName: 
-    speakerPortrait: {fileID: 0}
-    text: 
-    voiceSound: {fileID: 0}
-    voicePitch: 1
-    typingSpeed: 0.05
-  - speakerName: 
-    speakerPortrait: {fileID: 0}
-    text: 
-    voiceSound: {fileID: 0}
-    voicePitch: 1
-    typingSpeed: 0.05
   autoProgressLines: 
   autoProgressDelay: 1.5
   defaultVoiceSound: {fileID: 0}

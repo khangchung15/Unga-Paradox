@@ -15,14 +15,26 @@ public class NPC : MonoBehaviour, IInteractable
     [Tooltip("GameObjects that will be destroyed when dialogue ends")]
     public GameObject[] objectsToDestroy;
 
+    [Header("Dialogue Settings")]
+    [Tooltip("If true, this dialogue can only be triggered once")]
+    public bool oneTimeDialogue = false;
+    [Tooltip("If true, the NPC will be destroyed after one-time dialogue")]
+    public bool destroyNPCAfterOneTime = false;
+
     private int dialogueIndex;
     private bool isTyping, isDialogueActive;
+    private bool hasBeenInteracted = false;
     private ScientistController playerController;
     private InteractionDetector interactionDetector;
     private ScientistAnimator playerAnimator;
 
     public bool CanInteract()
     {
+        // If it's one-time dialogue and already been interacted with, can't interact again
+        if (oneTimeDialogue && hasBeenInteracted)
+        {
+            return false;
+        }
         return !isDialogueActive;
     }
 
@@ -32,12 +44,18 @@ public class NPC : MonoBehaviour, IInteractable
         if (dialogueData == null || (PauseController.IsGamePaused && !isDialogueActive))
             return;
 
+        // Don't block Interact() during active dialogue - this allows fast-forwarding
         if (isDialogueActive)
         {
             NextLine();
         }
         else
         {
+            // Only check one-time dialogue when starting new dialogue
+            if (oneTimeDialogue && hasBeenInteracted)
+            {
+                return;
+            }
             StartDialogue();
         }
     }
@@ -46,6 +64,12 @@ public class NPC : MonoBehaviour, IInteractable
     {
         isDialogueActive = true;
         dialogueIndex = 0;
+
+        // Mark as interacted if it's one-time dialogue
+        if (oneTimeDialogue)
+        {
+            hasBeenInteracted = true;
+        }
 
         // Find and disable player movement
         FindAndDisablePlayerMovement();
@@ -125,7 +149,14 @@ public class NPC : MonoBehaviour, IInteractable
         
         EnablePlayerMovement();
         ActivateEnemies();
-        DestroyObjects(); // Add this line
+        DestroyObjects();
+
+        // Destroy NPC if it's one-time dialogue and the option is enabled
+        if (oneTimeDialogue && destroyNPCAfterOneTime)
+        {
+            Debug.Log($"Destroying NPC after one-time dialogue: {gameObject.name}");
+            Destroy(gameObject);
+        }
     }
 
     private void FindAndDisablePlayerMovement()
