@@ -1,27 +1,25 @@
 using UnityEngine;
 
-/// <summary>
-/// Simple enemy script that chases after the player
-/// </summary>
 public class EnemyChase : MonoBehaviour
 {
     [Header("Chase Settings")]
-    [Tooltip("The speed at which the enemy moves")]
     public float moveSpeed = 3.0f;
-    [Tooltip("The distance at which the enemy stops chasing")]
     public float stopDistance = 1.0f;
 
-    [Header("References")]
-    [Tooltip("The player's transform to chase after")]
-    public Transform playerTarget;
+    [Header("Dialogue Activation")]
+    [Tooltip("Should this enemy wait for dialogue to end before chasing?")]
+    public bool waitForDialogue = true;
+    [Tooltip("NPC that triggers this enemy to start chasing")]
+    public NPC triggerNPC;
 
-    [Header("Sprite Settings")]
-    [Tooltip("The sprite renderer to flip based on direction")]
+    [Header("References")]
+    public Transform playerTarget;
     public SpriteRenderer enemySprite;
+
+    private bool isChasing = false;
 
     void Start()
     {
-        // Try to find the player if not assigned
         if (playerTarget == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -30,12 +28,28 @@ public class EnemyChase : MonoBehaviour
                 playerTarget = player.transform;
             }
         }
+
+        // Auto-disable if waiting for dialogue
+        if (waitForDialogue)
+        {
+            isChasing = false;
+            this.enabled = false; // Disable the script initially
+        }
+        else
+        {
+            isChasing = true;
+        }
+
+        // Find NPC if not assigned
+        if (triggerNPC == null)
+        {
+            triggerNPC = FindObjectOfType<NPC>();
+        }
     }
 
     void Update()
     {
-        // Check if we have a target and it's active
-        if (playerTarget == null || !playerTarget.gameObject.activeInHierarchy)
+        if (!isChasing || playerTarget == null || !playerTarget.gameObject.activeInHierarchy)
         {
             return;
         }
@@ -43,48 +57,45 @@ public class EnemyChase : MonoBehaviour
         ChasePlayer();
     }
 
-    /// <summary>
-    /// Moves the enemy towards the player
-    /// </summary>
     private void ChasePlayer()
     {
-        // Calculate direction to player
         Vector3 direction = playerTarget.position - transform.position;
         float distance = direction.magnitude;
 
-        // Stop if we're close enough
         if (distance <= stopDistance)
         {
             return;
         }
 
-        // Normalize direction and move
         direction.Normalize();
         transform.position += direction * moveSpeed * Time.deltaTime;
+        
         if (enemySprite != null)
-    {
-        // Flip sprite based on X direction
-        if (direction.x > 0)
         {
-            enemySprite.flipX = true; // Face right
+            if (direction.x > 0)
+            {
+                enemySprite.flipX = true;
+            }
+            else if (direction.x < 0)
+            {
+                enemySprite.flipX = false;
+            }
         }
-        else if (direction.x < 0)
-        {
-            enemySprite.flipX = false; // Face left
-        }
-    }
     }
 
-    /// <summary>
-    /// Draw gizmos in the editor to visualize chase range
-    /// </summary>
+    // Call this method when dialogue ends
+    public void StartChasing()
+    {
+        isChasing = true;
+        this.enabled = true;
+        Debug.Log($"{gameObject.name} started chasing the player!");
+    }
+
     private void OnDrawGizmosSelected()
     {
-        // Draw stop distance circle
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, stopDistance);
         
-        // Draw line to target if assigned
         if (playerTarget != null)
         {
             Gizmos.color = Color.yellow;
