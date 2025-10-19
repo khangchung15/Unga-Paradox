@@ -22,6 +22,15 @@ public class LevelLoadButton : MonoBehaviour
     {
         SceneManager.LoadScene(levelToLoadName);
     }
+    public void LoadLevelByNameDelayed(string levelToLoadName)
+    {
+        StartCoroutine(LoadLevelAfterDelay(levelToLoadName, 1.5f));
+    }
+    private IEnumerator LoadLevelAfterDelay(string levelToLoadName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(levelToLoadName);
+    }
 
     public void OnExitClick()
     {
