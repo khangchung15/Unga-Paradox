@@ -61,7 +61,8 @@ public class ScientistController : MonoBehaviour
             }
             else
             {
-                if (spriteRenderer != null && spriteRenderer.flipX == true)
+                // Return current rotation-based facing
+                if (transform.rotation.eulerAngles.y == 180f)
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
             }
@@ -175,17 +176,16 @@ public class ScientistController : MonoBehaviour
 
     private void HandleSpriteDirection()
     {
-        if (spriteRenderer != null)
+        // Use transform rotation instead of sprite flipping
+        if (currentVelocity.x > 0.1f) // Moving right
         {
-            if (facing == PlayerDirection.Left)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else
-            {
-                spriteRenderer.flipX = false;
-            }
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
+        else if (currentVelocity.x < -0.1f) // Moving left
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+        // If not moving significantly, maintain current rotation
     }
 
     private void DetermineState()
