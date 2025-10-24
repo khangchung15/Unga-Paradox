@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/MonkeyBossFight.unity
     guid: 25da58fa0dd0d48e99a90715b4b82b88
+  - enabled: 1
+    path: Assets/_Scenes/Future/Lab.unity
+    guid: c0d187bc160df1d4d98d26e1dc25a852
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
