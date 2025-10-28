@@ -1111,7 +1111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  weaponInfo: {fileID: 0}
+  weaponInfo: {fileID: 11400000, guid: c9f900297ab93e041be0a452daeb74b3, type: 2}
 --- !u!1 &6388622112558073404
 GameObject:
   m_ObjectHideFlags: 0
