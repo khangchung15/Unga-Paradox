@@ -40,6 +40,11 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     [Tooltip("GameObjects that will be destroyed when cutscene ends")]
     public GameObject[] objectsToDestroy;
     
+    [Header("NPC Dialogue After Cutscene")]
+    [SerializeField] private bool triggerNPCDialogueAfterCutscene = false;
+    [SerializeField] private NPC npcToTrigger;
+    [SerializeField] private float dialogueStartDelay = 0.5f;
+    
     private bool hasBeenTriggered = false;
     private bool hasBeenUsed = false;
     private GameObject player;
@@ -188,26 +193,47 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
 
     private IEnumerator WaitForCutsceneToEnd()
     {
+        Debug.Log($"=== WAIT FOR CUTSCENE TO END STARTED ===");
+        
         // Wait for the timeline to finish playing
+        Debug.Log($"Waiting for timeline to finish... Current state: {timeline.state}");
         yield return new WaitUntil(() => timeline.state != PlayState.Playing);
         
-        Debug.Log("Cutscene finished");
+        Debug.Log($"Cutscene finished. Timeline state: {timeline.state}");
         
         // Stop music after cutscene
         if (playMusicDuringCutscene)
         {
+            Debug.Log($"Stopping cutscene music");
             StopCutsceneMusic();
+        }
+        
+        // Trigger NPC dialogue if configured
+        if (triggerNPCDialogueAfterCutscene && npcToTrigger != null)
+        {
+            Debug.Log($"NPC dialogue configured - starting TriggerNPCDialogue coroutine");
+            yield return StartCoroutine(TriggerNPCDialogue());
+        }
+        else
+        {
+            Debug.Log($"NPC dialogue NOT triggered. triggerNPCDialogueAfterCutscene: {triggerNPCDialogueAfterCutscene}, npcToTrigger: {npcToTrigger != null}");
         }
         
         // Handle scene transition if enabled
         if (transitionToNewScene && !string.IsNullOrEmpty(targetSceneName))
         {
+            Debug.Log($"Transitioning to new scene: {targetSceneName}");
             yield return StartCoroutine(TransitionToNewScene());
         }
         else
         {
             // Only re-enable player if we're NOT transitioning to a new scene
-            EnablePlayerMovement();
+            // AND not triggering NPC dialogue (NPC dialogue will handle player control)
+            if (!triggerNPCDialogueAfterCutscene)
+            {
+                Debug.Log($"Enabling player movement (no NPC dialogue or scene transition)");
+                EnablePlayerMovement();
+            }
             
             // Destroy objects if any
             DestroyObjects();
@@ -219,6 +245,95 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
                 Destroy(gameObject);
             }
         }
+        
+        Debug.Log($"=== WAIT FOR CUTSCENE TO END COMPLETE ===");
+    }
+
+    private IEnumerator TriggerNPCDialogue()
+    {
+        Debug.Log($"=== STARTING NPC DIALOGUE TRIGGER ===");
+        Debug.Log($"Starting NPC dialogue after {dialogueStartDelay} seconds delay");
+        
+        // Optional delay before starting dialogue
+        if (dialogueStartDelay > 0)
+        {
+            Debug.Log($"Waiting {dialogueStartDelay} seconds before starting dialogue...");
+            yield return new WaitForSeconds(dialogueStartDelay);
+        }
+        
+        // Make sure player is visible if it was hidden during cutscene
+        if (hidePlayerDuringCutscene && player != null)
+        {
+            Debug.Log($"Making player visible (was hidden during cutscene)");
+            player.SetActive(true);
+        }
+        
+        // CRITICAL: Re-enable the InteractionDetector so we can receive input for dialogue
+        Debug.Log($"=== ATTEMPTING TO RE-ENABLE INTERACTION DETECTOR ===");
+        
+        // Make sure we have the latest reference to interactionDetector
+        if (interactionDetector == null)
+        {
+            Debug.LogWarning($"InteractionDetector reference is null, trying to find it again...");
+            interactionDetector = FindObjectOfType<InteractionDetector>();
+        }
+        
+        if (interactionDetector != null)
+        {
+            Debug.Log($"Found InteractionDetector: {interactionDetector.gameObject.name}");
+            Debug.Log($"InteractionDetector enabled before: {interactionDetector.enabled}");
+            Debug.Log($"InteractionDetector gameObject active: {interactionDetector.gameObject.activeInHierarchy}");
+            
+            interactionDetector.enabled = true;
+            
+            Debug.Log($"InteractionDetector enabled after: {interactionDetector.enabled}");
+            Debug.Log($"=== INTERACTION DETECTOR RE-ENABLED ===");
+        }
+        else
+        {
+            Debug.LogError($"InteractionDetector is STILL null - cannot re-enable!");
+        }
+        
+        // Small delay to ensure everything is ready
+        yield return new WaitForEndOfFrame();
+        
+        if (npcToTrigger != null)
+        {
+            Debug.Log($"NPC found: {npcToTrigger.gameObject.name}");
+            Debug.Log($"NPC CanInteract: {npcToTrigger.CanInteract()}");
+            
+            // Use the force method to bypass normal interaction checks
+            Debug.Log($"Calling ForceStartDialogueFromCutscene on NPC...");
+            
+            // Get the method using reflection
+            var forceMethod = npcToTrigger.GetType().GetMethod("ForceStartDialogueFromCutscene");
+            if (forceMethod != null)
+            {
+                forceMethod.Invoke(npcToTrigger, null);
+                Debug.Log($"ForceStartDialogueFromCutscene completed");
+            }
+            else
+            {
+                Debug.LogError($"ForceStartDialogueFromCutscene method not found on NPC!");
+                
+                // Fallback: try regular Interact
+                if (npcToTrigger.CanInteract())
+                {
+                    Debug.Log($"Falling back to regular Interact()");
+                    npcToTrigger.Interact();
+                }
+                else
+                {
+                    Debug.LogError($"Fallback failed - NPC cannot interact!");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError($"NPC is null - cannot trigger dialogue");
+        }
+        
+        Debug.Log($"=== NPC DIALOGUE TRIGGER COMPLETE ===");
     }
 
     private IEnumerator TransitionToNewScene()
@@ -461,6 +576,10 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             if (transitionToNewScene)
             {
                 Debug.Log($"Scene Transition: {targetSceneName}, Delay: {sceneTransitionDelay}s");
+            }
+            if (triggerNPCDialogueAfterCutscene)
+            {
+                Debug.Log($"NPC Dialogue After: {npcToTrigger?.gameObject.name ?? "None"}, Delay: {dialogueStartDelay}s");
             }
         }
     }
