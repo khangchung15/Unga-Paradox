@@ -175,20 +175,15 @@ public class Enemy : MonoBehaviour
                 if (enemyChasing != null)
                 {
                     enemyChasing.StopBehavior();
-                    enemyChasing.enabled = false;
+                    
                 }
                 if (enemyWandering != null)
                 {
                     enemyWandering.StopBehavior();
-                    enemyWandering.enabled = false;
+                    
                 }
                 enemyMovement.Stop();
-                enemyMovement.enabled = false;
-                if (rb != null)
-                {
-                    rb.linearVelocity = Vector2.zero;
-                    rb.angularVelocity = 0f;
-                }
+                
                 break;
         }
     }
