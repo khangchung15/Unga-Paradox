@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 2
   m_Sprite: {fileID: 5907130587529274049, guid: 50810e36569fc3e429f59751973598bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -169,5 +169,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb845bd1ac8e04e4684286c61c822a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadeEffect
-  fuseTime: 3
+  fuseTime: 1.5
   attackEffect: {fileID: 1741926834407524527, guid: 4ad8a606158854b4082c5f3e018283b5, type: 3}

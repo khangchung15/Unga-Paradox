@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
-  m_Name: Raygun
+  m_Name: Bow
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
-  weaponPrefab: {fileID: 1863031563388435347, guid: 076b13dd486564248acc005c24d94baa, type: 3}
-  weaponCooldown: 1.5
+  weaponPrefab: {fileID: 3282985360432197037, guid: 8abecf1d0f49acb49b0d00b0a3d03422, type: 3}
+  weaponCooldown: 1

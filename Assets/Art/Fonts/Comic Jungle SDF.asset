@@ -60,65 +60,8 @@ MonoBehaviour:
   m_SourceFontFilePath: 
   m_AtlasPopulationMode: 1
   InternalDynamicOS: 0
-  m_GlyphTable:
-  - m_Index: 55
-    m_Metrics:
-      m_Width: 66.234375
-      m_Height: 62.46875
-      m_HorizontalBearingX: -0.359375
-      m_HorizontalBearingY: 61.921875
-      m_HorizontalAdvance: 65.609375
-    m_GlyphRect:
-      m_X: 10
-      m_Y: 10
-      m_Width: 67
-      m_Height: 63
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-  - m_Index: 3
-    m_Metrics:
-      m_Width: 0
-      m_Height: 0
-      m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 0
-      m_HorizontalAdvance: 27.90625
-    m_GlyphRect:
-      m_X: 0
-      m_Y: 0
-      m_Width: 0
-      m_Height: 0
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-  - m_Index: 49
-    m_Metrics:
-      m_Width: 45.796875
-      m_Height: 64.34375
-      m_HorizontalBearingX: 0.1875
-      m_HorizontalBearingY: 63.265625
-      m_HorizontalAdvance: 46.171875
-    m_GlyphRect:
-      m_X: 10
-      m_Y: 92
-      m_Width: 46
-      m_Height: 66
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-  m_CharacterTable:
-  - m_ElementType: 1
-    m_Unicode: 77
-    m_GlyphIndex: 55
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 32
-    m_GlyphIndex: 3
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 71
-    m_GlyphIndex: 49
-    m_Scale: 1
+  m_GlyphTable: []
+  m_CharacterTable: []
   m_AtlasTextures:
   - {fileID: 8574177505721812982}
   m_AtlasTextureIndex: 0
@@ -129,28 +72,12 @@ MonoBehaviour:
   m_AtlasHeight: 1024
   m_AtlasPadding: 9
   m_AtlasRenderMode: 4165
-  m_UsedGlyphRects:
-  - m_X: 0
-    m_Y: 0
-    m_Width: 86
-    m_Height: 82
-  - m_X: 0
-    m_Y: 82
-    m_Width: 65
-    m_Height: 85
+  m_UsedGlyphRects: []
   m_FreeGlyphRects:
-  - m_X: 86
-    m_Y: 0
-    m_Width: 937
-    m_Height: 1023
   - m_X: 0
-    m_Y: 167
+    m_Y: 0
     m_Width: 1023
-    m_Height: 856
-  - m_X: 65
-    m_Y: 82
-    m_Width: 958
-    m_Height: 941
+    m_Height: 1023
   m_FontFeatureTable:
     m_MultipleSubstitutionRecords: []
     m_LigatureSubstitutionRecords: []
