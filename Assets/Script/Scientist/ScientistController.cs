@@ -94,18 +94,8 @@ public class ScientistController : MonoBehaviour
 
     private void PerformInteraction()
     {
-        // Your interaction logic here
-        Debug.Log("Player interacted!");
-        
-        // Example: Check for interactable objects in front of player
         Vector2 direction = facing == PlayerDirection.Right ? Vector2.right : Vector2.left;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 1.5f);
-        
-        if (hit.collider != null)
-        {
-            Debug.Log($"Hit: {hit.collider.gameObject.name}");
-            // You can add logic here to interact with specific objects
-        }
     }
 
     private void Start()
@@ -114,12 +104,6 @@ public class ScientistController : MonoBehaviour
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
-        }
-
-        // Ensure the camera exists
-        if (playerCamera == null)
-        {
-            Debug.LogWarning("No camera assigned to player controller and no main camera found in scene!");
         }
     }
 

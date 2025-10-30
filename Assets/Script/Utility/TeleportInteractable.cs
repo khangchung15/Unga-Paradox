@@ -30,13 +30,8 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
 
     void Start()
     {
-        Debug.Log($"TeleportInteractable initialized on {gameObject.name}");
         player = GameObject.FindGameObjectWithTag("Player");
         
-        if (player == null)
-        {
-            Debug.LogError("Player not found! Make sure player has 'Player' tag");
-        }
         
         // If teleporting to object but no target specified, use self
         if (teleportToObject && targetLocation == null)
@@ -57,26 +52,18 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
     
     public void Interact()
     {
-        if (player == null)
-        {
-            Debug.LogError("Player not found for teleport!");
-            return;
-        }
         
         if (oneTimeUse && hasBeenUsed)
         {
-            Debug.Log("Teleport already used and is one-time only");
             return;
         }
         
-        Debug.Log("TeleportInteractable.Interact() called!"); // Add this debug line
         
         StartCoroutine(TeleportPlayer());
     }
 
     private IEnumerator TeleportPlayer()
     {
-        Debug.Log("TeleportPlayer coroutine started!"); // Add this debug line
         
         // Mark as used if one-time
         if (oneTimeUse)
@@ -90,7 +77,6 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
         // Optional teleport effects/delay
         if (useTeleportEffect && teleportDelay > 0)
         {
-            Debug.Log("Teleporting in " + teleportDelay + " seconds...");
             yield return new WaitForSeconds(teleportDelay);
         }
         
@@ -99,7 +85,6 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
         
         // Perform teleport
         player.transform.position = targetPosition;
-        Debug.Log($"Teleported player to: {targetPosition}");
         
         // Small delay before re-enabling to ensure teleport completes
         yield return null;
@@ -110,7 +95,6 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
         // Destroy if configured to do so
         if (destroyAfterUse)
         {
-            Debug.Log($"Destroying teleport object: {gameObject.name}");
             Destroy(gameObject);
         }
     }
@@ -124,7 +108,6 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
         {
             // Disable the moveAction to prevent movement input
             playerController.moveAction.Disable();
-            Debug.Log("Player movement disabled for teleport");
         }
 
         // Find the player animator to potentially freeze animations
@@ -153,7 +136,6 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
         if (playerController != null)
         {
             playerController.moveAction.Enable();
-            Debug.Log("Player movement re-enabled after teleport");
         }
 
         // Re-enable interaction detector

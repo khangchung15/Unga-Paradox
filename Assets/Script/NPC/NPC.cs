@@ -59,7 +59,6 @@ public class NPC : MonoBehaviour, IInteractable
         {
             if (dialogueAdvanceAction.WasPressedThisFrame())
             {
-                Debug.Log("NPC handling own input - advancing dialogue");
                 NextLine();
             }
         }
@@ -71,36 +70,27 @@ public class NPC : MonoBehaviour, IInteractable
         // BUT only if dialogue is NOT currently active
         if (oneTimeDialogue && hasBeenInteracted && !isDialogueActive)
         {
-            Debug.Log($"CanInteract: false (one-time dialogue already used and not active)");
             return false;
         }
         
         // Return true when not handling own input (normal interaction mode)
         // Return false when handling own input (cutscene mode - InteractionDetector should ignore us)
         bool canInteract = !isHandlingOwnInput;
-        Debug.Log($"CanInteract: {canInteract} (isDialogueActive: {isDialogueActive}, isHandlingOwnInput: {isHandlingOwnInput})");
         return canInteract;
     }
 
     public void Interact()
     {
-        Debug.Log($"=== NPC.Interact() CALLED ===");
-        Debug.Log($"NPC: {gameObject.name}");
-        Debug.Log($"isDialogueActive: {isDialogueActive}");
-        Debug.Log($"PauseController.IsGamePaused: {PauseController.IsGamePaused}");
-        Debug.Log($"dialogueData is null: {dialogueData == null}");
         
         // If no dialogue data or the game is paused, then no dialogue would be active
         if (dialogueData == null || (PauseController.IsGamePaused && !isDialogueActive))
         {
-            Debug.LogWarning($"Cannot start dialogue - conditions not met");
             return;
         }
 
         // Don't block Interact() during active dialogue - this allows fast-forwarding
         if (isDialogueActive)
         {
-            Debug.Log($"Fast-forwarding dialogue line");
             NextLine();
         }
         else
@@ -108,19 +98,14 @@ public class NPC : MonoBehaviour, IInteractable
             // Only check one-time dialogue when starting new dialogue
             if (oneTimeDialogue && hasBeenInteracted)
             {
-                Debug.LogWarning($"Cannot start dialogue - already interacted with one-time NPC");
                 return;
             }
-            Debug.Log($"Starting new dialogue - calling StartDialogue()");
             StartDialogue(false); // Normal mode - not handling own input
         }
-        
-        Debug.Log($"=== NPC.Interact() COMPLETE ===");
     }
 
     void StartDialogue(bool handleOwnInput)
     {
-        Debug.Log($"=== NPC.StartDialogue(handleOwnInput: {handleOwnInput}) ===");
         isDialogueActive = true;
         isHandlingOwnInput = handleOwnInput;
         dialogueIndex = 0;
@@ -129,22 +114,12 @@ public class NPC : MonoBehaviour, IInteractable
         if (oneTimeDialogue)
         {
             hasBeenInteracted = true;
-            Debug.Log($"Marked as interacted (one-time dialogue)");
         }
-
-        // Find and disable player movement
-        Debug.Log($"Calling FindAndDisablePlayerMovement()");
         FindAndDisablePlayerMovement();
 
         dialoguePanel.SetActive(true);
-        Debug.Log($"Dialogue panel activated: {dialoguePanel.activeInHierarchy}");
-        
         PauseController.SetPause(true);
-        Debug.Log($"Game paused: {PauseController.IsGamePaused}");
-
-        Debug.Log($"Starting TypeLine coroutine");
         StartCoroutine(TypeLine());
-        Debug.Log($"=== NPC.StartDialogue() COMPLETE ===");
     }
 
     void NextLine()
@@ -208,7 +183,6 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void EndDialogue()
     {
-        Debug.Log($"=== NPC.EndDialogue() ===");
         StopAllCoroutines();
         isDialogueActive = false;
         isHandlingOwnInput = false; // Reset input handling mode
@@ -223,92 +197,57 @@ public class NPC : MonoBehaviour, IInteractable
         // Destroy NPC if it's one-time dialogue and the option is enabled
         if (oneTimeDialogue && destroyNPCAfterOneTime)
         {
-            Debug.Log($"Destroying NPC after one-time dialogue: {gameObject.name}");
             Destroy(gameObject);
         }
     }
 
     private void FindAndDisablePlayerMovement()
     {
-        Debug.Log($"=== NPC.FindAndDisablePlayerMovement() ===");
-        
         // Find the player controller component
         playerController = FindObjectOfType<ScientistController>();
         if (playerController != null)
         {
-            Debug.Log($"Found PlayerController, moveAction enabled: {playerController.moveAction.enabled}");
-            // Disable the moveAction to prevent movement input
             playerController.moveAction.Disable();
-            Debug.Log($"Player movement disabled for dialogue. moveAction enabled: {playerController.moveAction.enabled}");
-        }
-        else
-        {
-            Debug.LogError($"PlayerController not found!");
         }
 
         // Find the player animator to potentially freeze animations
         playerAnimator = FindObjectOfType<ScientistAnimator>();
         if (playerAnimator != null && playerAnimator.animator != null)
         {
-            Debug.Log($"Found PlayerAnimator, setting to idle");
             // Set to idle animation during dialogue
             playerAnimator.animator.SetBool("isIdle", true);
             playerAnimator.animator.SetBool("isRunning", false);
-        }
-        else
-        {
-            Debug.LogWarning($"PlayerAnimator not found or animator is null");
         }
 
         // Find the interaction detector for reference
         interactionDetector = FindObjectOfType<InteractionDetector>();
         if (interactionDetector != null)
         {
-            Debug.Log($"Found InteractionDetector, enabled: {interactionDetector.enabled}");
-            
-            // Only disable if NOT handling own input (normal mode)
-            // If handling own input (cutscene mode), leave it enabled but we return false from CanInteract
             if (!isHandlingOwnInput)
             {
                 interactionDetector.enabled = false;
-                Debug.Log($"InteractionDetector disabled (normal mode)");
-            }
-            else
-            {
-                Debug.Log($"InteractionDetector left enabled (handling own input mode)");
             }
             
             // Always hide the interaction icon
             if (interactionDetector.interactionIcon != null)
             {
                 interactionDetector.interactionIcon.SetActive(false);
-                Debug.Log($"Interaction icon hidden");
             }
         }
-        else
-        {
-            Debug.LogError($"InteractionDetector not found!");
-        }
-        
-        Debug.Log($"=== NPC.FindAndDisablePlayerMovement() COMPLETE ===");
     }
 
     private void EnablePlayerMovement()
     {
-        Debug.Log($"=== NPC.EnablePlayerMovement() ===");
-        
         // Re-enable player movement
         if (playerController != null)
         {
             playerController.moveAction.Enable();
-            Debug.Log("Player movement re-enabled after dialogue");
         }
 
         // Re-enable interaction detector
         if (interactionDetector != null)
         {
             interactionDetector.enabled = true;
-            Debug.Log("InteractionDetector re-enabled after dialogue");
         }
     }
 
@@ -332,7 +271,6 @@ public class NPC : MonoBehaviour, IInteractable
             if (obj != null)
             {
                 Destroy(obj);
-                Debug.Log($"Destroyed object: {obj.name}");
             }
         }
     }
@@ -340,23 +278,6 @@ public class NPC : MonoBehaviour, IInteractable
     // Called by CutsceneTrigger - NPC handles its own input
     public void ForceStartDialogueFromCutscene()
     {
-        Debug.Log($"=== NPC.ForceStartDialogueFromCutscene() ===");
-        
-        if (dialogueData == null)
-        {
-            Debug.LogError("Cannot start dialogue - dialogueData is null!");
-            return;
-        }
-        
-        if (isDialogueActive)
-        {
-            Debug.LogWarning("Dialogue is already active!");
-            return;
-        }
-        
-        // Start dialogue in "handle own input" mode
-        StartDialogue(true); // TRUE = NPC handles its own input via Update()
-        
-        Debug.Log($"=== NPC.ForceStartDialogueFromCutscene() COMPLETE ===");
+        StartDialogue(true);
     }
 }

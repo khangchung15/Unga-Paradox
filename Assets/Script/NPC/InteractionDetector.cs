@@ -18,12 +18,7 @@ public class InteractionDetector : MonoBehaviour
     {
         if (context.performed && interactableInRange != null)
         {
-            Debug.Log($"Attempting to interact with: {interactableInRange}");
             interactableInRange.Interact();
-        }
-        else if (context.performed)
-        {
-            Debug.Log("Interact button pressed but no interactable in range");
         }
     }
 
@@ -34,13 +29,8 @@ public class InteractionDetector : MonoBehaviour
             if (interactable.CanInteract())
             {
                 interactableInRange = interactable;
-                Debug.Log($"Interactable found: {interactable}. Can interact: true");
                 if (interactionIcon != null)
                     interactionIcon.SetActive(true);
-            }
-            else
-            {
-                Debug.Log($"Interactable found: {interactable}. Can interact: false");
             }
         }
     }
@@ -49,7 +39,6 @@ public class InteractionDetector : MonoBehaviour
     {
         if (collision.TryGetComponent(out IInteractable interactable) && interactable == interactableInRange)
         {
-            Debug.Log($"Interactable left range: {interactable}");
             interactableInRange = null;
             if (interactionIcon != null)
                 interactionIcon.SetActive(false);

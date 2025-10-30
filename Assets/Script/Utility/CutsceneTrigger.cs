@@ -75,7 +75,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         if (interactionIcon != null)
             interactionIcon.SetActive(false);
             
-        Debug.Log($"CutsceneTrigger initialized on {gameObject.name}. RequireInteraction: {requireInteraction}");
     }
 
     // Automatic trigger when entering region (if interaction not required)
@@ -83,7 +82,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     {
         if (other.CompareTag(playerTag))
         {
-            Debug.Log($"Player entered cutscene trigger: {gameObject.name}");
             
             if (!requireInteraction)
             {
@@ -104,7 +102,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     {
         if (requireInteraction && other.CompareTag(playerTag))
         {
-            Debug.Log($"Player exited cutscene trigger: {gameObject.name}");
             UpdateInteractionIcon();
         }
     }
@@ -115,7 +112,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         {
             bool shouldShow = requireInteraction && CanInteract();
             interactionIcon.SetActive(shouldShow);
-            Debug.Log($"Interaction icon: {shouldShow}");
         }
     }
 
@@ -135,19 +131,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     
     public void Interact()
     {
-        if (player == null)
-        {
-            Debug.LogError("Player not found for cutscene!");
-            return;
-        }
-        
-        if (playOnce && hasBeenUsed)
-        {
-            Debug.Log("Cutscene already used and is one-time only");
-            return;
-        }
-        
-        Debug.Log("CutsceneTrigger.Interact() called!");
         TriggerCutscene();
     }
 
@@ -155,8 +138,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     {
         if (playOnce && hasBeenUsed)
             return;
-
-        Debug.Log($"Starting cutscene: {gameObject.name}");
         
         // Mark as used if one-time
         if (playOnce)
@@ -193,36 +174,24 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
 
     private IEnumerator WaitForCutsceneToEnd()
     {
-        Debug.Log($"=== WAIT FOR CUTSCENE TO END STARTED ===");
-        
-        // Wait for the timeline to finish playing
-        Debug.Log($"Waiting for timeline to finish... Current state: {timeline.state}");
         yield return new WaitUntil(() => timeline.state != PlayState.Playing);
         
-        Debug.Log($"Cutscene finished. Timeline state: {timeline.state}");
         
         // Stop music after cutscene
         if (playMusicDuringCutscene)
         {
-            Debug.Log($"Stopping cutscene music");
             StopCutsceneMusic();
         }
         
         // Trigger NPC dialogue if configured
         if (triggerNPCDialogueAfterCutscene && npcToTrigger != null)
         {
-            Debug.Log($"NPC dialogue configured - starting TriggerNPCDialogue coroutine");
             yield return StartCoroutine(TriggerNPCDialogue());
-        }
-        else
-        {
-            Debug.Log($"NPC dialogue NOT triggered. triggerNPCDialogueAfterCutscene: {triggerNPCDialogueAfterCutscene}, npcToTrigger: {npcToTrigger != null}");
         }
         
         // Handle scene transition if enabled
         if (transitionToNewScene && !string.IsNullOrEmpty(targetSceneName))
         {
-            Debug.Log($"Transitioning to new scene: {targetSceneName}");
             yield return StartCoroutine(TransitionToNewScene());
         }
         else
@@ -231,7 +200,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             // AND not triggering NPC dialogue (NPC dialogue will handle player control)
             if (!triggerNPCDialogueAfterCutscene)
             {
-                Debug.Log($"Enabling player movement (no NPC dialogue or scene transition)");
                 EnablePlayerMovement();
             }
             
@@ -241,57 +209,36 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             // Destroy if configured to do so
             if (destroyAfterUse)
             {
-                Debug.Log($"Destroying cutscene trigger: {gameObject.name}");
                 Destroy(gameObject);
             }
         }
         
-        Debug.Log($"=== WAIT FOR CUTSCENE TO END COMPLETE ===");
     }
 
     private IEnumerator TriggerNPCDialogue()
     {
-        Debug.Log($"=== STARTING NPC DIALOGUE TRIGGER ===");
-        Debug.Log($"Starting NPC dialogue after {dialogueStartDelay} seconds delay");
         
         // Optional delay before starting dialogue
         if (dialogueStartDelay > 0)
         {
-            Debug.Log($"Waiting {dialogueStartDelay} seconds before starting dialogue...");
             yield return new WaitForSeconds(dialogueStartDelay);
         }
         
         // Make sure player is visible if it was hidden during cutscene
         if (hidePlayerDuringCutscene && player != null)
         {
-            Debug.Log($"Making player visible (was hidden during cutscene)");
             player.SetActive(true);
         }
-        
-        // CRITICAL: Re-enable the InteractionDetector so we can receive input for dialogue
-        Debug.Log($"=== ATTEMPTING TO RE-ENABLE INTERACTION DETECTOR ===");
         
         // Make sure we have the latest reference to interactionDetector
         if (interactionDetector == null)
         {
-            Debug.LogWarning($"InteractionDetector reference is null, trying to find it again...");
             interactionDetector = FindObjectOfType<InteractionDetector>();
         }
         
         if (interactionDetector != null)
         {
-            Debug.Log($"Found InteractionDetector: {interactionDetector.gameObject.name}");
-            Debug.Log($"InteractionDetector enabled before: {interactionDetector.enabled}");
-            Debug.Log($"InteractionDetector gameObject active: {interactionDetector.gameObject.activeInHierarchy}");
-            
             interactionDetector.enabled = true;
-            
-            Debug.Log($"InteractionDetector enabled after: {interactionDetector.enabled}");
-            Debug.Log($"=== INTERACTION DETECTOR RE-ENABLED ===");
-        }
-        else
-        {
-            Debug.LogError($"InteractionDetector is STILL null - cannot re-enable!");
         }
         
         // Small delay to ensure everything is ready
@@ -299,46 +246,26 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         
         if (npcToTrigger != null)
         {
-            Debug.Log($"NPC found: {npcToTrigger.gameObject.name}");
-            Debug.Log($"NPC CanInteract: {npcToTrigger.CanInteract()}");
-            
-            // Use the force method to bypass normal interaction checks
-            Debug.Log($"Calling ForceStartDialogueFromCutscene on NPC...");
-            
             // Get the method using reflection
             var forceMethod = npcToTrigger.GetType().GetMethod("ForceStartDialogueFromCutscene");
             if (forceMethod != null)
             {
                 forceMethod.Invoke(npcToTrigger, null);
-                Debug.Log($"ForceStartDialogueFromCutscene completed");
             }
             else
             {
-                Debug.LogError($"ForceStartDialogueFromCutscene method not found on NPC!");
                 
                 // Fallback: try regular Interact
                 if (npcToTrigger.CanInteract())
                 {
-                    Debug.Log($"Falling back to regular Interact()");
                     npcToTrigger.Interact();
-                }
-                else
-                {
-                    Debug.LogError($"Fallback failed - NPC cannot interact!");
                 }
             }
         }
-        else
-        {
-            Debug.LogError($"NPC is null - cannot trigger dialogue");
-        }
-        
-        Debug.Log($"=== NPC DIALOGUE TRIGGER COMPLETE ===");
     }
 
     private IEnumerator TransitionToNewScene()
     {
-        Debug.Log($"Transitioning to scene: {targetSceneName} after {sceneTransitionDelay} seconds");
         
         // Optional delay before scene transition
         if (sceneTransitionDelay > 0)
@@ -353,11 +280,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     // Music Management Methods
     private void StartCutsceneMusic()
     {
-        if (cutsceneMusic == null)
-        {
-            Debug.LogWarning("Cutscene music clip is not assigned!");
-            return;
-        }
 
         // Update loop setting in case it was changed in inspector
         if (musicAudioSource != null)
@@ -386,10 +308,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         {
             musicAudioSource.clip = cutsceneMusic;
             StartCoroutine(FadeInMusic(musicAudioSource, musicFadeInTime));
-        }
-        else
-        {
-            Debug.LogError("Music AudioSource not found for cutscene music!");
         }
     }
 
@@ -483,7 +401,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         {
             // Disable the moveAction to prevent movement input
             playerController.moveAction.Disable();
-            Debug.Log("Player movement disabled for cutscene");
         }
 
         // Find the player animator to potentially freeze animations
@@ -509,7 +426,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         if (hidePlayerDuringCutscene && player != null)
         {
             player.SetActive(false);
-            Debug.Log("Player hidden during cutscene");
         }
     }
 
@@ -519,14 +435,12 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         if (hidePlayerDuringCutscene && player != null)
         {
             player.SetActive(true);
-            Debug.Log("Player shown after cutscene");
         }
 
         // Re-enable player movement
         if (playerController != null)
         {
             playerController.moveAction.Enable();
-            Debug.Log("Player movement re-enabled after cutscene");
         }
 
         // Re-enable interaction detector
@@ -543,7 +457,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             if (obj != null)
             {
                 Destroy(obj);
-                Debug.Log($"Destroyed object: {obj.name}");
             }
         }
     }
@@ -562,24 +475,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             else if (collider is CircleCollider2D circleCollider)
             {
                 Gizmos.DrawWireSphere(transform.position + (Vector3)circleCollider.offset, circleCollider.radius);
-            }
-        }
-    }
-
-    // Debug method to check current state
-    void Update()
-    {
-        // Debug: Show current state in console
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Debug.Log($"CutsceneTrigger State - CanInteract: {CanInteract()}, HasBeenUsed: {hasBeenUsed}, RequireInteraction: {requireInteraction}");
-            if (transitionToNewScene)
-            {
-                Debug.Log($"Scene Transition: {targetSceneName}, Delay: {sceneTransitionDelay}s");
-            }
-            if (triggerNPCDialogueAfterCutscene)
-            {
-                Debug.Log($"NPC Dialogue After: {npcToTrigger?.gameObject.name ?? "None"}, Delay: {dialogueStartDelay}s");
             }
         }
     }
