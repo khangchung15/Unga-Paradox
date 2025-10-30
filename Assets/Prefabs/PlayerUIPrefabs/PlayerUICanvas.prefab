@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  weaponInfo: {fileID: 11400000, guid: 6979207cdd232d744826760eef13fc2b, type: 2}
+  weaponInfo: {fileID: 11400000, guid: 215fd52b0f0718f458e520247ee47695, type: 2}
 --- !u!1 &1114637906205148311
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5907130587529274049, guid: 50810e36569fc3e429f59751973598bd, type: 3}
+  m_Sprite: {fileID: 4011165979584494121, guid: e223387f8c7232e49b15c466e361462e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
