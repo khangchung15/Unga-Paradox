@@ -11,13 +11,14 @@ public class EnemyCollision : MonoBehaviour
     private EnemyWandering wanderingScript;
     private EnemyStateMachine stateMachine;
     private Rigidbody2D myRb;
-    
-    
+    private EnemyMovement enemyMovement;
+
     void Awake()
     {   
         wanderingScript = GetComponentInChildren<EnemyWandering>(); // go to the parent, then actually get the component in the parent's children lmao
         stateMachine = GetComponent<EnemyStateMachine>();
         myRb = GetComponent<Rigidbody2D>();
+        enemyMovement = GetComponentInChildren<EnemyMovement>();
         if (wanderingScript == null) 
             throw new MissingComponentException("EnemyWandering children script missing!");    
         if (stateMachine == null)
@@ -51,8 +52,10 @@ public class EnemyCollision : MonoBehaviour
             // restart wander behaviour
             if (EnemyStateMachine.EnemyState.Wandering == stateMachine.GetState())
             {
-                StopAllCoroutines(); // stops coroutines on this component (keeps behavior consistent with previous code)
-                StartCoroutine(wanderingScript.IdleAndSetNewWanderPoint());
+                wanderingScript.StopBehavior(); // stops coroutines on this component (keeps behavior consistent with previous code)
+                wanderingScript.StartBehavior();
+
+                return;
             }
             return;
         }
@@ -67,6 +70,20 @@ public class EnemyCollision : MonoBehaviour
             // temporarily ignore collisions between the two so they won't be pushed while AI repositions
             StartTempIgnoreCollisionWith(other, tempIgnoreDuration);
         }
+
+        if (other.CompareTag("Wall") || other.CompareTag("Obstacle"))
+        {
+            TryZeroRigidbodyVelocity(myRb);
+            enemyMovement.Stop();
+            if (EnemyStateMachine.EnemyState.Wandering == stateMachine.GetState())
+            {
+
+                wanderingScript.StopBehavior(); // stops coroutines on this component (keeps behavior consistent with previous code)
+                wanderingScript.StartBehavior();
+
+                return;
+            }
+        }   
     }
 
     private void TryZeroRigidbodyVelocity(Rigidbody2D rb)
