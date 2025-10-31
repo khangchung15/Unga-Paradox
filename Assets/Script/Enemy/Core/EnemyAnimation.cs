@@ -169,7 +169,23 @@ public class EnemyAnimation : MonoBehaviour
             lastAppliedAnimation = name;
         }
     }
+    public void TriggerAttackEffect()
+    {
+        var attack = GetComponentInChildren<EnemyAttacking>();
+        if (attack != null)
+        {
+            attack.PerformAttackEffect();
+        }
+    }
 
+    public void FinishAttackEffect()
+    {
+        var attack = GetComponentInChildren<EnemyAttacking>();
+        if (attack != null)
+        {
+            attack.FinishAttackEffect();
+        }
+    }
     public void EnableAttackHitbox()
     {
         var hb = GetComponentInChildren<AttackHitbox>();

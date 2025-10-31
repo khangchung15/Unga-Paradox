@@ -179,7 +179,7 @@ public class Enemy : MonoBehaviour
                 }
                 if (enemyWandering != null)
                 {
-                    enemyWandering.StopBehavior();
+                    enemyWandering.StartBehavior();
                     
                 }
                 enemyMovement.Stop();
