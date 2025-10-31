@@ -23,6 +23,8 @@ public class ScientistController : MonoBehaviour
     [Header("Input Actions & Controls")]
     [Tooltip("The input action(s) that map to player movement")]
     public InputAction moveAction;
+    [Tooltip("The input action for interaction")]
+    public InputAction interactAction;
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
@@ -59,7 +61,8 @@ public class ScientistController : MonoBehaviour
             }
             else
             {
-                if (spriteRenderer != null && spriteRenderer.flipX == true)
+                // Return current rotation-based facing
+                if (transform.rotation.eulerAngles.y == 180f)
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
             }
@@ -70,11 +73,29 @@ public class ScientistController : MonoBehaviour
     void OnEnable()
     {
         moveAction.Enable();
+        interactAction.Enable();
+        interactAction.performed += OnInteract;
     }
 
     void OnDisable()
     {
         moveAction.Disable();
+        interactAction.Disable();
+        interactAction.performed -= OnInteract;
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            PerformInteraction();
+        }
+    }
+
+    private void PerformInteraction()
+    {
+        Vector2 direction = facing == PlayerDirection.Right ? Vector2.right : Vector2.left;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 1.5f);
     }
 
     private void Start()
@@ -83,12 +104,6 @@ public class ScientistController : MonoBehaviour
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
-        }
-
-        // Ensure the camera exists
-        if (playerCamera == null)
-        {
-            Debug.LogWarning("No camera assigned to player controller and no main camera found in scene!");
         }
     }
 
@@ -145,17 +160,16 @@ public class ScientistController : MonoBehaviour
 
     private void HandleSpriteDirection()
     {
-        if (spriteRenderer != null)
+        // Use transform rotation instead of sprite flipping
+        if (currentVelocity.x > 0.1f) // Moving right
         {
-            if (facing == PlayerDirection.Left)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else
-            {
-                spriteRenderer.flipX = false;
-            }
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
+        else if (currentVelocity.x < -0.1f) // Moving left
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+        // If not moving significantly, maintain current rotation
     }
 
     private void DetermineState()

@@ -1,0 +1,457 @@
+fileFormatVersion: 2
+guid: ed264d8fd347f944094edc82257d7d4a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5560903882958120195
+    second: small_mech_0
+  - first:
+      213: -8158154537138734173
+    second: small_mech_1
+  - first:
+      213: 5872820368065388043
+    second: small_mech_2
+  - first:
+      213: -200638971067505030
+    second: small_mech_3
+  - first:
+      213: 8030791533346007301
+    second: small_mech_4
+  - first:
+      213: -6989717176457655287
+    second: small_mech_5
+  - first:
+      213: -8446447420227752417
+    second: small_mech_6
+  - first:
+      213: 6355559574642572413
+    second: small_mech_7
+  - first:
+      213: -6697494695297045513
+    second: small_mech_8
+  - first:
+      213: -2457649936638507209
+    second: small_mech_9
+  - first:
+      213: -7981043271949867012
+    second: small_mech_10
+  - first:
+      213: -2179594193296071868
+    second: small_mech_11
+  - first:
+      213: -1321205639233370426
+    second: small_mech_12
+  - first:
+      213: 2112077146277409595
+    second: small_mech_13
+  - first:
+      213: 3685934641257551504
+    second: small_mech_14
+  - first:
+      213: -3556240393849848938
+    second: small_mech_15
+  - first:
+      213: -5767497742397632719
+    second: small_mech_16
+  - first:
+      213: -5842696344531612130
+    second: small_mech_17
+  - first:
+      213: 5669049913770227448
+    second: small_mech_18
+  - first:
+      213: -968588579592816675
+    second: small_mech_19
+  - first:
+      213: 458598763906637255
+    second: small_mech_20
+  - first:
+      213: -1916209219423097768
+    second: small_mech_21
+  - first:
+      213: -8035986829378502969
+    second: small_mech_22
+  - first:
+      213: 1002111939436010465
+    second: small_mech_23
+  - first:
+      213: 1896810070425437342
+    second: small_mech_24
+  - first:
+      213: -4244204305962155714
+    second: small_mech_25
+  - first:
+      213: 6704958775633998471
+    second: small_mech_26
+  - first:
+      213: -8353079544410894098
+    second: small_mech_27
+  - first:
+      213: 5453995683869626011
+    second: small_mech_28
+  - first:
+      213: 6678791707233023288
+    second: small_mech_29
+  - first:
+      213: -1167821974377996113
+    second: small_mech_30
+  - first:
+      213: 7941092739796966110
+    second: small_mech_31
+  - first:
+      213: 7020485149230719168
+    second: small_mech_32
+  - first:
+      213: -4305369751072762353
+    second: small_mech_33
+  - first:
+      213: -5761083683698929971
+    second: small_mech_34
+  - first:
+      213: 7772893389412777020
+    second: small_mech_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: small_mech_idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8edfe23c66984e48b512d4431709b7b
+      internalID: 1858909233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eede40a1132a4304ebd37d1580d85114
+      internalID: 1208822665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c717474ef9ccf6b41a340283efd5d274
+      internalID: 828218976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_3
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b58288dad0646fd468c0ad39f2557a02
+      internalID: 1260140627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acf6b825ff43d2c4a87a88d6431e43ab
+      internalID: 686933187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04d6b840f8799984d8d5f6220da2f3c0
+      internalID: -180568090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_6
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54199f7af57c7d74d906777a83a64d7b
+      internalID: 951671591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_7
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f5f7bf7267ba1e419b2f700b2993ce4
+      internalID: -565171707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_8
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 128a36fdf1797634bbb1e702ac0f34a5
+      internalID: -1354021577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_mech_idle_9
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e49ece881d0becb4885138a94145b293
+      internalID: 1793076419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1e3b5dfac1df7ed4d8df003a8188c7e3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":80.0,"y":80.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      small_mech_idle_0: 1858909233
+      small_mech_idle_1: 1208822665
+      small_mech_idle_2: 828218976
+      small_mech_idle_3: 1260140627
+      small_mech_idle_4: 686933187
+      small_mech_idle_5: -180568090
+      small_mech_idle_6: 951671591
+      small_mech_idle_7: -565171707
+      small_mech_idle_8: -1354021577
+      small_mech_idle_9: 1793076419
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

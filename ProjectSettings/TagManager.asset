@@ -47,6 +47,9 @@ TagManager:
   - name: No Light 2
     uniqueID: 3160165423
     locked: 0
+  - name: BackgroundWall
+    uniqueID: 1210618485
+    locked: 0
   - name: Ground
     uniqueID: 2216104849
     locked: 0

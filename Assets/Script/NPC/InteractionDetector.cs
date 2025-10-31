@@ -5,28 +5,33 @@ using UnityEngine;
 
 public class InteractionDetector : MonoBehaviour
 {
-    private IInteractable interactableInRange = null;  //Closet Interactable
+    private IInteractable interactableInRange = null;
     public GameObject interactionIcon;
 
     void Start()
     {
-        interactionIcon.SetActive(false);
+        if (interactionIcon != null)
+            interactionIcon.SetActive(false);
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && interactableInRange != null)
         {
-            interactableInRange?.Interact();
+            interactableInRange.Interact();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IInteractable interactable) && interactable.CanInteract())
+        if (collision.TryGetComponent(out IInteractable interactable))
         {
-            interactableInRange = interactable;
-            interactionIcon.SetActive(true);
+            if (interactable.CanInteract())
+            {
+                interactableInRange = interactable;
+                if (interactionIcon != null)
+                    interactionIcon.SetActive(true);
+            }
         }
     }
     
@@ -35,7 +40,8 @@ public class InteractionDetector : MonoBehaviour
         if (collision.TryGetComponent(out IInteractable interactable) && interactable == interactableInRange)
         {
             interactableInRange = null;
-            interactionIcon.SetActive(false);
+            if (interactionIcon != null)
+                interactionIcon.SetActive(false);
         }
     }
 }

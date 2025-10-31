@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343f22fbc319f40df97cd7d0984ab6fb, type: 3}
   m_Name: CyberCopDialogue
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
-  npcName: Cyber Cop
-  npcPortrait: {fileID: -7539746500335010751, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
   dialogueLines:
-  - "No, no, no my time drive and weapons are gone. Those\u2026 primates stripped
-    the machine."
-  - "Listen without those parts, I\u2019m stuck in 975 B.C."
-  - "Deal. Recover the power core, quantum lens, and stabilizer coil. I\u2019ll handle
-    the calibration."
+  - speakerName: Cyber Cop
+    speakerPortrait: {fileID: -1569934834, guid: d826385b0073d2f47b5664fe633a2240, type: 3}
+    text: We are taking you in as evidence for Dr. Giwest's cruel and illegal cloning
+      project
+    voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
+    voicePitch: 1
+    typingSpeed: 0.05
   autoProgressLines: 
   autoProgressDelay: 1.5
-  typingSpeed: 0.05
-  voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
-  voicePitch: 1
+  defaultVoiceSound: {fileID: 0}
+  defaultVoicePitch: 1
+  defaultTypingSpeed: 0.05
