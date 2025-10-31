@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  weaponInfo: {fileID: 11400000, guid: 6979207cdd232d744826760eef13fc2b, type: 2}
+  weaponInfo: {fileID: 11400000, guid: 215fd52b0f0718f458e520247ee47695, type: 2}
 --- !u!1 &1114637906205148311
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5907130587529274049, guid: 50810e36569fc3e429f59751973598bd, type: 3}
+  m_Sprite: {fileID: 4011165979584494121, guid: e223387f8c7232e49b15c466e361462e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4766128545898520377, guid: df25af5398b6bc24e8eb39c9879f82b0, type: 3}
+  m_Sprite: {fileID: 3222092918312771452, guid: 7efbd293012ea314ab20e08dccf04a73, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  weaponInfo: {fileID: 11400000, guid: 5990c0401e4a256468d0c2fdbd053ff6, type: 2}
+  weaponInfo: {fileID: 11400000, guid: 565f43f27277952458f615720374f521, type: 2}
 --- !u!1 &3835033498472420477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,7 +1111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  weaponInfo: {fileID: 0}
+  weaponInfo: {fileID: 11400000, guid: c9f900297ab93e041be0a452daeb74b3, type: 2}
 --- !u!1 &6388622112558073404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,7 +1252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7398290590244787686, guid: 55cafe0b09d40574ea50cc971b0c3452, type: 3}
+  m_Sprite: {fileID: -7856493677412862020, guid: 44c75394984dc1d468f990c79653d929, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  weaponInfo: {fileID: 11400000, guid: e91f2a0d8634b654591f60c19eff3140, type: 2}
+  weaponInfo: {fileID: 11400000, guid: 1b2708ac34f645b47aaee57beb5f2cb0, type: 2}
 --- !u!1 &7069424046538534088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,7 +1550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  weaponInfo: {fileID: 11400000, guid: 1083f0e9cbb28fa4b96e77492612b75d, type: 2}
+  weaponInfo: {fileID: 11400000, guid: e4a18937349bfa14ea41e27571c9846a, type: 2}
 --- !u!1 &8987087936098419469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,7 +1646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3538821540835326142
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1694,7 +1694,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2645485047962771172, guid: 11380a26a95801f4592f25cad58e3fea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1844,7 +1844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1450045288052424699, guid: 22b0a904167faa040b2b5c458df23f3e, type: 3}
+  m_Sprite: {fileID: -7516271193572666277, guid: bdc7e6168c9f2944797edce2590f5931, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
