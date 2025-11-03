@@ -45,6 +45,15 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     [SerializeField] private NPC npcToTrigger;
     [SerializeField] private float dialogueStartDelay = 0.5f;
     
+    [Header("Second Cutscene After Dialogue")]
+    [SerializeField] private bool triggerSecondCutscene = false;
+    [SerializeField] private PlayableDirector secondTimeline;
+    [SerializeField] private float secondCutsceneDelay = 0.5f;
+    [SerializeField] private bool hidePlayerDuringSecondCutscene = true;
+    [SerializeField] private bool transitionAfterSecondCutscene = false;
+    [SerializeField] private string secondCutsceneTargetScene = "";
+    [SerializeField] private float secondCutsceneTransitionDelay = 0f;
+    
     private bool hasBeenTriggered = false;
     private bool hasBeenUsed = false;
     private GameObject player;
@@ -54,6 +63,7 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     private Collider2D triggerCollider;
     private AudioSource musicAudioSource;
     private AudioClip previousMusic;
+    private bool isWaitingForDialogue = false;
 
     void Start()
     {
@@ -68,13 +78,27 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             {
                 musicAudioSource = gameObject.AddComponent<AudioSource>();
                 musicAudioSource.playOnAwake = false;
-                musicAudioSource.loop = loopMusic; // Set loop based on option
+                musicAudioSource.loop = loopMusic;
             }
         }
         
         if (interactionIcon != null)
             interactionIcon.SetActive(false);
             
+    }
+
+    void Update()
+    {
+        // Check if dialogue has ended and we need to trigger second cutscene
+        if (isWaitingForDialogue && npcToTrigger != null)
+        {
+            // Check if NPC dialogue is no longer active
+            if (!npcToTrigger.IsDialogueActive())
+            {
+                isWaitingForDialogue = false;
+                StartCoroutine(TriggerSecondCutsceneAfterDelay());
+            }
+        }
     }
 
     // Automatic trigger when entering region (if interaction not required)
@@ -115,17 +139,14 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         }
     }
 
-    // IInteractable implementation - SIMPLIFIED like TeleportInteractable
+    // IInteractable implementation
     public bool CanInteract()
     {
-        // If one-time use and already used, can't interact again
         if (playOnce && hasBeenUsed)
         {
             return false;
         }
         
-        // Always return true if not requiring interaction (for detection purposes)
-        // The actual trigger logic is handled in OnTriggerEnter2D for auto-trigger
         return requireInteraction;
     }
     
@@ -146,13 +167,13 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             hasBeenTriggered = true;
         }
         
-        // Start music before disabling player (in case music affects player state)
+        // Start music before disabling player
         if (playMusicDuringCutscene)
         {
             StartCutsceneMusic();
         }
         
-        // Disable player during cutscene (using same method as NPC)
+        // Disable player during cutscene
         FindAndDisablePlayerMovement();
         
         // Play the timeline
@@ -176,7 +197,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     {
         yield return new WaitUntil(() => timeline.state != PlayState.Playing);
         
-        
         // Stop music after cutscene
         if (playMusicDuringCutscene)
         {
@@ -187,21 +207,27 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         if (triggerNPCDialogueAfterCutscene && npcToTrigger != null)
         {
             yield return StartCoroutine(TriggerNPCDialogue());
+            
+            // If we have a second cutscene, start monitoring for dialogue end
+            if (triggerSecondCutscene && secondTimeline != null)
+            {
+                isWaitingForDialogue = true;
+                // DON'T enable player movement here - keep them disabled for second cutscene
+            }
+            else
+            {
+                // No second cutscene, dialogue will handle player control
+            }
         }
-        
         // Handle scene transition if enabled
-        if (transitionToNewScene && !string.IsNullOrEmpty(targetSceneName))
+        else if (transitionToNewScene && !string.IsNullOrEmpty(targetSceneName))
         {
             yield return StartCoroutine(TransitionToNewScene());
         }
         else
         {
-            // Only re-enable player if we're NOT transitioning to a new scene
-            // AND not triggering NPC dialogue (NPC dialogue will handle player control)
-            if (!triggerNPCDialogueAfterCutscene)
-            {
-                EnablePlayerMovement();
-            }
+            // Only re-enable player if we're NOT transitioning or triggering dialogue
+            EnablePlayerMovement();
             
             // Destroy objects if any
             DestroyObjects();
@@ -212,12 +238,10 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
                 Destroy(gameObject);
             }
         }
-        
     }
 
     private IEnumerator TriggerNPCDialogue()
     {
-        
         // Optional delay before starting dialogue
         if (dialogueStartDelay > 0)
         {
@@ -254,7 +278,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             }
             else
             {
-                
                 // Fallback: try regular Interact
                 if (npcToTrigger.CanInteract())
                 {
@@ -264,9 +287,65 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         }
     }
 
+    private IEnumerator TriggerSecondCutsceneAfterDelay()
+    {
+        // Optional delay before starting second cutscene
+        if (secondCutsceneDelay > 0)
+        {
+            yield return new WaitForSeconds(secondCutsceneDelay);
+        }
+        
+        // Make sure player movement is still disabled
+        // (dialogue may have tried to re-enable it)
+        FindAndDisablePlayerMovement();
+        
+        // Hide player if configured for second cutscene
+        if (hidePlayerDuringSecondCutscene && player != null)
+        {
+            player.SetActive(false);
+        }
+        
+        // Play the second timeline
+        secondTimeline.Play();
+        
+        // Wait for second cutscene to end
+        yield return StartCoroutine(WaitForSecondCutsceneToEnd());
+    }
+
+    private IEnumerator WaitForSecondCutsceneToEnd()
+    {
+        yield return new WaitUntil(() => secondTimeline.state != PlayState.Playing);
+        
+        // Handle scene transition after second cutscene if enabled
+        if (transitionAfterSecondCutscene && !string.IsNullOrEmpty(secondCutsceneTargetScene))
+        {
+            // Optional delay before scene transition
+            if (secondCutsceneTransitionDelay > 0)
+            {
+                yield return new WaitForSeconds(secondCutsceneTransitionDelay);
+            }
+            
+            // Load the new scene
+            SceneManager.LoadScene(secondCutsceneTargetScene);
+        }
+        else
+        {
+            // Re-enable player movement after second cutscene
+            EnablePlayerMovement();
+            
+            // Destroy objects if any
+            DestroyObjects();
+            
+            // Destroy if configured to do so
+            if (destroyAfterUse)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     private IEnumerator TransitionToNewScene()
     {
-        
         // Optional delay before scene transition
         if (sceneTransitionDelay > 0)
         {
@@ -280,7 +359,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     // Music Management Methods
     private void StartCutsceneMusic()
     {
-
         // Update loop setting in case it was changed in inspector
         if (musicAudioSource != null)
         {
@@ -333,8 +411,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
 
     private AudioSource FindCurrentMusicSource()
     {
-        // You might want to customize this method based on your music system
-        // This looks for any AudioSource that's playing music (looping audio)
         AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
         foreach (AudioSource source in allAudioSources)
         {
@@ -392,32 +468,28 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         onComplete?.Invoke();
     }
 
-    // Same player movement control as NPC
     private void FindAndDisablePlayerMovement()
     {
         // Find the player controller component
         playerController = FindObjectOfType<ScientistController>();
         if (playerController != null)
         {
-            // Disable the moveAction to prevent movement input
             playerController.moveAction.Disable();
         }
 
-        // Find the player animator to potentially freeze animations
+        // Find the player animator
         playerAnimator = FindObjectOfType<ScientistAnimator>();
         if (playerAnimator != null && playerAnimator.animator != null)
         {
-            // Set to idle animation during cutscene
             playerAnimator.animator.SetBool("isIdle", true);
             playerAnimator.animator.SetBool("isRunning", false);
         }
 
-        // Find and disable the interaction detector to prevent multiple interactions
+        // Find and disable the interaction detector
         interactionDetector = FindObjectOfType<InteractionDetector>();
         if (interactionDetector != null)
         {
             interactionDetector.enabled = false;
-            // Also hide the interaction icon if it exists
             if (interactionDetector.interactionIcon != null)
                 interactionDetector.interactionIcon.SetActive(false);
         }
@@ -461,7 +533,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         }
     }
     
-    // Optional: Visual feedback in editor
     void OnDrawGizmosSelected()
     {
         Gizmos.color = requireInteraction ? Color.yellow : Color.green;

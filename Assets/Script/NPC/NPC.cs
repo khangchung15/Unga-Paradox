@@ -104,6 +104,12 @@ public class NPC : MonoBehaviour, IInteractable
         }
     }
 
+    // Public method to check if dialogue is currently active
+    public bool IsDialogueActive()
+    {
+        return isDialogueActive;
+    }
+
     void StartDialogue(bool handleOwnInput)
     {
         isDialogueActive = true;

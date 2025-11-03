@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f273c30facdc0e949b066bc1d7f628ef
+guid: 4e500ce3d2559eb46a5cf780f758be50
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8479306169294810362
-    second: Mech Eyes Outline_0
+      213: -6199720543617963891
+    second: Body_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mech Eyes Outline_0
+      name: Body_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 9
-        width: 36
-        height: 45
+        x: 4
+        y: 0
+        width: 56
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: afc6892290c8ca570800000000000000
-      internalID: 8479306169294810362
+      spriteID: d88a5fa530b26f9a0800000000000000
+      internalID: -6199720543617963891
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mech Eyes Outline_0: 8479306169294810362
+      Body_0: -6199720543617963891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
