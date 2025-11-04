@@ -54,6 +54,13 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     [SerializeField] private string secondCutsceneTargetScene = "";
     [SerializeField] private float secondCutsceneTransitionDelay = 0f;
     
+    [Header("Skip Settings")]
+    [SerializeField] private bool allowSkip = true;
+    [SerializeField] private GameObject skipPrompt;
+    [SerializeField] private float skipDelay = 1f;
+    [SerializeField] private bool useNewInputSystem = true;
+    [SerializeField] private string skipTargetScene = "";
+    
     private bool hasBeenTriggered = false;
     private bool hasBeenUsed = false;
     private GameObject player;
@@ -64,6 +71,10 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     private AudioSource musicAudioSource;
     private AudioClip previousMusic;
     private bool isWaitingForDialogue = false;
+    private bool isCutsceneActive = false;
+    private float skipTimer = 0f;
+    private bool canSkip = false;
+    private bool isFirstCutscene = true; // Track which cutscene is active
 
     void Start()
     {
@@ -85,6 +96,8 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         if (interactionIcon != null)
             interactionIcon.SetActive(false);
             
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
     }
 
     void Update()
@@ -99,6 +112,28 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
                 StartCoroutine(TriggerSecondCutsceneAfterDelay());
             }
         }
+        
+        // Handle skip input
+        if (isCutsceneActive && allowSkip)
+        {
+            if (!canSkip)
+            {
+                skipTimer += Time.deltaTime;
+                if (skipTimer >= skipDelay)
+                {
+                    canSkip = true;
+                    if (skipPrompt != null)
+                        skipPrompt.SetActive(true);
+                }
+            }
+            else
+            {
+                if (CheckSkipInput())
+                {
+                    SkipCutscene();
+                }
+            }
+        }
     }
 
     // Automatic trigger when entering region (if interaction not required)
@@ -106,7 +141,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     {
         if (other.CompareTag(playerTag))
         {
-            
             if (!requireInteraction)
             {
                 if (!(playOnce && hasBeenTriggered))
@@ -176,6 +210,9 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         // Disable player during cutscene
         FindAndDisablePlayerMovement();
         
+        // Setup skip system
+        SetupSkipSystem();
+        
         // Play the timeline
         timeline.Play();
         
@@ -193,9 +230,126 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         StartCoroutine(WaitForCutsceneToEnd());
     }
 
+    private void SetupSkipSystem()
+    {
+        isCutsceneActive = true;
+        isFirstCutscene = true;
+        skipTimer = 0f;
+        canSkip = false;
+        
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
+    }
+
+    private void SetupSecondCutsceneSkip()
+    {
+        isCutsceneActive = true;
+        isFirstCutscene = false;
+        skipTimer = 0f;
+        canSkip = false;
+        
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
+    }
+
+    private bool CheckSkipInput()
+    {
+        if (useNewInputSystem)
+        {
+            #if ENABLE_INPUT_SYSTEM
+            // New Input System check
+            var keyboard = UnityEngine.InputSystem.Keyboard.current;
+            var gamepad = UnityEngine.InputSystem.Gamepad.current;
+            
+            return (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame || 
+                                        keyboard.escapeKey.wasPressedThisFrame)) ||
+                   (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame);
+            #else
+            return UnityEngine.Input.GetKeyDown(KeyCode.Space) || 
+                   UnityEngine.Input.GetKeyDown(KeyCode.Escape);
+            #endif
+        }
+        else
+        {
+            // Old Input System
+            return UnityEngine.Input.GetKeyDown(KeyCode.Space) || 
+                   UnityEngine.Input.GetKeyDown(KeyCode.Escape);
+        }
+    }
+
+    private void SkipCutscene()
+    {
+        if (!isCutsceneActive || !canSkip) return;
+        
+        // Stop the current timeline
+        if (isFirstCutscene && timeline != null && timeline.state == PlayState.Playing)
+        {
+            timeline.Stop();
+        }
+        else if (!isFirstCutscene && secondTimeline != null && secondTimeline.state == PlayState.Playing)
+        {
+            secondTimeline.Stop();
+        }
+        
+        // Stop music
+        if (playMusicDuringCutscene && musicAudioSource != null && musicAudioSource.isPlaying)
+        {
+            StopCutsceneMusic();
+        }
+        
+        // Hide skip prompt
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
+        
+        // Determine which scene to load
+        string sceneToLoad = skipTargetScene;
+        if (string.IsNullOrEmpty(sceneToLoad))
+        {
+            // Fallback to the appropriate transition scene
+            if (isFirstCutscene && transitionToNewScene && !string.IsNullOrEmpty(targetSceneName))
+            {
+                sceneToLoad = targetSceneName;
+            }
+            else if (!isFirstCutscene && transitionAfterSecondCutscene && !string.IsNullOrEmpty(secondCutsceneTargetScene))
+            {
+                sceneToLoad = secondCutsceneTargetScene;
+            }
+        }
+        
+        // Load scene or enable player
+        if (!string.IsNullOrEmpty(sceneToLoad))
+        {
+            SceneManager.LoadScene(sceneToLoad);
+        }
+        else
+        {
+            // No scene to load, just enable player and clean up
+            EnablePlayerMovement();
+            DestroyObjects();
+            
+            if (destroyAfterUse)
+            {
+                Destroy(gameObject);
+            }
+        }
+        
+        isCutsceneActive = false;
+    }
+
+    // Public method for UI button
+    public void SkipButton()
+    {
+        SkipCutscene();
+    }
+
     private IEnumerator WaitForCutsceneToEnd()
     {
         yield return new WaitUntil(() => timeline.state != PlayState.Playing);
+        
+        // Clean up skip system for first cutscene
+        isCutsceneActive = false;
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
         
         // Stop music after cutscene
         if (playMusicDuringCutscene)
@@ -305,6 +459,9 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             player.SetActive(false);
         }
         
+        // Setup skip system for second cutscene
+        SetupSecondCutsceneSkip();
+        
         // Play the second timeline
         secondTimeline.Play();
         
@@ -315,6 +472,11 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     private IEnumerator WaitForSecondCutsceneToEnd()
     {
         yield return new WaitUntil(() => secondTimeline.state != PlayState.Playing);
+        
+        // Clean up skip system for second cutscene
+        isCutsceneActive = false;
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
         
         // Handle scene transition after second cutscene if enabled
         if (transitionAfterSecondCutscene && !string.IsNullOrEmpty(secondCutsceneTargetScene))

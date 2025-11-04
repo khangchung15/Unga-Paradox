@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CutsceneSkipHybrid : MonoBehaviour
+public class CutsceneSkip : MonoBehaviour
 {
     [Header("Skip Settings")]
     public string sceneToLoad;
