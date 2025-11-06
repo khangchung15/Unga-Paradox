@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CollectableSpawner
   _collectablePrefabs:
   - {fileID: 9101783479474827908, guid: be0ee3673e8f14c1c9e3350e1f17ae97, type: 3}
+  - {fileID: 3097916252222099961, guid: 0f8ccde5d747e44a1800cef7c25337a3, type: 3}
