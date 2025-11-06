@@ -84,7 +84,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -4798825762170945512, guid: 177540808e872d74a812a7f688821f83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -184,6 +184,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
   startingHealth: 1
   deathVFXPrefab: {fileID: 0}
+  healthBar: {fileID: 0}
+  shots: {fileID: 0}
+  hurtSound1: {fileID: 0}
+  hurtSound2: {fileID: 0}
+  deathSound: {fileID: 0}
+  tpSound: {fileID: 0}
+  hurtSounds: []
+  currentHealth: 0
+  maxHealth: 0
+  portalPrefab: {fileID: 0}
+  portalOffset: {x: 0, y: 0.5, z: 0}
+  destinationSceneName: Hub
+  destinationSpawnTag: SpawnPoint
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5150948916612399488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +246,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
   startingHealth: 100
   deathVFXPrefab: {fileID: 0}
+  healthBar: {fileID: 0}
+  shots: {fileID: 0}
+  hurtSound1: {fileID: 0}
+  hurtSound2: {fileID: 0}
+  deathSound: {fileID: 0}
+  tpSound: {fileID: 0}
+  hurtSounds: []
+  currentHealth: 0
+  maxHealth: 0
+  portalPrefab: {fileID: 0}
+  portalOffset: {x: 0, y: 0.5, z: 0}
+  destinationSceneName: Hub
+  destinationSpawnTag: SpawnPoint
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: 6052570e9fdc440beb85978a3ee53ad6, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8227362419326627559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,3 +297,5 @@ MonoBehaviour:
   burstCount: 2
   timeBetweenBursts: 0.1
   shootCooldown: 1
+  projectilesParent: {fileID: 0}
+  projectileTag: EnemyProjectile
