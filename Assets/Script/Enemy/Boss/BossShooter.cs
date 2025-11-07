@@ -21,8 +21,14 @@ public class BossShooter : MonoBehaviour, IBoss
     [Header("Timing")]
     [SerializeField] public float timeBetweenBursts;
     [SerializeField] public float shootCooldown = 1f;
+    
+    [Header("Cleanup")]
+    [SerializeField] private Transform projectilesParent;
+    [SerializeField] private string projectileTag = "EnemyProjectile"; 
 
     private bool isShooting = false;
+    private bool _cease = false;           
+    private Coroutine _shootRoutine;     
 
     private void Awake()
     {

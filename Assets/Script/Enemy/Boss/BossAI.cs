@@ -27,7 +27,6 @@ public class BossAI : MonoBehaviour
         if (!enemyPathfinding) enemyPathfinding = GetComponent<EnemyPathfinding>();
         state = State.Roaming;
 
-        // If not assigned in Inspector, find the player by tag
         if (target == null)
         {
             var playerGO = GameObject.FindGameObjectWithTag("Player");
@@ -89,7 +88,7 @@ public class BossAI : MonoBehaviour
         {
             canAttack = false;
 
-            (enemyType as IBoss)?.Attack(); // or Attack(target) if your IBoss supports it
+            (enemyType as IBoss)?.Attack(); 
 
             if (stopMovingWhileAttacking) enemyPathfinding.StopMoving();
             else enemyPathfinding.MoveTo(roamPosition);
