@@ -111,6 +111,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!1 &8343709223146807442
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +223,7 @@ GameObject:
   - component: {fileID: 8879543368317085684}
   - component: {fileID: 2611266233982717221}
   - component: {fileID: -1093634504393050108}
+  - component: {fileID: 3338517034232232431}
   m_Layer: 8
   m_Name: ShieldGorilla
   m_TagString: Enemy
@@ -355,7 +357,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -576,6 +578,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3338517034232232431}
+        m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
+        m_MethodName: RandomlyDropCollectable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2611266233982717221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,3 +621,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd0bd9520f5c43dfa61304c5b38acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathNotifier
+--- !u!114 &3338517034232232431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8462525355854703556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6052570e9fdc440beb85978a3ee53ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollectableDrop
+  _chanceOfCollectableDrop: 1

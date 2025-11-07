@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1457484401617848550
+--- !u!1 &7334141972521424664
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3767805181926891554}
-  - component: {fileID: 8064895521963113308}
+  - component: {fileID: 3689750063970472430}
+  - component: {fileID: 8455634248323330024}
   m_Layer: 0
-  m_Name: CollectableSpawner
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3767805181926891554
+--- !u!4 &3689750063970472430
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457484401617848550}
+  m_GameObject: {fileID: 7334141972521424664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.86032, y: 0.32279, z: 0}
+  m_LocalPosition: {x: 0.31657, y: -0.03369, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8064895521963113308
+--- !u!114 &8455634248323330024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457484401617848550}
+  m_GameObject: {fileID: 7334141972521424664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7bdaccde2ea243e8b2b8962f983cda8, type: 3}
+  m_Script: {fileID: 11500000, guid: 23d8d8ae7579448fdbbbd09807474d2f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollectableSpawner
-  _collectablePrefabs:
-  - {fileID: 9101783479474827908, guid: be0ee3673e8f14c1c9e3350e1f17ae97, type: 3}
-  - {fileID: 3097916252222099961, guid: 0f8ccde5d747e44a1800cef7c25337a3, type: 3}
+  m_EditorClassIdentifier: '::'
+  currentCurrency: 0
+  coinCounter: {fileID: 0}
