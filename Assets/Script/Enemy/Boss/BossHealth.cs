@@ -15,6 +15,7 @@ public class BossHealth : MonoBehaviour
     public AudioClip tpSound;
     public AudioClip[] hurtSounds;
     private Vector2 startingPositon;
+    private Rigidbody2D rb2d;
 
     private Knockback knockback;
     public int currentHealth;
@@ -23,16 +24,25 @@ public class BossHealth : MonoBehaviour
     private bool alreadySecondStage = false;
     private bool isDead = false;
     
+    //[SerializeField] private GameObject portalPrefab;
+    //[SerializeField] private Vector3 portalOffset = new Vector3(0f, 0.5f, 0f);
+    //[SerializeField] private string destinationSceneName = "Hub";
+    //[SerializeField] private string destinationSpawnTag = "SpawnPoint";
+    
     public UnityEvent onDeath;
+    
+    private Animator animator;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         knockback = GetComponent<Knockback>();
         knockback = GetComponent<Knockback>();
         audioSource = GetComponent<AudioSource>();
         shots = GetComponent<BossShooter>();
+        rb2d = GetComponent<Rigidbody2D>();
     }
-
+    
     private void Start()
     {
         currentHealth = startingHealth;
@@ -74,8 +84,20 @@ public class BossHealth : MonoBehaviour
 
         if (isDead) return;
         isDead = true;
+        
+        if (shots != null)
+            shots.enabled = false;
+        
+        if (animator != null)
+            animator.ResetTrigger("Dead");
+            animator.SetTrigger("Dead");
 
-        // Spawn VFX
+        if (rb2d) {
+            rb2d.linearVelocity = Vector2.zero;
+            rb2d.angularVelocity = 0f;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;   // hard-freeze
+        }
+        
         if (deathVFXPrefab != null)
         {
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
@@ -86,12 +108,24 @@ public class BossHealth : MonoBehaviour
         // Stop Music when he dies
         GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
         Camera.GetComponent<AudioSource>().Stop();
-        
+
         if (deathVFXPrefab != null)
+        {
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+        }
         
         onDeath.Invoke();
+
         
+        // Spawn the portal
+        //if (portalPrefab != null)
+        //{
+            //var portalGo = Instantiate(portalPrefab, transform.position + portalOffset, Quaternion.identity);
+            //var portal = portalGo.GetComponent<Portal>();
+            //if (portal != null)
+                //portal.Configure(destinationSceneName, destinationSpawnTag);
+        //}
+
         Destroy(gameObject,deathSound.length);
     }
 }
