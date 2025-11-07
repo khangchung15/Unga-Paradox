@@ -35,7 +35,6 @@ public class LightFlicker : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No Light2D component found! Please assign a Light2D component.");
             enabled = false;
             return;
         }
