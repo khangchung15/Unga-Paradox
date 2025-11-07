@@ -24,8 +24,8 @@ public class BossHealth : MonoBehaviour
     private bool alreadySecondStage = false;
     private bool isDead = false;
     
-    [SerializeField] private GameObject portalPrefab;
-    [SerializeField] private Vector3 portalOffset = new Vector3(0f, 0.5f, 0f);
+    //[SerializeField] private GameObject portalPrefab;
+    //[SerializeField] private Vector3 portalOffset = new Vector3(0f, 0.5f, 0f);
     //[SerializeField] private string destinationSceneName = "Hub";
     //[SerializeField] private string destinationSpawnTag = "SpawnPoint";
     
