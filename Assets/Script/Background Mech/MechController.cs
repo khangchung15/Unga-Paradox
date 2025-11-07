@@ -7,23 +7,24 @@ public class MechController : MonoBehaviour
     public float moveDistance = 10f;
     
     [Header("Attack Settings")]
-    public float minAttackInterval = 2f;
-    public float maxAttackInterval = 5f;
-    public float attackDuration = 1f;
+    public float minAttackDelay = 3f;
+    public float maxAttackDelay = 8f;
     
     [Header("References")]
     public Animator animator;
+    public Transform laserPivotPoint;
+    public GameObject laserObject;
+    public Vector3 laserOffset;
     
     private Vector3 startPosition;
     private float targetX;
     private bool movingRight = true;
-    private bool isAttacking = false;
     private float nextAttackTime;
-    private float attackEndTime;
+    private bool isAttacking = false;
+    private bool laserActive = false;
     
     void Start()
     {
-        // Get Animator if not assigned
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -31,42 +32,42 @@ public class MechController : MonoBehaviour
         
         startPosition = transform.position;
         targetX = startPosition.x + moveDistance;
+        SetNextAttackTime();
         
-        // Set first random attack time
-        nextAttackTime = Time.time + Random.Range(minAttackInterval, maxAttackInterval);
+        if (laserObject != null)
+        {
+            laserObject.SetActive(false);
+        }
     }
     
     void Update()
     {
-        // Check if attack should end
-        if (isAttacking)
-        {
-            if (Time.time >= attackEndTime)
-            {
-                // End attack, return to idle/running
-                isAttacking = false;
-                animator.SetBool("isAttack", false);
-                animator.SetBool("isIdle", true);
-                
-                // Schedule next attack
-                nextAttackTime = Time.time + Random.Range(minAttackInterval, maxAttackInterval);
-            }
-            return; // Don't move while attacking
-        }
-        
         // Check if it's time to attack
-        if (Time.time >= nextAttackTime)
+        if (!isAttacking && Time.time >= nextAttackTime)
         {
             StartAttack();
-            return;
         }
         
-        // Move the mech
+        // Only move if not attacking
+        if (!isAttacking)
+        {
+            MoveMech();
+            UpdateMovementAnimation();
+        }
+        
+        // Update laser position if active
+        if (laserActive && laserObject != null && laserObject.activeInHierarchy)
+        {
+            UpdateLaserPosition();
+        }
+    }
+    
+    void MoveMech()
+    {
         if (movingRight)
         {
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
             
-            // Check if reached target
             if (transform.position.x >= targetX)
             {
                 movingRight = false;
@@ -78,7 +79,6 @@ public class MechController : MonoBehaviour
         {
             transform.position += Vector3.left * moveSpeed * Time.deltaTime;
             
-            // Check if reached target
             if (transform.position.x <= targetX)
             {
                 movingRight = true;
@@ -86,28 +86,95 @@ public class MechController : MonoBehaviour
                 Flip();
             }
         }
-        
-        // Update animator - mech is always moving in this example
+    }
+    
+    void UpdateMovementAnimation()
+    {
         animator.SetBool("isRunning", true);
         animator.SetBool("isIdle", false);
+        animator.SetBool("isAttack", false);
     }
     
     void StartAttack()
     {
         isAttacking = true;
-        attackEndTime = Time.time + attackDuration;
+        laserActive = false;
         
-        // Trigger attack animation
-        animator.SetBool("isAttack", true);
         animator.SetBool("isRunning", false);
         animator.SetBool("isIdle", false);
+        animator.SetBool("isAttack", true);
+        
+        if (laserObject != null)
+        {
+            laserObject.SetActive(false);
+        }
+    }
+    
+    // ANIMATION EVENT - Call this from the Attack animation at the exact frame you want laser
+    public void OnLaserStart()
+    {
+        laserActive = true;
+        
+        if (laserObject != null)
+        {
+            laserObject.SetActive(true);
+            UpdateLaserPosition();
+            
+            Animator laserAnimator = laserObject.GetComponent<Animator>();
+            if (laserAnimator != null)
+            {
+                laserAnimator.Play("LaserAttack", -1, 0f);
+            }
+        }
+    }
+    
+    // ANIMATION EVENT - Call this at the end of the Attack animation
+    public void OnAttackEnd()
+    {
+        isAttacking = false;
+        laserActive = false;
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isRunning", true);
+        
+        if (laserObject != null)
+        {
+            laserObject.SetActive(false);
+        }
+        
+        SetNextAttackTime();
+    }
+    
+    void UpdateLaserPosition()
+    {
+        if (laserPivotPoint != null && laserObject != null)
+        {
+            laserObject.transform.position = laserPivotPoint.position + laserOffset;
+            laserObject.transform.rotation = Quaternion.identity;
+            
+            Vector3 laserScale = laserObject.transform.localScale;
+            laserScale.x = Mathf.Abs(laserScale.x) * (movingRight ? 1 : -1);
+            laserObject.transform.localScale = laserScale;
+        }
+    }
+    
+    void SetNextAttackTime()
+    {
+        nextAttackTime = Time.time + Random.Range(minAttackDelay, maxAttackDelay);
     }
     
     void Flip()
     {
-        // Flip the mech sprite
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+    
+    void OnDisable()
+    {
+        if (laserObject != null)
+        {
+            laserObject.SetActive(false);
+        }
     }
 }
