@@ -16,6 +16,11 @@ public class MechController : MonoBehaviour
     public GameObject laserObject;
     public Vector3 laserOffset;
     
+    [Header("Audio Settings")]
+    public AudioClip laserSound;          // Sound to play when laser starts
+    public AudioSource audioSource;       // AudioSource component reference
+    public float laserVolume = 1f;        // Volume for laser sound (0-1)
+    
     private Vector3 startPosition;
     private float targetX;
     private bool movingRight = true;
@@ -29,6 +34,20 @@ public class MechController : MonoBehaviour
         {
             animator = GetComponent<Animator>();
         }
+        
+        // Get or add AudioSource if not assigned
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
+        
+        // Configure AudioSource
+        audioSource.playOnAwake = false;
+        audioSource.volume = laserVolume;
         
         startPosition = transform.position;
         targetX = startPosition.x + moveDistance;
@@ -126,6 +145,22 @@ public class MechController : MonoBehaviour
                 laserAnimator.Play("LaserAttack", -1, 0f);
             }
         }
+        
+        // Play laser sound
+        PlayLaserSound();
+    }
+    
+    void PlayLaserSound()
+    {
+        if (laserSound != null && audioSource != null)
+        {
+            audioSource.volume = laserVolume;
+            audioSource.PlayOneShot(laserSound);
+        }
+        else
+        {
+            Debug.LogWarning("Laser sound or AudioSource not assigned!");
+        }
     }
     
     // ANIMATION EVENT - Call this at the end of the Attack animation
@@ -176,5 +211,20 @@ public class MechController : MonoBehaviour
         {
             laserObject.SetActive(false);
         }
+    }
+    
+    // Public methods to control audio settings at runtime
+    public void SetLaserVolume(float volume)
+    {
+        laserVolume = Mathf.Clamp01(volume);
+        if (audioSource != null)
+        {
+            audioSource.volume = laserVolume;
+        }
+    }
+    
+    public void SetLaserSound(AudioClip newLaserSound)
+    {
+        laserSound = newLaserSound;
     }
 }

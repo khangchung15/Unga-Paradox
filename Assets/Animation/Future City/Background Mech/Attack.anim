@@ -22,13 +22,13 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 4795376435626308233, guid: 1cc14f178f9188f4d9ce4bb6251cb1b6, type: 3}
-    - time: 0.13333334
+    - time: 0.21666667
       value: {fileID: 8925844139698071716, guid: 1cc14f178f9188f4d9ce4bb6251cb1b6, type: 3}
-    - time: 0.28333333
+    - time: 0.46666667
       value: {fileID: 3944647123417614687, guid: 1cc14f178f9188f4d9ce4bb6251cb1b6, type: 3}
-    - time: 0.41666666
+    - time: 0.6666667
       value: {fileID: -5803963248765828373, guid: 1cc14f178f9188f4d9ce4bb6251cb1b6, type: 3}
-    - time: 1.2666667
+    - time: 2.0166667
       value: {fileID: -5803963248765828373, guid: 1cc14f178f9188f4d9ce4bb6251cb1b6, type: 3}
     attribute: m_Sprite
     path: 
@@ -62,7 +62,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.2833333
+    m_StopTime: 2.0333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,14 +82,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.46666667
+  - time: 0.71666664
     functionName: OnLaserStart
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.25
+  - time: 2
     functionName: OnAttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}
