@@ -30,7 +30,6 @@ public class PlaySoundInRegion : MonoBehaviour
         Collider2D collider = GetComponent<Collider2D>();
         if (collider == null)
         {
-            Debug.LogWarning("MusicRegion: No Collider2D found! Adding BoxCollider2D.");
             collider = gameObject.AddComponent<BoxCollider2D>();
         }
         collider.isTrigger = true;
@@ -39,10 +38,6 @@ public class PlaySoundInRegion : MonoBehaviour
         if (musicSource == null)
         {
             musicSource = GetComponent<AudioSource>();
-            if (musicSource == null)
-            {
-                Debug.LogWarning("MusicRegion: No AudioSource found! Please assign one.");
-            }
         }
 
         // Store original volume and set up audio source
@@ -94,7 +89,6 @@ public class PlaySoundInRegion : MonoBehaviour
         fadeCoroutine = StartCoroutine(FadeMusic(0f, originalVolume, fadeInDuration));
         isPlaying = true;
 
-        Debug.Log("Music started: " + gameObject.name);
     }
 
     public void StopMusic()
@@ -111,7 +105,6 @@ public class PlaySoundInRegion : MonoBehaviour
         fadeCoroutine = StartCoroutine(FadeMusic(musicSource.volume, 0f, fadeOutDuration, true));
         isPlaying = false;
 
-        Debug.Log("Music stopped: " + gameObject.name);
     }
 
     private IEnumerator FadeMusic(float fromVolume, float toVolume, float duration, bool stopAfterFade = false)

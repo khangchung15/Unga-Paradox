@@ -77,7 +77,6 @@ public class ForegroundCanvasFollower : MonoBehaviour
         isMoving = false;
         hasExited = true;
         
-        Debug.Log("Canvas exit movement completed");
     }
 
     /// <summary>

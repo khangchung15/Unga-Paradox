@@ -1,71 +1,69 @@
 using UnityEngine;
-using Cinemachine;
+using Unity.Cinemachine;
 
 public class CameraSizeTrigger : MonoBehaviour
 {
     [Header("Camera Settings")]
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private float targetOrthographicSize = 5f;
     [SerializeField] private float transitionSpeed = 2f;
     
-    [Header("Cinemachine Camera")]
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [Header("Optional: Restore on Exit")]
+    [SerializeField] private bool restoreOnExit = true;
     
-    private float originalOrthographicSize;
-    private bool isInTrigger = false;
-    
+    private float originalSize;
+    private bool isTransitioning = false;
+    private float currentTargetSize;
+
     void Start()
     {
-        // If no virtual camera is assigned, try to find one
-        if (virtualCamera == null)
-        {
-            virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-        }
-        
+        // Store the original orthographic size
         if (virtualCamera != null)
         {
-            originalOrthographicSize = virtualCamera.m_Lens.OrthographicSize;
+            originalSize = virtualCamera.m_Lens.OrthographicSize;
+            currentTargetSize = originalSize;
         }
         else
         {
-            Debug.LogError("No Cinemachine Virtual Camera found! Please assign one in the inspector.");
+            Debug.LogError("Virtual Camera not assigned!");
         }
     }
-    
+
     void Update()
     {
-        if (virtualCamera == null) return;
-        
-        // Smoothly transition the camera size
-        float targetSize = isInTrigger ? targetOrthographicSize : originalOrthographicSize;
-        virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(
-            virtualCamera.m_Lens.OrthographicSize, 
-            targetSize, 
-            transitionSpeed * Time.deltaTime
-        );
+        // Smoothly transition to target size
+        if (isTransitioning && virtualCamera != null)
+        {
+            float currentSize = virtualCamera.m_Lens.OrthographicSize;
+            float newSize = Mathf.Lerp(currentSize, currentTargetSize, Time.deltaTime * transitionSpeed);
+            
+            virtualCamera.m_Lens.OrthographicSize = newSize;
+            
+            // Stop transitioning when close enough
+            if (Mathf.Abs(newSize - currentTargetSize) < 0.01f)
+            {
+                virtualCamera.m_Lens.OrthographicSize = currentTargetSize;
+                isTransitioning = false;
+            }
+        }
     }
-    
+
     void OnTriggerEnter2D(Collider2D other)
     {
+        // Check if the object entering has a specific tag (optional)
         if (other.CompareTag("Player"))
         {
-            isInTrigger = true;
+            currentTargetSize = targetOrthographicSize;
+            isTransitioning = true;
         }
     }
-    
+
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (restoreOnExit && other.CompareTag("Player"))
         {
-            isInTrigger = false;
-        }
-    }
-    
-    // Optional: For instant size change instead of smooth transition
-    private void ChangeCameraSizeInstant(float newSize)
-    {
-        if (virtualCamera != null)
-        {
-            virtualCamera.m_Lens.OrthographicSize = newSize;
+            currentTargetSize = originalSize;
+            isTransitioning = true;
         }
     }
 }
