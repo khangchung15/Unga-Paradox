@@ -84,7 +84,6 @@ public class PlayerCutsceneController : MonoBehaviour
             playerObject.SetActive(false);
         }
         
-        Debug.Log("Cutscene started - Player movement disabled");
     }
     
     public void EndCutscene()
@@ -113,7 +112,6 @@ public class PlayerCutsceneController : MonoBehaviour
         // Destroy all objects in the array
         DestroyObjects();
         
-        Debug.Log("Cutscene finished - Player movement enabled");
     }
     
     private void DestroyObjects()
@@ -132,7 +130,6 @@ public class PlayerCutsceneController : MonoBehaviour
                     {
                         Destroy(obj, 0.1f); // Small delay if needed
                     }
-                    Debug.Log("Destroyed object: " + obj.name);
                 }
             }
         }
