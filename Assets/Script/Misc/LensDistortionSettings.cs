@@ -93,12 +93,7 @@ public class LensDistortionSettings : MonoBehaviour
             {
                 // If it doesn't exist, add it
                 lensDistortion = postProcessingVolume.profile.Add<UnityEngine.Rendering.Universal.LensDistortion>();
-                Debug.Log("LensDistortion effect added to Volume profile");
             }
-        }
-        else
-        {
-            Debug.LogError("Post-processing Volume or Profile not assigned!");
         }
     }
 
