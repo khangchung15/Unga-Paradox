@@ -6,7 +6,7 @@ public class CoinManager : MonoBehaviour
     public int currentCurrency;
     
     // Set coin amount here
-    [SerializeField] private CoinCounter coinCounter;
+    [SerializeField] public CoinCounter coinCounter;
 
     public void AddCoin(int amount)
     {

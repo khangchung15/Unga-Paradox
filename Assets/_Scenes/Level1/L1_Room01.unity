@@ -5982,6 +5982,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &88052829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6063,6 +6064,7 @@ GameObject:
   - component: {fileID: 114415942}
   - component: {fileID: 114415941}
   - component: {fileID: 114415952}
+  - component: {fileID: 114415953}
   m_Layer: 8
   m_Name: ShieldGorilla (7)
   m_TagString: Enemy
@@ -6117,6 +6119,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114415953}
+        m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
+        m_MethodName: RandomlyDropCollectable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &114415943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6356,7 +6373,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6445,6 +6462,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd0bd9520f5c43dfa61304c5b38acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathNotifier
+--- !u!114 &114415953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114415939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6052570e9fdc440beb85978a3ee53ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollectableDrop
+  _chanceOfCollectableDrop: 1
 --- !u!1 &122125299
 GameObject:
   m_ObjectHideFlags: 0
@@ -6520,6 +6550,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &122125303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6759,7 +6792,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6899,6 +6932,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &147467741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7014,6 +7048,14 @@ PrefabInstance:
     - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 406297769
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7238,6 +7280,11 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.2759614, y: -0.30372527}
   m_Radius: 0.4722365
+--- !u!4 &265699230 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+  m_PrefabInstance: {fileID: 1899584901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &265750236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7358,6 +7405,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2773607938442825906, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773607938442825906, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3470589268936566600, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7454,6 +7509,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8413312082458568580, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 72.5051
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413312082458568580, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -40.61548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413312082458568580, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550963524815238727, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: coin
+      value: 
+      objectReference: {fileID: 360339736}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7560,6 +7631,17 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.2759614, y: -0.30372527}
   m_Radius: 0.4722365
+--- !u!114 &360339736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8455634248323330024, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+  m_PrefabInstance: {fileID: 433322504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d8d8ae7579448fdbbbd09807474d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &397532279
 GameObject:
   m_ObjectHideFlags: 0
@@ -7581,6 +7663,7 @@ GameObject:
   - component: {fileID: 397532282}
   - component: {fileID: 397532281}
   - component: {fileID: 397532292}
+  - component: {fileID: 397532293}
   m_Layer: 8
   m_Name: ShieldGorilla (1)
   m_TagString: Enemy
@@ -7635,6 +7718,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 397532293}
+        m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
+        m_MethodName: RandomlyDropCollectable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &397532283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7874,7 +7972,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7963,6 +8061,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd0bd9520f5c43dfa61304c5b38acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathNotifier
+--- !u!114 &397532293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397532279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6052570e9fdc440beb85978a3ee53ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollectableDrop
+  _chanceOfCollectableDrop: 1
 --- !u!1 &423299172
 GameObject:
   m_ObjectHideFlags: 0
@@ -8053,6 +8164,67 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.2759614, y: -0.30372527}
   m_Radius: 0.4722365
+--- !u!1001 &433322504
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334141972521424664, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8455634248323330024, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: coinCounter
+      value: 
+      objectReference: {fileID: 1729793822}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
 --- !u!1 &440658824
 GameObject:
   m_ObjectHideFlags: 0
@@ -8172,6 +8344,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &521666936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8411,7 +8586,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8575,6 +8750,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &557939152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8814,7 +8992,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8924,6 +9102,7 @@ GameObject:
   - component: {fileID: 571893909}
   - component: {fileID: 571893908}
   - component: {fileID: 571893919}
+  - component: {fileID: 571893920}
   m_Layer: 8
   m_Name: ShieldGorilla (9)
   m_TagString: Enemy
@@ -8978,6 +9157,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 571893920}
+        m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
+        m_MethodName: RandomlyDropCollectable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &571893910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9217,7 +9411,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9306,6 +9500,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd0bd9520f5c43dfa61304c5b38acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathNotifier
+--- !u!114 &571893920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571893906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6052570e9fdc440beb85978a3ee53ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollectableDrop
+  _chanceOfCollectableDrop: 1
 --- !u!1 &622819287
 GameObject:
   m_ObjectHideFlags: 0
@@ -9327,6 +9534,7 @@ GameObject:
   - component: {fileID: 622819290}
   - component: {fileID: 622819289}
   - component: {fileID: 622819300}
+  - component: {fileID: 622819301}
   m_Layer: 8
   m_Name: ShieldGorilla (5)
   m_TagString: Enemy
@@ -9381,6 +9589,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 622819301}
+        m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
+        m_MethodName: RandomlyDropCollectable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &622819291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9620,7 +9843,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9709,6 +9932,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd0bd9520f5c43dfa61304c5b38acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathNotifier
+--- !u!114 &622819301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622819287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6052570e9fdc440beb85978a3ee53ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollectableDrop
+  _chanceOfCollectableDrop: 1
 --- !u!1 &646372833
 GameObject:
   m_ObjectHideFlags: 0
@@ -9899,7 +10135,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -9907,7 +10143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10022,6 +10258,14 @@ PrefabInstance:
     - target: {fileID: 5165711096306083629, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 406297769
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10157,6 +10401,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &757699653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10396,7 +10643,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10495,7 +10742,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -10503,7 +10750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19339,6 +19586,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 406297769
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19476,13 +19731,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5202236660252312158, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8146792267698005228, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
       insertIndex: 1
       addedObject: {fileID: 833026134}
+    - targetCorrespondingSourceObject: {fileID: 8146792267698005228, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 833026143}
   m_SourcePrefab: {fileID: 100100000, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
 --- !u!1 &833026133 stripped
 GameObject:
@@ -19527,6 +19786,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80417ae5933a1c42a1290b3ee8ad6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+--- !u!114 &833026143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833026133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d8d8ae7579448fdbbbd09807474d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinManager
+  currentCurrency: 0
+  coinCounter: {fileID: 1729793822}
 --- !u!1 &868825763
 GameObject:
   m_ObjectHideFlags: 0
@@ -19578,6 +19851,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &868825766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19648,7 +19922,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -19656,7 +19930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19763,6 +20037,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &908367820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19941,6 +20216,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: f09aa80312004fe4d899b4a5a57e7bbc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 406297769
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20010,6 +20293,14 @@ PrefabInstance:
     - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 406297769
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20280,6 +20571,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 406297769
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20532,6 +20831,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &1189429394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20664,7 +20964,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -20672,7 +20972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20886,6 +21186,7 @@ Transform:
   - {fileID: 114415940}
   - {fileID: 757699650}
   - {fileID: 571893907}
+  - {fileID: 265699230}
   m_Father: {fileID: 774739988}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1336996156
@@ -21001,6 +21302,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &1347972631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21071,7 +21373,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -21079,7 +21381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21375,7 +21677,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -21383,7 +21685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23820,7 +24122,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -23828,7 +24130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23894,7 +24196,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -23902,7 +24204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24009,6 +24311,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &1726603602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24069,6 +24372,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   hasLineOfSight: 0
+--- !u!114 &1729793822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8550963524815238727, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+  m_PrefabInstance: {fileID: 265750236}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015d33e493c7b46ab887bbdc170eb796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinCounter
 --- !u!1 &1740361284
 GameObject:
   m_ObjectHideFlags: 0
@@ -24215,6 +24529,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 406297769
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24225,6 +24547,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1833568943503611214, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
   m_PrefabInstance: {fileID: 1741444158}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1899584901
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1315656443}
+    m_Modifications:
+    - target: {fileID: 1457484401617848550, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_Name
+      value: CollectableSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.73951
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.28582
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767805181926891554, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 13b1c617a192a45b1b1a7b06dc13876d, type: 3}
 --- !u!1001 &1927109784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24284,6 +24663,14 @@ PrefabInstance:
     - target: {fileID: 5165711096306083629, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562747393136815597, guid: a87057a4914fd9844b459cbcfa982569, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 406297769
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24345,7 +24732,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -24353,7 +24740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24419,7 +24806,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingOrder
@@ -24427,7 +24814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7645601208894342598, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_SortingLayerID
-      value: -2078862447
+      value: 406297769
       objectReference: {fileID: 0}
     - target: {fileID: 7532193081154310236, guid: a4884db0a7a0da749a868a939ba12fbe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24558,6 +24945,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   hurtSound: {fileID: 8300000, guid: 3781d2f9970002d499ba12cecc8a4820, type: 3}
   deathSound: {fileID: 8300000, guid: 6148cb76360321d46955698748dca51b, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2006772100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24797,7 +25187,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 7460060071596238245, guid: e5a8f3c48a834014bac3c7b6a7f2e095, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -24937,6 +25327,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &2075925178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25302,6 +25693,7 @@ MonoBehaviour:
   attackRange: 1
   attackCooldown: 1
   playerTag: Player
+  attackType: 0
 --- !u!114 &2142576558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25456,3 +25848,4 @@ SceneRoots:
   - {fileID: 774739988}
   - {fileID: 1434985901}
   - {fileID: 1119847238}
+  - {fileID: 433322504}
