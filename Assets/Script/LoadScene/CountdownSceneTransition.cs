@@ -82,7 +82,6 @@ public class CountdownSceneTransition : MonoBehaviour
     public void SetTargetScene(string newSceneName)
     {
         targetSceneName = newSceneName;
-        Debug.Log($"Target scene changed to: {targetSceneName}");
     }
 
     // Public method to change countdown duration during runtime

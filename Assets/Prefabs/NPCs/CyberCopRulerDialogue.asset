@@ -19,20 +19,20 @@ MonoBehaviour:
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05
-  - speakerName: Ruler
-    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+  - speakerName: Commander Voras
+    speakerPortrait: {fileID: -7206288168892714318, guid: 5760e7bf7ce9a9c4d809d3c57eaa0425, type: 3}
     text: Part of you still believe the clone can save the people of this nation
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05
-  - speakerName: Ruler
-    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+  - speakerName: Commander Voras
+    speakerPortrait: {fileID: -7206288168892714318, guid: 5760e7bf7ce9a9c4d809d3c57eaa0425, type: 3}
     text: Maybe that's why you were hesitant to capture him.
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05
-  - speakerName: Ruler
-    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+  - speakerName: Commander Voras
+    speakerPortrait: {fileID: -7206288168892714318, guid: 5760e7bf7ce9a9c4d809d3c57eaa0425, type: 3}
     text: If you can't be my followers, then you shall be an example
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1

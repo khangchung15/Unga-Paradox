@@ -56,7 +56,6 @@ public class LightColorChanger : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Color property not found on Light2D component!");
                 spotlight = null;
             }
             
@@ -64,10 +63,6 @@ public class LightColorChanger : MonoBehaviour
             {
                 intensityProperty.SetValue(spotlight, normalIntensity);
             }
-        }
-        else
-        {
-            Debug.LogWarning("Light2D component not found on this GameObject! Make sure you have the 2D Renderer package installed.");
         }
     }
     
@@ -95,7 +90,6 @@ public class LightColorChanger : MonoBehaviour
             // Target entered range - lock color if needed
             if (!wasInRange)
             {
-                OnTargetEnterRange();
                 if (keepColorAfterExit)
                 {
                     colorLocked = true;
@@ -107,7 +101,6 @@ public class LightColorChanger : MonoBehaviour
             // Target left range - reset if not locked
             if (wasInRange)
             {
-                OnTargetExitRange();
             }
         }
         
@@ -151,7 +144,6 @@ public class LightColorChanger : MonoBehaviour
         {
             intensityProperty.SetValue(spotlight, normalIntensity);
         }
-        Debug.Log("Light reset to normal color and intensity");
     }
     
     public void LockToDetectedColor()
@@ -165,13 +157,11 @@ public class LightColorChanger : MonoBehaviour
         {
             intensityProperty.SetValue(spotlight, detectedIntensity);
         }
-        Debug.Log("Light locked to detected color and intensity");
     }
     
     public void UnlockColor()
     {
         colorLocked = false;
-        Debug.Log("Light color unlocked");
     }
     
     public void SetColors(Color newNormalColor, Color newDetectedColor)
@@ -184,19 +174,6 @@ public class LightColorChanger : MonoBehaviour
     {
         normalIntensity = newNormalIntensity;
         detectedIntensity = newDetectedIntensity;
-    }
-    
-    // Event methods that you can extend
-    void OnTargetEnterRange()
-    {
-        Debug.Log("Target entered spotlight range!");
-        // You can add sound effects, particle systems, or other reactions here
-    }
-    
-    void OnTargetExitRange()
-    {
-        Debug.Log("Target left spotlight range!");
-        // You can add sound effects, particle systems, or other reactions here
     }
     
     void OnDisable()
