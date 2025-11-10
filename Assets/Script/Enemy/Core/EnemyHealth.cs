@@ -1,6 +1,7 @@
 using Pathfinding;
 using UnityEngine;
-using System.Collections;   
+using System.Collections;
+using UnityEngine.Events;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
     private AudioSource audioSource;
     private Rigidbody2D rb;
     //private Flash flash;
+    public UnityEvent onDeath;
 
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
@@ -62,6 +64,7 @@ public class EnemyHealth : MonoBehaviour
     // Check if the enemy is dead
     public virtual void DetectDeath()
     {
+        onDeath.Invoke();
         if (audioSource != null && deathSound != null)
         {
             audioSource.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
