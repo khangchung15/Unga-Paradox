@@ -13,21 +13,21 @@ public class SpiderProjectile : MonoBehaviour
 
     [Header("Web Spawn on Impact")]
     [SerializeField] private GameObject webPrefab;
-    [SerializeField] private LayerMask groundMask;     // set to Ground/Wall/Obstacle layers
-    [SerializeField] private float webLifetime = 4f;   // if your web script exposes lifetime
+    [SerializeField] private LayerMask groundMask;    
+    [SerializeField] private float webLifetime = 4f;   
 
     [Header("Auto-Drop Web After Travel")]
-    [SerializeField] private float distanceBeforeAutoWeb = 6f; // drop after traveling this far
+    [SerializeField] private float distanceBeforeAutoWeb = 6f;
     [Tooltip("If false, only one auto-drop happens. If true, drop every N units (see interval).")]
     [SerializeField] private bool repeatAutoDrop = false;
-    [SerializeField] private float repeatInterval = 6f; // used only if repeatAutoDrop = true
-    [SerializeField] private float groundProbeDistance = 2.0f; // raycast down to snap to ground
+    [SerializeField] private float repeatInterval = 6f; 
+    [SerializeField] private float groundProbeDistance = 2.0f; 
 
     private Rigidbody2D rb;
     private Vector2 lastPos;
     private Vector2 moveDir;
     private float distanceTraveled = 0f;
-    private bool autoWebSpawned = false; // for single-drop mode
+    private bool autoWebSpawned = false; 
 
     void Awake()
     {
@@ -50,12 +50,10 @@ public class SpiderProjectile : MonoBehaviour
 
     void Update()
     {
-        // ---- track distance traveled ----
         var p = rb.position;
         distanceTraveled += Vector2.Distance(p, lastPos);
         lastPos = p;
 
-        // ---- auto-drop logic ----
         if (webPrefab != null)
         {
             if (!repeatAutoDrop)
@@ -68,7 +66,6 @@ public class SpiderProjectile : MonoBehaviour
             }
             else
             {
-                // drop every repeatInterval units after the first threshold
                 while (distanceTraveled >= distanceBeforeAutoWeb + repeatInterval * (CountDropsSoFar()))
                 {
                     SpawnWebAtGround(p);
@@ -78,7 +75,6 @@ public class SpiderProjectile : MonoBehaviour
         }
     }
 
-    // Track how many auto-drops we did when repeat is enabled
     private int drops = 0;
     private int CountDropsSoFar() => drops + (autoWebSpawned ? 1 : 0);
     private void IncrementDrops()
@@ -89,7 +85,6 @@ public class SpiderProjectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Hit player → damage + web + destroy
         if (other.CompareTag(targetTag))
         {
             var hp = other.GetComponent<Health>();
@@ -99,7 +94,6 @@ public class SpiderProjectile : MonoBehaviour
             return;
         }
 
-        // Hit ground/obstacle → web + destroy
         if (IsGround(other.gameObject.layer))
         {
             SpawnWebAtGround(other.ClosestPoint(transform.position));
@@ -113,15 +107,11 @@ public class SpiderProjectile : MonoBehaviour
     {
         if (webPrefab == null) return;
 
-        // Raycast down to snap to ground surface
         Vector2 origin = fromPos;
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, groundProbeDistance, groundMask);
         Vector2 spawnPos = hit ? hit.point : origin;
 
         var go = Instantiate(webPrefab, spawnPos, Quaternion.identity);
 
-        // If your GroundWebTrap has a public lifetime field, set it here:
-        // var trap = go.GetComponent<GroundWebTrap>();
-        // if (trap) trap.lifetime = webLifetime;
     }
 }

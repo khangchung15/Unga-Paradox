@@ -238,7 +238,7 @@ public class PlayerController : Singleton<PlayerController>
 
         isDashing = false;
         myTrailRenderer.emitting = false;
-        RecomputeMovementSpeed();               // <-- NEW
+        RecomputeMovementSpeed();       
 
         yield return new WaitForSeconds(dashCd);
         canDash = (dashBlockers == 0);   
@@ -253,7 +253,6 @@ public class PlayerController : Singleton<PlayerController>
 
     private void UpdateSlowFromMods()
     {
-        // strongest slow wins (min multiplier)
         float m = 1f;
         foreach (var v in speedMods.Values) m = Mathf.Min(m, v);
         currentSlowMultiplier = m;   
@@ -284,7 +283,6 @@ public class PlayerController : Singleton<PlayerController>
 
     public void ApplySpeedModifier(float speedModifier)
     {
-        // clamp and push onto stack
         float m = Mathf.Clamp(speedModifier, 0.05f, 5f);
         slowStack.Push(m);
         RecomputeMovementSpeed();
@@ -301,7 +299,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         dashBlockers++;
         UpdateDashPermission();
-        if (isDashing) CancelDash(); // CancelDash calls RecomputeMovementSpeed()
+        if (isDashing) CancelDash();
     }
 
     public void RemoveDashBlock()

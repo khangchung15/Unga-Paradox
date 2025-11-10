@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Spider : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("Spider Stats")]
     [SerializeField] private float detectionRange = 4.5f;
     [SerializeField] private float wanderingMoveSpeed = 1.5f;
@@ -12,7 +11,6 @@ public class Spider : Enemy
     protected override void Awake()
     {
         base.Awake();
-        // set a custom detection range for this instance (does not require modifying the ScriptableObject)
         enemyHealth.StartingHealth = maxHealth;
 
     }

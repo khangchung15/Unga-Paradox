@@ -22,7 +22,6 @@ public class GroundWebTrap : MonoBehaviour
         var col = GetComponent<Collider2D>();
         if (col) col.isTrigger = true;
 
-        // Ensure there is a RB2D on the trap so triggers are reliable
         if (GetComponent<Rigidbody2D>() == null)
         {
             var rb = gameObject.AddComponent<Rigidbody2D>();
@@ -34,7 +33,7 @@ public class GroundWebTrap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Accept root or child collider; allow tag on root RB
+        // Accept root or child collider allow tag on root RB
         if (!other.CompareTag(targetTag) && !(other.attachedRigidbody && other.attachedRigidbody.CompareTag(targetTag)))
             return;
 
@@ -43,9 +42,8 @@ public class GroundWebTrap : MonoBehaviour
 
         if (affected.Add(pc))
         {
-            pc.AddOrUpdateSpeedMod(ModKey, slowMultiplier); // <-- updates slowMul in PlayerController
+            pc.AddOrUpdateSpeedMod(ModKey, slowMultiplier);
             if (blockDash) pc.AddDashBlock();
-            Debug.Log($"[WEB] ENTER {pc.name} m={slowMultiplier}");
         }
     }
 
@@ -59,9 +57,8 @@ public class GroundWebTrap : MonoBehaviour
 
         if (affected.Remove(pc))
         {
-            pc.RemoveSpeedMod(ModKey);        // <-- restores slowMul
+            pc.RemoveSpeedMod(ModKey);        
             if (blockDash) pc.RemoveDashBlock();
-            Debug.Log($"[WEB] EXIT {pc.name}");
         }
     }
 

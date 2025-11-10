@@ -51,7 +51,6 @@ public class SpiderCombatController : MonoBehaviour
         if (cdTimer > 0f) cdTimer -= Time.deltaTime;
         if (busy || cdTimer > 0f) return;
 
-        // Only act if we see the player
         if (!detection.hasLineOfSight) return;
 
         float d = Vector2.Distance(transform.position, player.position);
@@ -63,7 +62,6 @@ public class SpiderCombatController : MonoBehaviour
 
         if (!canActFrom) return;
 
-        // Decide what to do based on alternation, with validity + fallback
         if (nextAttack == AttackType.Leap)
         {
             if (d >= minLeapDistance && d <= maxLeapDistance)
