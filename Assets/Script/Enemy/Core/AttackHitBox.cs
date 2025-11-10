@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
@@ -112,6 +113,59 @@ public class AttackHitbox : MonoBehaviour
         }
 
         // Apply knockback if enabled
-        
+        if (enableKnockback)
+        {
+            // Compute direction away from the hitbox center to the target
+            Vector2 direction = ((Vector2)other.transform.position - (Vector2)transform.position).normalized;
+            if (direction == Vector2.zero) direction = Vector2.up;
+            Vector2 knockVelocity = direction * knockbackForce;
+
+            // Preferred: if target has a PlayerController (or other script) that implements ApplyKnockback(Vector2, float), call it.
+            var playerCtrl = other.GetComponentInParent<PlayerController>();
+            if (playerCtrl != null)
+            {
+                // Use reflection to call ApplyKnockback if it exists (keeps this script safe if method missing)
+                MethodInfo mi = playerCtrl.GetType().GetMethod("ApplyKnockback", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (mi != null)
+                {
+                    try
+                    {
+                        mi.Invoke(playerCtrl, new object[] { knockVelocity, knockbackDuration });
+                        return;
+                    }
+                    catch
+                    {
+                        // Fall through to rigidbody fallback if invoke fails
+                    }
+                }
+            }
+
+            // Alternative: target may have a Knockback component with a known method (optional)
+            var knockComp = other.GetComponentInParent<Knockback>();
+            if (knockComp != null)
+            {
+                // If your Knockback has a method like GetKnockedBack(Transform source, float force)
+                MethodInfo kmi = knockComp.GetType().GetMethod("GetKnockedBack", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (kmi != null)
+                {
+                    try
+                    {
+                        kmi.Invoke(knockComp, new object[] { transform, knockbackForce });
+                        return;
+                    }
+                    catch
+                    {
+                        // ignore and fallback
+                    }
+                }
+            }
+
+            // Fallback: apply Rigidbody2D impulse on the root rigidbody
+            var rb = other.attachedRigidbody ?? other.GetComponentInParent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.AddForce(knockVelocity, ForceMode2D.Impulse);
+            }
+        }
     }
 }
