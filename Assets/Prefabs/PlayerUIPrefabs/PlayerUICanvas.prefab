@@ -1862,7 +1862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127833216755048b09ee20c0adcccd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBar
-  _health: {fileID: 0}
+  _health: {fileID: 3427427672410123108, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
   _barRect: {fileID: 8588154849511381497}
   _mask: {fileID: 5867859958745389954}
   _hpIndicator: {fileID: 3452351643808848872}

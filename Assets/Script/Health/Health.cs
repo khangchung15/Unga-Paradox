@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -55,6 +56,8 @@ public class Health : MonoBehaviour
         if (currentHealth == 0)
         {
             OnDeath.Invoke();
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
         }
         else
         {
@@ -66,6 +69,7 @@ public class Health : MonoBehaviour
     {
         if (currentHealth == maxHealth)
         {
+            OnHealed?.Invoke();
             return;
         }
         
