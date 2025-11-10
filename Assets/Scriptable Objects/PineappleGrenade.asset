@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: PineappleGrenade
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  weaponName: PineappleGrenade
   weaponPrefab: {fileID: 8727429313196867675, guid: 9d69bd6f4b2168444b52c96f45bf5518, type: 3}
   weaponCooldown: 1
+  weaponSprite: {fileID: 5907130587529274049, guid: 50810e36569fc3e429f59751973598bd, type: 3}

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: ClusterNade
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  weaponName: ClusterNade
   weaponPrefab: {fileID: 8727429313196867675, guid: 9d69bd6f4b2168444b52c96f45bf5518, type: 3}
   weaponCooldown: 1
+  weaponSprite: {fileID: 6361758893175366952, guid: 5c3ead45f3eba8c419accdff965ef138, type: 3}

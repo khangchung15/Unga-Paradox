@@ -8,4 +8,9 @@ public class InventorySlot : MonoBehaviour
     {
         return weaponInfo;
     }
+
+    public void SetWeaponInfo(WeaponInfo info)
+    {
+        weaponInfo = info;
+    }
 }
