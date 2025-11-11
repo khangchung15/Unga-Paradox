@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5270962895922945029}
   - component: {fileID: 5197034052484937297}
   - component: {fileID: 1727795521792886429}
+  - component: {fileID: -6605174789560145882}
   m_Layer: 0
   m_Name: Club
   m_TagString: Untagged
@@ -275,3 +276,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.53125, y: 0.75}
   m_EdgeRadius: 0
+--- !u!114 &-6605174789560145882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001049788225507752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4cf9bb1d1e4dc4e88a17142c4de94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
+  weaponInfo: {fileID: 11400000, guid: 1083f0e9cbb28fa4b96e77492612b75d, type: 2}
+  pickupRange: 2
+  pickupKey: 101
+  pickupPromptPrefab: {fileID: 2290664792249068347, guid: d6566651767625948942eab7537b626a, type: 3}
+  promptInstance: {fileID: 0}
+  playerInRange: 0
