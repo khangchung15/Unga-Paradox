@@ -44,7 +44,7 @@ public class SpiderProjectile : MonoBehaviour
     public void Launch(Vector2 direction)
     {
         moveDir = direction.normalized;
-        rb.velocity = moveDir * speed;
+        rb.linearVelocity = moveDir * speed;
         Destroy(gameObject, lifeSeconds);
     }
 

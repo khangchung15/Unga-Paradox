@@ -5540,7 +5540,7 @@ PrefabInstance:
     - target: {fileID: 8356546928918462638, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
       propertyPath: _connection
       value: 
-      objectReference: {fileID: 11400000, guid: b1009881d2c944c699336ca7f65eac28, type: 2}
+      objectReference: {fileID: 11400000, guid: 663854a2d05464042be3b002cfea9166, type: 2}
     - target: {fileID: 8356546928918462638, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
       propertyPath: _spawnPoint
       value: 
@@ -5562,11 +5562,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 981183588037855417, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
   m_PrefabInstance: {fileID: 1800049996}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &1800049998 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 2456761472011717700, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
-  m_PrefabInstance: {fileID: 1800049996}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1800049999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2421268904707659430, guid: 191b1b79f0ca2884e9da6d2602cd8306, type: 3}
@@ -5584,10 +5579,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e116f17711764b0796b8a4acf9ba71c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelGate
-  gateCollider: {fileID: 1800049998}
+  blocker: {fileID: 0}
+  portal: {fileID: 0}
   lockedVisual: {fileID: 0}
   unlockedVisual: {fileID: 0}
-  useTriggerMode: 0
+  anim: {fileID: 0}
 --- !u!1001 &1813518223
 PrefabInstance:
   m_ObjectHideFlags: 0
