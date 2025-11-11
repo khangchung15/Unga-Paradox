@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Health : MonoBehaviour
     [Tooltip("Drag and drop the health bar from canvas onto here.")]
     [SerializeField] private HealthBar healthBar;
 
+    public GameManager gameManager;
+    private bool isDead;
     public float RemainingHealthPercentage
     {
         get { return currentHealth / maxHealth; }
@@ -52,9 +55,11 @@ public class Health : MonoBehaviour
             currentHealth = 0;
         }
 
-        if (currentHealth == 0)
+        if (currentHealth == 0 && !isDead)
         {
+            isDead = true;
             OnDeath.Invoke();
+            gameManager.GameOver();
         }
         else
         {
@@ -66,6 +71,7 @@ public class Health : MonoBehaviour
     {
         if (currentHealth == maxHealth)
         {
+            OnHealed?.Invoke();
             return;
         }
         
