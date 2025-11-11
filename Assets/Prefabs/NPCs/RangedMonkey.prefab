@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileSpawn
   projectile: {fileID: 962464384698487732, guid: dbdc9cec0388e5a4686de54265c72b0a, type: 3}
-  projectilePos: {fileID: 0}
+  bulletPos: {fileID: 0}
   projectileSpeed: 8
   maxDistance: 10
   damage: 10
@@ -144,9 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChasing
   chaseSpeed: 3
-  minRepathTime: 0.15
-  minRepathDistance: 0.3
-  lookAheadDistance: 0.6
+  stopDistance: 0.5
 --- !u!114 &4487803498136611433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +180,7 @@ GameObject:
   - component: {fileID: 1882162546287243990}
   - component: {fileID: 7431250542802439041}
   - component: {fileID: 7214610923629855870}
+  - component: {fileID: 2835998984834798283}
   m_Layer: 8
   m_Name: RangedMonkey
   m_TagString: Enemy
@@ -251,7 +250,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -5428057715077813534, guid: db0361d4ee9399241bdd06893ea2b3be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -421,8 +420,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34d481aff98d1147900002a1eabb27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  hurtSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  hurtSound: {fileID: 8300000, guid: 97e71423dda1f9944ae2386fc93a342b, type: 3}
+  deathSound: {fileID: 8300000, guid: 9fca400b9e255a8468945e773d1f4a58, type: 3}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2835998984834798283}
+        m_TargetAssemblyTypeName: EnemyCollectableDrop, Assembly-CSharp
+        m_MethodName: RandomlyDropCollectable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7431250542802439041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,3 +466,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCollision
   tempIgnoreDuration: 0.15
+--- !u!114 &2835998984834798283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9058506238326024480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6052570e9fdc440beb85978a3ee53ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCollectableDrop
+  _chanceOfCollectableDrop: 0.5
