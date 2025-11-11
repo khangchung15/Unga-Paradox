@@ -978,6 +978,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1895019718}
+    - target: {fileID: 5141578818965804935, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
+      propertyPath: volume
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6717301259787470461, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5377,7 +5381,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a6b88f118b3b4504cab7c17927afaebf, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
