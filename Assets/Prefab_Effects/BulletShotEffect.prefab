@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: -5429020592233160203, guid: 302600f423c39644aa178e6e24644cca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileDamageSource
   damageAmount: 100
   damageClip: {fileID: 8300000, guid: 71d5a05e861ec474f974bd253a4f8259, type: 3}
-  destroyTime: 1
+  destroyTime: 2
 --- !u!82 &6191016833731884241
 AudioSource:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class Health : MonoBehaviour
     public float currentHealth;
     public float maxHealth;
     public bool isInvincible;
+    public bool isDashing;
+    public float dashInvincibleTime = 0.2f;
     
     [Tooltip("Drag and drop the health bar from canvas onto here.")]
     [SerializeField] private HealthBar healthBar;
@@ -36,6 +38,12 @@ public class Health : MonoBehaviour
         {
             return;
         }
+
+        if (isDashing)
+        {
+            StartCoroutine(EndInvincibleRoutine());
+            return;
+        }
         
         currentHealth -= damage;
         
@@ -60,6 +68,12 @@ public class Health : MonoBehaviour
         {
             OnDamaged.Invoke();
         }
+    }
+
+    private IEnumerator EndInvincibleRoutine()
+    {
+        yield return new WaitForSeconds(dashInvincibleTime);
+        isDashing = false;
     }
 
     public void AddHealth(float amount)

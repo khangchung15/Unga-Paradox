@@ -224,6 +224,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         float dashTime = 0.2f;
         float dashCD = 0.25f;
+        GetComponent<Health>().isDashing = true;
         yield return new WaitForSeconds(dashTime);
         movementSpeed /= dashSpeed;
         myTrailRenderer.emitting = false;

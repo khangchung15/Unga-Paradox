@@ -15,4 +15,4 @@ MonoBehaviour:
   weaponName: Revolver
   weaponPrefab: {fileID: 3101757377785725259, guid: 21870e5e95ed91043931a2027a4097c5, type: 3}
   weaponCooldown: 1.5
-  weaponSprite: {fileID: 4011165979584494121, guid: e223387f8c7232e49b15c466e361462e, type: 3}
+  weaponSprite: {fileID: -959195327, guid: ecb274c37600371488306314acfac2ff, type: 3}
