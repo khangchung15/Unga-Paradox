@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
-  m_Name: PineappleGrenade
+  m_Name: BusterSword
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
-  weaponName: PineappleGrenade
-  weaponPrefab: {fileID: 8727429313196867675, guid: 9d69bd6f4b2168444b52c96f45bf5518, type: 3}
-  weaponCooldown: 1
-  weaponSprite: {fileID: 5907130587529274049, guid: 50810e36569fc3e429f59751973598bd, type: 3}
+  weaponName: BusterSword
+  weaponPrefab: {fileID: 1001049788225507752, guid: 440dcce2a3ceb6248853b8292bb6a575, type: 3}
+  weaponCooldown: 1.25
+  weaponSprite: {fileID: 7262179028630881086, guid: 8414aa053c78b564ead74a487d4327c7, type: 3}
