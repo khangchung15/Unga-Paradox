@@ -2,27 +2,30 @@ using UnityEngine;
 
 public class RoomController : MonoBehaviour
 {
-    [SerializeField] LevelGate gate;
+    [Header("What this room controls")]
+    [SerializeField] LevelGate[] gates;
+    [SerializeField] RoomHazard[] hazards;  // <-- changed
 
     int alive;
 
-    void Start()
-    {
-        // Lock if any enemies will register at runtime
-        if (gate) gate.SetLocked(true);
-    }
+    void Start() { SetLockedAll(true); }
 
-    // Called by EnemyDeathNotifier.Awake()
-    public void RegisterEnemy()
-    {
-        alive++;
-        if (gate) gate.SetLocked(true);
-    }
+    public void RegisterEnemy() { alive++; SetLockedAll(true); }
 
-    // Called once by EnemyDeathNotifier when its EnemyHealth reports dead
     public void NotifyEnemyDied()
     {
         alive = Mathf.Max(0, alive - 1);
-        if (alive == 0 && gate) gate.SetLocked(false);
+        if (alive == 0) { SetLockedAll(false); EnableHazards(false); }
+    }
+
+    void SetLockedAll(bool locked)
+    {
+        if (gates != null) foreach (var g in gates) if (g) g.SetLocked(locked);
+        if (locked) EnableHazards(true);
+    }
+
+    void EnableHazards(bool on)
+    {
+        if (hazards != null) foreach (var h in hazards) if (h) h.Enable(on);
     }
 }
