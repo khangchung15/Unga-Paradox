@@ -15,4 +15,4 @@ MonoBehaviour:
   weaponName: Bow
   weaponPrefab: {fileID: 3282985360432197037, guid: 8abecf1d0f49acb49b0d00b0a3d03422, type: 3}
   weaponCooldown: 1
-  weaponSprite: {fileID: -7856493677412862020, guid: 44c75394984dc1d468f990c79653d929, type: 3}
+  weaponSprite: {fileID: 2138271627, guid: c54067dfd37a0774cac9763a2a206c5d, type: 3}

@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: -7856493677412862020, guid: 44c75394984dc1d468f990c79653d929, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bow
   weaponInfo: {fileID: 11400000, guid: 1b2708ac34f645b47aaee57beb5f2cb0, type: 2}
   attackSound: {fileID: 8300000, guid: e3a86e3aec3dc0440bc14686c29cb69b, type: 3}
-  attackDistance: 1
+  attackDistance: 1.5
   attackProjectile: {fileID: 7934352843315826907, guid: 326501d41be3ecb439fd7bd40f287a88, type: 3}
   attackVelocity: 10
 --- !u!82 &7979282713558769953

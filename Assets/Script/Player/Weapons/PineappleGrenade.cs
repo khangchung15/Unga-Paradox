@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class PineappleGrenade : MonoBehaviour, IWeapon
@@ -40,6 +41,11 @@ public class PineappleGrenade : MonoBehaviour, IWeapon
         return weaponInfo;
     }
 
+    private void spriteReturn()
+    {
+        spriteRenderer.enabled = true;
+    }
+
     private void MouseFollowWithOffset()
     {
         Vector2 mousePos = Input.mousePosition;
@@ -62,6 +68,7 @@ public class PineappleGrenade : MonoBehaviour, IWeapon
 
         // Get mouse position in world
         Vector2 mouseScreenPos = Input.mousePosition;
+        Vector2 playerScreenPoint = Camera.main.WorldToScreenPoint(PlayerController.Instance.transform.position);
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         mouseWorldPos.z = 0f;
 
@@ -75,13 +82,23 @@ public class PineappleGrenade : MonoBehaviour, IWeapon
         Vector3 spawnPos = PlayerController.Instance.transform.position + (Vector3)direction * attackDistance;
 
         // Instantiate projectile
-        GameObject projectile = Instantiate(attackProjectile, spawnPos, Quaternion.Euler(0, 0, angle));
-        projectile.GetComponent<Rigidbody2D>().linearVelocity = direction * attackVelocity;
+        if (mouseScreenPos.x < playerScreenPoint.x)
+        {
+            GameObject projectile = Instantiate(attackProjectile, spawnPos, Quaternion.Euler(180, 0, -angle));
+            projectile.GetComponent<Rigidbody2D>().linearVelocity = direction * attackVelocity;
+        }
+        else
+        {
+            GameObject projectile = Instantiate(attackProjectile, spawnPos, Quaternion.Euler(0, 0, angle));
+            projectile.GetComponent<Rigidbody2D>().linearVelocity = direction * attackVelocity;
+        }
 
         // Play attack sound
         if (audioSource != null)
         {
             audioSource.PlayOneShot(attackSound);
         }
+
+        Invoke("spriteReturn", 0.75f);
     }
 }
