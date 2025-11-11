@@ -474,6 +474,7 @@ MonoBehaviour:
   maxHealth: 100
   isInvincible: 0
   healthBar: {fileID: 0}
+  gameManager: {fileID: 3352751602817663253, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
   OnDamaged:
     m_PersistentCalls:
       m_Calls:

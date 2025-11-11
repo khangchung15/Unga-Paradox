@@ -14,6 +14,8 @@ public class Health : MonoBehaviour
     [Tooltip("Drag and drop the health bar from canvas onto here.")]
     [SerializeField] private HealthBar healthBar;
 
+    public GameManager gameManager;
+    private bool isDead;
     public float RemainingHealthPercentage
     {
         get { return currentHealth / maxHealth; }
@@ -53,11 +55,11 @@ public class Health : MonoBehaviour
             currentHealth = 0;
         }
 
-        if (currentHealth == 0)
+        if (currentHealth == 0 && !isDead)
         {
+            isDead = true;
             OnDeath.Invoke();
-            Scene currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(currentScene.name);
+            gameManager.GameOver();
         }
         else
         {
