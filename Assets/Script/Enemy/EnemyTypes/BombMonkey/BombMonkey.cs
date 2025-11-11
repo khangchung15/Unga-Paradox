@@ -16,12 +16,14 @@ public class BombMonkey : Enemy
         base.Awake();
         enemyHealth.StartingHealth = maxHealth;
         exploder = GetComponent<BombMonkeyExploder>();
-        if (exploder == null) exploder = gameObject.AddComponent<BombMonkeyExploder>();
+        if (exploder == null)
+            exploder = gameObject.AddComponent<BombMonkeyExploder>();
     }
 
     protected override void Start()
     {
         base.Start();
+
         SetState(EnemyStateMachine.EnemyState.Idle);
 
         if (enemyDetection != null) enemyDetection.DetectionRange = detectionRange;
@@ -30,10 +32,14 @@ public class BombMonkey : Enemy
         if (enemyHealth != null) enemyHealth.StartingHealth = maxHealth;
 
         if (enemyAttacking != null)
+        {
             enemyAttacking.OnPlayerEnteredRange += HandleDetonateOnProximity;
+        }
 
         if (stateMachine != null)
+        {
             stateMachine.OnStateChanged += HandleStateChangedForExplosion;
+        }
     }
 
     protected override void OnDestroy()
@@ -48,13 +54,14 @@ public class BombMonkey : Enemy
     private void HandleDetonateOnProximity()
     {
         if (exploder != null && !exploder.HasExploded)
-            exploder.TriggerExplosion(selfDetonated: true);
+            exploder.TriggerExplosion();
     }
 
     private void HandleStateChangedForExplosion(EnemyStateMachine.EnemyState oldState, EnemyStateMachine.EnemyState newState)
     {
         if (newState == EnemyStateMachine.EnemyState.Dead && exploder != null && !exploder.HasExploded)
-            exploder.TriggerExplosion(selfDetonated: false);
+        {
+            exploder.TriggerExplosion();
+        }
     }
 }
-

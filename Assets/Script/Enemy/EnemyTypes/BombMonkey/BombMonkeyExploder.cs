@@ -6,20 +6,18 @@ public class BombMonkeyExploder : MonoBehaviour
     [Header("Explosion")]
     [SerializeField] private float explosionRadius = 2.5f;
     [SerializeField] private float explosionDamage = 35f;
-    [SerializeField] private LayerMask damageMask;
+    [SerializeField] private LayerMask damageMask;             
     [SerializeField] private bool applyKnockback = true;
     [SerializeField] private float knockbackForce = 10f;
-    [SerializeField] private GameObject explosionVFX;
-    [SerializeField] private AudioClip explosionSFX;
-
-    [Header("Audio")]
-    [SerializeField] private AudioClip deathSFX;  // <- new
-    [SerializeField] private float selfDestructDelay = 0.05f;
+    [SerializeField] private GameObject explosionVFX;            
+    [SerializeField] private AudioClip explosionSFX;             
+    [SerializeField] private float selfDestructDelay = 0.05f;  
 
     private bool exploded;
+
     public bool HasExploded => exploded;
-    
-    public void TriggerExplosion(bool selfDetonated)
+
+    public void TriggerExplosion()
     {
         if (exploded) return;
         exploded = true;
@@ -45,13 +43,16 @@ public class BombMonkeyExploder : MonoBehaviour
             Instantiate(explosionVFX, transform.position, Quaternion.identity);
         if (explosionSFX != null)
             AudioSource.PlayClipAtPoint(explosionSFX, transform.position);
-        
-        if (deathSFX != null)
-            AudioSource.PlayClipAtPoint(deathSFX, transform.position);
 
         var enemy = GetComponent<Enemy>();
-        if (enemy != null) enemy.ForceState(EnemyStateMachine.EnemyState.Dead);
-        else Destroy(gameObject, selfDestructDelay);
+        if (enemy != null)
+        {
+            enemy.ForceState(EnemyStateMachine.EnemyState.Dead); 
+        }
+        else
+        {
+            Destroy(gameObject, selfDestructDelay);
+        }
     }
 
 #if UNITY_EDITOR
