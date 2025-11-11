@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Obstacle
   - Projectile
+  - Rock
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - No Light
   - Dead
   - PostProcessing
-  - 
+  - FallingRock
   - 
   - 
   - 
