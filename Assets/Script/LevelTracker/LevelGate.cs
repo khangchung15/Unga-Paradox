@@ -2,25 +2,27 @@ using UnityEngine;
 
 public class LevelGate : MonoBehaviour
 {
-    [SerializeField] Collider2D gateCollider;   // scene-change collider
-    [SerializeField] GameObject lockedVisual;   // optional group (your rocks)
-    [SerializeField] GameObject unlockedVisual; // optional
+    [Header("Colliders")]
+    [SerializeField] Collider2D blocker;  // solid wall while locked
+    [SerializeField] Collider2D portal;   // trigger when unlocked (optional)
 
-    [SerializeField] bool useTriggerMode = false; // FALSE = use collisions (your current LevelChanger)
+    [Header("Visuals (optional)")]
+    [SerializeField] GameObject lockedVisual;
+    [SerializeField] GameObject unlockedVisual;
+    [SerializeField] Animator anim;       // optional; bool "Open"
 
     void Reset()
     {
-        gateCollider = GetComponent<Collider2D>();
+        // Try auto-hook
+        blocker = GetComponent<Collider2D>();
     }
 
     public void SetLocked(bool locked)
     {
-        if (gateCollider)
-        {
-            gateCollider.isTrigger = useTriggerMode; // false -> collisions, true -> triggers
-            gateCollider.enabled   = !locked;        // only active when UNLOCKED
-        }
+        if (blocker) blocker.enabled = locked;        // wall ON when locked
+        if (portal)  portal.enabled  = !locked;       // portal ON when unlocked
         if (lockedVisual)   lockedVisual.SetActive(locked);
         if (unlockedVisual) unlockedVisual.SetActive(!locked);
+        if (anim) anim.SetBool("Open", !locked);
     }
 }

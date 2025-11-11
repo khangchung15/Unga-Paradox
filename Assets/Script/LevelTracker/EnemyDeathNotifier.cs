@@ -3,14 +3,14 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyHealth))]
 public class EnemyDeathNotifier : MonoBehaviour
 {
+    [SerializeField] RoomController room;   // assign OR auto-find parent
     EnemyHealth health;
-    RoomController room;
     bool announced;
 
     void Awake()
     {
         health = GetComponent<EnemyHealth>();
-        room   = FindFirstObjectByType<RoomController>(); // Unity 2022+; use FindObjectOfType if older
+        if (!room) room = GetComponentInParent<RoomController>(); // <-- key change
         if (room) room.RegisterEnemy();
     }
 
@@ -20,7 +20,7 @@ public class EnemyDeathNotifier : MonoBehaviour
         {
             announced = true;
             if (room) room.NotifyEnemyDied();
-            // Optional: if your enemy isn't destroyed elsewhere, destroy after SFX time:
+            // Optionally Destroy after death SFX:
             // Destroy(gameObject, 0.35f);
         }
     }
