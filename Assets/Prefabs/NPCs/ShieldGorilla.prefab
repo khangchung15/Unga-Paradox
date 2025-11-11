@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 6130685335589785434}
   - component: {fileID: 8020252963621176848}
   - component: {fileID: 3119113823500938570}
-  - component: {fileID: 4158325542332438522}
   - component: {fileID: -806562736680089689}
   m_Layer: 8
   m_Name: ShieldGorilla
@@ -404,19 +403,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCollision
   tempIgnoreDuration: 0.15
---- !u!114 &4158325542332438522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2444412981788145623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfd0bd9520f5c43dfa61304c5b38acd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathNotifier
-  room: {fileID: 0}
 --- !u!114 &-806562736680089689
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -276,7 +276,7 @@ public class PlayerController : Singleton<PlayerController>
         if (!isDashing) return;
         isDashing = false;
         var rb = GetComponent<Rigidbody2D>();
-        if (rb != null) rb.linearVelocity = Vector2.zero;
+        if (rb != null) rb.velocity = Vector2.zero;
         myTrailRenderer.emitting = false;
         RecomputeMovementSpeed();  
     }

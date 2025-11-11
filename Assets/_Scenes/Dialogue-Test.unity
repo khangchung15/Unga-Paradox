@@ -2409,7 +2409,7 @@ GameObject:
   - component: {fileID: 1546262475}
   - component: {fileID: 1546262474}
   - component: {fileID: 1546262473}
-  - component: {fileID: 1546262476}
+  - component: {fileID: 1546262472}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -2417,6 +2417,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1546262472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546262471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c2bd082cffc49c3b02ef605fdf83cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  dialogueData: {fileID: 11400000, guid: 7d0c56485218c423bac6ce22bd59ba25, type: 2}
+  dialoguePanel: {fileID: 250248571}
+  dialogueText: {fileID: 1990142901}
+  nameText: {fileID: 2032761381}
+  portraitImage: {fileID: 593377689}
 --- !u!61 &1546262473
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2508,7 +2525,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1907551111
-  m_SortingLayer: 9
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -236619611796383025, guid: 0f3b39b2a647f884899761e978e6adc9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2536,26 +2553,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1546262476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1546262471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 279181c11d66345ac868f5e89a6eea40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 0}
-  dialoguePanel: {fileID: 0}
-  dialogueText: {fileID: 0}
-  nameText: {fileID: 0}
-  portraitImage: {fileID: 0}
-  objectsToDestroy: []
-  oneTimeDialogue: 0
-  destroyNPCAfterOneTime: 0
 --- !u!1 &1568368013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2819,7 +2816,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546262472}
         m_TargetAssemblyTypeName: NPC, Assembly-CSharp
         m_MethodName: EndDialogue
         m_Mode: 1
@@ -3433,7 +3430,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: New Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3744,7 +3741,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -428734833
-  m_SortingLayer: 10
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -2122837972990275081, guid: 5ad47b369a6954819a4613140d3abcc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
