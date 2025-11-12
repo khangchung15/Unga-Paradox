@@ -411,7 +411,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 5
-  m_LinearDamping: 5
+  m_LinearDamping: 20
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -473,7 +473,8 @@ MonoBehaviour:
   currentHealth: 100
   maxHealth: 100
   isInvincible: 0
-  invincibleTime: 1
+  isDashing: 0
+  dashInvincibleTime: 0.2
   healthBar: {fileID: 0}
   gameManager: {fileID: 3352751602817663253, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
   OnDamaged:
