@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Class which handles player movement (no gravity version)
-/// </summary>
-public class ScientistController : MonoBehaviour
+public class ScientistController : Singleton<ScientistController>
 {
     [Header("Game Object and Component References")]
     [Tooltip("The sprite renderer that represents the player.")]
@@ -26,7 +23,6 @@ public class ScientistController : MonoBehaviour
     [Tooltip("The input action for interaction")]
     public InputAction interactAction;
 
-    // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
 
     #region Player State Variables
@@ -61,7 +57,6 @@ public class ScientistController : MonoBehaviour
             }
             else
             {
-                // Return current rotation-based facing
                 if (transform.rotation.eulerAngles.y == 180f)
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
@@ -69,6 +64,11 @@ public class ScientistController : MonoBehaviour
         }
     }
     #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     void OnEnable()
     {
@@ -100,7 +100,6 @@ public class ScientistController : MonoBehaviour
 
     private void Start()
     {
-        // If no camera is assigned, try to find the main camera
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
@@ -140,19 +139,10 @@ public class ScientistController : MonoBehaviour
         transform.position += (Vector3)currentVelocity * Time.deltaTime;
     }
 
-    /// <summary>
-    /// Description:
-    /// Updates the camera position to follow the player
-    /// Inputs: 
-    /// none
-    /// Returns: 
-    /// void (no return)
-    /// </summary>
     private void UpdateCameraPosition()
     {
         if (playerCamera != null)
         {
-            // Keep the camera's Z position unchanged (maintain camera distance)
             Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, playerCamera.transform.position.z);
             playerCamera.transform.position = targetPosition;
         }
@@ -160,16 +150,14 @@ public class ScientistController : MonoBehaviour
 
     private void HandleSpriteDirection()
     {
-        // Use transform rotation instead of sprite flipping
-        if (currentVelocity.x > 0.1f) // Moving right
+        if (currentVelocity.x > 0.1f)
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        else if (currentVelocity.x < -0.1f) // Moving left
+        else if (currentVelocity.x < -0.1f)
         {
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
-        // If not moving significantly, maintain current rotation
     }
 
     private void DetermineState()
