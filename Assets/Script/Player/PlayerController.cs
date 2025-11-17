@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Class which handles player movement (no gravity version)
 /// </summary>
-public class PlayerController : Singleton<PlayerController>
+public class PlayerController : Singleton<PlayerController>, IDataPersistence
 {
     [Header("Game Object and Component References")]
     [Tooltip("The sprite renderer that represents the player.")]
@@ -69,6 +69,18 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     #endregion
+
+    public void LoadData(GameData data)
+    {
+        // Load player position
+        this.transform.position = data.playerPosition;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        // Save player position
+        data.playerPosition = this.transform.position;
+    }
 
     protected override void Awake()
     {

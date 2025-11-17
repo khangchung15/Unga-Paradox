@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, IDataPersistence
 {
     public float currentHealth;
     public float maxHealth;
@@ -29,6 +29,18 @@ public class Health : MonoBehaviour
     public UnityEvent OnDeath;
     
     public UnityEvent OnHealed;
+
+    public void LoadData(GameData data)
+    {
+        this.currentHealth = data.playerHealth;
+        Debug.Log("Loaded Health: " + currentHealth);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerHealth = this.currentHealth;
+        Debug.Log("Saved Health: " + currentHealth);
+    }
 
     public void TakeDamage(float damage)
     {
