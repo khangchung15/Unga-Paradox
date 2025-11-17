@@ -78,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -181364445
-  m_SortingLayer: 6
+  m_SortingLayerID: 299022299
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: 4130640169021434097, guid: 9c8dee4bfe1f9524dba853c266f448ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -202,9 +202,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportDevice
   weaponInfo: {fileID: 11400000, guid: 5d9263e64d2bfac498cbdf1d52ceff9d, type: 2}
-  maxTeleportDistance: 10
+  maxTeleportDistance: 100000
   teleportSound: {fileID: 8300000, guid: f01948f27433e8240bda312d34311992, type: 3}
   teleportEffectPrefab: {fileID: 0}
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 64
+  playerRadius: 0.2
+  showIndicator: 1
+  indicatorSprite: {fileID: 0}
+  validColor: {r: 0, g: 1, b: 0, a: 0.5}
+  invalidColor: {r: 1, g: 0, b: 0, a: 0.5}
+  indicatorSize: 1
+  yOffset: 2
