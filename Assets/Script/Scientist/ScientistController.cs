@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ScientistController : Singleton<ScientistController>
+/// <summary>
+/// Class which handles player movement (no gravity version)
+/// </summary>
+public class ScientistController : MonoBehaviour
 {
     [Header("Game Object and Component References")]
     [Tooltip("The sprite renderer that represents the player.")]
@@ -23,6 +26,7 @@ public class ScientistController : Singleton<ScientistController>
     [Tooltip("The input action for interaction")]
     public InputAction interactAction;
 
+    // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
 
     #region Player State Variables
@@ -57,6 +61,7 @@ public class ScientistController : Singleton<ScientistController>
             }
             else
             {
+                // Return current rotation-based facing
                 if (transform.rotation.eulerAngles.y == 180f)
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
@@ -64,11 +69,6 @@ public class ScientistController : Singleton<ScientistController>
         }
     }
     #endregion
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
 
     void OnEnable()
     {
@@ -100,6 +100,7 @@ public class ScientistController : Singleton<ScientistController>
 
     private void Start()
     {
+        // If no camera is assigned, try to find the main camera
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
@@ -139,10 +140,19 @@ public class ScientistController : Singleton<ScientistController>
         transform.position += (Vector3)currentVelocity * Time.deltaTime;
     }
 
+    /// <summary>
+    /// Description:
+    /// Updates the camera position to follow the player
+    /// Inputs: 
+    /// none
+    /// Returns: 
+    /// void (no return)
+    /// </summary>
     private void UpdateCameraPosition()
     {
         if (playerCamera != null)
         {
+            // Keep the camera's Z position unchanged (maintain camera distance)
             Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, playerCamera.transform.position.z);
             playerCamera.transform.position = targetPosition;
         }
@@ -150,14 +160,16 @@ public class ScientistController : Singleton<ScientistController>
 
     private void HandleSpriteDirection()
     {
-        if (currentVelocity.x > 0.1f)
+        // Use transform rotation instead of sprite flipping
+        if (currentVelocity.x > 0.1f) // Moving right
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        else if (currentVelocity.x < -0.1f)
+        else if (currentVelocity.x < -0.1f) // Moving left
         {
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
+        // If not moving significantly, maintain current rotation
     }
 
     private void DetermineState()
