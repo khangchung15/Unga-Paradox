@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
+  m_Name: BusterSword
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  weaponName: BusterSword
+  weaponPrefab: {fileID: 1001049788225507752, guid: 440dcce2a3ceb6248853b8292bb6a575, type: 3}
+  weaponCooldown: 1.25
+  weaponSprite: {fileID: 7262179028630881086, guid: 8414aa053c78b564ead74a487d4327c7, type: 3}

@@ -1,0 +1,1024 @@
+fileFormatVersion: 2
+guid: 8348e8414754f08468906127f5af4e26
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7759629803248238864
+    second: Assassin-Monkey-SpriteSheet_Attacking_0
+  - first:
+      213: 5329868278409184247
+    second: Assassin-Monkey-SpriteSheet_Attacking_1
+  - first:
+      213: 2594487617746281401
+    second: Assassin-Monkey-SpriteSheet_Attacking_2
+  - first:
+      213: 3093727752115275576
+    second: Assassin-Monkey-SpriteSheet_Attacking_3
+  - first:
+      213: -4047069444789251604
+    second: Assassin-Monkey-SpriteSheet_Attacking_4
+  - first:
+      213: -2965210728745375632
+    second: Assassin-Monkey-SpriteSheet_Attacking_5
+  - first:
+      213: -7103875680722349377
+    second: Assassin-Monkey-SpriteSheet_Attacking_6
+  - first:
+      213: -2047586633144510758
+    second: Assassin-Monkey-SpriteSheet_Attacking_7
+  - first:
+      213: 8807553317632360384
+    second: Assassin-Monkey-SpriteSheet_Attacking_8
+  - first:
+      213: -3661825691476677055
+    second: Assassin-Monkey-SpriteSheet_Attacking_9
+  - first:
+      213: 2645670333603583381
+    second: Assassin-Monkey-SpriteSheet_Attacking_10
+  - first:
+      213: -2500503313860383781
+    second: Assassin-Monkey-SpriteSheet_Attacking_11
+  - first:
+      213: -2212951055556781141
+    second: Assassin-Monkey-SpriteSheet_Attacking_12
+  - first:
+      213: -7760221405367694504
+    second: Assassin-Monkey-SpriteSheet_Attacking_13
+  - first:
+      213: -8680820952500005011
+    second: Assassin-Monkey-SpriteSheet_Attacking_14
+  - first:
+      213: 748143795460899004
+    second: Assassin-Monkey-SpriteSheet_Attacking_15
+  - first:
+      213: -491998528763654457
+    second: Assassin-Monkey-SpriteSheet_Attacking_16
+  - first:
+      213: 8804733870586637557
+    second: Assassin-Monkey-SpriteSheet_Attacking_17
+  - first:
+      213: -5206442189252228057
+    second: Assassin-Monkey-SpriteSheet_Attacking_18
+  - first:
+      213: 8980915082172556510
+    second: Assassin-Monkey-SpriteSheet_Attacking_19
+  - first:
+      213: -3556984664969954932
+    second: Assassin-Monkey-SpriteSheet_Attacking_20
+  - first:
+      213: 5082655306643683272
+    second: Assassin-Monkey-SpriteSheet_Attacking_21
+  - first:
+      213: 4984277869953809193
+    second: Assassin-Monkey-SpriteSheet_Attacking_22
+  - first:
+      213: -20208065946754561
+    second: Assassin-Monkey-SpriteSheet_Attacking_23
+  - first:
+      213: 5354557949590609352
+    second: Assassin-Monkey-SpriteSheet_Attacking_24
+  - first:
+      213: -5662459207746667988
+    second: Assassin-Monkey-SpriteSheet_Attacking_25
+  - first:
+      213: 3855361421140197672
+    second: Assassin-Monkey-SpriteSheet_Attacking_26
+  - first:
+      213: 3860723133164754798
+    second: Assassin-Monkey-SpriteSheet_Attacking_27
+  - first:
+      213: -1390724118393335660
+    second: Assassin-Monkey-SpriteSheet_Attacking_28
+  - first:
+      213: -3849051014780135672
+    second: Assassin-Monkey-SpriteSheet_Attacking_29
+  - first:
+      213: 6337753641397856514
+    second: Assassin-Monkey-SpriteSheet_Attacking_30
+  - first:
+      213: 8061846836289757784
+    second: Assassin-Monkey-SpriteSheet_Attacking_31
+  - first:
+      213: 4745449602461102360
+    second: Assassin-Monkey-SpriteSheet_Attacking_32
+  - first:
+      213: 1023170710933607421
+    second: Assassin-Monkey-SpriteSheet_Attacking_33
+  - first:
+      213: -2365252253729874937
+    second: Assassin-Monkey-SpriteSheet_Attacking_34
+  - first:
+      213: 4655903276637847442
+    second: Assassin-Monkey-SpriteSheet_Attacking_35
+  - first:
+      213: -134049279212146843
+    second: Assassin-Monkey-SpriteSheet_Attacking_36
+  - first:
+      213: -5745782861889252144
+    second: Assassin-Monkey-SpriteSheet_Attacking_37
+  - first:
+      213: -2062431997730221508
+    second: Assassin-Monkey-SpriteSheet_Attacking_38
+  - first:
+      213: -3236691077587632711
+    second: Assassin-Monkey-SpriteSheet_Attacking_39
+  - first:
+      213: -642985048760248789
+    second: Assassin-Monkey-SpriteSheet_Attacking_40
+  - first:
+      213: 2616587277162464086
+    second: Assassin-Monkey-SpriteSheet_Attacking_41
+  - first:
+      213: 4186457217196750130
+    second: Assassin-Monkey-SpriteSheet_Attacking_42
+  - first:
+      213: 7152112210435666223
+    second: Assassin-Monkey-SpriteSheet_Attacking_43
+  - first:
+      213: 13773156217247417
+    second: Assassin-Monkey-SpriteSheet_Attacking_44
+  - first:
+      213: 4853715332811256590
+    second: Assassin-Monkey-SpriteSheet_Attacking_45
+  - first:
+      213: -7477172264855142423
+    second: Assassin-Monkey-SpriteSheet_Attacking_46
+  - first:
+      213: 5288897926653876042
+    second: Assassin-Monkey-SpriteSheet_Attacking_47
+  - first:
+      213: 1835718155646049714
+    second: Assassin-Monkey-SpriteSheet_Attacking_48
+  - first:
+      213: 4555362776202399668
+    second: Assassin-Monkey-SpriteSheet_Attacking_49
+  - first:
+      213: 2600969713200042988
+    second: Assassin-Monkey-SpriteSheet_Attacking_50
+  - first:
+      213: -2673209246863259720
+    second: Assassin-Monkey-SpriteSheet_Attacking_51
+  - first:
+      213: -7769418838329408163
+    second: Assassin-Monkey-SpriteSheet_Attacking_52
+  - first:
+      213: -3132277150738414594
+    second: Assassin-Monkey-SpriteSheet_Attacking_53
+  - first:
+      213: -6447520666015118942
+    second: Assassin-Monkey-SpriteSheet_Attacking_54
+  - first:
+      213: 3487644563408269005
+    second: Assassin-Monkey-SpriteSheet_Attacking_55
+  - first:
+      213: -8376187708270820462
+    second: Assassin-Monkey-SpriteSheet_Attacking_56
+  - first:
+      213: -591237486392994769
+    second: Assassin-Monkey-SpriteSheet_Attacking_57
+  - first:
+      213: 8746139938524592252
+    second: Assassin-Monkey-SpriteSheet_Attacking_58
+  - first:
+      213: 6882047490614934140
+    second: Assassin-Monkey-SpriteSheet_Attacking_59
+  - first:
+      213: 1249409910643608429
+    second: Assassin-Monkey-SpriteSheet_Attacking_60
+  - first:
+      213: -583748274709553072
+    second: Assassin-Monkey-SpriteSheet_Attacking_61
+  - first:
+      213: -3325939730336313668
+    second: Assassin-Monkey-SpriteSheet_Attacking_62
+  - first:
+      213: 3171389488556304974
+    second: Assassin-Monkey-SpriteSheet_Attacking_63
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 48
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0febad46ec1405490800000000000000
+      internalID: -7759629803248238864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_1
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f3c33ad5fe77f940800000000000000
+      internalID: 5329868278409184247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_2
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b3aaedfdb8710420800000000000000
+      internalID: 2594487617746281401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_3
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8374990dff02fea20800000000000000
+      internalID: 3093727752115275576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_4
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce1dff148cbe5d7c0800000000000000
+      internalID: -4047069444789251604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_5
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07864f47d8479d6d0800000000000000
+      internalID: -2965210728745375632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_6
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb21202d4b6f96d90800000000000000
+      internalID: -7103875680722349377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_7
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad655944ec28593e0800000000000000
+      internalID: -2047586633144510758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_8
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cf3ac5f317ba3a70800000000000000
+      internalID: 8807553317632360384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_9
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14e222e4fe49e2dc0800000000000000
+      internalID: -3661825691476677055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_10
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5951b3ba62f47b420800000000000000
+      internalID: 2645670333603583381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_11
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdb2aa9fb7d6c4dd0800000000000000
+      internalID: -2500503313860383781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_12
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bab563c5db40a41e0800000000000000
+      internalID: -2212951055556781141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_13
+      rect:
+        serializedVersion: 2
+        x: 1118
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85b0daa4fb72e4490800000000000000
+      internalID: -7760221405367694504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_14
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d67187f2657878780800000000000000
+      internalID: -8680820952500005011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_15
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb00c5171d0f16a00800000000000000
+      internalID: 748143795460899004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_16
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ce070fd1f11c29f0800000000000000
+      internalID: -491998528763654457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_17
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fcaa2a4ec2b03a70800000000000000
+      internalID: 8804733870586637557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_18
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72c830ee9600fb7b0800000000000000
+      internalID: -5206442189252228057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_19
+      rect:
+        serializedVersion: 2
+        x: 1634
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed4e7de2fae92ac70800000000000000
+      internalID: 8980915082172556510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_20
+      rect:
+        serializedVersion: 2
+        x: 1720
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8934fcfa4d03aec0800000000000000
+      internalID: -3556984664969954932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_21
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c730448218398640800000000000000
+      internalID: 5082655306643683272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_22
+      rect:
+        serializedVersion: 2
+        x: 1892
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92bff6c9056bb2540800000000000000
+      internalID: 4984277869953809193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_23
+      rect:
+        serializedVersion: 2
+        x: 1978
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff165affed438bff0800000000000000
+      internalID: -20208065946754561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_24
+      rect:
+        serializedVersion: 2
+        x: 2064
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cd9792e5163f4a40800000000000000
+      internalID: 5354557949590609352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_25
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2abe1ff957ea61b0800000000000000
+      internalID: -5662459207746667988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_26
+      rect:
+        serializedVersion: 2
+        x: 2236
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8218ec339cef08530800000000000000
+      internalID: 3855361421140197672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_27
+      rect:
+        serializedVersion: 2
+        x: 2322
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e671b601c3b049530800000000000000
+      internalID: 3860723133164754798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_28
+      rect:
+        serializedVersion: 2
+        x: 2408
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 490d89e58c723bce0800000000000000
+      internalID: -1390724118393335660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_29
+      rect:
+        serializedVersion: 2
+        x: 2494
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8075ca5ce7c659ac0800000000000000
+      internalID: -3849051014780135672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assassin-Monkey-SpriteSheet_Attacking_30
+      rect:
+        serializedVersion: 2
+        x: 2580
+        y: 0
+        width: 86
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2092575ab5934f750800000000000000
+      internalID: 6337753641397856514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b6cd93b6f73c0fd4fb0f5d64eaaa9625
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":86.0,"y":86.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Assassin-Monkey-SpriteSheet_Attacking_0: -7759629803248238864
+      Assassin-Monkey-SpriteSheet_Attacking_1: 5329868278409184247
+      Assassin-Monkey-SpriteSheet_Attacking_10: 2645670333603583381
+      Assassin-Monkey-SpriteSheet_Attacking_11: -2500503313860383781
+      Assassin-Monkey-SpriteSheet_Attacking_12: -2212951055556781141
+      Assassin-Monkey-SpriteSheet_Attacking_13: -7760221405367694504
+      Assassin-Monkey-SpriteSheet_Attacking_14: -8680820952500005011
+      Assassin-Monkey-SpriteSheet_Attacking_15: 748143795460899004
+      Assassin-Monkey-SpriteSheet_Attacking_16: -491998528763654457
+      Assassin-Monkey-SpriteSheet_Attacking_17: 8804733870586637557
+      Assassin-Monkey-SpriteSheet_Attacking_18: -5206442189252228057
+      Assassin-Monkey-SpriteSheet_Attacking_19: 8980915082172556510
+      Assassin-Monkey-SpriteSheet_Attacking_2: 2594487617746281401
+      Assassin-Monkey-SpriteSheet_Attacking_20: -3556984664969954932
+      Assassin-Monkey-SpriteSheet_Attacking_21: 5082655306643683272
+      Assassin-Monkey-SpriteSheet_Attacking_22: 4984277869953809193
+      Assassin-Monkey-SpriteSheet_Attacking_23: -20208065946754561
+      Assassin-Monkey-SpriteSheet_Attacking_24: 5354557949590609352
+      Assassin-Monkey-SpriteSheet_Attacking_25: -5662459207746667988
+      Assassin-Monkey-SpriteSheet_Attacking_26: 3855361421140197672
+      Assassin-Monkey-SpriteSheet_Attacking_27: 3860723133164754798
+      Assassin-Monkey-SpriteSheet_Attacking_28: -1390724118393335660
+      Assassin-Monkey-SpriteSheet_Attacking_29: -3849051014780135672
+      Assassin-Monkey-SpriteSheet_Attacking_3: 3093727752115275576
+      Assassin-Monkey-SpriteSheet_Attacking_30: 6337753641397856514
+      Assassin-Monkey-SpriteSheet_Attacking_4: -4047069444789251604
+      Assassin-Monkey-SpriteSheet_Attacking_5: -2965210728745375632
+      Assassin-Monkey-SpriteSheet_Attacking_6: -7103875680722349377
+      Assassin-Monkey-SpriteSheet_Attacking_7: -2047586633144510758
+      Assassin-Monkey-SpriteSheet_Attacking_8: 8807553317632360384
+      Assassin-Monkey-SpriteSheet_Attacking_9: -3661825691476677055
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

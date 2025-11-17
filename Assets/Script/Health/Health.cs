@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
     public float currentHealth;
     public float maxHealth;
     public bool isInvincible;
+    public bool isDashing;
+    public float dashInvincibleTime = 0.2f;
     
     [Tooltip("Drag and drop the health bar from canvas onto here.")]
     [SerializeField] private HealthBar healthBar;
 
+    public GameManager gameManager;
+    private bool isDead;
     public float RemainingHealthPercentage
     {
         get { return currentHealth / maxHealth; }
@@ -36,6 +41,12 @@ public class Health : MonoBehaviour
         {
             return;
         }
+
+        if (isDashing)
+        {
+            StartCoroutine(EndInvincibleRoutine());
+            return;
+        }
         
         currentHealth -= damage;
         
@@ -52,9 +63,11 @@ public class Health : MonoBehaviour
             currentHealth = 0;
         }
 
-        if (currentHealth == 0)
+        if (currentHealth == 0 && !isDead)
         {
+            isDead = true;
             OnDeath.Invoke();
+            gameManager.GameOver();
         }
         else
         {
@@ -62,10 +75,17 @@ public class Health : MonoBehaviour
         }
     }
 
+    private IEnumerator EndInvincibleRoutine()
+    {
+        yield return new WaitForSeconds(dashInvincibleTime);
+        isDashing = false;
+    }
+
     public void AddHealth(float amount)
     {
         if (currentHealth == maxHealth)
         {
+            OnHealed?.Invoke();
             return;
         }
         

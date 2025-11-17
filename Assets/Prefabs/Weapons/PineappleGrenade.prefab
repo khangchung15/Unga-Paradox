@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 479107262644993482}
   - component: {fileID: 1886938144730992864}
   - component: {fileID: 4710849195382276457}
+  - component: {fileID: -1364610282657007213}
+  - component: {fileID: 6540637548627092425}
   m_Layer: 0
   m_Name: PineappleGrenade
   m_TagString: Untagged
@@ -80,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 2
   m_Sprite: {fileID: 5907130587529274049, guid: 50810e36569fc3e429f59751973598bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -108,7 +110,6 @@ MonoBehaviour:
   weaponInfo: {fileID: 11400000, guid: 6979207cdd232d744826760eef13fc2b, type: 2}
   attackSound: {fileID: 8300000, guid: 62f00a0bd25872546be35e896e02f17c, type: 3}
   attackDistance: 0.5
-  attackCooldown: 1
   attackProjectile: {fileID: 2414143607523834084, guid: c900f38bb9bfe044290dfd3be0a5f434, type: 3}
   attackVelocity: 7
 --- !u!82 &1886938144730992864
@@ -230,3 +231,67 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1364610282657007213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727429313196867675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4cf9bb1d1e4dc4e88a17142c4de94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
+  weaponInfo: {fileID: 11400000, guid: 6979207cdd232d744826760eef13fc2b, type: 2}
+  pickupRange: 2
+  pickupKey: 101
+  pickupPromptPrefab: {fileID: 2290664792249068347, guid: d6566651767625948942eab7537b626a, type: 3}
+  promptInstance: {fileID: 0}
+  playerInRange: 0
+--- !u!61 &6540637548627092425
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727429313196867675}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.25, y: 0.25}
+    newSize: {x: 0.25, y: 0.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.53125, y: 0.75}
+  m_EdgeRadius: 0

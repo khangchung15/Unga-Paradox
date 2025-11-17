@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.bezi.sidekick": {
+      "version": "file:com.bezi.sidekick",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      }
+    },
     "com.h8man.2d.navmeshplus": {
       "version": "https://github.com/h8man/NavMeshPlus.git",
       "depth": 0,

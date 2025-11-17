@@ -11,5 +11,20 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    public GameObject gameOverUI;
 
+    public void GameOver()
+    {
+        gameOverUI.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("_Scenes/Menu");
+    }
 }

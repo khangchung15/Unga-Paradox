@@ -10,7 +10,15 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
     [Header("Teleport Options")]
     [Tooltip("If true, teleports to a specific GameObject's position. If false, uses exact coordinates")]
     public bool teleportToObject = true;
+
+    [Header("Audio (optional)")]
+    [Tooltip("If assigned, this AudioSource will be used to play the DoorSfx. Otherwise PlayClipAtPoint is used.")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip DoorSfx;
+    [Range(0f, 1f)]
+    [SerializeField] private float sfxVolume = 1f;
     
+
     [Tooltip("Exact position to teleport to (only used if teleportToObject is false)")]
     public Vector3 exactPosition;
     
@@ -27,6 +35,7 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
     private InteractionDetector interactionDetector;
     private ScientistController playerController;
     private ScientistAnimator playerAnimator;
+   
 
     void Start()
     {
@@ -57,8 +66,20 @@ public class TeleportInteractable : MonoBehaviour, IInteractable
         {
             return;
         }
-        
-        
+
+        // Play SFX immediately on interact (if assigned)
+        if (DoorSfx != null)
+        {
+            if (sfxSource != null)
+            {
+                sfxSource.PlayOneShot(DoorSfx, sfxVolume);
+            }
+            else
+            {
+                AudioSource.PlayClipAtPoint(DoorSfx, transform.position, sfxVolume);
+            }
+        }
+
         StartCoroutine(TeleportPlayer());
     }
 

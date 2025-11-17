@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: Club
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  weaponName: Club
   weaponPrefab: {fileID: 1001049788225507752, guid: 0c375ba3c7fa2654baff5205dc3f83fb, type: 3}
   weaponCooldown: 0.75
+  weaponSprite: {fileID: -1450045288052424699, guid: 22b0a904167faa040b2b5c458df23f3e, type: 3}
