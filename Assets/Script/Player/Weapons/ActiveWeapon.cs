@@ -91,4 +91,14 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
             (CurrentActiveWeapon as IWeapon).Attack();
         }
     }
+
+    public void ClearWeapon()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        CurrentActiveWeapon = null;
+    }
 }

@@ -4,120 +4,146 @@ using UnityEngine;
 
 public class ActiveInventory : MonoBehaviour
 {
-    private int activeSlotIndexNum = 0;
+    public static ActiveInventory Instance;
 
+    [Header("Hotbar Slots (Auto-filled)")]
+    public List<InventorySlot> slots = new List<InventorySlot>();
+
+    public int activeSlotIndexNum = 0;
     private PlayerControls playerControls;
 
-    private void Awake() {
+    private void Awake()
+    {
+        Instance = this;
         playerControls = new PlayerControls();
+
+        
+        slots.Clear();
+        slots.AddRange(GetComponentsInChildren<InventorySlot>());
     }
 
-    private void Start() {
-        playerControls.Inventory.Keyboard.performed += ctx => ToggleActiveSlot((int)ctx.ReadValue<float>());
+    private void Start()
+    {
+        Instance = this;
 
+        slots.Clear();
+        slots.AddRange(GetComponentsInChildren<InventorySlot>());
+
+        
+        foreach (InventorySlot s in slots)
+            s.isHotbarSlot = true;
+
+        playerControls.Inventory.Keyboard.performed += ctx => ToggleActiveSlot((int)ctx.ReadValue<float>());
         ToggleActiveHighlight(0);
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         playerControls.Enable();
     }
 
-    private void ToggleActiveSlot(int numValue) {
+  
+
+    private void ToggleActiveSlot(int numValue)
+    {
         ToggleActiveHighlight(numValue - 1);
     }
 
-    private void ToggleActiveHighlight(int indexNum) {
+    private void ToggleActiveHighlight(int indexNum)
+    {
         activeSlotIndexNum = indexNum;
 
-        foreach (Transform inventorySlot in this.transform)
+       
+        foreach (Transform inventorySlot in transform)
         {
             inventorySlot.GetChild(0).gameObject.SetActive(false);
         }
 
-        this.transform.GetChild(indexNum).GetChild(0).gameObject.SetActive(true);
+        
+        transform.GetChild(indexNum).GetChild(0).gameObject.SetActive(true);
 
         ChangeActiveWeapon();
     }
 
-    private void ChangeActiveWeapon() {
-        if (ActiveWeapon.Instance.CurrentActiveWeapon != null)
-        {
-            Destroy(ActiveWeapon.Instance.CurrentActiveWeapon.gameObject);
-        }
+ 
 
-        if (!transform.GetChild(activeSlotIndexNum).GetComponentInChildren<InventorySlot>())
+    private void ChangeActiveWeapon()
+    {
+
+        ActiveWeapon.Instance.ClearWeapon();
+
+        InventorySlot slot = GetCurrentSlot();
+
+        if (slot == null || slot.weaponInfo == null)
         {
             ActiveWeapon.Instance.WeaponNull();
             return;
         }
 
-        GameObject weaponToSpawn = transform.GetChild(activeSlotIndexNum).GetComponentInChildren<InventorySlot>().GetWeaponInfo().weaponPrefab;
+        GameObject weaponToSpawn = slot.weaponInfo.weaponPrefab;
 
-        GameObject newWeapon = Instantiate(weaponToSpawn, ActiveWeapon.Instance.transform.position, Quaternion.identity);
+        GameObject newWeapon = Instantiate(
+            weaponToSpawn,
+            ActiveWeapon.Instance.transform.position,
+            Quaternion.identity);
 
         newWeapon.transform.parent = ActiveWeapon.Instance.transform;
 
         ActiveWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());
     }
+
+    
+    public void ReplaceSlot(int slotIndex, WeaponInfo newWeapon)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count)
+        {
+            Debug.LogWarning($"ReplaceSlot INVALID index: {slotIndex}");
+            return;
+        }
+
+        InventorySlot slot = slots[slotIndex];
+        slot.SetWeaponInfo(newWeapon);
+
+       
+        if (slotIndex == activeSlotIndexNum)
+        {
+            ChangeActiveWeapon();
+        }
+    }
+
+    public void ForceEquipSlot(int index)
+    {
+        activeSlotIndexNum = index;
+        ToggleActiveHighlight(index);
+        ChangeActiveWeapon();   
+    }
+
     public void ReplaceActiveSlot(WeaponInfo newWeaponInfo)
     {
-        if (newWeaponInfo == null) return;
+       
+        ReplaceSlot(activeSlotIndexNum, newWeaponInfo);
+    }
 
-        
-        if (activeSlotIndexNum < 0 || activeSlotIndexNum >= transform.childCount)
-        {
-            Debug.LogWarning($"Invalid slot index {activeSlotIndexNum}");
+    public void ClearSlot(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count)
             return;
-        }
+
+        slots[slotIndex].SetWeaponInfo(null);
 
         
-        Transform activeSlot = transform.GetChild(activeSlotIndexNum);
-        Debug.Log($"[Inventory] Replacing weapon in slot: {activeSlot.name}");
-
-        
-        InventorySlot slot = activeSlot.GetComponent<InventorySlot>();
-        if (slot == null)
+        if (slotIndex == activeSlotIndexNum)
         {
-            Transform item = activeSlot.Find("Item");
-            if (item != null)
-            {
-                slot = item.GetComponent<InventorySlot>();
-            }
+            ActiveWeapon.Instance.WeaponNull();
         }
+    }
 
-        if (slot == null)
-        {
-            Debug.LogWarning($"[Inventory] No InventorySlot found in {activeSlot.name} or its children.");
-            return;
-        }
+    
+    public InventorySlot GetCurrentSlot()
+    {
+        if (activeSlotIndexNum < 0 || activeSlotIndexNum >= slots.Count)
+            return null;
 
-        
-        slot.SetWeaponInfo(newWeaponInfo);
-
-        
-        Transform itemTransform = activeSlot.Find("Item");
-        if (itemTransform != null)
-        {
-            var icon = itemTransform.GetComponent<UnityEngine.UI.Image>();
-            if (icon != null)
-            {
-                if (newWeaponInfo.weaponSprite != null)
-                {
-                    icon.sprite = newWeaponInfo.weaponSprite;
-                    icon.enabled = true;
-                    Debug.Log($"[Inventory] Updated icon for {newWeaponInfo.weaponName}");
-                }
-                else
-                {
-                    Debug.LogWarning($"[Inventory] No weapon sprite found for {newWeaponInfo.weaponName}");
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"[Inventory] Item object in {activeSlot.name} has no Image component.");
-            }
-        }
-
-        Debug.Log($"[Inventory] Slot {activeSlotIndexNum} now holds {newWeaponInfo.weaponName}");
+        return slots[activeSlotIndexNum];
     }
 }
