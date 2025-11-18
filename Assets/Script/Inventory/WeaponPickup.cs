@@ -10,22 +10,19 @@ public class WeaponPickup : MonoBehaviour
     public KeyCode pickupKey = KeyCode.E;
     public GameObject pickupPromptPrefab;
 
-    [HideInInspector] public GameObject promptInstance;
-    [HideInInspector] public bool playerInRange = false;
+    private GameObject promptInstance;
+    private bool playerInRange = false;
 
     private Transform player;
     private ActiveInventory playerInventory;
 
     private void Start()
     {
-        
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         playerInventory = FindObjectOfType<ActiveInventory>();
 
-        if (playerInventory != null)
-            Debug.Log("[WeaponPickup] Found ActiveInventory: " + playerInventory.name);
-        else
-            Debug.LogWarning("[WeaponPickup] Could not find ActiveInventory in scene!");
+        if (playerInventory == null)
+            Debug.LogWarning("[WeaponPickup] Could not find ActiveInventory!");
 
         
         if (pickupPromptPrefab != null)
@@ -33,16 +30,22 @@ public class WeaponPickup : MonoBehaviour
             promptInstance = Instantiate(
                 pickupPromptPrefab,
                 transform.position + Vector3.up * 1.2f,
-                Quaternion.identity
+                Quaternion.identity,
+                transform
             );
-            promptInstance.transform.SetParent(transform);
-            promptInstance.SetActive(false); 
+            promptInstance.SetActive(false);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.CompareTag("Player"))
+        if (playerInRange && Input.GetKeyDown(pickupKey))
+            PickupWeapon();
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
         {
             playerInRange = true;
             if (promptInstance != null)
@@ -50,9 +53,9 @@ public class WeaponPickup : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D col)
     {
-        if (collision.CompareTag("Player"))
+        if (col.CompareTag("Player"))
         {
             playerInRange = false;
             if (promptInstance != null)
@@ -60,79 +63,58 @@ public class WeaponPickup : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (playerInRange && Input.GetKeyDown(pickupKey))
-        {
-            PickupWeapon();
-        }
-    }
-
     private void PickupWeapon()
     {
         if (weaponInfo == null)
         {
-            Debug.LogWarning("WeaponPickup: missing WeaponInfo!");
+            Debug.LogWarning("[WeaponPickup] Cannot pick up weapon — weaponInfo missing!");
             return;
         }
 
         
         if (ActiveWeapon.Instance.CurrentActiveWeapon != null)
         {
-            MonoBehaviour currentWeapon = ActiveWeapon.Instance.CurrentActiveWeapon;
-            IWeapon currentWeaponInterface = currentWeapon as IWeapon;
+            MonoBehaviour oldWeaponMB = ActiveWeapon.Instance.CurrentActiveWeapon;
+            IWeapon oldWepInterface = oldWeaponMB as IWeapon;
 
-            if (currentWeaponInterface != null)
+            if (oldWepInterface != null)
             {
-                WeaponInfo oldWeaponInfo = currentWeaponInterface.GetWeaponInfo();
+                WeaponInfo oldWeaponInfo = oldWepInterface.GetWeaponInfo();
 
-                if (oldWeaponInfo != null)
+                if (oldWeaponInfo != null && oldWeaponInfo.pickupPrefab != null)
                 {
                     
-                    GameObject dropped = Instantiate(gameObject);
-                    dropped.transform.position = player.position + player.right * 0.7f;
+                    GameObject dropped = Instantiate(oldWeaponInfo.pickupPrefab);
+                    dropped.transform.position = player.position + (Vector3)(player.right * 0.7f);
 
                     
-                    WeaponPickup pickupScript = dropped.GetComponent<WeaponPickup>();
-                    pickupScript.weaponInfo = oldWeaponInfo;
-                    pickupScript.playerInRange = false;
-
-                    if (pickupScript.promptInstance != null)
-                        pickupScript.promptInstance.SetActive(false);
-
-                    
-                    SpriteRenderer sr = dropped.GetComponent<SpriteRenderer>();
-                    if (sr != null && oldWeaponInfo.weaponSprite != null)
-                        sr.sprite = oldWeaponInfo.weaponSprite;
-
-                   
                     Rigidbody2D rb = dropped.GetComponent<Rigidbody2D>();
                     if (rb != null)
                         rb.AddForce(player.right * 2f, ForceMode2D.Impulse);
 
-                    Debug.Log($"Dropped old weapon: {oldWeaponInfo.weaponName}");
+                    Debug.Log($"[WeaponPickup] Dropped old weapon: {oldWeaponInfo.weaponName}");
                 }
             }
 
-            
-            Destroy(currentWeapon.gameObject);
+
+            ActiveWeapon.Instance.ClearWeapon();
         }
 
-        
+
         if (playerInventory != null)
             playerInventory.ReplaceActiveSlot(weaponInfo);
 
         
-        GameObject newWeapon = Instantiate(
+        GameObject newWeaponObj = Instantiate(
             weaponInfo.weaponPrefab,
             ActiveWeapon.Instance.transform.position,
             Quaternion.identity
         );
 
-        newWeapon.transform.SetParent(ActiveWeapon.Instance.transform);
-        ActiveWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());
+        newWeaponObj.transform.SetParent(ActiveWeapon.Instance.transform);
+        ActiveWeapon.Instance.NewWeapon(newWeaponObj.GetComponent<MonoBehaviour>());
 
-        
+      
         Destroy(gameObject);
     }
 }
