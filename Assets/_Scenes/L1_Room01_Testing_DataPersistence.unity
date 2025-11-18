@@ -180,6 +180,10 @@ PrefabInstance:
       propertyPath: room
       value: 
       objectReference: {fileID: 1619809328}
+    - target: {fileID: 8020252963621176848, guid: 14680bbc5a061ef45aed1466cfe49eec, type: 3}
+      propertyPath: id
+      value: bdcc5f38-c903-4549-a40c-f22abd624b6f
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6058,6 +6062,10 @@ PrefabInstance:
       propertyPath: room
       value: 
       objectReference: {fileID: 1619809328}
+    - target: {fileID: 8020252963621176848, guid: 14680bbc5a061ef45aed1466cfe49eec, type: 3}
+      propertyPath: id
+      value: 1039ae53-95d6-4306-8c88-c4679c076959
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6451,6 +6459,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1882162546287243990, guid: 06d60bc39cc1b8e40a387bc7e246b6ca, type: 3}
+      propertyPath: id
+      value: 590bdc7b-4799-4464-a0fe-4e9a4c0705e2
+      objectReference: {fileID: 0}
     - target: {fileID: 9058506238326024480, guid: 06d60bc39cc1b8e40a387bc7e246b6ca, type: 3}
       propertyPath: m_Name
       value: RangedMonkey (2)
@@ -6537,6 +6549,10 @@ PrefabInstance:
       propertyPath: room
       value: 
       objectReference: {fileID: 1619809328}
+    - target: {fileID: 8020252963621176848, guid: 14680bbc5a061ef45aed1466cfe49eec, type: 3}
+      propertyPath: id
+      value: 627ee6f1-04ae-47d9-a8ff-812cf61e9a1b
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6612,6 +6628,10 @@ PrefabInstance:
     - target: {fileID: 5582492331737969575, guid: 78b4a2655ea54b146b7b6d84ae21a1eb, type: 3}
       propertyPath: m_Name
       value: AxeMonkey (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955645271013455031, guid: 78b4a2655ea54b146b7b6d84ae21a1eb, type: 3}
+      propertyPath: id
+      value: 15e32287-d2a9-4d69-b1f5-f46bd071df6c
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7037,6 +7057,10 @@ PrefabInstance:
       propertyPath: room
       value: 
       objectReference: {fileID: 1619809328}
+    - target: {fileID: 8020252963621176848, guid: 14680bbc5a061ef45aed1466cfe49eec, type: 3}
+      propertyPath: id
+      value: abcfa878-209e-4064-9367-c001f9433add
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16274,6 +16298,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1882162546287243990, guid: 06d60bc39cc1b8e40a387bc7e246b6ca, type: 3}
+      propertyPath: id
+      value: 0c01db24-11e6-4705-944b-83a27e688bfa
+      objectReference: {fileID: 0}
     - target: {fileID: 9058506238326024480, guid: 06d60bc39cc1b8e40a387bc7e246b6ca, type: 3}
       propertyPath: m_Name
       value: RangedMonkey
@@ -16718,6 +16746,10 @@ PrefabInstance:
       propertyPath: room
       value: 
       objectReference: {fileID: 1619809328}
+    - target: {fileID: 8020252963621176848, guid: 14680bbc5a061ef45aed1466cfe49eec, type: 3}
+      propertyPath: id
+      value: 6eb6f11f-cd26-4616-9634-7e885daecdba
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16969,6 +17001,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AxeMonkey
       objectReference: {fileID: 0}
+    - target: {fileID: 6955645271013455031, guid: 78b4a2655ea54b146b7b6d84ae21a1eb, type: 3}
+      propertyPath: id
+      value: 08254571-a7c1-45a1-ab74-4c102a664980
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17042,6 +17078,10 @@ PrefabInstance:
     - target: {fileID: 1053583552025227564, guid: 06d60bc39cc1b8e40a387bc7e246b6ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882162546287243990, guid: 06d60bc39cc1b8e40a387bc7e246b6ca, type: 3}
+      propertyPath: id
+      value: 7775d610-56dd-4ff5-a583-3ffb46da11f6
       objectReference: {fileID: 0}
     - target: {fileID: 9058506238326024480, guid: 06d60bc39cc1b8e40a387bc7e246b6ca, type: 3}
       propertyPath: m_Name
@@ -20268,6 +20308,10 @@ PrefabInstance:
       propertyPath: room
       value: 
       objectReference: {fileID: 1619809328}
+    - target: {fileID: 8020252963621176848, guid: 14680bbc5a061ef45aed1466cfe49eec, type: 3}
+      propertyPath: id
+      value: 946b6543-f519-4720-8eca-c1d301d7dd4e
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
