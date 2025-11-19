@@ -16,6 +16,12 @@ public class ActiveInventory : MonoBehaviour
     private void Start() {
         playerControls.Inventory.Keyboard.performed += ctx => ToggleActiveSlot((int)ctx.ReadValue<float>());
 
+        StartCoroutine(WaitForLoad());
+    }
+
+    private IEnumerator WaitForLoad() 
+    {
+        yield return new WaitForSeconds(0.001f);
         ToggleActiveHighlight(activeSlotIndexNum);
     }
 
@@ -27,7 +33,7 @@ public class ActiveInventory : MonoBehaviour
         ToggleActiveHighlight(numValue - 1);
     }
 
-    private void ToggleActiveHighlight(int indexNum) {
+    public void ToggleActiveHighlight(int indexNum) {
         activeSlotIndexNum = indexNum;
 
         foreach (Transform inventorySlot in this.transform)
