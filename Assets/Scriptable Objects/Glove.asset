@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: Glove
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  id: 6f1b4f25-b3a1-4352-a94a-87c7d05a00d2
   weaponName: Glove
   weaponPrefab: {fileID: 1309011408421123062, guid: eb50f164973b9fd4eae9ce37d10166c4, type: 3}
   weaponCooldown: 0.5

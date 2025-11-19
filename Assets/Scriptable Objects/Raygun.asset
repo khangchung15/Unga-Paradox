@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: Raygun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  id: 72e6d51e-f396-4441-b72b-a3a2d862eef1
   weaponName: RayGun
   weaponPrefab: {fileID: 1863031563388435347, guid: 076b13dd486564248acc005c24d94baa, type: 3}
   weaponCooldown: 1.5

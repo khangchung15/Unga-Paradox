@@ -8,6 +8,7 @@ public class GameData
     public float playerHealth;
     public Vector3 playerPosition;
     public SerializableDictionary<string, bool> enemiesKilled;
+    public SerializableDictionary<int, string> weaponHotbar;
     //public SerializableDictionary<string, int> enemiesHealth;
     //public SerializableDictionary<string, Vector3> enemiesPosition;
 
@@ -19,6 +20,7 @@ public class GameData
         this.playerHealth = 100;
         playerPosition = playerPos;
         enemiesKilled = new SerializableDictionary<string, bool>();
+        weaponHotbar = new SerializableDictionary<int, string>();
         //enemiesHealth = new SerializableDictionary<string, int>();
         //enemiesPosition = new SerializableDictionary<string, Vector3>();
     }

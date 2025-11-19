@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: EnergySword
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  id: 135ad71a-ab89-45c2-b984-a0579a11ecd6
   weaponName: EnergySword
   weaponPrefab: {fileID: 1001049788225507752, guid: fd32dc15e19740247917de28dc1d4f0e, type: 3}
   weaponCooldown: 2

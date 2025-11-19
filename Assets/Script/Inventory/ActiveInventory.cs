@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ActiveInventory : MonoBehaviour
 {
-    private int activeSlotIndexNum = 0;
+    [Header("Please choose between 0-4")]
+    [SerializeField] private int activeSlotIndexNum = 0;
 
     private PlayerControls playerControls;
 
@@ -15,7 +16,7 @@ public class ActiveInventory : MonoBehaviour
     private void Start() {
         playerControls.Inventory.Keyboard.performed += ctx => ToggleActiveSlot((int)ctx.ReadValue<float>());
 
-        ToggleActiveHighlight(0);
+        ToggleActiveHighlight(activeSlotIndexNum);
     }
 
     private void OnEnable() {

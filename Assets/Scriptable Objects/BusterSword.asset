@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: BusterSword
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  id: 0196098b-7ae9-4316-af36-de7bc5d5e4c7
   weaponName: BusterSword
   weaponPrefab: {fileID: 1001049788225507752, guid: 440dcce2a3ceb6248853b8292bb6a575, type: 3}
   weaponCooldown: 1.25

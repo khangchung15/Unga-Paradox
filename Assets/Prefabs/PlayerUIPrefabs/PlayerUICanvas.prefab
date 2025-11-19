@@ -544,6 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
+  slotIndex: 2
   weaponInfo: {fileID: 11400000, guid: 215fd52b0f0718f458e520247ee47695, type: 2}
 --- !u!1 &1114637906205148311
 GameObject:
@@ -687,8 +688,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c57fbf8a5460f6a47bda4e781d86ec6f, type: 2}
-  m_sharedMaterial: {fileID: 3320136920272507619, guid: c57fbf8a5460f6a47bda4e781d86ec6f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1538,6 +1539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
+  slotIndex: 1
   weaponInfo: {fileID: 11400000, guid: 565f43f27277952458f615720374f521, type: 2}
 --- !u!1 &3835033498472420477
 GameObject:
@@ -1840,6 +1842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
+  slotIndex: 4
   weaponInfo: {fileID: 11400000, guid: c9f900297ab93e041be0a452daeb74b3, type: 2}
 --- !u!1 &6109046977774041925
 GameObject:
@@ -2469,6 +2472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
+  slotIndex: 3
   weaponInfo: {fileID: 11400000, guid: 1b2708ac34f645b47aaee57beb5f2cb0, type: 2}
 --- !u!1 &7069424046538534088
 GameObject:
@@ -3071,6 +3075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f1402ea1adddf46977d5fae5884362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
+  slotIndex: 0
   weaponInfo: {fileID: 11400000, guid: e4a18937349bfa14ea41e27571c9846a, type: 2}
 --- !u!1 &8987087936098419469
 GameObject:

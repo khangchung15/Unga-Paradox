@@ -3,6 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "New Weapon")]
 public class WeaponInfo : ScriptableObject
 {
+    [Header("Weapon ID Settings")]
+    public string id;
+
+    [ContextMenu("Generate ID")]
+    private void GenerateGuid()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
+
     [Header("Weapon Settings")]
     public string weaponName;          
     public GameObject weaponPrefab;    
