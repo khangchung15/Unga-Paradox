@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,22 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     [Header("Player Control")]
     [SerializeField] private bool hidePlayerDuringCutscene = true;
     [SerializeField] private bool lockPlayerPosition = true;
+    
+    [Header("Gravity Control")]
+    [Tooltip("Rigidbody2D objects that will have gravity disabled during cutscenes")]
+    [SerializeField] private Rigidbody2D[] rigidbodiesWithGravity;
+    [SerializeField] private bool disableGravityDuringCutscenes = false;
+    [SerializeField] private bool enableGravityAfterSecondCutscene = true;
+    
+    [Header("Collision Control")]
+    [Tooltip("Colliders that will be disabled at start and enabled after second cutscene")]
+    [SerializeField] private Collider2D[] collidersToDisable;
+    [SerializeField] private bool disableCollisionDuringCutscenes = false;
+    
+    [Header("Opposite Collision Control")]
+    [Tooltip("Colliders that will be enabled at start and disabled after second cutscene")]
+    [SerializeField] private Collider2D[] collidersToEnableAtStart;
+    [SerializeField] private bool enableCollisionAtStart = false;
     
     [Header("Music Settings")]
     [SerializeField] private bool playMusicDuringCutscene = false;
@@ -45,6 +62,22 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     [SerializeField] private NPC npcToTrigger;
     [SerializeField] private float dialogueStartDelay = 0.5f;
     
+    [Header("Second Cutscene After Dialogue")]
+    [SerializeField] private bool triggerSecondCutscene = false;
+    [SerializeField] private PlayableDirector secondTimeline;
+    [SerializeField] private float secondCutsceneDelay = 0.5f;
+    [SerializeField] private bool hidePlayerDuringSecondCutscene = true;
+    [SerializeField] private bool transitionAfterSecondCutscene = false;
+    [SerializeField] private string secondCutsceneTargetScene = "";
+    [SerializeField] private float secondCutsceneTransitionDelay = 0f;
+    
+    [Header("Skip Settings")]
+    [SerializeField] private bool allowSkip = true;
+    [SerializeField] private GameObject skipPrompt;
+    [SerializeField] private float skipDelay = 1f;
+    [SerializeField] private bool useNewInputSystem = true;
+    [SerializeField] private string skipTargetScene = "";
+    
     private bool hasBeenTriggered = false;
     private bool hasBeenUsed = false;
     private GameObject player;
@@ -54,11 +87,59 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
     private Collider2D triggerCollider;
     private AudioSource musicAudioSource;
     private AudioClip previousMusic;
+    private bool isWaitingForDialogue = false;
+    private bool isCutsceneActive = false;
+    private float skipTimer = 0f;
+    private bool canSkip = false;
+    private bool isFirstCutscene = true;
+    
+    // Store original gravity and collider states
+    private Dictionary<Rigidbody2D, float> originalGravityScales = new Dictionary<Rigidbody2D, float>();
+    private Dictionary<Collider2D, bool> originalColliderStates = new Dictionary<Collider2D, bool>();
+    private Dictionary<Collider2D, bool> originalOppositeColliderStates = new Dictionary<Collider2D, bool>();
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag(playerTag);
         triggerCollider = GetComponent<Collider2D>();
+        
+        // Store original gravity scales
+        if (disableGravityDuringCutscenes && rigidbodiesWithGravity != null)
+        {
+            foreach (Rigidbody2D rb in rigidbodiesWithGravity)
+            {
+                if (rb != null)
+                {
+                    originalGravityScales[rb] = rb.gravityScale;
+                }
+            }
+        }
+        
+        // Store original collider states and disable them at start
+        if (disableCollisionDuringCutscenes && collidersToDisable != null)
+        {
+            foreach (Collider2D col in collidersToDisable)
+            {
+                if (col != null)
+                {
+                    originalColliderStates[col] = col.enabled;
+                    col.enabled = false; // Disable at start so player can walk through
+                }
+            }
+        }
+        
+        // Store original opposite collider states and enable them at start
+        if (enableCollisionAtStart && collidersToEnableAtStart != null)
+        {
+            foreach (Collider2D col in collidersToEnableAtStart)
+            {
+                if (col != null)
+                {
+                    originalOppositeColliderStates[col] = col.enabled;
+                    col.enabled = true; // Enable at start (solid)
+                }
+            }
+        }
         
         // Get or create AudioSource for music
         if (playMusicDuringCutscene)
@@ -68,21 +149,54 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             {
                 musicAudioSource = gameObject.AddComponent<AudioSource>();
                 musicAudioSource.playOnAwake = false;
-                musicAudioSource.loop = loopMusic; // Set loop based on option
+                musicAudioSource.loop = loopMusic;
             }
         }
         
         if (interactionIcon != null)
             interactionIcon.SetActive(false);
             
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
     }
 
-    // Automatic trigger when entering region (if interaction not required)
+    void Update()
+    {
+        if (isWaitingForDialogue && npcToTrigger != null)
+        {
+            if (!npcToTrigger.IsDialogueActive())
+            {
+                isWaitingForDialogue = false;
+                StartCoroutine(TriggerSecondCutsceneAfterDelay());
+            }
+        }
+        
+        if (isCutsceneActive && allowSkip)
+        {
+            if (!canSkip)
+            {
+                skipTimer += Time.deltaTime;
+                if (skipTimer >= skipDelay)
+                {
+                    canSkip = true;
+                    if (skipPrompt != null)
+                        skipPrompt.SetActive(true);
+                }
+            }
+            else
+            {
+                if (CheckSkipInput())
+                {
+                    SkipCutscene();
+                }
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(playerTag))
         {
-            
             if (!requireInteraction)
             {
                 if (!(playOnce && hasBeenTriggered))
@@ -92,7 +206,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             }
             else
             {
-                // For interaction mode, just update the interaction icon
                 UpdateInteractionIcon();
             }
         }
@@ -115,17 +228,13 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         }
     }
 
-    // IInteractable implementation - SIMPLIFIED like TeleportInteractable
     public bool CanInteract()
     {
-        // If one-time use and already used, can't interact again
         if (playOnce && hasBeenUsed)
         {
             return false;
         }
         
-        // Always return true if not requiring interaction (for detection purposes)
-        // The actual trigger logic is handled in OnTriggerEnter2D for auto-trigger
         return requireInteraction;
     }
     
@@ -139,98 +248,265 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         if (playOnce && hasBeenUsed)
             return;
         
-        // Mark as used if one-time
         if (playOnce)
         {
             hasBeenUsed = true;
             hasBeenTriggered = true;
         }
         
-        // Start music before disabling player (in case music affects player state)
+        // Disable gravity if configured
+        if (disableGravityDuringCutscenes)
+        {
+            DisableGravity();
+        }
+        
         if (playMusicDuringCutscene)
         {
             StartCutsceneMusic();
         }
         
-        // Disable player during cutscene (using same method as NPC)
         FindAndDisablePlayerMovement();
-        
-        // Play the timeline
+        SetupSkipSystem();
         timeline.Play();
         
-        // Hide interaction icon
         if (interactionIcon != null)
             interactionIcon.SetActive(false);
         
-        // Disable trigger if play once
         if (playOnce && triggerCollider != null)
         {
             triggerCollider.enabled = false;
         }
         
-        // Listen for when the cutscene ends
         StartCoroutine(WaitForCutsceneToEnd());
     }
 
-    private IEnumerator WaitForCutsceneToEnd()
+    private void DisableGravity()
     {
-        yield return new WaitUntil(() => timeline.state != PlayState.Playing);
+        if (rigidbodiesWithGravity != null)
+        {
+            foreach (Rigidbody2D rb in rigidbodiesWithGravity)
+            {
+                if (rb != null)
+                {
+                    rb.gravityScale = 0f;
+                    rb.linearVelocity = Vector2.zero; // Stop any current movement
+                }
+            }
+        }
+    }
+
+    private void EnableGravity()
+    {
+        // Re-enable gravity
+        if (rigidbodiesWithGravity != null)
+        {
+            foreach (Rigidbody2D rb in rigidbodiesWithGravity)
+            {
+                if (rb != null && originalGravityScales.ContainsKey(rb))
+                {
+                    rb.gravityScale = 1;
+                }
+            }
+        }
         
+        // Re-enable colliders that were disabled at start
+        if (disableCollisionDuringCutscenes && collidersToDisable != null)
+        {
+            foreach (Collider2D col in collidersToDisable)
+            {
+                if (col != null && originalColliderStates.ContainsKey(col))
+                {
+                    col.enabled = originalColliderStates[col];
+                }
+            }
+        }
         
-        // Stop music after cutscene
-        if (playMusicDuringCutscene)
+        // Disable colliders that were enabled at start (opposite behavior)
+        if (enableCollisionAtStart && collidersToEnableAtStart != null)
+        {
+            foreach (Collider2D col in collidersToEnableAtStart)
+            {
+                if (col != null)
+                {
+                    col.enabled = false; // Disable after second cutscene
+                }
+            }
+        }
+    }
+
+    private void SetupSkipSystem()
+    {
+        isCutsceneActive = true;
+        isFirstCutscene = true;
+        skipTimer = 0f;
+        canSkip = false;
+        
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
+    }
+
+    private void SetupSecondCutsceneSkip()
+    {
+        isCutsceneActive = true;
+        isFirstCutscene = false;
+        skipTimer = 0f;
+        canSkip = false;
+        
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
+    }
+
+    private bool CheckSkipInput()
+    {
+        if (useNewInputSystem)
+        {
+            #if ENABLE_INPUT_SYSTEM
+            var keyboard = UnityEngine.InputSystem.Keyboard.current;
+            var gamepad = UnityEngine.InputSystem.Gamepad.current;
+            
+            return (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame || 
+                                        keyboard.escapeKey.wasPressedThisFrame)) ||
+                   (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame);
+            #else
+            return UnityEngine.Input.GetKeyDown(KeyCode.Space) || 
+                   UnityEngine.Input.GetKeyDown(KeyCode.Escape);
+            #endif
+        }
+        else
+        {
+            return UnityEngine.Input.GetKeyDown(KeyCode.Space) || 
+                   UnityEngine.Input.GetKeyDown(KeyCode.Escape);
+        }
+    }
+
+    private void SkipCutscene()
+    {
+        if (!isCutsceneActive || !canSkip) return;
+        
+        if (isFirstCutscene && timeline != null && timeline.state == PlayState.Playing)
+        {
+            timeline.Stop();
+        }
+        else if (!isFirstCutscene && secondTimeline != null && secondTimeline.state == PlayState.Playing)
+        {
+            secondTimeline.Stop();
+        }
+        
+        if (playMusicDuringCutscene && musicAudioSource != null && musicAudioSource.isPlaying)
         {
             StopCutsceneMusic();
         }
         
-        // Trigger NPC dialogue if configured
-        if (triggerNPCDialogueAfterCutscene && npcToTrigger != null)
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
+        
+        // Enable gravity if skipping after second cutscene
+        if (!isFirstCutscene && enableGravityAfterSecondCutscene)
         {
-            yield return StartCoroutine(TriggerNPCDialogue());
+            EnableGravity();
         }
         
-        // Handle scene transition if enabled
-        if (transitionToNewScene && !string.IsNullOrEmpty(targetSceneName))
+        string sceneToLoad = skipTargetScene;
+        if (string.IsNullOrEmpty(sceneToLoad))
         {
-            yield return StartCoroutine(TransitionToNewScene());
+            if (isFirstCutscene && transitionToNewScene && !string.IsNullOrEmpty(targetSceneName))
+            {
+                sceneToLoad = targetSceneName;
+            }
+            else if (!isFirstCutscene && transitionAfterSecondCutscene && !string.IsNullOrEmpty(secondCutsceneTargetScene))
+            {
+                sceneToLoad = secondCutsceneTargetScene;
+            }
+        }
+        
+        if (!string.IsNullOrEmpty(sceneToLoad))
+        {
+            SceneManager.LoadScene(sceneToLoad);
         }
         else
         {
-            // Only re-enable player if we're NOT transitioning to a new scene
-            // AND not triggering NPC dialogue (NPC dialogue will handle player control)
-            if (!triggerNPCDialogueAfterCutscene)
-            {
-                EnablePlayerMovement();
-            }
-            
-            // Destroy objects if any
+            EnablePlayerMovement();
             DestroyObjects();
             
-            // Destroy if configured to do so
             if (destroyAfterUse)
             {
                 Destroy(gameObject);
             }
         }
         
+        isCutsceneActive = false;
+    }
+
+    public void SkipButton()
+    {
+        SkipCutscene();
+    }
+
+    private IEnumerator WaitForCutsceneToEnd()
+    {
+        yield return new WaitUntil(() => timeline.state != PlayState.Playing);
+        
+        isCutsceneActive = false;
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
+        
+        if (playMusicDuringCutscene)
+        {
+            StopCutsceneMusic();
+        }
+        
+        if (triggerNPCDialogueAfterCutscene && npcToTrigger != null)
+        {
+            yield return StartCoroutine(TriggerNPCDialogue());
+            
+            if (triggerSecondCutscene && secondTimeline != null)
+            {
+                isWaitingForDialogue = true;
+            }
+            else
+            {
+                // No second cutscene, enable gravity now if needed
+                if (disableGravityDuringCutscenes && !triggerSecondCutscene)
+                {
+                    EnableGravity();
+                }
+            }
+        }
+        else if (transitionToNewScene && !string.IsNullOrEmpty(targetSceneName))
+        {
+            yield return StartCoroutine(TransitionToNewScene());
+        }
+        else
+        {
+            EnablePlayerMovement();
+            
+            // Enable gravity if no second cutscene
+            if (disableGravityDuringCutscenes && !triggerSecondCutscene)
+            {
+                EnableGravity();
+            }
+            
+            DestroyObjects();
+            
+            if (destroyAfterUse)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private IEnumerator TriggerNPCDialogue()
     {
-        
-        // Optional delay before starting dialogue
         if (dialogueStartDelay > 0)
         {
             yield return new WaitForSeconds(dialogueStartDelay);
         }
         
-        // Make sure player is visible if it was hidden during cutscene
         if (hidePlayerDuringCutscene && player != null)
         {
             player.SetActive(true);
         }
         
-        // Make sure we have the latest reference to interactionDetector
         if (interactionDetector == null)
         {
             interactionDetector = FindObjectOfType<InteractionDetector>();
@@ -241,12 +517,10 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             interactionDetector.enabled = true;
         }
         
-        // Small delay to ensure everything is ready
         yield return new WaitForEndOfFrame();
         
         if (npcToTrigger != null)
         {
-            // Get the method using reflection
             var forceMethod = npcToTrigger.GetType().GetMethod("ForceStartDialogueFromCutscene");
             if (forceMethod != null)
             {
@@ -254,8 +528,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             }
             else
             {
-                
-                // Fallback: try regular Interact
                 if (npcToTrigger.CanInteract())
                 {
                     npcToTrigger.Interact();
@@ -264,30 +536,78 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         }
     }
 
+    private IEnumerator TriggerSecondCutsceneAfterDelay()
+    {
+        if (secondCutsceneDelay > 0)
+        {
+            yield return new WaitForSeconds(secondCutsceneDelay);
+        }
+        
+        FindAndDisablePlayerMovement();
+        
+        if (hidePlayerDuringSecondCutscene && player != null)
+        {
+            player.SetActive(false);
+        }
+        
+        SetupSecondCutsceneSkip();
+        secondTimeline.Play();
+        
+        yield return StartCoroutine(WaitForSecondCutsceneToEnd());
+    }
+
+    private IEnumerator WaitForSecondCutsceneToEnd()
+    {
+        yield return new WaitUntil(() => secondTimeline.state != PlayState.Playing);
+        
+        isCutsceneActive = false;
+        if (skipPrompt != null)
+            skipPrompt.SetActive(false);
+        
+        // Enable gravity after second cutscene ends
+        if (enableGravityAfterSecondCutscene)
+        {
+            EnableGravity();
+        }
+        
+        if (transitionAfterSecondCutscene && !string.IsNullOrEmpty(secondCutsceneTargetScene))
+        {
+            if (secondCutsceneTransitionDelay > 0)
+            {
+                yield return new WaitForSeconds(secondCutsceneTransitionDelay);
+            }
+            
+            SceneManager.LoadScene(secondCutsceneTargetScene);
+        }
+        else
+        {
+            EnablePlayerMovement();
+            DestroyObjects();
+            
+            if (destroyAfterUse)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     private IEnumerator TransitionToNewScene()
     {
-        
-        // Optional delay before scene transition
         if (sceneTransitionDelay > 0)
         {
             yield return new WaitForSeconds(sceneTransitionDelay);
         }
         
-        // Load the new scene
         SceneManager.LoadScene(targetSceneName);
     }
 
-    // Music Management Methods
     private void StartCutsceneMusic()
     {
-
-        // Update loop setting in case it was changed in inspector
         if (musicAudioSource != null)
         {
             musicAudioSource.loop = loopMusic;
         }
 
-        // Store current music if we want to resume it later
         if (resumePreviousMusic)
         {
             AudioSource currentMusicSource = FindCurrentMusicSource();
@@ -297,13 +617,11 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
             }
         }
 
-        // Stop current music if requested
         if (stopCurrentMusic)
         {
             StopAllCurrentMusic();
         }
 
-        // Play the cutscene music
         if (musicAudioSource != null)
         {
             musicAudioSource.clip = cutsceneMusic;
@@ -317,7 +635,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         {
             StartCoroutine(FadeOutMusic(musicAudioSource, musicFadeOutTime, () =>
             {
-                // Resume previous music if requested
                 if (resumePreviousMusic && previousMusic != null)
                 {
                     AudioSource currentMusicSource = FindCurrentMusicSource();
@@ -333,8 +650,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
 
     private AudioSource FindCurrentMusicSource()
     {
-        // You might want to customize this method based on your music system
-        // This looks for any AudioSource that's playing music (looping audio)
         AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
         foreach (AudioSource source in allAudioSources)
         {
@@ -392,37 +707,29 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         onComplete?.Invoke();
     }
 
-    // Same player movement control as NPC
     private void FindAndDisablePlayerMovement()
     {
-        // Find the player controller component
         playerController = FindObjectOfType<ScientistController>();
         if (playerController != null)
         {
-            // Disable the moveAction to prevent movement input
             playerController.moveAction.Disable();
         }
 
-        // Find the player animator to potentially freeze animations
         playerAnimator = FindObjectOfType<ScientistAnimator>();
         if (playerAnimator != null && playerAnimator.animator != null)
         {
-            // Set to idle animation during cutscene
             playerAnimator.animator.SetBool("isIdle", true);
             playerAnimator.animator.SetBool("isRunning", false);
         }
 
-        // Find and disable the interaction detector to prevent multiple interactions
         interactionDetector = FindObjectOfType<InteractionDetector>();
         if (interactionDetector != null)
         {
             interactionDetector.enabled = false;
-            // Also hide the interaction icon if it exists
             if (interactionDetector.interactionIcon != null)
                 interactionDetector.interactionIcon.SetActive(false);
         }
 
-        // Hide player object if configured
         if (hidePlayerDuringCutscene && player != null)
         {
             player.SetActive(false);
@@ -431,19 +738,16 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
 
     private void EnablePlayerMovement()
     {
-        // Show player if hidden
         if (hidePlayerDuringCutscene && player != null)
         {
             player.SetActive(true);
         }
 
-        // Re-enable player movement
         if (playerController != null)
         {
             playerController.moveAction.Enable();
         }
 
-        // Re-enable interaction detector
         if (interactionDetector != null)
         {
             interactionDetector.enabled = true;
@@ -461,7 +765,6 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         }
     }
     
-    // Optional: Visual feedback in editor
     void OnDrawGizmosSelected()
     {
         Gizmos.color = requireInteraction ? Color.yellow : Color.green;

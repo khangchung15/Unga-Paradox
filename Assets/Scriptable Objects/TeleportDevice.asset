@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
+  m_Name: TeleportDevice
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  weaponName: Teleport Device
+  weaponPrefab: {fileID: 8928031994456417205, guid: da6e12ab7893f2348b9f8a59af26b5c3, type: 3}
+  weaponCooldown: 1
+  weaponSprite: {fileID: 4130640169021434097, guid: 9c8dee4bfe1f9524dba853c266f448ff, type: 3}
+  pickupPrefab: {fileID: 8928031994456417205, guid: 3d01927634d997d4391486ce1f73886f, type: 3}

@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Obstacle
   - Projectile
+  - Rock
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Items
   - No Light
   - Dead
-  - 
+  - PostProcessing
   - 
   - 
   - 
@@ -45,11 +47,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: No Light 2
-    uniqueID: 3160165423
+  - name: No Light 3
+    uniqueID: 2424665837
     locked: 0
   - name: BackgroundWall
     uniqueID: 1210618485
+    locked: 0
+  - name: No Light 2
+    uniqueID: 3160165423
     locked: 0
   - name: Ground
     uniqueID: 2216104849

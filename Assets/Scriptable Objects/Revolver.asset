@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  weaponName: Revolver
   weaponPrefab: {fileID: 3101757377785725259, guid: 21870e5e95ed91043931a2027a4097c5, type: 3}
   weaponCooldown: 1.5
+  weaponSprite: {fileID: -959195327, guid: ecb274c37600371488306314acfac2ff, type: 3}
+  pickupPrefab: {fileID: 3101757377785725259, guid: 1947fe16ff8b7b64db7068f05439e20d, type: 3}

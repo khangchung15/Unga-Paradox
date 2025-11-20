@@ -10,7 +10,7 @@ public class DamageSource : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Enemy takes damage
-        if (other.gameObject.GetComponent<EnemyHealth>() || other.gameObject.GetComponent<BossHealth>())
+        if (other.gameObject.GetComponent<EnemyHealth>() || other.gameObject.GetComponent<BossHealth>() || other.gameObject.GetComponent<SpiderSpawner>())
         {
             // Probably gotta come back around to clean this up later.
             if (other.gameObject.GetComponent<EnemyHealth>())
@@ -23,6 +23,13 @@ public class DamageSource : MonoBehaviour
             {
                 BossHealth bossHealth = other.gameObject.GetComponent<BossHealth>();
                 bossHealth.TakeDamage(damageAmount);
+            }
+
+            if (other.gameObject.GetComponent<SpiderSpawner>())
+            {
+                SpiderSpawner spiderSpawner = other.gameObject.GetComponent<SpiderSpawner>();
+                Debug.Log("HELLOOOOO");
+                spiderSpawner.TakeDamage(damageAmount);
             }
             //Knockback knockback = other.gameObject.GetComponent<Knockback>();
             //knockback.GetKnockedBack(transform, 10);

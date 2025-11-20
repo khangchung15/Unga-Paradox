@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3689750063970472430}
   - component: {fileID: 8455634248323330024}
+  - component: {fileID: 3352751602817663253}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,3 +47,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   currentCurrency: 0
   coinCounter: {fileID: 0}
+--- !u!114 &3352751602817663253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7334141972521424664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d1135e6f57cde4db925b71ca23af21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  gameOverUI: {fileID: 0}

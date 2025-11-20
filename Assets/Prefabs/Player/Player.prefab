@@ -78,7 +78,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Time: 0.15
   m_PreviewTimeScale: 1
@@ -282,7 +282,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: 2966220604263102434, guid: 3c5c9cf779578894aae23a353f290357, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 6355745688687896366}
   - component: {fileID: 6925762749239440638}
   - component: {fileID: 5141578818965804935}
+  - component: {fileID: 5202236660252312158}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -409,8 +410,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 5
+  m_LinearDamping: 20
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -472,7 +473,10 @@ MonoBehaviour:
   currentHealth: 100
   maxHealth: 100
   isInvincible: 0
+  isDashing: 0
+  dashInvincibleTime: 0.2
   healthBar: {fileID: 0}
+  gameManager: {fileID: 3352751602817663253, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
   OnDamaged:
     m_PersistentCalls:
       m_Calls:
@@ -507,6 +511,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: set_enabled
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5141578818965804935}
+        m_TargetAssemblyTypeName: HealthAudio, Assembly-CSharp
+        m_MethodName: PlayDeath
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -684,3 +700,17 @@ MonoBehaviour:
   volume: 1
   pitchVariance: 0.1
   minGapSeconds: 0.05
+--- !u!114 &5202236660252312158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146792267698005228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d8d8ae7579448fdbbbd09807474d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinManager
+  currentCurrency: 0
+  coinCounter: {fileID: 0}

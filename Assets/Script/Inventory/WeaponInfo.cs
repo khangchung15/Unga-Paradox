@@ -3,6 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "New Weapon")]
 public class WeaponInfo : ScriptableObject
 {
-    public GameObject weaponPrefab;
+    [Header("Weapon Settings")]
+    public string weaponName;          
+    public GameObject weaponPrefab;    
     public float weaponCooldown;
+
+    [Header("UI Settings")]
+    public Sprite weaponSprite;
+
+    [Header("World Pickup")]
+    public GameObject pickupPrefab;
 }

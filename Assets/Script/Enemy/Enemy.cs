@@ -11,9 +11,11 @@ public class Enemy : MonoBehaviour
     protected EnemyChasing enemyChasing;
     protected EnemyAttacking enemyAttacking;
     protected EnemyHealth enemyHealth;
-    
 
     private Coroutine destroyCoroutine;
+
+    // Tracks if the enemy has entered the dead state and had its shutdown logic applied
+    private bool isDead = false;
 
     readonly float initialIdleDuration = 1f; // time to idle before starting wandering
 
@@ -27,7 +29,6 @@ public class Enemy : MonoBehaviour
         enemyChasing = GetComponentInChildren<EnemyChasing>();
         enemyAttacking = GetComponentInChildren<EnemyAttacking>();
         enemyHealth = GetComponent<EnemyHealth>();
-
 
         if (rb == null)
             rb = gameObject.AddComponent<Rigidbody2D>();
@@ -47,7 +48,6 @@ public class Enemy : MonoBehaviour
         if (enemyHealth == null)
             throw new System.Exception("Enemy requires an EnemyHealth component.");
 
-
         enemyWandering.OnReachedWaypoint += HandleReachedDestination;
         enemyWandering.OnIdleComplete += HandleIdleComplete;
         stateMachine.OnStateChanged += HandleStateChanged;
@@ -64,7 +64,10 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        // Debug.Log(enemyMovement.GetCurrentMovementSpeed > 0 ? "Moving" : "Not Moving");
+        // If already handled as dead, skip
+        if (isDead) return;
+
+        // Ensure we enter Dead state when health reaches zero
         if (enemyHealth != null && enemyHealth.IsDead() && stateMachine.GetState() != EnemyStateMachine.EnemyState.Dead)
         {
             ForceState(EnemyStateMachine.EnemyState.Dead);
@@ -78,9 +81,11 @@ public class Enemy : MonoBehaviour
         Debug.Log($"{name} state changed: {oldState} -> {newState}");
         ApplyBehaviorsForState(newState);
 
-        // If we just entered Dead, schedule destruction with blink (only once)
-        if (newState == EnemyStateMachine.EnemyState.Dead)
+        // If we just entered Dead, schedule destruction with blink (only once) and disable producers
+        if (newState == EnemyStateMachine.EnemyState.Dead && !isDead)
         {
+            isDead = true;
+
             if (destroyCoroutine == null)
             {
                 // total delay before destroy (seconds)
@@ -89,11 +94,33 @@ public class Enemy : MonoBehaviour
                 float blinkDuration = 0.8f;
                 destroyCoroutine = StartCoroutine(DestroyWithBlink(totalDelay, blinkDuration));
             }
+
+            // disable/ unsubscribe systems that may request state changes after death
+            if (enemyDetection != null)
+            {
+                enemyDetection.OnSightStateChanged -= OnSightStateChanged;
+                enemyDetection.enabled = false;
+            }
+            if (enemyAttacking != null)
+            {
+                enemyAttacking.OnPlayerEnteredRange -= HandlePlayerEnteredAttackRange;
+                enemyAttacking.OnPlayerExitedRange -= HandlePlayerExitedAttackRange;
+                enemyAttacking.enabled = false;
+            }
+            if (enemyChasing != null) enemyChasing.enabled = false;
+            if (enemyWandering != null) enemyWandering.enabled = false;
+
+            // Prevent further state-change callbacks from this component (optional)
+            if (stateMachine != null)
+                stateMachine.OnStateChanged -= HandleStateChanged;
         }
     }
 
     private void ApplyBehaviorsForState(EnemyStateMachine.EnemyState state)
     {
+        // If already dead we shouldn't change behavior further
+        if (isDead && state != EnemyStateMachine.EnemyState.Dead) return;
+
         // Always ensure movement component exists
         if (enemyMovement == null) return;
 
@@ -154,13 +181,14 @@ public class Enemy : MonoBehaviour
 
             case EnemyStateMachine.EnemyState.Dead:
                 // disable behaviors + movement
-                if (enemyChasing != null) 
+                if (enemyChasing != null)
                     enemyChasing.enabled = false;
-                if (enemyWandering != null) 
+                if (enemyWandering != null)
                     enemyWandering.enabled = false;
                 enemyMovement.Stop();
                 enemyMovement.enabled = false;
-                CapsuleCollider2D.Destroy(GetComponent<CapsuleCollider2D>());
+                var cap = GetComponent<CapsuleCollider2D>();
+                if (cap != null) CapsuleCollider2D.Destroy(cap);
 
                 if (rb != null)
                 {
@@ -175,15 +203,12 @@ public class Enemy : MonoBehaviour
                 if (enemyChasing != null)
                 {
                     enemyChasing.StopBehavior();
-                    
                 }
                 if (enemyWandering != null)
                 {
                     enemyWandering.StartBehavior();
-                    
                 }
                 enemyMovement.Stop();
-                
                 break;
         }
     }
@@ -199,11 +224,13 @@ public class Enemy : MonoBehaviour
 
     private void HandleReachedDestination()
     {
+        if (isDead) return;
         stateMachine.ChangeState(EnemyStateMachine.EnemyState.Idle);
     }
 
     private void HandleIdleComplete()
     {
+        if (isDead) return;
         stateMachine.ChangeState(EnemyStateMachine.EnemyState.Wandering);
         if (enemyWandering != null)
             enemyWandering.StartBehavior();
@@ -211,12 +238,14 @@ public class Enemy : MonoBehaviour
 
     private void HandlePlayerEnteredAttackRange()
     {
+        if (isDead) return;
         // Request attack state (if already attacking this will be a no-op or queued)
         SetState(EnemyStateMachine.EnemyState.BasicAttack);
     }
 
     private void HandlePlayerExitedAttackRange()
     {
+        if (isDead) return;
         // queue up the state for after attack finishes
         if (enemyDetection != null && enemyDetection.hasLineOfSight)
             SetState(EnemyStateMachine.EnemyState.Chasing);
@@ -226,6 +255,7 @@ public class Enemy : MonoBehaviour
 
     protected void SetState(EnemyStateMachine.EnemyState newState)
     {
+        if (isDead) return; // ignore requests after death
         // Request state change; behavior will be applied when the state actually changes (HandleStateChanged)
         stateMachine.ChangeState(newState);
     }
@@ -240,32 +270,30 @@ public class Enemy : MonoBehaviour
 
     private void OnSightStateChanged(EnemyDetection.SightState sightState)
     {
+        if (isDead) return;
         // Map detection states to high-level enemy states
         switch (sightState)
         {
             case EnemyDetection.SightState.Player:
                 SetState(EnemyStateMachine.EnemyState.Chasing);
-                //Debug.Log("Player Detected - Chasing");
                 break;
 
             case EnemyDetection.SightState.Obstacle:
                 SetState(EnemyStateMachine.EnemyState.Wandering);
-                //Debug.Log("Player Lost Sight - Wandering");
                 break;
             case EnemyDetection.SightState.None:
             case EnemyDetection.SightState.OutOfRange:
                 SetState(EnemyStateMachine.EnemyState.Wandering);
-                //Debug.Log("Player Outside of Detection Range - Wandering");
                 break;
             default:
                 SetState(EnemyStateMachine.EnemyState.Wandering);
-                //Debug.Log("Player Lost - Wandering");
                 break;
         }
     }
 
     private void StartWandering()
     {
+        if (isDead) return;
         SetState(EnemyStateMachine.EnemyState.Wandering);
     }
 

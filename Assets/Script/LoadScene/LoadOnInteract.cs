@@ -21,11 +21,10 @@ public class LoadOnInteract : MonoBehaviour, IInteractable
         Collider2D collider = GetComponent<Collider2D>();
         if (collider == null)
         {
-            Debug.LogError("LoadOnInteract: No Collider2D found! Please add a Collider2D set as trigger.");
+            
         }
         else if (!collider.isTrigger)
         {
-            Debug.LogWarning("LoadOnInteract: Collider2D is not set as trigger. Setting it to trigger.");
             collider.isTrigger = true;
         }
     }
@@ -59,12 +58,7 @@ public class LoadOnInteract : MonoBehaviour, IInteractable
     {
         if (!string.IsNullOrEmpty(sceneToLoad))
         {
-            Debug.Log($"Loading scene: {sceneToLoad}");
             SceneManager.LoadScene(sceneToLoad);
-        }
-        else
-        {
-            Debug.LogWarning("LoadOnInteract: No scene name specified!");
         }
     }
 }

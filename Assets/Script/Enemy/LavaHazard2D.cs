@@ -12,13 +12,16 @@ public class LavaHazard2D : MonoBehaviour
     [SerializeField] private string damageTag = "Player";
     [SerializeField] private bool damageOnlyRoot = true;
 
+    [Tooltip("If enabled, only damage if the collider itself has a Health component")]
+    [SerializeField] private bool onlyWhenColliderHasHealth = true;
+
     private readonly HashSet<Health> _inside = new HashSet<Health>();
     private Collider2D _col;
 
     void Awake()
     {
         _col = GetComponent<Collider2D>();
-        if (_col && !_col.isTrigger) _col.isTrigger = true; // ensure trigger
+        if (_col && !_col.isTrigger) _col.isTrigger = true; 
     }
 
     void OnEnable()
@@ -45,7 +48,6 @@ public class LavaHazard2D : MonoBehaviour
         }
     }
 
-    // Optional: keeps set correct if you enter without firing Enter (complex collider setups)
     void OnTriggerStay2D(Collider2D other)
     {
         var h = FindHealth(other);
@@ -66,16 +68,17 @@ public class LavaHazard2D : MonoBehaviour
         if (_inside.Count == 0) return;
 
         float dmg = damagePerSecond * Time.deltaTime;
+
         foreach (var h in _inside)
         {
             if (h == null) continue;
             h.TakeDamage(dmg);
-            // Debug.Log($"[LavaHazard2D] Damaging {h.name}: {dmg:F2} this frame. Current HP: {h.currentHealth:F2}");
         }
     }
 
     Health FindHealth(Collider2D col)
     {
+        // Tag filtering
         if (!string.IsNullOrEmpty(damageTag))
         {
             bool tagMatch = col.CompareTag(damageTag);
@@ -86,14 +89,19 @@ public class LavaHazard2D : MonoBehaviour
             if (!tagMatch) return null;
         }
 
+        if (onlyWhenColliderHasHealth)
+        {
+            return col.GetComponent<Health>(); 
+        }
+
         Health h = null;
 
         if (damageOnlyRoot && col.attachedRigidbody)
             h = col.attachedRigidbody.GetComponent<Health>();
 
         if (h == null)
-            h = col.GetComponent<Health>() 
-                ?? col.GetComponentInParent<Health>() 
+            h = col.GetComponent<Health>()
+                ?? col.GetComponentInParent<Health>()
                 ?? col.GetComponentInChildren<Health>();
 
         return h;

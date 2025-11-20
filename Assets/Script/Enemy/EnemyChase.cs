@@ -88,7 +88,6 @@ public class EnemyChase : MonoBehaviour
     {
         isChasing = true;
         this.enabled = true;
-        Debug.Log($"{gameObject.name} started chasing the player!");
     }
 
     private void OnDrawGizmosSelected()
