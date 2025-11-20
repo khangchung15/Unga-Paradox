@@ -9,7 +9,7 @@ public class InventorySlot : MonoBehaviour, IDataPersistence
     private string weaponID;
     private WeaponsManager weapons;
 
-    private void Start()
+    private void Awake()
     {
         weapons = FindAnyObjectByType<WeaponsManager>();
     }
