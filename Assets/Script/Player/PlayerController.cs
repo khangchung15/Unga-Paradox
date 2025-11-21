@@ -49,6 +49,8 @@ public class PlayerController : Singleton<PlayerController>
     private readonly Dictionary<string, float> speedMods = new Dictionary<string, float>();
 
     private bool isDashing = false;
+    
+    private Rigidbody2D rb;
 
     #region Player State Variables
     public enum PlayerState
@@ -74,9 +76,15 @@ public class PlayerController : Singleton<PlayerController>
     {
         base.Awake();
         playerControls = new PlayerControls();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+    
+    
     public PlayerDirection facing
     {
         get
@@ -173,7 +181,14 @@ public class PlayerController : Singleton<PlayerController>
 
     private void MovePlayer()
     {
-        transform.position += (Vector3)currentVelocity * Time.deltaTime;
+        if (rb == null)
+        {
+            transform.position += (Vector3)currentVelocity * Time.deltaTime;
+            return;
+        }
+
+        Vector2 newPos = rb.position + currentVelocity * Time.fixedDeltaTime;
+        rb.MovePosition(newPos);
     }
 
     /// <summary>
@@ -240,14 +255,23 @@ public class PlayerController : Singleton<PlayerController>
     {
         float dashTime = 0.2f;
         float dashCD = 0.25f;
+
         GetComponent<Health>().isDashing = true;
-        isDashing = false;
+        isDashing = true;
+        RecomputeMovementSpeed();
+
         yield return new WaitForSeconds(dashTime);
+
+        GetComponent<Health>().isDashing = false;
+        isDashing = false;
         myTrailRenderer.emitting = false;
         RecomputeMovementSpeed();
+
+        canDash = false;
         yield return new WaitForSeconds(dashCD);
         canDash = (dashBlockers == 0);
     }
+
 
     public void AddOrUpdateSpeedMod(string key, float multiplier)
     {
@@ -273,7 +297,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         float dashMul = isDashing ? dashSpeed : 1f;
         movementSpeed = baseMovementSpeed * currentSlowMultiplier * dashMul;
-        Debug.Log($"[Speed] base={baseMovementSpeed}, slowMul={currentSlowMultiplier}, dash={(isDashing ? dashSpeed : 1f)}, active={movementSpeed}");
+        //Debug.Log($"[Speed] base={baseMovementSpeed}, slowMul={currentSlowMultiplier}, dash={(isDashing ? dashSpeed : 1f)}, active={movementSpeed}");
     }
 
     public void CancelDash()
