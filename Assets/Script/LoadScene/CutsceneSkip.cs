@@ -70,18 +70,14 @@ public class CutsceneSkip : MonoBehaviour
             var keyboard = UnityEngine.InputSystem.Keyboard.current;
             var gamepad = UnityEngine.InputSystem.Gamepad.current;
             
-            return (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame || 
-                                        keyboard.escapeKey.wasPressedThisFrame)) ||
-                   (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame);
+            return (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame));
             #else
-            return Input.GetKeyDown(KeyCode.Space) || 
-                   Input.GetKeyDown(KeyCode.Escape);
+            return Input.GetKeyDown(KeyCode.Space)
             #endif
         }
         else
         {
-            return Input.GetKeyDown(KeyCode.Space) || 
-                   Input.GetKeyDown(KeyCode.Escape);
+            return Input.GetKeyDown(KeyCode.Space);
         }
     }
     
