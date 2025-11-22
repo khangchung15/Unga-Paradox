@@ -62,22 +62,40 @@ public class CutsceneSkip : MonoBehaviour
         }
     }
     
-    bool CheckSkipInput()
+    private bool CheckSkipInput()
     {
         if (useNewInputSystem)
         {
             #if ENABLE_INPUT_SYSTEM
             var keyboard = UnityEngine.InputSystem.Keyboard.current;
-            var gamepad = UnityEngine.InputSystem.Gamepad.current;
             
-            return (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame));
+            if (keyboard != null)
+            {
+                bool spacePressed = keyboard.spaceKey.wasPressedThisFrame;
+                
+                if (spacePressed)
+                {
+                    bool isAltPressed = keyboard.leftAltKey.isPressed || keyboard.rightAltKey.isPressed;
+                    bool isCtrlPressed = keyboard.leftCtrlKey.isPressed || keyboard.rightCtrlKey.isPressed;
+                    bool isShiftPressed = keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
+                    
+                    if (isAltPressed || isCtrlPressed)
+                    {
+                        return false;
+                    }
+                    
+                    return true;
+                }
+            }
+            
+            return false;
             #else
-            return Input.GetKeyDown(KeyCode.Space)
+            return UnityEngine.Input.GetKeyDown(KeyCode.Space);
             #endif
         }
         else
         {
-            return Input.GetKeyDown(KeyCode.Space);
+            return UnityEngine.Input.GetKeyDown(KeyCode.Space);
         }
     }
     

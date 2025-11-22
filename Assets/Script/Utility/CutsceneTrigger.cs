@@ -362,22 +362,38 @@ public class CutsceneTrigger : MonoBehaviour, IInteractable
         {
             #if ENABLE_INPUT_SYSTEM
             var keyboard = UnityEngine.InputSystem.Keyboard.current;
-            var gamepad = UnityEngine.InputSystem.Gamepad.current;
             
-            return (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame || 
-                                        keyboard.escapeKey.wasPressedThisFrame)) ||
-                   (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame);
+            if (keyboard != null)
+            {
+                bool spacePressed = keyboard.spaceKey.wasPressedThisFrame;
+                
+                if (spacePressed)
+                {
+                    bool isAltPressed = keyboard.leftAltKey.isPressed || keyboard.rightAltKey.isPressed;
+                    bool isCtrlPressed = keyboard.leftCtrlKey.isPressed || keyboard.rightCtrlKey.isPressed;
+                    bool isShiftPressed = keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
+                    
+                    if (isAltPressed || isCtrlPressed)
+                    {
+                        return false;
+                    }
+                    
+                    return true;
+                }
+            }
+            
+            return false;
             #else
-            return UnityEngine.Input.GetKeyDown(KeyCode.Space) || 
-                   UnityEngine.Input.GetKeyDown(KeyCode.Escape);
+            return UnityEngine.Input.GetKeyDown(KeyCode.Space);
             #endif
         }
         else
         {
-            return UnityEngine.Input.GetKeyDown(KeyCode.Space) || 
-                   UnityEngine.Input.GetKeyDown(KeyCode.Escape);
+            return UnityEngine.Input.GetKeyDown(KeyCode.Space);
         }
     }
+
+    
 
     private void SkipCutscene()
     {
