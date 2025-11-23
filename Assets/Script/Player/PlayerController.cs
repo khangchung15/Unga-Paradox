@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Class which handles player movement (no gravity version)
@@ -89,6 +90,17 @@ public class PlayerController : Singleton<PlayerController>
     {
         get
         {
+            if (playerCamera == null)
+            {
+                RefreshCameraReference();
+                if (playerCamera == null)
+                {
+                    // Fallback: face based on velocity or default to right
+                    if (currentVelocity.x < -0.1f) return PlayerDirection.Left;
+                    return PlayerDirection.Right;
+                }
+            }
+
             Vector2 mousePos = Input.mousePosition;
             Vector2 playerScreenPoint = playerCamera.WorldToScreenPoint(transform.position);
             if (mousePos.x > playerScreenPoint.x)
@@ -105,54 +117,40 @@ public class PlayerController : Singleton<PlayerController>
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
             }
-            //if (currentVelocity.x > 0.1f)
-            //{
-            //    return PlayerDirection.Right;
-            //}
-            //else if (currentVelocity.x < -0.1f)
-            //{
-            //    return PlayerDirection.Left;
-            //}
-            //else
-            //{
-            //    if (spriteRenderer != null && spriteRenderer.flipX == true)
-            //        return PlayerDirection.Left;
-            //    return PlayerDirection.Right;
-            //}
         }
     }
 
     private void Start()
     {
         baseMovementSpeed = movementSpeed;
-
-        // If no camera is assigned, try to find the main camera
-        if (playerCamera == null)
-        {
-            playerCamera = Camera.main;
-        }
-
-        // Ensure the camera exists
-        if (playerCamera == null)
-        {
-            Debug.LogWarning("No camera assigned to player controller and no main camera found in scene!");
-        }
-
+        RefreshCameraReference();
         playerControls.Player.Dash.performed += _ => Dash();
     }
 
     private void OnEnable()
     {
         playerControls.Enable();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         playerControls.Disable();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Reacquire the main camera in the new scene
+        playerCamera = Camera.main;
     }
 
     private void Update()
     {
+        if (playerCamera == null)
+        {
+            RefreshCameraReference();
+        }
         ProcessInput();
         HandleSpriteDirection();
         DetermineState();
@@ -201,11 +199,24 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     private void UpdateCameraPosition()
     {
-        if (playerCamera != null)
+        if (playerCamera == null)
         {
-            // Keep the camera's Z position unchanged (maintain camera distance)
-            Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, playerCamera.transform.position.z);
-            playerCamera.transform.position = targetPosition;
+            RefreshCameraReference();
+            if (playerCamera == null)
+                return;
+        }
+
+        Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, playerCamera.transform.position.z);
+        playerCamera.transform.position = targetPosition;
+    }
+
+    private void RefreshCameraReference()
+    {
+        playerCamera = Camera.main;
+
+        if (playerCamera == null)
+        {
+            Debug.LogWarning("PlayerController: No main camera found in the current scene!");
         }
     }
 

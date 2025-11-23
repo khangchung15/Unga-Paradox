@@ -24,10 +24,11 @@ public class BossHealth : MonoBehaviour
     private bool alreadySecondStage = false;
     private bool isDead = false;
     
-    //[SerializeField] private GameObject portalPrefab;
-    //[SerializeField] private Vector3 portalOffset = new Vector3(0f, 0.5f, 0f);
-    //[SerializeField] private string destinationSceneName = "Hub";
-    //[SerializeField] private string destinationSpawnTag = "SpawnPoint";
+    [Header("Portal Settings")]
+    [SerializeField] private GameObject portalPrefab;
+    [SerializeField] private Transform portalSpawnPoint;
+    [SerializeField] private string destinationSceneName = "Hub";
+    [SerializeField] private string destinationSpawnPointName = "SpawnPoint";
     
     public UnityEvent onDeath;
     
@@ -117,14 +118,21 @@ public class BossHealth : MonoBehaviour
         onDeath.Invoke();
 
         
-        // Spawn the portal
-        //if (portalPrefab != null)
-        //{
-            //var portalGo = Instantiate(portalPrefab, transform.position + portalOffset, Quaternion.identity);
-            //var portal = portalGo.GetComponent<Portal>();
-            //if (portal != null)
-                //portal.Configure(destinationSceneName, destinationSpawnTag);
-        //}
+        // Spawn the portal that changes scenes
+        if (portalPrefab != null)
+        {
+            Vector3 spawnPosition = portalSpawnPoint != null ? portalSpawnPoint.position : transform.position;
+            Quaternion spawnRotation = portalSpawnPoint != null ? portalSpawnPoint.rotation : Quaternion.identity;
+            var portalGo = Instantiate(portalPrefab, spawnPosition, spawnRotation);
+            
+            // If the portal has a ScenePortal component, configure it
+            var scenePortal = portalGo.GetComponent<ScenePortal>();
+            if (scenePortal != null)
+            {
+                scenePortal.sceneName = destinationSceneName;
+                scenePortal.spawnPointName = destinationSpawnPointName;
+            }
+        }
 
         Destroy(gameObject,deathSound.length);
     }
