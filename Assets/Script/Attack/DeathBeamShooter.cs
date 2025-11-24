@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class DeathBeamShooter : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class DeathBeamShooter : MonoBehaviour
     [SerializeField] private AttackIndicatorManager attackIndicatorManager;
     [SerializeField] private float chargeTime = 1.5f;
     
+    [Header("Rotation Lock")]
+    [SerializeField] private float rotationLockBeforeShoot = 0.5f;
+    
     [Header("Debug")]
     [SerializeField] private bool showDebugLogs = false;
     
@@ -27,17 +31,18 @@ public class DeathBeamShooter : MonoBehaviour
     private float shootTimer;
     private bool isShooting;
     private float shootingTimer;
-    private RotateToTarget rotateToTarget;
+    private DeathBeamRotateToTarget rotateToTarget;
     private Animator beamAnimator;
     
     private float chargeTimer;
     private bool isCharging;
     private AttackIndicator currentIndicator;
+    private bool isRotationLocked = false;
     
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        rotateToTarget = GetComponent<RotateToTarget>();
+        rotateToTarget = GetComponent<DeathBeamRotateToTarget>();
         
         if (rotateToTarget == null)
         {
@@ -116,6 +121,12 @@ public class DeathBeamShooter : MonoBehaviour
             chargeTimer += Time.deltaTime;
             float chargeProgress = chargeTimer / chargeTime;
             
+            float lockTime = chargeTime - rotationLockBeforeShoot;
+            if (!isRotationLocked && chargeTimer >= lockTime)
+            {
+                LockRotation();
+            }
+            
             if (currentIndicator != null)
             {
                 currentIndicator.SetFillAmount(chargeProgress);
@@ -168,6 +179,8 @@ public class DeathBeamShooter : MonoBehaviour
         isCharging = false;
         chargeTimer = 0f;
         shootTimer = 0.5f;
+        
+        UnlockRotation();
         
         if (attackIndicatorManager != null && currentIndicator != null)
         {
@@ -225,9 +238,39 @@ public class DeathBeamShooter : MonoBehaviour
             beamObject.SetActive(false);
         }
         
+        UnlockRotation();
+        
         if (showDebugLogs)
         {
             Debug.Log($"{gameObject.name}: Stopped shooting");
+        }
+    }
+    
+    private void LockRotation()
+    {
+        if (rotateToTarget != null && !isRotationLocked)
+        {
+            rotateToTarget.LockRotation();
+            isRotationLocked = true;
+            
+            if (showDebugLogs)
+            {
+                Debug.Log($"{gameObject.name}: Rotation locked");
+            }
+        }
+    }
+    
+    private void UnlockRotation()
+    {
+        if (rotateToTarget != null && isRotationLocked)
+        {
+            rotateToTarget.UnlockRotation();
+            isRotationLocked = false;
+            
+            if (showDebugLogs)
+            {
+                Debug.Log($"{gameObject.name}: Rotation unlocked");
+            }
         }
     }
     

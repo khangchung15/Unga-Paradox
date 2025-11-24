@@ -60,7 +60,21 @@ public class LocalActiveWeapon : MonoBehaviour
         CurrentActiveWeapon = newWeapon;
         AttackCooldown();
         timeBetweenAttacks = (CurrentActiveWeapon as IWeapon).GetWeaponInfo().weaponCooldown;
+        
+        // Set the sorting layer to match the player
+        SetWeaponSortingLayer(newWeapon.gameObject);
     }
+
+    private void SetWeaponSortingLayer(GameObject weaponObject)
+    {
+        SpriteRenderer[] renderers = weaponObject.GetComponentsInChildren<SpriteRenderer>(true);
+        foreach (SpriteRenderer renderer in renderers)
+        {
+            renderer.sortingLayerName = "Ground";
+            renderer.sortingOrder = 7;
+        }
+    }
+
 
     public void WeaponNull()
     {
