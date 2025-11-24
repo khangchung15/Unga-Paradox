@@ -9,8 +9,6 @@ public class DeathBeamShooter : MonoBehaviour
     [Header("Shooting Settings")]
     [SerializeField] private float shootInterval = 2f;
     [SerializeField] private float shootDuration = 0.5f;
-    [SerializeField] private float beamRange = 20f;
-    [SerializeField] private float damage = 10f;
     
     [Header("Beam Visual")]
     [SerializeField] private GameObject beamObject;
@@ -18,12 +16,23 @@ public class DeathBeamShooter : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip shootSound;
     
+    [Header("Attack Indicator")]
+    [SerializeField] private AttackIndicatorManager attackIndicatorManager;
+    [SerializeField] private float chargeTime = 1.5f;
+    
+    [Header("Debug")]
+    [SerializeField] private bool showDebugLogs = false;
+    
     private AudioSource audioSource;
     private float shootTimer;
     private bool isShooting;
     private float shootingTimer;
     private RotateToTarget rotateToTarget;
     private Animator beamAnimator;
+    
+    private float chargeTimer;
+    private bool isCharging;
+    private AttackIndicator currentIndicator;
     
     private void Awake()
     {
@@ -43,6 +52,11 @@ public class DeathBeamShooter : MonoBehaviour
                 Debug.LogWarning("Animator component not found on beam object: " + beamObject.name);
             }
         }
+        
+        if (attackIndicatorManager == null)
+        {
+            attackIndicatorManager = FindObjectOfType<AttackIndicatorManager>();
+        }
     }
     
     private void Start()
@@ -57,6 +71,11 @@ public class DeathBeamShooter : MonoBehaviour
                 if (rotateToTarget != null)
                 {
                     rotateToTarget.target = target;
+                }
+                
+                if (showDebugLogs)
+                {
+                    Debug.Log($"{gameObject.name}: Found target '{target.name}'");
                 }
             }
             else
@@ -75,18 +94,39 @@ public class DeathBeamShooter : MonoBehaviour
     
     private void Update()
     {
-        if (target == null) return;
+        if (target == null || !target.gameObject.activeInHierarchy) return;
         
-        if (!isShooting)
+        if (!isCharging && !isShooting)
         {
             shootTimer -= Time.deltaTime;
             
             if (shootTimer <= 0f)
             {
-                StartShooting();
+                StartCharging();
             }
         }
-        else
+        else if (isCharging)
+        {
+            if (currentIndicator == null)
+            {
+                CancelCharging();
+                return;
+            }
+            
+            chargeTimer += Time.deltaTime;
+            float chargeProgress = chargeTimer / chargeTime;
+            
+            if (currentIndicator != null)
+            {
+                currentIndicator.SetFillAmount(chargeProgress);
+            }
+            
+            if (chargeTimer >= chargeTime)
+            {
+                FinishCharging();
+            }
+        }
+        else if (isShooting)
         {
             shootingTimer -= Time.deltaTime;
             
@@ -94,11 +134,59 @@ public class DeathBeamShooter : MonoBehaviour
             {
                 StopShooting();
             }
-            else
+        }
+    }
+    
+    private void StartCharging()
+    {
+        if (attackIndicatorManager != null)
+        {
+            currentIndicator = attackIndicatorManager.RequestIndicator(this);
+            
+            if (currentIndicator == null)
             {
-                PerformBeamDamage();
+                shootTimer = 0.5f;
+                if (showDebugLogs)
+                {
+                    Debug.Log($"{gameObject.name}: Could not get indicator, retrying in 0.5s");
+                }
+                return;
             }
         }
+        
+        isCharging = true;
+        chargeTimer = 0f;
+        
+        if (showDebugLogs)
+        {
+            Debug.Log($"{gameObject.name}: Started charging");
+        }
+    }
+    
+    private void CancelCharging()
+    {
+        isCharging = false;
+        chargeTimer = 0f;
+        shootTimer = 0.5f;
+        
+        if (attackIndicatorManager != null && currentIndicator != null)
+        {
+            attackIndicatorManager.ReleaseIndicator(this);
+            currentIndicator = null;
+        }
+    }
+    
+    private void FinishCharging()
+    {
+        isCharging = false;
+        
+        if (attackIndicatorManager != null && currentIndicator != null)
+        {
+            attackIndicatorManager.ReleaseIndicator(this);
+            currentIndicator = null;
+        }
+        
+        StartShooting();
     }
     
     private void StartShooting()
@@ -120,6 +208,11 @@ public class DeathBeamShooter : MonoBehaviour
         {
             audioSource.PlayOneShot(shootSound);
         }
+        
+        if (showDebugLogs)
+        {
+            Debug.Log($"{gameObject.name}: Started shooting");
+        }
     }
     
     private void StopShooting()
@@ -131,32 +224,27 @@ public class DeathBeamShooter : MonoBehaviour
         {
             beamObject.SetActive(false);
         }
-    }
-    
-    private void PerformBeamDamage()
-    {
-        Vector2 direction = (target.position - transform.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, beamRange);
         
-        if (hit.collider != null)
+        if (showDebugLogs)
         {
-            Health playerHealth = hit.collider.GetComponent<Health>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(damage * Time.deltaTime);
-            }
+            Debug.Log($"{gameObject.name}: Stopped shooting");
         }
     }
     
-    private void OnDrawGizmosSelected()
+    private void OnDestroy()
     {
-        if (target != null)
+        if (attackIndicatorManager != null && currentIndicator != null)
         {
-            Gizmos.color = isShooting ? Color.red : Color.yellow;
+            attackIndicatorManager.ReleaseIndicator(this);
+        }
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (target != null && isShooting)
+        {
+            Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, target.position);
         }
-        
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, beamRange);
     }
 }

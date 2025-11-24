@@ -16,6 +16,11 @@ public class AttackIndicator : MonoBehaviour
     private float initialRightMask;
     private bool isInitialized = false;
 
+    private void Awake()
+    {
+        Initialize();
+    }
+
     private void Start()
     {
         Initialize();
@@ -27,12 +32,39 @@ public class AttackIndicator : MonoBehaviour
 
         if (barRect == null)
         {
-            barRect = transform.Find("HpBarMask/HpBarFill")?.GetComponent<RectTransform>();
+            Transform maskTransform = transform.Find("Mask");
+            if (maskTransform == null)
+            {
+                maskTransform = transform.Find("HpBarMask");
+            }
+            
+            if (maskTransform != null)
+            {
+                Transform fillTransform = maskTransform.Find("Filling");
+                if (fillTransform == null)
+                {
+                    fillTransform = maskTransform.Find("HpBarFill");
+                }
+                
+                if (fillTransform != null)
+                {
+                    barRect = fillTransform.GetComponent<RectTransform>();
+                }
+            }
         }
 
         if (mask == null)
         {
-            mask = transform.Find("HpBarMask")?.GetComponent<RectMask2D>();
+            Transform maskTransform = transform.Find("Mask");
+            if (maskTransform == null)
+            {
+                maskTransform = transform.Find("HpBarMask");
+            }
+            
+            if (maskTransform != null)
+            {
+                mask = maskTransform.GetComponent<RectMask2D>();
+            }
         }
 
         if (fillImage == null && barRect != null)
@@ -44,9 +76,12 @@ public class AttackIndicator : MonoBehaviour
         {
             maxRightMask = barRect.rect.width - mask.padding.x - mask.padding.z;
             initialRightMask = mask.padding.z;
+            isInitialized = true;
         }
-
-        isInitialized = true;
+        else
+        {
+            Debug.LogError($"AttackIndicator on {gameObject.name} failed to initialize. BarRect: {barRect}, Mask: {mask}");
+        }
         
         SetFillAmount(0f);
     }
@@ -58,7 +93,11 @@ public class AttackIndicator : MonoBehaviour
             Initialize();
         }
 
-        if (barRect == null || mask == null) return;
+        if (barRect == null || mask == null)
+        {
+            Debug.LogWarning($"Cannot set fill amount on {gameObject.name} - components not found");
+            return;
+        }
 
         normalizedValue = Mathf.Clamp01(normalizedValue);
         

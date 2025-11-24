@@ -32,12 +32,23 @@ public class HealthBarFuture : MonoBehaviour
 
     public void SetValue(int newValue)
     {
-        var targetWidth = newValue * _maxRightMask / _health.maxHealth;
-        var newRightMask = _maxRightMask - targetWidth + _initialRightMask ;
-        var padding = _mask.padding;
-        padding.z = newRightMask;
-        _mask.padding = padding;
-        _hpIndicator.SetText($"{newValue}/{_health.maxHealth}");
-
+        newValue = Mathf.Max(0, newValue);
+        
+        if (newValue <= 0)
+        {
+            var padding = _mask.padding;
+            padding.z = _barRect.rect.width;
+            _mask.padding = padding;
+            _hpIndicator.SetText($"0/{_health.maxHealth}");
+        }
+        else
+        {
+            var targetWidth = newValue * _maxRightMask / _health.maxHealth;
+            var newRightMask = _maxRightMask - targetWidth + _initialRightMask;
+            var padding = _mask.padding;
+            padding.z = newRightMask;
+            _mask.padding = padding;
+            _hpIndicator.SetText($"{newValue}/{_health.maxHealth}");
+        }
     }
 }

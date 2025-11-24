@@ -6810,9 +6810,11 @@ MonoBehaviour:
   resumeButton: {fileID: 437853373}
   restartButton: {fileID: 752118498}
   mainMenuButton: {fileID: 1285704281}
+  pauseText: {fileID: 0}
   mainMenuSceneName: Menu
   useUIManagerIfAvailable: 1
   pauseAudio: 1
+  pauseMessage: PAUSED
   pauseAction:
     m_Name: Pause
     m_Type: 0
