@@ -10,9 +10,11 @@ using TMPro;
 
 public class GameManagerFuture : MonoBehaviour
 {
-    [Header("Game Over UI")]
-    public GameObject gameOverUI;
-    public TMP_Text gameOverText;
+    [Header("Game Over Settings")]
+    public GameObject resumeButton;
+    public TMP_Text pauseText;
+    public string gameOverMessage = "GAME OVER";
+    public string pauseMessage = "PAUSED";
     
     [Header("Settings")]
     public bool pauseAudioOnGameOver = true;
@@ -41,14 +43,20 @@ public class GameManagerFuture : MonoBehaviour
         
         PauseController.SetPause(true);
         
-        if (gameOverUI != null)
+        if (resumeButton != null)
         {
-            gameOverUI.SetActive(true);
+            resumeButton.SetActive(false);
         }
         
-        if (gameOverText != null)
+        if (pauseText != null)
         {
-            gameOverText.gameObject.SetActive(true);
+            pauseText.text = gameOverMessage;
+        }
+        
+        EscMenuController escController = FindObjectOfType<EscMenuController>();
+        if (escController != null)
+        {
+            escController.ShowPauseMenu();
         }
         
         Debug.Log("Game Over!");

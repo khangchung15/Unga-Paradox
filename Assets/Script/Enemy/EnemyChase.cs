@@ -21,10 +21,13 @@ public class EnemyChase : MonoBehaviour
     [Header("Attack Settings")]
     public float attackCooldown = 1.5f;
     public float attackDamage = 10f;
+    public AttackIndicator attackIndicator;
 
     private bool isChasing = false;
     private bool isAttacking = false;
     private float lastAttackTime;
+    private float attackChargeTime;
+    private bool isChargingAttack = false;
 
     void Start()
     {
@@ -42,6 +45,11 @@ public class EnemyChase : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         }
 
+        if (attackIndicator == null)
+        {
+            attackIndicator = FindObjectOfType<AttackIndicator>();
+        }
+
         if (waitForDialogue)
         {
             isChasing = false;
@@ -56,6 +64,11 @@ public class EnemyChase : MonoBehaviour
         {
             triggerNPC = FindObjectOfType<NPC>();
         }
+
+        if (attackIndicator != null)
+        {
+            attackIndicator.Hide();
+        }
     }
 
     void Update()
@@ -67,6 +80,13 @@ public class EnemyChase : MonoBehaviour
                 animator.SetBool("isMoving", false);
                 animator.SetBool("isAttacking", false);
             }
+
+            if (attackIndicator != null && isChargingAttack)
+            {
+                isChargingAttack = false;
+                attackIndicator.Hide();
+            }
+
             return;
         }
 
@@ -83,10 +103,37 @@ public class EnemyChase : MonoBehaviour
                 animator.SetBool("isMoving", false);
                 animator.SetBool("isAttacking", false);
             }
+
+            if (isChargingAttack)
+            {
+                isChargingAttack = false;
+                if (attackIndicator != null)
+                {
+                    attackIndicator.Hide();
+                }
+            }
         }
         else
         {
             ChasePlayer();
+
+            if (isChargingAttack)
+            {
+                isChargingAttack = false;
+                if (attackIndicator != null)
+                {
+                    attackIndicator.Hide();
+                }
+            }
+        }
+
+        if (isChargingAttack)
+        {
+            float chargeProgress = (Time.time - attackChargeTime) / attackCooldown;
+            if (attackIndicator != null)
+            {
+                attackIndicator.SetFillAmount(chargeProgress);
+            }
         }
     }
 
@@ -122,9 +169,28 @@ public class EnemyChase : MonoBehaviour
             animator.SetBool("isMoving", false);
         }
 
-        if (Time.time >= lastAttackTime + attackCooldown)
+        if (!isChargingAttack && Time.time >= lastAttackTime + attackCooldown)
+        {
+            isChargingAttack = true;
+            attackChargeTime = Time.time;
+
+            if (attackIndicator != null)
+            {
+                attackIndicator.Show();
+                attackIndicator.ResetIndicator();
+            }
+        }
+
+        if (isChargingAttack && Time.time >= attackChargeTime + attackCooldown)
         {
             lastAttackTime = Time.time;
+            isChargingAttack = false;
+
+            if (attackIndicator != null)
+            {
+                attackIndicator.Hide();
+            }
+
             PerformAttack();
         }
     }
@@ -149,7 +215,6 @@ public class EnemyChase : MonoBehaviour
             playerHealth.TakeDamage(attackDamage);
         }
     }
-
 
     public void StartChasing()
     {

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class EscMenuController : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class EscMenuController : MonoBehaviour
     [Tooltip("Main Menu button to return to menu")]
     public Button mainMenuButton;
     
+    [Header("Text References")]
+    [Tooltip("Pause/Game Over text")]
+    public TMP_Text pauseText;
+    
     [Header("Settings")]
     [Tooltip("Name of the main menu scene")]
     public string mainMenuSceneName = "Menu";
@@ -28,6 +33,9 @@ public class EscMenuController : MonoBehaviour
 
     [Tooltip("Pause all audio when game is paused")]
     public bool pauseAudio = true;
+    
+    [Tooltip("Default pause message")]
+    public string pauseMessage = "PAUSED";
 
     [Header("Input Action")]
     [Tooltip("Input action for toggling pause (typically ESC key)")]
@@ -96,10 +104,42 @@ public class EscMenuController : MonoBehaviour
             {
                 TogglePause();
             }
-            else
-            {
-                Debug.Log("Cannot pause - Game is over!");
-            }
+        }
+    }
+
+    private void SetupButtons()
+    {
+        if (resumeButton != null)
+        {
+            resumeButton.onClick.RemoveAllListeners();
+            resumeButton.onClick.AddListener(OnResumeClicked);
+            Debug.Log("Resume button listener added. Button interactable: " + resumeButton.interactable);
+        }
+        else
+        {
+            Debug.LogError("Resume button is not assigned to EscMenuController!");
+        }
+        
+        if (restartButton != null)
+        {
+            restartButton.onClick.RemoveAllListeners();
+            restartButton.onClick.AddListener(OnRestartClicked);
+            Debug.Log("Restart button listener added. Button interactable: " + restartButton.interactable);
+        }
+        else
+        {
+            Debug.LogError("Restart button is not assigned to EscMenuController!");
+        }
+        
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.onClick.RemoveAllListeners();
+            mainMenuButton.onClick.AddListener(OnMainMenuClicked);
+            Debug.Log("Main Menu button listener added. Button interactable: " + mainMenuButton.interactable);
+        }
+        else
+        {
+            Debug.LogError("Main Menu button is not assigned to EscMenuController!");
         }
     }
 
@@ -107,7 +147,6 @@ public class EscMenuController : MonoBehaviour
     {
         if (GameManagerFuture.IsGameOver())
         {
-            Debug.Log("Cannot toggle pause - Game is over!");
             return;
         }
 
@@ -127,45 +166,13 @@ public class EscMenuController : MonoBehaviour
         }
     }
 
-
-    private void SetupButtons()
-    {
-        if (resumeButton != null)
-        {
-            resumeButton.onClick.RemoveAllListeners();
-            resumeButton.onClick.AddListener(OnResumeClicked);
-            Debug.Log("Resume button listener added");
-        }
-        else
-        {
-            Debug.LogWarning("Resume button is not assigned!");
-        }
-        
-        if (restartButton != null)
-        {
-            restartButton.onClick.RemoveAllListeners();
-            restartButton.onClick.AddListener(OnRestartClicked);
-            Debug.Log("Restart button listener added");
-        }
-        else
-        {
-            Debug.LogWarning("Restart button is not assigned!");
-        }
-        
-        if (mainMenuButton != null)
-        {
-            mainMenuButton.onClick.RemoveAllListeners();
-            mainMenuButton.onClick.AddListener(OnMainMenuClicked);
-            Debug.Log("Main Menu button listener added");
-        }
-        else
-        {
-            Debug.LogWarning("Main Menu button is not assigned!");
-        }
-    }
-
     public void Pause()
     {
+        if (GameManagerFuture.IsGameOver())
+        {
+            return;
+        }
+
         isPaused = true;
         Time.timeScale = 0f;
         
@@ -179,6 +186,11 @@ public class EscMenuController : MonoBehaviour
             resumeButton.gameObject.SetActive(true);
         }
         
+        if (pauseText != null)
+        {
+            pauseText.text = pauseMessage;
+        }
+        
         if (pauseAudio)
         {
             AudioListener.pause = true;
@@ -187,9 +199,21 @@ public class EscMenuController : MonoBehaviour
         PauseController.SetPause(true);
     }
 
+    public void ShowPauseMenu()
+    {
+        if (pauseMenuPanel != null)
+        {
+            pauseMenuPanel.SetActive(true);
+        }
+    }
 
     public void Resume()
     {
+        if (GameManagerFuture.IsGameOver())
+        {
+            return;
+        }
+
         isPaused = false;
         Time.timeScale = 1f;
         
