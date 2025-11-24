@@ -160,14 +160,19 @@ public class EscMenuController : MonoBehaviour
             pauseMenuPanel.SetActive(true);
         }
         
+        if (resumeButton != null)
+        {
+            resumeButton.gameObject.SetActive(true);
+        }
+        
         if (pauseAudio)
         {
             AudioListener.pause = true;
         }
         
         PauseController.SetPause(true);
-        Debug.Log("Game paused - Audio frozen: " + pauseAudio);
     }
+
 
     public void Resume()
     {

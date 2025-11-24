@@ -5,6 +5,7 @@ public class EnemyChase : MonoBehaviour
     [Header("Chase Settings")]
     public float moveSpeed = 3.0f;
     public float stopDistance = 1.0f;
+    public float attackRange = 1.5f;
 
     [Header("Dialogue Activation")]
     [Tooltip("Should this enemy wait for dialogue to end before chasing?")]
@@ -15,8 +16,15 @@ public class EnemyChase : MonoBehaviour
     [Header("References")]
     public Transform playerTarget;
     public SpriteRenderer enemySprite;
+    public Animator animator;
+
+    [Header("Attack Settings")]
+    public float attackCooldown = 1.5f;
+    public float attackDamage = 10f;
 
     private bool isChasing = false;
+    private bool isAttacking = false;
+    private float lastAttackTime;
 
     void Start()
     {
@@ -29,18 +37,21 @@ public class EnemyChase : MonoBehaviour
             }
         }
 
-        // Auto-disable if waiting for dialogue
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
+
         if (waitForDialogue)
         {
             isChasing = false;
-            this.enabled = false; // Disable the script initially
+            this.enabled = false;
         }
         else
         {
             isChasing = true;
         }
 
-        // Find NPC if not assigned
         if (triggerNPC == null)
         {
             triggerNPC = FindObjectOfType<NPC>();
@@ -51,25 +62,46 @@ public class EnemyChase : MonoBehaviour
     {
         if (!isChasing || playerTarget == null || !playerTarget.gameObject.activeInHierarchy)
         {
+            if (animator != null)
+            {
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", false);
+            }
             return;
         }
 
-        ChasePlayer();
+        float distance = Vector3.Distance(transform.position, playerTarget.position);
+
+        if (distance <= attackRange)
+        {
+            AttackPlayer();
+        }
+        else if (distance <= stopDistance)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isAttacking", false);
+            }
+        }
+        else
+        {
+            ChasePlayer();
+        }
     }
 
     private void ChasePlayer()
     {
         Vector3 direction = playerTarget.position - transform.position;
-        float distance = direction.magnitude;
-
-        if (distance <= stopDistance)
-        {
-            return;
-        }
-
         direction.Normalize();
         transform.position += direction * moveSpeed * Time.deltaTime;
-        
+
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", true);
+            animator.SetBool("isAttacking", false);
+        }
+
         if (enemySprite != null)
         {
             if (direction.x > 0)
@@ -83,7 +115,42 @@ public class EnemyChase : MonoBehaviour
         }
     }
 
-    // Call this method when dialogue ends
+    private void AttackPlayer()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", false);
+        }
+
+        if (Time.time >= lastAttackTime + attackCooldown)
+        {
+            lastAttackTime = Time.time;
+            PerformAttack();
+        }
+    }
+
+    private void PerformAttack()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
+
+        HealthFuture playerHealthFuture = playerTarget.GetComponent<HealthFuture>();
+        if (playerHealthFuture != null)
+        {
+            playerHealthFuture.TakeDamage(attackDamage);
+            return;
+        }
+
+        Health playerHealth = playerTarget.GetComponent<Health>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(attackDamage);
+        }
+    }
+
+
     public void StartChasing()
     {
         isChasing = true;
@@ -94,10 +161,13 @@ public class EnemyChase : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, stopDistance);
-        
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
         if (playerTarget != null)
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.cyan;
             Gizmos.DrawLine(transform.position, playerTarget.position);
         }
     }

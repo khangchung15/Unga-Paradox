@@ -46,21 +46,41 @@ public class LocalActiveInventory : MonoBehaviour
 
     private void ChangeActiveWeapon() 
     {
-        if (LocalActiveWeapon.Instance == null) return;
+        if (LocalActiveWeapon.Instance == null)
+        {
+            Debug.LogWarning("LocalActiveWeapon.Instance is null. Make sure LocalActiveWeapon component is on ActiveWeaponSlot.");
+            return;
+        }
         
         if (LocalActiveWeapon.Instance.CurrentActiveWeapon != null)
         {
             Destroy(LocalActiveWeapon.Instance.CurrentActiveWeapon.gameObject);
         }
 
-        if (!transform.GetChild(activeSlotIndexNum).GetComponentInChildren<InventorySlot>())
+        InventorySlot inventorySlot = transform.GetChild(activeSlotIndexNum).GetComponentInChildren<InventorySlot>();
+        
+        if (inventorySlot == null)
         {
             LocalActiveWeapon.Instance.WeaponNull();
             return;
         }
 
-        GameObject weaponToSpawn = transform.GetChild(activeSlotIndexNum).GetComponentInChildren<InventorySlot>().GetWeaponInfo().weaponPrefab;
-        GameObject newWeapon = Instantiate(weaponToSpawn, LocalActiveWeapon.Instance.transform.position, Quaternion.identity);
+        WeaponInfo weaponInfo = inventorySlot.GetWeaponInfo();
+        
+        if (weaponInfo == null)
+        {
+            LocalActiveWeapon.Instance.WeaponNull();
+            return;
+        }
+
+        if (weaponInfo.weaponPrefab == null)
+        {
+            Debug.LogWarning($"Weapon prefab is null for {weaponInfo.weaponName}");
+            LocalActiveWeapon.Instance.WeaponNull();
+            return;
+        }
+
+        GameObject newWeapon = Instantiate(weaponInfo.weaponPrefab, LocalActiveWeapon.Instance.transform.position, Quaternion.identity);
         newWeapon.transform.parent = LocalActiveWeapon.Instance.transform;
         LocalActiveWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());
     }

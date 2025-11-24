@@ -6270,6 +6270,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2819738513157657247, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3470589268936566600, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6808,6 +6812,7 @@ MonoBehaviour:
   mainMenuButton: {fileID: 1285704281}
   mainMenuSceneName: Menu
   useUIManagerIfAvailable: 1
+  pauseAudio: 1
   pauseAction:
     m_Name: Pause
     m_Type: 0

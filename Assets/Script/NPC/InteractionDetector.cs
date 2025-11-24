@@ -22,6 +22,19 @@ public class InteractionDetector : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (interactableInRange != null)
+        {
+            if (!interactableInRange.CanInteract())
+            {
+                interactableInRange = null;
+                if (interactionIcon != null)
+                    interactionIcon.SetActive(false);
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out IInteractable interactable))
