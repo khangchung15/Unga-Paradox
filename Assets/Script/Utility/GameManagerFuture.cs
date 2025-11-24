@@ -16,6 +16,10 @@ public class GameManagerFuture : MonoBehaviour
     public string gameOverMessage = "GAME OVER";
     public string pauseMessage = "PAUSED";
     
+    [Header("Delay Settings")]
+    [Tooltip("Delay before showing Game Over UI (to see death animation)")]
+    public float gameOverDelay = 2f;
+    
     [Header("Settings")]
     public bool pauseAudioOnGameOver = true;
 
@@ -33,7 +37,16 @@ public class GameManagerFuture : MonoBehaviour
 
     public void GameOver()
     {
+        if (isGameOver) return;
+        
         isGameOver = true;
+        StartCoroutine(GameOverRoutine());
+    }
+
+    private IEnumerator GameOverRoutine()
+    {
+        yield return new WaitForSeconds(gameOverDelay);
+        
         Time.timeScale = 0f;
         
         if (pauseAudioOnGameOver)
