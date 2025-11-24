@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class CutsceneSkip : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class CutsceneSkip : MonoBehaviour
     public PlayableDirector timelineDirector;
     public GameObject skipPrompt;
     public float skipDelay = 1f;
+    public string[] allowedCutsceneScenes;
     
     [Header("Skip Mode")]
     public bool loadNewScene = false;
@@ -19,32 +21,113 @@ public class CutsceneSkip : MonoBehaviour
     
     [Header("Input Settings")]
     public bool useNewInputSystem = true;
+
+    [Header("Auto Display Settings")]
+    public float autoDisplayDuration = 3f;
+    public float fadeInDuration = 0.5f;
+    public float fadeOutDuration = 0.5f;
+    public CanvasGroup skipPromptCanvasGroup;
     
     private float timer = 0f;
     private bool canSkip = false;
     private bool hasSkipped = false;
+    private bool isCutscenePlaying = false;
     
     void Start()
+    {
+        if (!IsInAllowedCutsceneScene())
+        {
+            if (skipPrompt != null)
+            {
+                skipPrompt.SetActive(false);
+            }
+            this.enabled = false;
+            return;
+        }
+        
+        InitializeCutscene();
+    }
+
+    void InitializeCutscene()
     {
         timer = 0f;
         canSkip = false;
         hasSkipped = false;
         
-        // Auto-find timeline if not assigned
         if (timelineDirector == null)
         {
             timelineDirector = FindObjectOfType<PlayableDirector>();
         }
-        
+
+        // Check if a cutscene is actually playing
+        if (timelineDirector != null)
+        {
+            isCutscenePlaying = timelineDirector.state == PlayState.Playing;
+        }
+
+        // ALWAYS show skip prompt when in allowed scene, but control skipping ability
         if (skipPrompt != null)
         {
             skipPrompt.SetActive(true);
+            
+            if (skipPromptCanvasGroup != null)
+            {
+                skipPromptCanvasGroup.alpha = 0f;
+            }
+            
+            // Only auto-display if cutscene is playing
+            if (isCutscenePlaying)
+            {
+                StartCoroutine(AutoDisplayPrompt());
+            }
+            else
+            {
+                // If no cutscene playing, keep prompt visible but make it clear skipping isn't available
+                if (skipPromptCanvasGroup != null)
+                {
+                    skipPromptCanvasGroup.alpha = 0.0f; // Dimmed to indicate not available
+                }
+            }
         }
     }
-    
+
+    private IEnumerator AutoDisplayPrompt()
+    {
+        if (skipPromptCanvasGroup == null) yield break;
+        
+        float elapsed = 0f;
+        
+        // Fade in
+        while (elapsed < fadeInDuration)
+        {
+            elapsed += Time.deltaTime;
+            skipPromptCanvasGroup.alpha = Mathf.Lerp(0f, 1f, elapsed / fadeInDuration);
+            yield return null;
+        }
+        
+        skipPromptCanvasGroup.alpha = 1f;
+        
+        // Wait for display duration
+        yield return new WaitForSeconds(autoDisplayDuration);
+        
+        // Fade out
+        elapsed = 0f;
+        while (elapsed < fadeOutDuration)
+        {
+            elapsed += Time.deltaTime;
+            skipPromptCanvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeOutDuration);
+            yield return null;
+        }
+        
+        skipPromptCanvasGroup.alpha = 0f;
+    }
+
     void Update()
     {
         if (hasSkipped) return;
+        
+        // Only allow skipping if cutscene is playing
+        if (!isCutscenePlaying) return;
         
         if (!canSkip)
         {
@@ -77,7 +160,6 @@ public class CutsceneSkip : MonoBehaviour
                 {
                     bool isAltPressed = keyboard.leftAltKey.isPressed || keyboard.rightAltKey.isPressed;
                     bool isCtrlPressed = keyboard.leftCtrlKey.isPressed || keyboard.rightCtrlKey.isPressed;
-                    bool isShiftPressed = keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
                     
                     if (isAltPressed || isCtrlPressed)
                     {
@@ -90,19 +172,67 @@ public class CutsceneSkip : MonoBehaviour
             
             return false;
             #else
-            return UnityEngine.Input.GetKeyDown(KeyCode.Space);
+            return Input.GetKeyDown(KeyCode.Space);
             #endif
         }
         else
         {
-            return UnityEngine.Input.GetKeyDown(KeyCode.Space);
+            return Input.GetKeyDown(KeyCode.Space);
+        }
+    }
+
+    private bool IsInAllowedCutsceneScene()
+    {
+        if (allowedCutsceneScenes == null || allowedCutsceneScenes.Length == 0)
+        {
+            return true;
+        }
+        
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        
+        foreach (string sceneName in allowedCutsceneScenes)
+        {
+            if (!string.IsNullOrEmpty(sceneName) && currentSceneName == sceneName)
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    // Call this method when a cutscene starts
+    public void OnCutsceneStart(PlayableDirector director = null)
+    {
+        if (director != null)
+        {
+            timelineDirector = director;
+        }
+        
+        isCutscenePlaying = true;
+        timer = 0f;
+        canSkip = false;
+        
+        // Show prompt with full opacity when cutscene starts
+        if (skipPromptCanvasGroup != null)
+        {
+            skipPromptCanvasGroup.alpha = 1f;
+        }
+        
+        // Restart auto-display coroutine
+        if (skipPrompt != null && skipPromptCanvasGroup != null)
+        {
+            StopAllCoroutines();
+            StartCoroutine(AutoDisplayPrompt());
         }
     }
     
     public void SkipCutscene()
     {
-        if (hasSkipped) return;
+        if (hasSkipped || !isCutscenePlaying) return;
+        
         hasSkipped = true;
+        isCutscenePlaying = false;
         
         // Mode 1: Load new scene
         if (loadNewScene && !string.IsNullOrEmpty(sceneToLoad))
@@ -117,10 +247,9 @@ public class CutsceneSkip : MonoBehaviour
             timelineDirector.Stop();
             timelineDirector.time = timelineDirector.duration; // Jump to end
             timelineDirector.Evaluate(); // Update the timeline state
-            timelineDirector.gameObject.SetActive(false);
         }
         
-        // Hide skip prompt
+        // Hide skip prompt after skipping
         if (skipPrompt != null)
         {
             skipPrompt.SetActive(false);
@@ -143,9 +272,55 @@ public class CutsceneSkip : MonoBehaviour
     
     public void SkipButton()
     {
-        if (canSkip)
+        if (canSkip && isCutscenePlaying)
         {
             SkipCutscene();
         }
+    }
+
+    // Optional: Monitor the timeline state
+    void OnEnable()
+    {
+        if (timelineDirector != null)
+        {
+            timelineDirector.stopped += OnCutsceneFinished;
+            timelineDirector.played += OnCutscenePlayed;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (timelineDirector != null)
+        {
+            timelineDirector.stopped -= OnCutsceneFinished;
+            timelineDirector.played -= OnCutscenePlayed;
+        }
+    }
+
+    private void OnCutscenePlayed(PlayableDirector director)
+    {
+        OnCutsceneStart(director);
+    }
+
+    private void OnCutsceneFinished(PlayableDirector director)
+    {
+        isCutscenePlaying = false;
+        // Don't hide prompt completely, just dim it
+        if (skipPromptCanvasGroup != null)
+        {
+            skipPromptCanvasGroup.alpha = 0.3f;
+        }
+    }
+
+    // Public method to manually check if skipping is available
+    public bool CanSkip()
+    {
+        return canSkip && isCutscenePlaying;
+    }
+
+    // Public method to get cutscene status
+    public bool IsCutscenePlaying()
+    {
+        return isCutscenePlaying;
     }
 }
