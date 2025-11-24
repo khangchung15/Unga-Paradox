@@ -12,14 +12,26 @@ public class GameManagerFuture : MonoBehaviour
 {
     [Header("Game Over UI")]
     public GameObject gameOverUI;
-    public GameObject resumeButton;
     public TMP_Text gameOverText;
     
     [Header("Settings")]
     public bool pauseAudioOnGameOver = true;
 
+    private static bool isGameOver = false;
+
+    public static bool IsGameOver()
+    {
+        return isGameOver;
+    }
+
+    private void Awake()
+    {
+        isGameOver = false;
+    }
+
     public void GameOver()
     {
+        isGameOver = true;
         Time.timeScale = 0f;
         
         if (pauseAudioOnGameOver)
@@ -34,11 +46,6 @@ public class GameManagerFuture : MonoBehaviour
             gameOverUI.SetActive(true);
         }
         
-        if (resumeButton != null)
-        {
-            resumeButton.SetActive(false);
-        }
-        
         if (gameOverText != null)
         {
             gameOverText.gameObject.SetActive(true);
@@ -49,6 +56,7 @@ public class GameManagerFuture : MonoBehaviour
 
     public void Restart()
     {
+        isGameOver = false;
         Time.timeScale = 1f;
         
         if (pauseAudioOnGameOver)
@@ -63,6 +71,7 @@ public class GameManagerFuture : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        isGameOver = false;
         Time.timeScale = 1f;
         
         if (pauseAudioOnGameOver)

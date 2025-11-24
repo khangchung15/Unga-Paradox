@@ -92,9 +92,41 @@ public class EscMenuController : MonoBehaviour
     {
         if (pauseAction != null && pauseAction.triggered)
         {
-            TogglePause();
+            if (!GameManagerFuture.IsGameOver())
+            {
+                TogglePause();
+            }
+            else
+            {
+                Debug.Log("Cannot pause - Game is over!");
+            }
         }
     }
+
+    public void TogglePause()
+    {
+        if (GameManagerFuture.IsGameOver())
+        {
+            Debug.Log("Cannot toggle pause - Game is over!");
+            return;
+        }
+
+        if (uiManager != null && useUIManagerIfAvailable)
+        {
+            uiManager.TogglePause();
+            return;
+        }
+        
+        if (isPaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Pause();
+        }
+    }
+
 
     private void SetupButtons()
     {
@@ -129,24 +161,6 @@ public class EscMenuController : MonoBehaviour
         else
         {
             Debug.LogWarning("Main Menu button is not assigned!");
-        }
-    }
-
-    public void TogglePause()
-    {
-        if (uiManager != null && useUIManagerIfAvailable)
-        {
-            uiManager.TogglePause();
-            return;
-        }
-        
-        if (isPaused)
-        {
-            Resume();
-        }
-        else
-        {
-            Pause();
         }
     }
 
