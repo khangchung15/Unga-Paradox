@@ -23,7 +23,10 @@ public class DeathBeamShooter : MonoBehaviour
     
     [Header("Rotation Lock")]
     [SerializeField] private float rotationLockBeforeShoot = 0.5f;
-    
+
+    [Header("Boss Reference")]
+    [SerializeField] private BossController bossController;
+
     [Header("Debug")]
     [SerializeField] private bool showDebugLogs = false;
     
@@ -42,6 +45,14 @@ public class DeathBeamShooter : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
+        }
+        
         rotateToTarget = GetComponent<DeathBeamRotateToTarget>();
         
         if (rotateToTarget == null)
@@ -66,6 +77,11 @@ public class DeathBeamShooter : MonoBehaviour
     
     private void Start()
     {
+        if (bossController == null)
+        {
+            bossController = FindObjectOfType<BossController>();
+        }
+
         if (target == null)
         {
             GameObject targetObject = GameObject.FindGameObjectWithTag(targetTag);
@@ -100,6 +116,16 @@ public class DeathBeamShooter : MonoBehaviour
     private void Update()
     {
         if (target == null || !target.gameObject.activeInHierarchy) return;
+        
+        if (bossController != null && !bossController.CanAttack())
+        {
+            if (isCharging || isShooting)
+            {
+                CancelCharging();
+                StopShooting();
+            }
+            return;
+        }
         
         if (!isCharging && !isShooting)
         {
@@ -168,17 +194,25 @@ public class DeathBeamShooter : MonoBehaviour
         isCharging = true;
         chargeTimer = 0f;
         
+        if (bossController != null)
+        {
+            bossController.PlayAttackAnimation();
+        }
+        
         if (showDebugLogs)
         {
             Debug.Log($"{gameObject.name}: Started charging");
         }
     }
+
     
     private void CancelCharging()
     {
+        if (!isCharging) return;
+        
         isCharging = false;
         chargeTimer = 0f;
-        shootTimer = 0.5f;
+        shootTimer = shootInterval;
         
         UnlockRotation();
         
@@ -187,7 +221,13 @@ public class DeathBeamShooter : MonoBehaviour
             attackIndicatorManager.ReleaseIndicator(this);
             currentIndicator = null;
         }
+        
+        if (showDebugLogs)
+        {
+            Debug.Log($"{gameObject.name}: Charging cancelled");
+        }
     }
+
     
     private void FinishCharging()
     {
@@ -230,6 +270,8 @@ public class DeathBeamShooter : MonoBehaviour
     
     private void StopShooting()
     {
+        if (!isShooting) return;
+        
         isShooting = false;
         shootTimer = shootInterval;
         
@@ -240,11 +282,17 @@ public class DeathBeamShooter : MonoBehaviour
         
         UnlockRotation();
         
+        if (bossController != null)
+        {
+            bossController.ReturnToIdle();
+        }
+        
         if (showDebugLogs)
         {
             Debug.Log($"{gameObject.name}: Stopped shooting");
         }
     }
+
     
     private void LockRotation()
     {
@@ -290,4 +338,30 @@ public class DeathBeamShooter : MonoBehaviour
             Gizmos.DrawLine(transform.position, target.position);
         }
     }
+    public void ForceStop()
+    {
+        if (isCharging)
+        {
+            CancelCharging();
+        }
+        
+        if (isShooting)
+        {
+            isShooting = false;
+            shootTimer = shootInterval;
+            
+            if (beamObject != null)
+            {
+                beamObject.SetActive(false);
+            }
+            
+            UnlockRotation();
+            
+            if (showDebugLogs)
+            {
+                Debug.Log($"{gameObject.name}: Force stopped");
+            }
+        }
+    }
+
 }

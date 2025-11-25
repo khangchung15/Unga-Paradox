@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BossShield : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class BossShield : MonoBehaviour
     [SerializeField] private BossHealth bossHealth;
     [SerializeField] private int damagePerHit = 25;
     
+    public UnityAction OnShieldBroken;
+    public UnityAction OnShieldRegenerateComplete;
+    
     private bool isBroken = false;
     
     private void Awake()
@@ -28,6 +32,9 @@ public class BossShield : MonoBehaviour
             
         if (shieldCollider == null)
             shieldCollider = GetComponent<Collider2D>();
+            
+        if (bossHealth == null)
+            bossHealth = GetComponentInParent<BossHealth>();
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -48,6 +55,8 @@ public class BossShield : MonoBehaviour
         animator.Play(brokenAnimationName);
         
         DamageBoss();
+        
+        OnShieldBroken?.Invoke();
         
         StartCoroutine(RegenerateShieldAfterDelay());
     }
@@ -73,6 +82,8 @@ public class BossShield : MonoBehaviour
         animator.Play(chargedAnimationName);
         
         isBroken = false;
+        
+        OnShieldRegenerateComplete?.Invoke();
     }
     
     private void DamageBoss()
