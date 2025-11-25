@@ -20,7 +20,7 @@ public class BossShield : MonoBehaviour
     [SerializeField] private BossHealth bossHealth;
     [SerializeField] private int damagePerHit = 25;
     
-    public UnityAction OnShieldBroken;
+    public UnityAction<DeathBeamShooter> OnShieldBroken;
     public UnityAction OnShieldRegenerateComplete;
     
     private bool isBroken = false;
@@ -44,11 +44,12 @@ public class BossShield : MonoBehaviour
         DeathBeamDamage deathBeam = collision.GetComponent<DeathBeamDamage>();
         if (deathBeam != null)
         {
-            BreakShield();
+            DeathBeamShooter shooter = deathBeam.GetComponentInParent<DeathBeamShooter>();
+            BreakShield(shooter);
         }
     }
     
-    private void BreakShield()
+    private void BreakShield(DeathBeamShooter shooter)
     {
         isBroken = true;
         
@@ -56,7 +57,7 @@ public class BossShield : MonoBehaviour
         
         DamageBoss();
         
-        OnShieldBroken?.Invoke();
+        OnShieldBroken?.Invoke(shooter);
         
         StartCoroutine(RegenerateShieldAfterDelay());
     }

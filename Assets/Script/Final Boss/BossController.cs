@@ -20,6 +20,7 @@ public class BossController : MonoBehaviour
     [Header("Fall Settings")]
     [SerializeField] private float fallGravityScale = 3f;
     [SerializeField] private string groundLayerName = "Ground";
+    [SerializeField] private float delayBeforeStoppingAttackingBeam = 0.5f;
     
     [Header("Recovery Settings")]
     [SerializeField] private float flyUpSpeed = 3f;
@@ -35,6 +36,7 @@ public class BossController : MonoBehaviour
     private Vector3 startPosition;
     private bool isOnGround = false;
     private int groundLayer;
+    private DeathBeamShooter currentAttackingShooter;
     
     public enum BossState
     {
@@ -133,6 +135,7 @@ public class BossController : MonoBehaviour
                 rb.linearVelocity = Vector2.zero;
                 animator.Play(idleAnimationName);
                 EnableDeathBeamShooters(true);
+                currentAttackingShooter = null;
                 break;
                 
             case BossState.Attacking:
@@ -146,7 +149,7 @@ public class BossController : MonoBehaviour
                 animator.Play(fallAnimationName);
                 isOnGround = false;
                 EnableDeathBeamShooters(false);
-                ForceStopAllDeathBeams();
+                StartCoroutine(StopDeathBeamsAfterDelay());
                 break;
                 
             case BossState.OnGround:
@@ -182,10 +185,11 @@ public class BossController : MonoBehaviour
         }
     }
     
-    private void HandleShieldBroken()
+    private void HandleShieldBroken(DeathBeamShooter shooter)
     {
         if (currentState == BossState.Hovering || currentState == BossState.Attacking)
         {
+            currentAttackingShooter = shooter;
             SetState(BossState.Falling);
         }
     }
@@ -195,6 +199,19 @@ public class BossController : MonoBehaviour
         if (currentState == BossState.OnGround)
         {
             SetState(BossState.Recovering);
+        }
+    }
+    
+    private IEnumerator StopDeathBeamsAfterDelay()
+    {
+        ForceStopAllDeathBeamsExcept(currentAttackingShooter);
+        
+        yield return new WaitForSeconds(delayBeforeStoppingAttackingBeam);
+        
+        if (currentAttackingShooter != null)
+        {
+            currentAttackingShooter.ForceStop();
+            currentAttackingShooter = null;
         }
     }
     
@@ -250,6 +267,19 @@ public class BossController : MonoBehaviour
         foreach (DeathBeamShooter shooter in deathBeamShooters)
         {
             if (shooter != null)
+            {
+                shooter.ForceStop();
+            }
+        }
+    }
+    
+    private void ForceStopAllDeathBeamsExcept(DeathBeamShooter exceptShooter)
+    {
+        if (deathBeamShooters == null) return;
+        
+        foreach (DeathBeamShooter shooter in deathBeamShooters)
+        {
+            if (shooter != null && shooter != exceptShooter)
             {
                 shooter.ForceStop();
             }

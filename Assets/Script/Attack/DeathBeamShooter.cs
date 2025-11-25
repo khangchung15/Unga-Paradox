@@ -364,4 +364,9 @@ public class DeathBeamShooter : MonoBehaviour
         }
     }
 
+    public bool IsShooting()
+    {
+        return isShooting;
+    }
+
 }
