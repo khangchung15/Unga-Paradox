@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2747121352270559068}
   - component: {fileID: 7286939972809229462}
-  - component: {fileID: 8774491632586246421}
   - component: {fileID: 7673214359988159779}
+  - component: {fileID: 9182826927813087064}
   m_Layer: 0
   m_Name: TeleportSwap
   m_TagString: Untagged
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: -2078862447
   m_SortingLayer: 4
   m_SortingOrder: 7
-  m_Sprite: {fileID: 4130640169021434097, guid: 076bb278a3fe4c84ca6b218221a2da96, type: 3}
+  m_Sprite: {fileID: 4130640169021434097, guid: b894d5c7e94e8e341ad411077e4be6bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -92,7 +92,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!82 &8774491632586246421
+--- !u!114 &7673214359988159779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5228997332152397195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9990a117ef825844a7e3c52be0a8700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TeleportSwap
+  weaponInfo: {fileID: 11400000, guid: 48b055db9187d2f4db3d44e499e49de7, type: 2}
+  bossTag: Boss
+  teleportEffectPrefab: {fileID: 0}
+  teleportSound: {fileID: 8300000, guid: ad8361e92abd1c44085d41cad84e720a, type: 3}
+--- !u!82 &9182826927813087064
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,19 +205,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7673214359988159779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5228997332152397195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9990a117ef825844a7e3c52be0a8700, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TeleportSwap
-  weaponInfo: {fileID: 11400000, guid: 48b055db9187d2f4db3d44e499e49de7, type: 2}
-  bossTag: Boss
-  teleportEffectPrefab: {fileID: 0}
-  teleportSound: {fileID: 0}
