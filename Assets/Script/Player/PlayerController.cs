@@ -72,6 +72,8 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     public void LoadData(GameData data)
     {
+        Debug.Log("Loading Player Data from contoller: " + this.transform.position);
+        Debug.Log("Loading Player Data from Game Data: " + data.playerPosition);
         // Load player position
         this.transform.position = data.playerPosition;
     }

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class GameData
 {
+    public string sceneName;
     public int currentCurrency;
     public float playerHealth;
     public Vector3 playerPosition;
@@ -16,6 +18,7 @@ public class GameData
     // the game starts with when there is no save data to load
     public GameData(Vector3 playerPos)
     {
+        sceneName = SceneManager.GetActiveScene().name;
         this.currentCurrency = 0;
         this.playerHealth = 100;
         playerPosition = playerPos;

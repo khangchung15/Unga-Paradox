@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 /// <summary>
@@ -18,6 +19,34 @@ public class LevelLoadButton : MonoBehaviour
     /// void (no return)
     /// </summary>
     /// <param name="levelToLoadName">The name of the level to load</param>
+    /// 
+
+    [SerializeField] private Button continueGameButton;
+
+    private void Start()
+    {
+        if (!DataPersistenceManager.instance.HasGameData())
+        {
+            continueGameButton.interactable = false;
+        }
+    }
+
+    public void OnNewGameClicked(string levelToLoadName)
+    {
+        // create a new game - which will initialize our game data
+        DataPersistenceManager.instance.NewGame();
+        // load the gameplay scene - which will in turn save the game beacuse of
+        // OnSceneUnloaded() in the DataPersistence Manager
+        SceneManager.LoadSceneAsync(levelToLoadName);
+    }
+
+    public void OnContinueGameClicked()
+    {
+        // load the next scene - which will in turn load the game beacuse of
+        // OnSceneLoaded() in the DataPersistence Manager
+        SceneManager.LoadSceneAsync(DataPersistenceManager.instance.gameData.sceneName);
+    }
+
     public void LoadLevelByName(string levelToLoadName)
     {
         SceneManager.LoadScene(levelToLoadName);
