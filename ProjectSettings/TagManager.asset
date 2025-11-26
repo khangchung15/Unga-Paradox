@@ -11,6 +11,7 @@ TagManager:
   - Rock
   - Ground
   - Boss
+  - BossSpawnPoint
   layers:
   - Default
   - TransparentFX

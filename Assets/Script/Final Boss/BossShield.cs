@@ -25,6 +25,8 @@ public class BossShield : MonoBehaviour
     
     private bool isBroken = false;
     
+    public bool IsShieldActive => !isBroken;
+    
     private void Awake()
     {
         if (animator == null)

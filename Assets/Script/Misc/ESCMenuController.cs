@@ -113,33 +113,18 @@ public class EscMenuController : MonoBehaviour
         {
             resumeButton.onClick.RemoveAllListeners();
             resumeButton.onClick.AddListener(OnResumeClicked);
-            Debug.Log("Resume button listener added. Button interactable: " + resumeButton.interactable);
-        }
-        else
-        {
-            Debug.LogError("Resume button is not assigned to EscMenuController!");
         }
         
         if (restartButton != null)
         {
             restartButton.onClick.RemoveAllListeners();
             restartButton.onClick.AddListener(OnRestartClicked);
-            Debug.Log("Restart button listener added. Button interactable: " + restartButton.interactable);
-        }
-        else
-        {
-            Debug.LogError("Restart button is not assigned to EscMenuController!");
         }
         
         if (mainMenuButton != null)
         {
             mainMenuButton.onClick.RemoveAllListeners();
             mainMenuButton.onClick.AddListener(OnMainMenuClicked);
-            Debug.Log("Main Menu button listener added. Button interactable: " + mainMenuButton.interactable);
-        }
-        else
-        {
-            Debug.LogError("Main Menu button is not assigned to EscMenuController!");
         }
     }
 
@@ -228,24 +213,20 @@ public class EscMenuController : MonoBehaviour
         }
         
         PauseController.SetPause(false);
-        Debug.Log("Game resumed - Audio unfrozen: " + pauseAudio);
     }
 
     private void OnResumeClicked()
     {
-        Debug.Log("Resume button clicked");
         Resume();
     }
 
     private void OnRestartClicked()
     {
-        Debug.Log("Restart button clicked");
         RestartLevel();
     }
 
     private void OnMainMenuClicked()
     {
-        Debug.Log("Main Menu button clicked");
         BackToMainMenu();
     }
 
@@ -261,7 +242,6 @@ public class EscMenuController : MonoBehaviour
         PauseController.SetPause(false);
         
         string currentSceneName = SceneManager.GetActiveScene().name;
-        Debug.Log("Restarting scene: " + currentSceneName);
         SceneManager.LoadScene(currentSceneName);
     }
 
@@ -276,7 +256,6 @@ public class EscMenuController : MonoBehaviour
         
         PauseController.SetPause(false);
         
-        Debug.Log("Loading main menu: " + mainMenuSceneName);
         SceneManager.LoadScene(mainMenuSceneName);
     }
 

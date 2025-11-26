@@ -25,6 +25,11 @@ public class BossController : MonoBehaviour
     [Header("Recovery Settings")]
     [SerializeField] private float flyUpSpeed = 3f;
     
+    [Header("Stuck Detection")]
+    [SerializeField] private float stuckCheckInterval = 0.5f;
+    [SerializeField] private float stuckDistanceThreshold = 0.1f;
+    [SerializeField] private string bossSpawnPointTag = "BossSpawnPoint";
+    
     [Header("Animation Names")]
     [SerializeField] private string idleAnimationName = "Idle";
     [SerializeField] private string attackAnimationName = "Attack";
@@ -37,6 +42,11 @@ public class BossController : MonoBehaviour
     private bool isOnGround = false;
     private int groundLayer;
     private DeathBeamShooter currentAttackingShooter;
+    
+    private Vector3 lastPositionCheck;
+    private float stuckCheckTimer = 0f;
+    private Transform playerTransform;
+    private Transform bossSpawnPoint;
     
     public enum BossState
     {
@@ -63,12 +73,29 @@ public class BossController : MonoBehaviour
         {
             deathBeamShooters = FindObjectsOfType<DeathBeamShooter>();
         }
+        
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
+        
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag(bossSpawnPointTag);
+        if (spawnPoint != null)
+        {
+            bossSpawnPoint = spawnPoint.transform;
+        }
+        else
+        {
+            Debug.LogWarning($"[BossController] Boss Spawn Point with tag '{bossSpawnPointTag}' not found!");
+        }
     }
     
     private void Start()
     {
         startPosition = transform.position;
         hoverYPosition = transform.position.y;
+        lastPositionCheck = transform.position;
         
         rb.gravityScale = 0;
         rb.bodyType = RigidbodyType2D.Kinematic;
@@ -88,11 +115,14 @@ public class BossController : MonoBehaviour
         {
             case BossState.Hovering:
                 UpdateHovering();
+                CheckIfStuck();
                 break;
             case BossState.FlyingUp:
                 UpdateFlyingUp();
                 break;
         }
+        
+        FacePlayer();
     }
     
     private void UpdateHovering()
@@ -122,6 +152,51 @@ public class BossController : MonoBehaviour
         }
     }
     
+    private void FacePlayer()
+    {
+        if (playerTransform == null) return;
+        
+        float directionToPlayer = playerTransform.position.x - transform.position.x;
+        
+        if (directionToPlayer > 0.1f)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
+        else if (directionToPlayer < -0.1f)
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+    }
+    
+    private void CheckIfStuck()
+    {
+        stuckCheckTimer += Time.deltaTime;
+        
+        if (stuckCheckTimer >= stuckCheckInterval)
+        {
+            float distanceMoved = Vector3.Distance(transform.position, lastPositionCheck);
+            
+            if (distanceMoved < stuckDistanceThreshold)
+            {
+                TeleportToSpawnPoint();
+            }
+            
+            lastPositionCheck = transform.position;
+            stuckCheckTimer = 0f;
+        }
+    }
+    
+    private void TeleportToSpawnPoint()
+    {
+        if (bossSpawnPoint != null)
+        {
+            Debug.Log("[BossController] Boss stuck! Teleporting to spawn point.");
+            transform.position = bossSpawnPoint.position;
+            startPosition = bossSpawnPoint.position;
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
+    
     private void SetState(BossState newState)
     {
         currentState = newState;
@@ -136,6 +211,8 @@ public class BossController : MonoBehaviour
                 animator.Play(idleAnimationName);
                 EnableDeathBeamShooters(true);
                 currentAttackingShooter = null;
+                stuckCheckTimer = 0f;
+                lastPositionCheck = transform.position;
                 break;
                 
             case BossState.Attacking:

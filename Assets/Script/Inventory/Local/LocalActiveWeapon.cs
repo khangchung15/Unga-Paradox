@@ -8,6 +8,7 @@ public class LocalActiveWeapon : MonoBehaviour
     private PlayerControls playerControls;
     private float timeBetweenAttacks;
     private bool attackButtonDown, isAttacking = false;
+    private bool isSecondaryAttacking = false;
 
     private void Awake()
     {
@@ -47,21 +48,22 @@ public class LocalActiveWeapon : MonoBehaviour
     {
         playerControls.Player.Attack.started += _ => StartAttacking();
         playerControls.Player.Attack.canceled += _ => StopAttacking();
-        AttackCooldown();
     }
 
     private void Update()
     {
         Attack();
+        SecondaryAttack();
     }
 
     public void NewWeapon(MonoBehaviour newWeapon)
     {
         CurrentActiveWeapon = newWeapon;
-        AttackCooldown();
         timeBetweenAttacks = (CurrentActiveWeapon as IWeapon).GetWeaponInfo().weaponCooldown;
         
-        // Set the sorting layer to match the player
+        isAttacking = false;
+        isSecondaryAttacking = false;
+        
         SetWeaponSortingLayer(newWeapon.gameObject);
     }
 
@@ -111,5 +113,26 @@ public class LocalActiveWeapon : MonoBehaviour
             AttackCooldown();
             (CurrentActiveWeapon as IWeapon).Attack();
         }
+    }
+
+    private void SecondaryAttack()
+    {
+        if (Input.GetMouseButtonDown(1) && !isSecondaryAttacking && CurrentActiveWeapon != null)
+        {
+            isSecondaryAttacking = true;
+            
+            if (CurrentActiveWeapon is ButterflyKnife butterflyKnife)
+            {
+                butterflyKnife.SecondaryAttack();
+            }
+            
+            StartCoroutine(SecondaryAttackCooldownRoutine());
+        }
+    }
+
+    private System.Collections.IEnumerator SecondaryAttackCooldownRoutine()
+    {
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        isSecondaryAttacking = false;
     }
 }
