@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3441706997675866549}
   - component: {fileID: 3004948367772804391}
   - component: {fileID: 3006532708523205250}
-  - component: {fileID: -2923062540786205335}
   - component: {fileID: 1034612112447225235}
   m_Layer: 0
   m_Name: Spear
@@ -231,24 +230,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-2923062540786205335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5461637649018635071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b4cf9bb1d1e4dc4e88a17142c4de94e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
-  weaponInfo: {fileID: 11400000, guid: 565f43f27277952458f615720374f521, type: 2}
-  pickupRange: 2
-  pickupKey: 101
-  pickupPromptPrefab: {fileID: 2290664792249068347, guid: d6566651767625948942eab7537b626a, type: 3}
-  promptInstance: {fileID: 0}
-  playerInRange: 0
 --- !u!61 &1034612112447225235
 BoxCollider2D:
   m_ObjectHideFlags: 0

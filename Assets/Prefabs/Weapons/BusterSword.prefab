@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7621020649733774505}
   - component: {fileID: 5197034052484937297}
   - component: {fileID: -2841398370967955356}
-  - component: {fileID: 4951204102831979464}
   - component: {fileID: -9106773403930947633}
   m_Layer: 0
   m_Name: BusterSword
@@ -82,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: 7262179028630881086, guid: 8414aa053c78b564ead74a487d4327c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -231,24 +230,6 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 90d3c2b6bea3faa41a6c318f16e82a34, type: 3}
   attackDistance: 1.5
   attackCooldown: 0.8
---- !u!114 &4951204102831979464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001049788225507752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b4cf9bb1d1e4dc4e88a17142c4de94e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
-  weaponInfo: {fileID: 11400000, guid: 348cf47be28cf38469bfd7ccfa11ac6f, type: 2}
-  pickupRange: 2
-  pickupKey: 101
-  pickupPromptPrefab: {fileID: 2290664792249068347, guid: d6566651767625948942eab7537b626a, type: 3}
-  promptInstance: {fileID: 0}
-  playerInRange: 0
 --- !u!61 &-9106773403930947633
 BoxCollider2D:
   m_ObjectHideFlags: 0

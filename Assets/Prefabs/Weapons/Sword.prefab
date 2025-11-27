@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8170786513089643212}
   - component: {fileID: 7090926625114620012}
   - component: {fileID: 7557026991302315895}
-  - component: {fileID: -3264067837154684115}
   - component: {fileID: 1779595747539776291}
   m_Layer: 0
   m_Name: Sword
@@ -82,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 299022299
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: 712035800519618848, guid: 40932b82dbf7c0a438617ffacfb29a54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -230,24 +229,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-3264067837154684115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8269813545676418093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b4cf9bb1d1e4dc4e88a17142c4de94e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
-  weaponInfo: {fileID: 11400000, guid: 5990c0401e4a256468d0c2fdbd053ff6, type: 2}
-  pickupRange: 2
-  pickupKey: 101
-  pickupPromptPrefab: {fileID: 2290664792249068347, guid: d6566651767625948942eab7537b626a, type: 3}
-  promptInstance: {fileID: 0}
-  playerInRange: 0
 --- !u!61 &1779595747539776291
 BoxCollider2D:
   m_ObjectHideFlags: 0
