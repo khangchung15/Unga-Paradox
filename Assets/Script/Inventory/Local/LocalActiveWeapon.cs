@@ -125,10 +125,15 @@ public class LocalActiveWeapon : MonoBehaviour
             {
                 butterflyKnife.SecondaryAttack();
             }
+            else if (CurrentActiveWeapon is PotionWeapon potionWeapon)
+            {
+                potionWeapon.SecondaryAttack();
+            }
             
             StartCoroutine(SecondaryAttackCooldownRoutine());
         }
     }
+
 
     private System.Collections.IEnumerator SecondaryAttackCooldownRoutine()
     {
