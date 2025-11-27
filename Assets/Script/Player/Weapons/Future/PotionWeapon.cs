@@ -13,7 +13,6 @@ public class PotionWeapon : MonoBehaviour, IWeapon
     [Header("Throw Settings")]
     [SerializeField] private float throwForceTowardsBoss = 15f;
     [SerializeField] private float throwForceUpward = 10f;
-    [SerializeField] private float throwAngleTowardsBoss = 45f;
     [SerializeField] private float spawnOffsetDistance = 1f;
     
     [Header("References")]
@@ -75,7 +74,6 @@ public class PotionWeapon : MonoBehaviour, IWeapon
     {
         if (potionTypes == null || potionTypes.Length == 0)
         {
-            Debug.LogWarning("[PotionWeapon] No potion types assigned!");
             return;
         }
         
@@ -110,7 +108,6 @@ public class PotionWeapon : MonoBehaviour, IWeapon
     {
         if (currentPotion == null || currentPotion.potionPrefab == null)
         {
-            Debug.LogWarning("[PotionWeapon] No potion selected or prefab is null!");
             return;
         }
         
@@ -123,7 +120,6 @@ public class PotionWeapon : MonoBehaviour, IWeapon
             }
             else
             {
-                Debug.LogWarning("[PotionWeapon] Player not found!");
                 return;
             }
         }
@@ -144,24 +140,11 @@ public class PotionWeapon : MonoBehaviour, IWeapon
         Vector3 spawnPosition = playerTransform.position + (Vector3)directionToBoss * spawnOffsetDistance;
         GameObject potion = Instantiate(currentPotion.potionPrefab, spawnPosition, Quaternion.identity);
         
-        Debug.Log($"[PotionWeapon] Spawned potion '{potion.name}' at {spawnPosition}");
-        
         Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
-        if (potionRb != null && bossTransform != null)
+        if (potionRb != null)
         {
-            float angleInRadians = throwAngleTowardsBoss * Mathf.Deg2Rad;
-            
-            Vector2 throwDirection = new Vector2(
-                directionToBoss.x * Mathf.Cos(angleInRadians),
-                Mathf.Sin(angleInRadians)
-            ).normalized;
-            
-            potionRb.AddForce(throwDirection * throwForceTowardsBoss, ForceMode2D.Impulse);
-            Debug.Log($"[PotionWeapon] Applied force {throwDirection * throwForceTowardsBoss} to potion");
-        }
-        else
-        {
-            Debug.LogWarning($"[PotionWeapon] Potion Rigidbody2D: {potionRb}, Boss: {bossTransform}");
+            potionRb.AddForce(directionToBoss * throwForceTowardsBoss, ForceMode2D.Impulse);
+            Debug.Log($"[PotionWeapon] Threw {currentPotion.potionName} at boss with force {throwForceTowardsBoss}");
         }
         
         if (audioSource != null && throwSound != null)
@@ -176,7 +159,6 @@ public class PotionWeapon : MonoBehaviour, IWeapon
     {
         if (currentPotion == null || currentPotion.potionPrefab == null)
         {
-            Debug.LogWarning("[PotionWeapon] No potion selected or prefab is null!");
             return;
         }
         
@@ -189,7 +171,6 @@ public class PotionWeapon : MonoBehaviour, IWeapon
             }
             else
             {
-                Debug.LogWarning("[PotionWeapon] Player not found!");
                 return;
             }
         }
@@ -197,17 +178,11 @@ public class PotionWeapon : MonoBehaviour, IWeapon
         Vector3 spawnPosition = playerTransform.position + Vector3.up * spawnOffsetDistance;
         GameObject potion = Instantiate(currentPotion.potionPrefab, spawnPosition, Quaternion.identity);
         
-        Debug.Log($"[PotionWeapon] Spawned potion '{potion.name}' at {spawnPosition} (throw upward)");
-        
         Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
         if (potionRb != null)
         {
             potionRb.AddForce(Vector2.up * throwForceUpward, ForceMode2D.Impulse);
-            Debug.Log($"[PotionWeapon] Applied upward force {Vector2.up * throwForceUpward} to potion");
-        }
-        else
-        {
-            Debug.LogWarning($"[PotionWeapon] Potion has no Rigidbody2D!");
+            Debug.Log($"[PotionWeapon] Threw {currentPotion.potionName} upward with force {throwForceUpward}");
         }
         
         if (audioSource != null && throwSound != null)

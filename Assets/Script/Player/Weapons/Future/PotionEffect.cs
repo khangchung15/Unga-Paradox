@@ -24,7 +24,7 @@ public abstract class PotionEffect : MonoBehaviour
     {
         ApplyEffect(position);
         SpawnAoeVisual(position);
-        PlayImpactSound();
+        PlayImpactSound(position);
     }
     
     protected abstract void ApplyEffect(Vector3 position);
@@ -38,11 +38,11 @@ public abstract class PotionEffect : MonoBehaviour
         }
     }
     
-    protected virtual void PlayImpactSound()
+    protected virtual void PlayImpactSound(Vector3 position)
     {
-        if (audioSource != null && impactSound != null)
+        if (impactSound != null)
         {
-            audioSource.PlayOneShot(impactSound);
+            AudioSource.PlayClipAtPoint(impactSound, position);
         }
     }
 }

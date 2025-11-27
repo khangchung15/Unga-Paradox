@@ -18,24 +18,36 @@ public class FrozenEntity : MonoBehaviour
     private Vector2 originalVelocity;
     private float originalAngularVelocity;
     
+    private BossShield bossShield;
+    private BossController bossController;
+    
     private void Awake()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         mainSpriteRenderer = GetComponent<SpriteRenderer>();
+        bossShield = GetComponentInChildren<BossShield>();
+        bossController = GetComponent<BossController>();
+        
+        Debug.Log($"[FrozenEntity] Component created on {gameObject.name}");
     }
+    
+    public bool IsFrozen => isFrozen;
     
     public void Freeze(float duration, Sprite overlaySprite, Color tint)
     {
         if (isFrozen)
         {
             freezeDuration = Mathf.Max(freezeDuration, duration);
+            Debug.Log($"[FrozenEntity] {gameObject.name} already frozen! Extended duration to {freezeDuration}s");
             return;
         }
         
         isFrozen = true;
         freezeDuration = duration;
         freezeTimer = 0f;
+        
+        Debug.Log($"[FrozenEntity] Freezing {gameObject.name} for {duration}s");
         
         if (mainSpriteRenderer != null)
         {
@@ -57,14 +69,25 @@ public class FrozenEntity : MonoBehaviour
             rb.angularVelocity = 0f;
         }
         
-        DisableMovementScripts();
+        if (bossController == null)
+        {
+            DisableMovementScripts();
+        }
+        else
+        {
+            DisableNonBossMovementScripts();
+        }
+        
+        if (bossShield != null)
+        {
+            bossShield.SetFrozen(true);
+            Debug.Log("[FrozenEntity] Notified boss shield of freeze");
+        }
         
         if (overlaySprite != null)
         {
             CreateFreezeOverlay(overlaySprite);
         }
-        
-        Debug.Log($"[FrozenEntity] {gameObject.name} frozen for {duration}s");
     }
     
     private void DisableMovementScripts()
@@ -83,6 +106,27 @@ public class FrozenEntity : MonoBehaviour
             if (script != null && script.enabled)
             {
                 script.enabled = false;
+                Debug.Log($"[FrozenEntity] Disabled {script.GetType().Name}");
+            }
+        }
+    }
+    
+    private void DisableNonBossMovementScripts()
+    {
+        scriptsToDisable = new MonoBehaviour[]
+        {
+            GetComponent<PlayerController>(),
+            GetComponent<ScientistController>(),
+            GetComponent<EnemyChase>(),
+            GetComponent<EnemyPathfinding>()
+        };
+        
+        foreach (var script in scriptsToDisable)
+        {
+            if (script != null && script.enabled)
+            {
+                script.enabled = false;
+                Debug.Log($"[FrozenEntity] Disabled {script.GetType().Name}");
             }
         }
     }
@@ -96,6 +140,7 @@ public class FrozenEntity : MonoBehaviour
             if (script != null)
             {
                 script.enabled = true;
+                Debug.Log($"[FrozenEntity] Re-enabled {script.GetType().Name}");
             }
         }
         
@@ -120,6 +165,12 @@ public class FrozenEntity : MonoBehaviour
     {
         if (!isFrozen) return;
         
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+        
         freezeTimer += Time.deltaTime;
         
         if (freezeTimer >= freezeDuration)
@@ -131,6 +182,8 @@ public class FrozenEntity : MonoBehaviour
     private void Unfreeze()
     {
         isFrozen = false;
+        
+        Debug.Log($"[FrozenEntity] Unfreezing {gameObject.name}");
         
         if (mainSpriteRenderer != null)
         {
@@ -144,13 +197,18 @@ public class FrozenEntity : MonoBehaviour
         
         EnableMovementScripts();
         
+        if (bossShield != null)
+        {
+            bossShield.SetFrozen(false);
+            Debug.Log("[FrozenEntity] Notified boss shield of unfreeze");
+        }
+        
         if (freezeOverlayObject != null)
         {
             Destroy(freezeOverlayObject);
         }
         
-        Debug.Log($"[FrozenEntity] {gameObject.name} unfrozen");
-        
+        Debug.Log($"[FrozenEntity] Destroying FrozenEntity component on {gameObject.name}");
         Destroy(this);
     }
 }

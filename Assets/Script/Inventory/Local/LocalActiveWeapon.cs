@@ -9,6 +9,7 @@ public class LocalActiveWeapon : MonoBehaviour
     private float timeBetweenAttacks;
     private bool attackButtonDown, isAttacking = false;
     private bool isSecondaryAttacking = false;
+    private AudioSource weaponEquipAudioSource;
 
     private void Awake()
     {
@@ -19,6 +20,9 @@ public class LocalActiveWeapon : MonoBehaviour
         }
         Instance = this;
         playerControls = new PlayerControls();
+        
+        weaponEquipAudioSource = gameObject.AddComponent<AudioSource>();
+        weaponEquipAudioSource.playOnAwake = false;
     }
 
     private void OnDestroy()
@@ -59,12 +63,28 @@ public class LocalActiveWeapon : MonoBehaviour
     public void NewWeapon(MonoBehaviour newWeapon)
     {
         CurrentActiveWeapon = newWeapon;
-        timeBetweenAttacks = (CurrentActiveWeapon as IWeapon).GetWeaponInfo().weaponCooldown;
+        WeaponInfo weaponInfo = (CurrentActiveWeapon as IWeapon).GetWeaponInfo();
+        timeBetweenAttacks = weaponInfo.weaponCooldown;
         
         isAttacking = false;
         isSecondaryAttacking = false;
         
         SetWeaponSortingLayer(newWeapon.gameObject);
+        PlayEquipSound(weaponInfo);
+    }
+
+    private void PlayEquipSound(WeaponInfo weaponInfo)
+    {
+        if (weaponInfo.equipSound != null && weaponEquipAudioSource != null)
+        {
+            if (weaponEquipAudioSource.isPlaying)
+            {
+                weaponEquipAudioSource.Stop();
+            }
+            
+            weaponEquipAudioSource.PlayOneShot(weaponInfo.equipSound);
+            Debug.Log($"[LocalActiveWeapon] Playing equip sound for {weaponInfo.weaponName}");
+        }
     }
 
     private void SetWeaponSortingLayer(GameObject weaponObject)

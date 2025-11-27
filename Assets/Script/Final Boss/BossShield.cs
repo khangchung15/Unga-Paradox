@@ -15,6 +15,11 @@ public class BossShield : MonoBehaviour
     
     [Header("Regeneration Settings")]
     [SerializeField] private float regenerationDelay = 3f;
+    [SerializeField] private float frozenRegenerationMultiplier = 0.5f;
+    
+    [Header("Potion Reflection")]
+    [SerializeField] private float reflectionForce = 15f;
+    [SerializeField] private string playerTag = "Player";
     
     [Header("Boss Damage")]
     [SerializeField] private BossHealth bossHealth;
@@ -24,6 +29,7 @@ public class BossShield : MonoBehaviour
     public UnityAction OnShieldRegenerateComplete;
     
     private bool isBroken = false;
+    private bool isFrozen = false;
     
     public bool IsShieldActive => !isBroken;
     
@@ -39,6 +45,12 @@ public class BossShield : MonoBehaviour
             bossHealth = GetComponentInParent<BossHealth>();
     }
     
+    public void SetFrozen(bool frozen)
+    {
+        isFrozen = frozen;
+        Debug.Log($"[BossShield] Shield frozen state: {frozen}");
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isBroken) return;
@@ -48,7 +60,42 @@ public class BossShield : MonoBehaviour
         {
             DeathBeamShooter shooter = deathBeam.GetComponentInParent<DeathBeamShooter>();
             BreakShield(shooter);
+            return;
         }
+        
+        ThrownPotion potion = collision.GetComponent<ThrownPotion>();
+        if (potion != null && !isBroken)
+        {
+            ReflectPotion(potion);
+        }
+    }
+    
+    private void ReflectPotion(ThrownPotion potion)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player == null)
+        {
+            Debug.LogWarning("[BossShield] Player not found for reflection!");
+            return;
+        }
+        
+        Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
+        if (potionRb == null)
+        {
+            Debug.LogWarning("[BossShield] Potion has no Rigidbody2D!");
+            return;
+        }
+        
+        Vector2 directionToPlayer = (player.transform.position - potion.transform.position).normalized;
+        
+        potionRb.linearVelocity = Vector2.zero;
+        potionRb.angularVelocity = 0f;
+        
+        potionRb.AddForce(directionToPlayer * reflectionForce, ForceMode2D.Impulse);
+        
+        potion.MarkAsReflected();
+        
+        Debug.Log($"[BossShield] Reflected potion toward player with force {reflectionForce}");
     }
     
     private void BreakShield(DeathBeamShooter shooter)
@@ -72,7 +119,27 @@ public class BossShield : MonoBehaviour
             yield return new WaitForSeconds(brokenClip.length);
         }
         
-        yield return new WaitForSeconds(regenerationDelay);
+        float actualDelay = regenerationDelay;
+        
+        if (isFrozen)
+        {
+            actualDelay *= frozenRegenerationMultiplier;
+            Debug.Log($"[BossShield] Frozen! Regeneration delay slowed to {actualDelay}s");
+        }
+        
+        float elapsed = 0f;
+        while (elapsed < regenerationDelay)
+        {
+            float deltaTime = Time.deltaTime;
+            
+            if (isFrozen)
+            {
+                deltaTime *= frozenRegenerationMultiplier;
+            }
+            
+            elapsed += deltaTime;
+            yield return null;
+        }
         
         animator.Play(regenerateAnimationName);
         

@@ -5,6 +5,7 @@ public class ThrownPotion : MonoBehaviour
     [Header("Collision Settings")]
     [SerializeField] private LayerMask triggerLayers;
     [SerializeField] private float activationDelay = 0.1f;
+    [SerializeField] private float reflectedActivationDelay = 0.05f;
     
     [Header("Components")]
     [SerializeField] private Rigidbody2D rb;
@@ -13,7 +14,10 @@ public class ThrownPotion : MonoBehaviour
     
     private bool hasTriggered = false;
     private bool isActive = false;
+    private bool isReflected = false;
+    private bool isBeingReflected = false;
     private float activationTimer = 0f;
+    private float currentActivationDelay;
     
     private void Awake()
     {
@@ -39,43 +43,104 @@ public class ThrownPotion : MonoBehaviour
             spriteRenderer.sortingLayerName = "Ground";
             spriteRenderer.sortingOrder = 6;
         }
+        
+        currentActivationDelay = activationDelay;
+    }
+    
+    public void MarkAsReflected()
+    {
+        isReflected = true;
+        isBeingReflected = false;
+        activationTimer = 0f;
+        isActive = false;
+        hasTriggered = false;
+        currentActivationDelay = reflectedActivationDelay;
+        Debug.Log($"[ThrownPotion] Potion reflected! Activation delay reduced to {reflectedActivationDelay}s");
     }
     
     private void Update()
     {
-        if (!isActive)
+        if (!isActive && !isBeingReflected)
         {
             activationTimer += Time.deltaTime;
-            if (activationTimer >= activationDelay)
+            if (activationTimer >= currentActivationDelay)
             {
                 isActive = true;
-                Debug.Log("[ThrownPotion] Potion activated and ready to trigger");
+                Debug.Log($"[ThrownPotion] Potion activated (reflected: {isReflected})");
             }
         }
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isActive || hasTriggered) return;
+        if (hasTriggered || isBeingReflected) return;
+        
+        if (IsShieldCollision(collision.gameObject))
+        {
+            isBeingReflected = true;
+            Debug.Log("[ThrownPotion] Hit boss shield, waiting for reflection");
+            return;
+        }
+        
+        if (!isActive)
+        {
+            Debug.Log($"[ThrownPotion] Hit {collision.gameObject.name} but not active yet (timer: {activationTimer:F2}/{currentActivationDelay:F2})");
+            return;
+        }
         
         if (IsValidTarget(collision.gameObject))
         {
             hasTriggered = true;
-            Debug.Log($"[ThrownPotion] Collision with {collision.gameObject.name}");
+            Debug.Log($"[ThrownPotion] Collision with {collision.gameObject.name} - TRIGGERING");
             TriggerPotionEffect(collision.contacts[0].point);
         }
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isActive || hasTriggered) return;
+        if (hasTriggered || isBeingReflected) return;
+        
+        if (IsShieldCollision(collision.gameObject))
+        {
+            isBeingReflected = true;
+            Debug.Log("[ThrownPotion] Hit boss shield (trigger), waiting for reflection");
+            return;
+        }
+        
+        if (!isActive)
+        {
+            Debug.Log($"[ThrownPotion] Triggered {collision.gameObject.name} but not active yet (timer: {activationTimer:F2}/{currentActivationDelay:F2})");
+            return;
+        }
         
         if (IsValidTarget(collision.gameObject))
         {
             hasTriggered = true;
-            Debug.Log($"[ThrownPotion] Trigger with {collision.gameObject.name}");
+            Debug.Log($"[ThrownPotion] Trigger with {collision.gameObject.name} - TRIGGERING");
             TriggerPotionEffect(collision.transform.position);
         }
+    }
+    
+    private bool IsShieldCollision(GameObject target)
+    {
+        BossShield shield = target.GetComponent<BossShield>();
+        if (shield != null && shield.IsShieldActive)
+        {
+            Debug.Log("[ThrownPotion] Detected active shield collision");
+            return true;
+        }
+        
+        if (target.transform.parent != null)
+        {
+            shield = target.transform.parent.GetComponent<BossShield>();
+            if (shield != null && shield.IsShieldActive)
+            {
+                Debug.Log("[ThrownPotion] Detected active shield collision on parent");
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     private bool IsValidTarget(GameObject target)

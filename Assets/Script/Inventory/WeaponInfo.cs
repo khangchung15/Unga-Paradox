@@ -9,5 +9,8 @@ public class WeaponInfo : ScriptableObject
     public float weaponCooldown;
 
     [Header("UI Settings")]
-    public Sprite weaponSprite;        
+    public Sprite weaponSprite;
+    
+    [Header("Audio Settings")]
+    public AudioClip equipSound;
 }

@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 6295420782359975043}
   - component: {fileID: 5107338025059536593}
   - component: {fileID: 179591386990844970}
-  - component: {fileID: 8874534021695473246}
-  - component: {fileID: 6137559307491168331}
+  - component: {fileID: -2872627505593641413}
+  - component: {fileID: 7216799126534956962}
   m_Layer: 0
-  m_Name: HealPotion
+  m_Name: FreezePotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: -2078862447
   m_SortingLayer: 4
   m_SortingOrder: 7
-  m_Sprite: {fileID: 4130640169021434097, guid: 9b2d0cbcce9f1af40905688e8199055c, type: 3}
+  m_Sprite: {fileID: 4130640169021434097, guid: f7105c3a9ac307b46ae43d9cfd9fb0e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -110,7 +110,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1.5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -177,7 +177,7 @@ MonoBehaviour:
   reflectedActivationDelay: 0.05
   rb: {fileID: 6295420782359975043}
   spriteRenderer: {fileID: 3969000994819706869}
---- !u!114 &8874534021695473246
+--- !u!114 &-2872627505593641413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,17 +186,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 869407172955108571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03d58f001ddc574b95b2c85d41d6376, type: 3}
+  m_Script: {fileID: 11500000, guid: 2feb845404ebdb94fa2d432bc50b0050, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealPotionEffect
+  m_EditorClassIdentifier: Assembly-CSharp::FreezePotionEffect
   aoeRadius: 3
   aoePrefab: {fileID: 0}
-  impactSound: {fileID: 8300000, guid: 76192a15b665c394e8844cdc7976cfb3, type: 3}
+  impactSound: {fileID: 8300000, guid: 8b4f86015d1dc584b804f2e915f639b3, type: 3}
   affectedLayers:
     serializedVersion: 2
     m_Bits: 0
-  healAmount: 20
---- !u!82 &6137559307491168331
+  freezeDuration: 3
+  freezeOverlaySprite: {fileID: 4130640169021434097, guid: 128d48dc67b75a14fa9c0374e1035a9f, type: 3}
+  freezeTint: {r: 0.5, g: 0.8, b: 1, a: 1}
+--- !u!82 &7216799126534956962
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

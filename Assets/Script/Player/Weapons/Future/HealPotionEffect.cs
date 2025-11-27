@@ -7,15 +7,10 @@ public class HealPotionEffect : PotionEffect
     
     protected override void ApplyEffect(Vector3 position)
     {
-        Debug.Log($"[HealPotionEffect] Applying heal effect at {position} with radius {aoeRadius}");
-        
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(position, aoeRadius);
-        
-        Debug.Log($"[HealPotionEffect] Found {hitColliders.Length} colliders in range");
         
         foreach (Collider2D hitCollider in hitColliders)
         {
-            Debug.Log($"[HealPotionEffect] Checking {hitCollider.name} (tag: {hitCollider.tag})");
             
             HealGameObject(hitCollider.gameObject);
         }
@@ -31,7 +26,6 @@ public class HealPotionEffect : PotionEffect
         if (healthFuture != null)
         {
             healthFuture.AddHealth(healAmount);
-            Debug.Log($"[HealPotion] Healed {target.name} for {healAmount} HP (HealthFuture)");
             return;
         }
         
@@ -43,7 +37,6 @@ public class HealPotionEffect : PotionEffect
         if (health != null)
         {
             health.AddHealth(healAmount);
-            Debug.Log($"[HealPotion] Healed {target.name} for {healAmount} HP (Health)");
             return;
         }
         
@@ -58,7 +51,5 @@ public class HealPotionEffect : PotionEffect
             Debug.Log($"[HealPotion] Healed Boss for {healAmount} HP");
             return;
         }
-        
-        Debug.Log($"[HealPotionEffect] {target.name} has no health component (checked parent too)");
     }
 }

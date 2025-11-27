@@ -55,18 +55,9 @@ public class DeathBeamShooter : MonoBehaviour
         
         rotateToTarget = GetComponent<DeathBeamRotateToTarget>();
         
-        if (rotateToTarget == null)
-        {
-            Debug.LogError("RotateToTarget component not found on " + gameObject.name);
-        }
-        
         if (beamObject != null)
         {
             beamAnimator = beamObject.GetComponent<Animator>();
-            if (beamAnimator == null)
-            {
-                Debug.LogWarning("Animator component not found on beam object: " + beamObject.name);
-            }
         }
         
         if (attackIndicatorManager == null)
@@ -93,15 +84,6 @@ public class DeathBeamShooter : MonoBehaviour
                 {
                     rotateToTarget.target = target;
                 }
-                
-                if (showDebugLogs)
-                {
-                    Debug.Log($"{gameObject.name}: Found target '{target.name}'");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Target with tag '" + targetTag + "' not found");
             }
         }
         
@@ -183,10 +165,6 @@ public class DeathBeamShooter : MonoBehaviour
             if (currentIndicator == null)
             {
                 shootTimer = 0.5f;
-                if (showDebugLogs)
-                {
-                    Debug.Log($"{gameObject.name}: Could not get indicator, retrying in 0.5s");
-                }
                 return;
             }
         }
@@ -199,10 +177,6 @@ public class DeathBeamShooter : MonoBehaviour
             bossController.PlayAttackAnimation();
         }
         
-        if (showDebugLogs)
-        {
-            Debug.Log($"{gameObject.name}: Started charging");
-        }
     }
 
     
@@ -220,11 +194,6 @@ public class DeathBeamShooter : MonoBehaviour
         {
             attackIndicatorManager.ReleaseIndicator(this);
             currentIndicator = null;
-        }
-        
-        if (showDebugLogs)
-        {
-            Debug.Log($"{gameObject.name}: Charging cancelled");
         }
     }
 
@@ -261,11 +230,6 @@ public class DeathBeamShooter : MonoBehaviour
         {
             audioSource.PlayOneShot(shootSound);
         }
-        
-        if (showDebugLogs)
-        {
-            Debug.Log($"{gameObject.name}: Started shooting");
-        }
     }
     
     private void StopShooting()
@@ -286,11 +250,6 @@ public class DeathBeamShooter : MonoBehaviour
         {
             bossController.ReturnToIdle();
         }
-        
-        if (showDebugLogs)
-        {
-            Debug.Log($"{gameObject.name}: Stopped shooting");
-        }
     }
 
     
@@ -301,10 +260,6 @@ public class DeathBeamShooter : MonoBehaviour
             rotateToTarget.LockRotation();
             isRotationLocked = true;
             
-            if (showDebugLogs)
-            {
-                Debug.Log($"{gameObject.name}: Rotation locked");
-            }
         }
     }
     
@@ -314,11 +269,6 @@ public class DeathBeamShooter : MonoBehaviour
         {
             rotateToTarget.UnlockRotation();
             isRotationLocked = false;
-            
-            if (showDebugLogs)
-            {
-                Debug.Log($"{gameObject.name}: Rotation unlocked");
-            }
         }
     }
     
@@ -356,11 +306,6 @@ public class DeathBeamShooter : MonoBehaviour
             }
             
             UnlockRotation();
-            
-            if (showDebugLogs)
-            {
-                Debug.Log($"{gameObject.name}: Force stopped");
-            }
         }
     }
 

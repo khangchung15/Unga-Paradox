@@ -44,6 +44,8 @@ public class BossHealthFuture : MonoBehaviour
         maxHealth = startingHealth;
         startingPositon = transform.position;
         hurtSounds = new AudioClip[] { hurtSound1, hurtSound2 };
+        
+        Debug.Log($"[BossHealth] Boss initialized with {currentHealth}/{maxHealth} HP");
     }
 
     public void TakeDamage(int damageAmount)
@@ -53,7 +55,13 @@ public class BossHealthFuture : MonoBehaviour
             DetectDeath();
         }
         currentHealth = (damageAmount >= currentHealth) ? 0 : currentHealth - damageAmount;
-        healthBar.SetValue(currentHealth);
+        
+        if (healthBar != null)
+        {
+            healthBar.SetValue(currentHealth);
+        }
+        
+        Debug.Log($"[BossHealth] Boss took {damageAmount} damage. Current HP: {currentHealth}/{maxHealth}");
         
         if (currentHealth > 0)
         {
@@ -71,6 +79,7 @@ public class BossHealthFuture : MonoBehaviour
             gameObject.transform.position = startingPositon;
             alreadySecondStage = true;
             audioSource.PlayOneShot(tpSound);
+            Debug.Log("[BossHealth] Boss entered second stage!");
         }
     }
     
@@ -85,7 +94,10 @@ public class BossHealthFuture : MonoBehaviour
             currentHealth = maxHealth;
         }
         
-        healthBar.SetValue(currentHealth);
+        if (healthBar != null)
+        {
+            healthBar.SetValue(currentHealth);
+        }
         
         Debug.Log($"[BossHealth] Boss healed for {healAmount}. Current HP: {currentHealth}/{maxHealth}");
     }
@@ -96,6 +108,8 @@ public class BossHealthFuture : MonoBehaviour
 
         if (isDead) return;
         isDead = true;
+        
+        Debug.Log("[BossHealth] Boss died!");
         
         if (shots != null)
             shots.enabled = false;

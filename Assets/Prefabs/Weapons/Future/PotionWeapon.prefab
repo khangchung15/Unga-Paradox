@@ -138,13 +138,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PotionWeapon
   weaponInfo: {fileID: 11400000, guid: f04b512354e72cf4e84a78a929dd0bdb, type: 2}
   potionTypes:
+  - potionName: FreezePotion
+    potionSprite: {fileID: 4130640169021434097, guid: f7105c3a9ac307b46ae43d9cfd9fb0e3, type: 3}
+    potionPrefab: {fileID: 869407172955108571, guid: 707dd58b8ab29944e8e03a79138e523a, type: 3}
   - potionName: Heal Potion
     potionSprite: {fileID: 4130640169021434097, guid: 9b2d0cbcce9f1af40905688e8199055c, type: 3}
     potionPrefab: {fileID: 869407172955108571, guid: c93e8fe2eaa3b81449759a9ea0a20269, type: 3}
   potionSpriteRenderer: {fileID: 7292043784899507328}
   throwForceTowardsBoss: 15
-  throwForceUpward: 10
+  throwForceUpward: 7
   throwAngleTowardsBoss: 45
+  spawnOffsetDistance: 1
   bossTag: Boss
   throwSound: {fileID: 0}
 --- !u!82 &5178349627152620651
