@@ -96,7 +96,7 @@ public class BossHealth : MonoBehaviour
         if (rb2d) {
             rb2d.linearVelocity = Vector2.zero;
             rb2d.angularVelocity = 0f;
-            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;   // hard-freeze
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;  
         }
         
         if (deathVFXPrefab != null)
@@ -106,7 +106,6 @@ public class BossHealth : MonoBehaviour
 
         if (healthBar != null) Destroy(healthBar.gameObject);
 
-        // Stop Music when he dies
         GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
         Camera.GetComponent<AudioSource>().Stop();
 
@@ -118,14 +117,12 @@ public class BossHealth : MonoBehaviour
         onDeath.Invoke();
 
         
-        // Spawn the portal that changes scenes
         if (portalPrefab != null)
         {
             Vector3 spawnPosition = portalSpawnPoint != null ? portalSpawnPoint.position : transform.position;
             Quaternion spawnRotation = portalSpawnPoint != null ? portalSpawnPoint.rotation : Quaternion.identity;
             var portalGo = Instantiate(portalPrefab, spawnPosition, spawnRotation);
             
-            // If the portal has a ScenePortal component, configure it
             var scenePortal = portalGo.GetComponent<ScenePortal>();
             if (scenePortal != null)
             {

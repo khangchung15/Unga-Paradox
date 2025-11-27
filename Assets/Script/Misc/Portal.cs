@@ -8,7 +8,19 @@ public class Portal : MonoBehaviour
     [Header("Cooldown (seconds) between teleports through THIS portal")]
     public float cooldownDuration = 1f;
 
-    private float lastTeleportTime = -999f; // so it works immediately at start
+    private float lastTeleportTime = -999f;
+    
+    [SerializeField] private AudioSource audioSource;
+    public AudioClip teleportSound;
+
+
+    private void Awake()
+    {
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -19,6 +31,11 @@ public class Portal : MonoBehaviour
         // Check cooldown
         if (Time.time - lastTeleportTime < cooldownDuration)
             return;
+        
+        if (audioSource != null && teleportSound != null)
+        {
+            audioSource.PlayOneShot(teleportSound);
+        }
 
         if (teleportPoint == null)
         {
@@ -29,7 +46,6 @@ public class Portal : MonoBehaviour
         // Teleport the player
         other.transform.position = teleportPoint.position;
 
-        // Optional: reset velocity if the player uses Rigidbody2D
         Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
         if (rb != null)
         {

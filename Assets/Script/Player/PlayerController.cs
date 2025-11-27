@@ -26,20 +26,10 @@ public class PlayerController : Singleton<PlayerController>
     [Tooltip("The speed at which to dash the player")]
     [SerializeField] private float dashSpeed = 4.0f;
 
-    //[Header("Input Actions & Controls")]
-    //[Tooltip("The input action(s) that map to player movement")]
-    //public InputAction moveAction;
-
     private PlayerControls playerControls;
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
-
-
-
-    // Movement slow effect
-
-
 
     private int dashBlockers = 0;
     private bool canDash = true;
@@ -50,7 +40,19 @@ public class PlayerController : Singleton<PlayerController>
     private readonly Dictionary<string, float> speedMods = new Dictionary<string, float>();
 
     private bool isDashing = false;
-    
+
+    [Header("Parry Settings")]
+    [SerializeField] private GameObject parryVisual;
+    [SerializeField] private float parryDuration = 0.2f;
+    [SerializeField] private float parryCooldown = 0.5f;
+    [SerializeField] private AudioSource parryAudioSource;
+    [SerializeField] private AudioClip parryStartSFX;
+    [SerializeField] private AudioClip parryReadySFX;
+    [SerializeField] private float parryReadyVolume = 1f;
+    private bool isParrying = false;
+    private bool canParry = true;
+    private Coroutine parryRoutine;
+
     private Rigidbody2D rb;
 
     #region Player State Variables
@@ -84,8 +86,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         MovePlayer();
     }
-    
-    
+
     public PlayerDirection facing
     {
         get
@@ -124,7 +125,20 @@ public class PlayerController : Singleton<PlayerController>
     {
         baseMovementSpeed = movementSpeed;
         RefreshCameraReference();
+
+        if (parryVisual != null)
+        {
+            Debug.Log($"[Parry] ParryVisual assigned to: {parryVisual.name}");
+            parryVisual.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("[Parry] ParryVisual is NULL in PlayerController!");
+        }
+        
+
         playerControls.Player.Dash.performed += _ => Dash();
+        playerControls.Player.Parry.performed += _ => TryParry();
     }
 
     private void OnEnable()
@@ -166,7 +180,7 @@ public class PlayerController : Singleton<PlayerController>
     private void HandleMovementInput()
     {
         Vector2 input = playerControls.Player.Move.ReadValue<Vector2>();
-        
+
         if (state != PlayerState.Dead)
         {
             currentVelocity = input * movementSpeed;
@@ -251,7 +265,7 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-    private void Dash() 
+    private void Dash()
     {
         if (!isDashing && canDash)
         {
@@ -260,6 +274,80 @@ public class PlayerController : Singleton<PlayerController>
             RecomputeMovementSpeed();
             StartCoroutine(EndDashRoutine());
         }
+    }
+
+    private void TryParry()
+    {
+        if (!canParry || state == PlayerState.Dead)
+            return;
+
+        if (parryRoutine != null)
+        {
+            StopCoroutine(parryRoutine);
+        }
+
+        parryRoutine = StartCoroutine(ParryRoutine());
+
+        if (parryAudioSource != null && parryStartSFX != null)
+        {
+            parryAudioSource.PlayOneShot(parryStartSFX);
+        }
+        else
+        {
+            Debug.LogWarning($"[Parry] Start SFX NOT played. parryAudioSource null? {parryAudioSource == null}, parryStartSFX null? {parryStartSFX == null}");
+        }
+    }
+
+    private IEnumerator ParryRoutine()
+    {
+        canParry = false;
+        isParrying = true;
+
+        if (playerHealth != null)
+        {
+            playerHealth.isParrying = true;
+            Debug.Log("[Parry] playerHealth.isParrying = true");
+        }
+
+        if (parryVisual != null)
+        {
+            parryVisual.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("[Parry] parryVisual is NULL when trying to activate!");
+        }
+
+        yield return new WaitForSeconds(parryDuration);
+
+        isParrying = false;
+
+        if (playerHealth != null)
+        {
+            playerHealth.isParrying = false;
+        }
+
+        if (parryVisual != null)
+        {
+            parryVisual.SetActive(false);
+        }
+
+        yield return new WaitForSeconds(parryCooldown);
+
+        canParry = true;
+        parryRoutine = null;
+        
+        if (parryReadySFX != null)
+        {
+            Vector3 soundPos = playerCamera != null ? playerCamera.transform.position : transform.position;
+            AudioSource.PlayClipAtPoint(parryReadySFX, soundPos, parryReadyVolume);
+        }
+        else
+        {
+            Debug.LogWarning("[Parry] Ready SFX NOT played. parryReadySFX is NULL.");
+        }
+
+        yield break;
     }
 
     private IEnumerator EndDashRoutine()
@@ -283,7 +371,6 @@ public class PlayerController : Singleton<PlayerController>
         canDash = (dashBlockers == 0);
     }
 
-
     public void AddOrUpdateSpeedMod(string key, float multiplier)
     {
         multiplier = Mathf.Clamp(multiplier, 0.05f, 1f);
@@ -298,6 +385,7 @@ public class PlayerController : Singleton<PlayerController>
         currentSlowMultiplier = m;
         RecomputeMovementSpeed();
     }
+
     public void RemoveSpeedMod(string key)
     {
         if (speedMods.Remove(key))
@@ -308,7 +396,6 @@ public class PlayerController : Singleton<PlayerController>
     {
         float dashMul = isDashing ? dashSpeed : 1f;
         movementSpeed = baseMovementSpeed * currentSlowMultiplier * dashMul;
-        //Debug.Log($"[Speed] base={baseMovementSpeed}, slowMul={currentSlowMultiplier}, dash={(isDashing ? dashSpeed : 1f)}, active={movementSpeed}");
     }
 
     public void CancelDash()
@@ -352,5 +439,4 @@ public class PlayerController : Singleton<PlayerController>
     {
         canDash = (dashBlockers == 0);
     }
-
 }

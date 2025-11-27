@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     public float maxHealth;
     public bool isInvincible;
     public bool isDashing;
+    public bool isParrying;
     public float dashInvincibleTime = 0.2f;
     
     [Tooltip("Drag and drop the health bar from canvas onto here.")]
@@ -47,9 +48,13 @@ public class Health : MonoBehaviour
             return;
         }
 
-        if (isDashing)
+        if (isDashing || isParrying)
         {
-            StartCoroutine(EndInvincibleRoutine());
+            if (isDashing)
+            {
+                StartCoroutine(EndInvincibleRoutine());
+            }
+            // If parrying, we simply ignore this damage instance
             return;
         }
         
