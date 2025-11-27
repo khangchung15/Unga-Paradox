@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
         get => startingHealth;
         set => startingHealth = value;
     }
-    private void Start()
+    protected virtual void Start()
     {
         currentHealth = StartingHealth;
         audioSource = GetComponent<AudioSource>();

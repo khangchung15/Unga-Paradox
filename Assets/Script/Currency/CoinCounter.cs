@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class CoinCounter : MonoBehaviour
 {
-    [SerializeField] CoinManager coin;
     [SerializeField] TMP_Text coinCount;
-    
+
     private void Start()
     {
         if (coinCount == null)
         {
-            Debug.LogError("Coin system from player needs to be assigned. Check PlayerUI canvas in Inspector.");
+            Debug.LogError("Coin count text is not assigned.");
+            return;
         }
-        coinCount.SetText($"{coin.currentCurrency}");
+
+        coinCount.SetText(CoinManager.Instance.currentCurrency.ToString());
     }
 
     public void SetValue(int newValue)

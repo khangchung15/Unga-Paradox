@@ -59,4 +59,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0d1135e6f57cde4db925b71ca23af21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  coinManager: {fileID: 8455634248323330024}
   gameOverUI: {fileID: 0}
