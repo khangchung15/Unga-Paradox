@@ -10,6 +10,7 @@ public class LocalActiveWeapon : MonoBehaviour
     private bool attackButtonDown, isAttacking = false;
     private bool isSecondaryAttacking = false;
     private AudioSource weaponEquipAudioSource;
+    private GameObject playerObject;
 
     private void Awake()
     {
@@ -52,12 +53,30 @@ public class LocalActiveWeapon : MonoBehaviour
     {
         playerControls.Player.Attack.started += _ => StartAttacking();
         playerControls.Player.Attack.canceled += _ => StopAttacking();
+        
+        playerObject = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
     {
         Attack();
         SecondaryAttack();
+    }
+    
+    private bool IsPlayerFrozen()
+    {
+        if (playerObject == null)
+        {
+            playerObject = GameObject.FindGameObjectWithTag("Player");
+        }
+        
+        if (playerObject != null)
+        {
+            FrozenEntity frozenEntity = playerObject.GetComponent<FrozenEntity>();
+            return frozenEntity != null && frozenEntity.IsFrozen;
+        }
+        
+        return false;
     }
 
     public void NewWeapon(MonoBehaviour newWeapon)
@@ -128,6 +147,8 @@ public class LocalActiveWeapon : MonoBehaviour
 
     private void Attack()
     {
+        if (IsPlayerFrozen()) return;
+        
         if (attackButtonDown && !isAttacking && CurrentActiveWeapon != null)
         {
             AttackCooldown();
@@ -137,6 +158,8 @@ public class LocalActiveWeapon : MonoBehaviour
 
     private void SecondaryAttack()
     {
+        if (IsPlayerFrozen()) return;
+        
         if (Input.GetMouseButtonDown(1) && !isSecondaryAttacking && CurrentActiveWeapon != null)
         {
             isSecondaryAttacking = true;

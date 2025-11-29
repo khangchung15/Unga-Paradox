@@ -147,8 +147,6 @@ MonoBehaviour:
   potionSpriteRenderer: {fileID: 7292043784899507328}
   throwForceTowardsBoss: 15
   throwForceUpward: 7
-  throwAngleTowardsBoss: 45
-  spawnOffsetDistance: 1
   bossTag: Boss
   throwSound: {fileID: 0}
 --- !u!82 &5178349627152620651

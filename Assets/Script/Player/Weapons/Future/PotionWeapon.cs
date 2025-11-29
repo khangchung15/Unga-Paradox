@@ -13,7 +13,6 @@ public class PotionWeapon : MonoBehaviour, IWeapon
     [Header("Throw Settings")]
     [SerializeField] private float throwForceTowardsBoss = 15f;
     [SerializeField] private float throwForceUpward = 10f;
-    [SerializeField] private float spawnOffsetDistance = 1f;
     
     [Header("References")]
     [SerializeField] private string bossTag = "Boss";
@@ -86,7 +85,6 @@ public class PotionWeapon : MonoBehaviour, IWeapon
             potionSpriteRenderer.sortingOrder = 7;
         }
         
-        Debug.Log($"[PotionWeapon] Selected potion: {currentPotion.potionName}");
     }
     
     public WeaponInfo GetWeaponInfo()
@@ -137,14 +135,12 @@ public class PotionWeapon : MonoBehaviour, IWeapon
             (bossTransform.position - playerTransform.position).normalized : 
             Vector2.right;
         
-        Vector3 spawnPosition = playerTransform.position + (Vector3)directionToBoss * spawnOffsetDistance;
-        GameObject potion = Instantiate(currentPotion.potionPrefab, spawnPosition, Quaternion.identity);
+        GameObject potion = Instantiate(currentPotion.potionPrefab, playerTransform.position, Quaternion.identity);
         
         Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
         if (potionRb != null)
         {
             potionRb.AddForce(directionToBoss * throwForceTowardsBoss, ForceMode2D.Impulse);
-            Debug.Log($"[PotionWeapon] Threw {currentPotion.potionName} at boss with force {throwForceTowardsBoss}");
         }
         
         if (audioSource != null && throwSound != null)
@@ -175,14 +171,12 @@ public class PotionWeapon : MonoBehaviour, IWeapon
             }
         }
         
-        Vector3 spawnPosition = playerTransform.position + Vector3.up * spawnOffsetDistance;
-        GameObject potion = Instantiate(currentPotion.potionPrefab, spawnPosition, Quaternion.identity);
+        GameObject potion = Instantiate(currentPotion.potionPrefab, playerTransform.position, Quaternion.identity);
         
         Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
         if (potionRb != null)
         {
             potionRb.AddForce(Vector2.up * throwForceUpward, ForceMode2D.Impulse);
-            Debug.Log($"[PotionWeapon] Threw {currentPotion.potionName} upward with force {throwForceUpward}");
         }
         
         if (audioSource != null && throwSound != null)

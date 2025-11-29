@@ -48,7 +48,6 @@ public class BossShield : MonoBehaviour
     public void SetFrozen(bool frozen)
     {
         isFrozen = frozen;
-        Debug.Log($"[BossShield] Shield frozen state: {frozen}");
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -95,7 +94,6 @@ public class BossShield : MonoBehaviour
         
         potion.MarkAsReflected();
         
-        Debug.Log($"[BossShield] Reflected potion toward player with force {reflectionForce}");
     }
     
     private void BreakShield(DeathBeamShooter shooter)
@@ -124,7 +122,6 @@ public class BossShield : MonoBehaviour
         if (isFrozen)
         {
             actualDelay *= frozenRegenerationMultiplier;
-            Debug.Log($"[BossShield] Frozen! Regeneration delay slowed to {actualDelay}s");
         }
         
         float elapsed = 0f;
@@ -141,6 +138,8 @@ public class BossShield : MonoBehaviour
             yield return null;
         }
         
+        UnfreezeBoss();
+        
         animator.Play(regenerateAnimationName);
         
         AnimationClip regenerateClip = GetAnimationClip(regenerateAnimationName);
@@ -154,6 +153,21 @@ public class BossShield : MonoBehaviour
         isBroken = false;
         
         OnShieldRegenerateComplete?.Invoke();
+    }
+    
+    private void UnfreezeBoss()
+    {
+        Transform bossTransform = transform.parent;
+        if (bossTransform == null)
+        {
+            return;
+        }
+        
+        FrozenEntity frozenEntity = bossTransform.GetComponent<FrozenEntity>();
+        if (frozenEntity != null && frozenEntity.IsFrozen)
+        {
+            frozenEntity.Unfreeze();
+        }
     }
     
     private void DamageBoss()

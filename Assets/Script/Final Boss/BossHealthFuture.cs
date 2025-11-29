@@ -32,7 +32,6 @@ public class BossHealthFuture : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         knockback = GetComponent<Knockback>();
-        knockback = GetComponent<Knockback>();
         audioSource = GetComponent<AudioSource>();
         shots = GetComponent<BossShooter>();
         rb2d = GetComponent<Rigidbody2D>();
@@ -43,17 +42,22 @@ public class BossHealthFuture : MonoBehaviour
         currentHealth = startingHealth;
         maxHealth = startingHealth;
         startingPositon = transform.position;
-        hurtSounds = new AudioClip[] { hurtSound1, hurtSound2 };
         
-        Debug.Log($"[BossHealth] Boss initialized with {currentHealth}/{maxHealth} HP");
+        if (hurtSound1 != null && hurtSound2 != null)
+        {
+            hurtSounds = new AudioClip[] { hurtSound1, hurtSound2 };
+        }
+        
     }
 
     public void TakeDamage(int damageAmount)
     {
-        if (currentHealth <= 0)
+        if (isDead || currentHealth <= 0)
         {
             DetectDeath();
+            return;
         }
+        
         currentHealth = (damageAmount >= currentHealth) ? 0 : currentHealth - damageAmount;
         
         if (healthBar != null)
@@ -65,21 +69,38 @@ public class BossHealthFuture : MonoBehaviour
         
         if (currentHealth > 0)
         {
-            audioSource.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)]);
+            if (audioSource != null && hurtSounds != null && hurtSounds.Length > 0)
+            {
+                audioSource.PlayOneShot(hurtSounds[Random.Range(0, hurtSounds.Length)]);
+            }
         }
 
         if (currentHealth <= startingHealth / 2 && alreadySecondStage == false)
         {
-            shots.burstCount = 10;
-            shots.projectileMoveSpeed = 4;
-            shots.shootCooldown = 3;
-            shots.angleSpread = 359;
-            shots.projectilesPerBurst = 100;
-            shots.stagger = false;
+            if (shots != null)
+            {
+                shots.burstCount = 10;
+                shots.projectileMoveSpeed = 4;
+                shots.shootCooldown = 3;
+                shots.angleSpread = 359;
+                shots.projectilesPerBurst = 100;
+                shots.stagger = false;
+            }
+            
             gameObject.transform.position = startingPositon;
             alreadySecondStage = true;
-            audioSource.PlayOneShot(tpSound);
+            
+            if (audioSource != null && tpSound != null)
+            {
+                audioSource.PlayOneShot(tpSound);
+            }
+            
             Debug.Log("[BossHealth] Boss entered second stage!");
+        }
+        
+        if (currentHealth <= 0)
+        {
+            DetectDeath();
         }
     }
     
@@ -104,21 +125,27 @@ public class BossHealthFuture : MonoBehaviour
 
     private void DetectDeath()
     {
-        audioSource.PlayOneShot(deathSound);
-
         if (isDead) return;
         isDead = true;
         
         Debug.Log("[BossHealth] Boss died!");
         
+        if (audioSource != null && deathSound != null)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+        
         if (shots != null)
             shots.enabled = false;
         
         if (animator != null)
+        {
             animator.ResetTrigger("Dead");
             animator.SetTrigger("Dead");
+        }
 
-        if (rb2d) {
+        if (rb2d != null)
+        {
             rb2d.linearVelocity = Vector2.zero;
             rb2d.angularVelocity = 0f;
             rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -131,16 +158,19 @@ public class BossHealthFuture : MonoBehaviour
 
         if (healthBar != null) Destroy(healthBar.gameObject);
 
-        GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
-        Camera.GetComponent<AudioSource>().Stop();
-
-        if (deathVFXPrefab != null)
+        GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        if (mainCamera != null)
         {
-            Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+            AudioSource cameraAudio = mainCamera.GetComponent<AudioSource>();
+            if (cameraAudio != null)
+            {
+                cameraAudio.Stop();
+            }
         }
         
         onDeath.Invoke();
 
-        Destroy(gameObject,deathSound.length);
+        float destroyDelay = (deathSound != null) ? deathSound.length : 1f;
+        Destroy(gameObject, destroyDelay);
     }
 }

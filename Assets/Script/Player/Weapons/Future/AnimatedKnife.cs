@@ -22,6 +22,7 @@ public class AnimatedKnife : MonoBehaviour
     private int currentDamage;
     
     private float hoverTimer = 0f;
+    private bool hasHit = false;
     
     private enum KnifeState
     {
@@ -103,6 +104,7 @@ public class AnimatedKnife : MonoBehaviour
         
         currentState = KnifeState.FlyingUp;
         hoverTimer = 0f;
+        hasHit = false;
     }
     
     private void Update()
@@ -217,6 +219,12 @@ public class AnimatedKnife : MonoBehaviour
     {
         if (currentTarget == null) return;
         
+        if (currentTarget == bossTransform && !IsBossShieldDown())
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         Vector2 direction = (currentTarget.position - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
@@ -233,27 +241,56 @@ public class AnimatedKnife : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (currentState != KnifeState.FlyingToTarget) return;
+        if (hasHit) return;
         
-        if (currentTarget == bossTransform && collision.CompareTag("Boss"))
+        if (collision.CompareTag("Boss"))
         {
-            BossHealth bossHealth = collision.GetComponent<BossHealth>();
-            if (bossHealth != null)
-            {
-                bossHealth.TakeDamage(currentDamage);
-            }
+            hasHit = true;
             
-            Destroy(gameObject);
+            try
+            {
+                if (currentTarget == bossTransform)
+                {
+                    BossHealthFuture bossHealth = collision.GetComponent<BossHealthFuture>();
+                    if (bossHealth != null)
+                    {
+                        bossHealth.TakeDamage(currentDamage);
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+            }
+            finally
+            {
+                Destroy(gameObject);
+            }
+            return;
         }
-        else if (currentTarget == playerTransform && collision.CompareTag("Player"))
+        
+        if (collision.CompareTag("Player"))
         {
-            HealthFuture playerHealth = collision.GetComponent<HealthFuture>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(currentDamage);
-            }
+            hasHit = true;
             
-            Destroy(gameObject);
+            try
+            {
+                if (currentTarget == playerTransform)
+                {
+                    HealthFuture playerHealth = collision.GetComponent<HealthFuture>();
+                    if (playerHealth != null)
+                    {
+                        playerHealth.TakeDamage(currentDamage);
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+            }
+            finally
+            {
+                Destroy(gameObject);
+            }
+            return;
         }
     }
 }

@@ -55,7 +55,6 @@ public class ThrownPotion : MonoBehaviour
         isActive = false;
         hasTriggered = false;
         currentActivationDelay = reflectedActivationDelay;
-        Debug.Log($"[ThrownPotion] Potion reflected! Activation delay reduced to {reflectedActivationDelay}s");
     }
     
     private void Update()
@@ -66,7 +65,6 @@ public class ThrownPotion : MonoBehaviour
             if (activationTimer >= currentActivationDelay)
             {
                 isActive = true;
-                Debug.Log($"[ThrownPotion] Potion activated (reflected: {isReflected})");
             }
         }
     }
@@ -78,20 +76,17 @@ public class ThrownPotion : MonoBehaviour
         if (IsShieldCollision(collision.gameObject))
         {
             isBeingReflected = true;
-            Debug.Log("[ThrownPotion] Hit boss shield, waiting for reflection");
             return;
         }
         
-        if (!isActive)
+        if (!isActive && RequiresActivation(collision.gameObject))
         {
-            Debug.Log($"[ThrownPotion] Hit {collision.gameObject.name} but not active yet (timer: {activationTimer:F2}/{currentActivationDelay:F2})");
             return;
         }
         
         if (IsValidTarget(collision.gameObject))
         {
             hasTriggered = true;
-            Debug.Log($"[ThrownPotion] Collision with {collision.gameObject.name} - TRIGGERING");
             TriggerPotionEffect(collision.contacts[0].point);
         }
     }
@@ -103,22 +98,34 @@ public class ThrownPotion : MonoBehaviour
         if (IsShieldCollision(collision.gameObject))
         {
             isBeingReflected = true;
-            Debug.Log("[ThrownPotion] Hit boss shield (trigger), waiting for reflection");
             return;
         }
         
-        if (!isActive)
+        if (!isActive && RequiresActivation(collision.gameObject))
         {
-            Debug.Log($"[ThrownPotion] Triggered {collision.gameObject.name} but not active yet (timer: {activationTimer:F2}/{currentActivationDelay:F2})");
             return;
         }
         
         if (IsValidTarget(collision.gameObject))
         {
             hasTriggered = true;
-            Debug.Log($"[ThrownPotion] Trigger with {collision.gameObject.name} - TRIGGERING");
             TriggerPotionEffect(collision.transform.position);
         }
+    }
+    
+    private bool RequiresActivation(GameObject target)
+    {
+        if (isReflected && target.CompareTag("Player"))
+        {
+            return true;
+        }
+        
+        if (!isReflected && target.CompareTag("Player"))
+        {
+            return true;
+        }
+        
+        return false;
     }
     
     private bool IsShieldCollision(GameObject target)
@@ -126,7 +133,6 @@ public class ThrownPotion : MonoBehaviour
         BossShield shield = target.GetComponent<BossShield>();
         if (shield != null && shield.IsShieldActive)
         {
-            Debug.Log("[ThrownPotion] Detected active shield collision");
             return true;
         }
         
@@ -135,7 +141,6 @@ public class ThrownPotion : MonoBehaviour
             shield = target.transform.parent.GetComponent<BossShield>();
             if (shield != null && shield.IsShieldActive)
             {
-                Debug.Log("[ThrownPotion] Detected active shield collision on parent");
                 return true;
             }
         }
@@ -147,40 +152,29 @@ public class ThrownPotion : MonoBehaviour
     {
         if (target.CompareTag("Player")) 
         {
-            Debug.Log("[ThrownPotion] Valid target: Player");
             return true;
         }
         if (target.CompareTag("Boss")) 
         {
-            Debug.Log("[ThrownPotion] Valid target: Boss");
             return true;
         }
         if (target.CompareTag("Enemy")) 
         {
-            Debug.Log("[ThrownPotion] Valid target: Enemy");
             return true;
         }
         if (target.layer == LayerMask.NameToLayer("Ground")) 
         {
-            Debug.Log("[ThrownPotion] Valid target: Ground");
             return true;
         }
-        
-        Debug.Log($"[ThrownPotion] Invalid target: {target.name} (tag: {target.tag}, layer: {LayerMask.LayerToName(target.layer)})");
         return false;
     }
     
     private void TriggerPotionEffect(Vector3 position)
     {
-        Debug.Log($"[ThrownPotion] Triggering potion effect at {position}");
         
         if (potionEffect != null)
         {
             potionEffect.TriggerEffect(position);
-        }
-        else
-        {
-            Debug.LogWarning("[ThrownPotion] No PotionEffect component found!");
         }
         
         if (spriteRenderer != null)

@@ -69,6 +69,5 @@ public class TeleportSwap : MonoBehaviour, IWeapon
         player.position = bossPos;
         boss.position = playerPos;
         
-        Debug.Log("Teleported! Player and Boss swapped positions.");
     }
 }
