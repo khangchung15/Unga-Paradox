@@ -8,7 +8,7 @@ public class BossAI : MonoBehaviour
     [SerializeField] private MonoBehaviour enemyType;
     [SerializeField] private EnemyPathfinding enemyPathfinding;      
     [SerializeField] private Transform target;                        
-    
+
     [Header("Tuning")]
     [SerializeField] private float roamChangeDirectionCooldown = 2f;
     [SerializeField] private float attackRange = 0f;
@@ -27,11 +27,7 @@ public class BossAI : MonoBehaviour
         if (!enemyPathfinding) enemyPathfinding = GetComponent<EnemyPathfinding>();
         state = State.Roaming;
 
-        if (target == null)
-        {
-            var playerGO = GameObject.FindGameObjectWithTag("Player");
-            if (playerGO != null) target = playerGO.transform;
-        }
+        ResolveTarget();
     }
 
     void Start()
@@ -41,6 +37,12 @@ public class BossAI : MonoBehaviour
 
     void Update()
     {
+        // Auto-detect player
+        if (target == null)
+        {
+            ResolveTarget();
+        }
+
         MovementStateControl();
     }
 
@@ -101,6 +103,18 @@ public class BossAI : MonoBehaviour
     {
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
+    }
+
+    private void ResolveTarget()
+    {
+        if (target == null)
+        {
+            var playerGO = GameObject.FindGameObjectWithTag("Player");
+            if (playerGO != null)
+            {
+                target = playerGO.transform;
+            }
+        }
     }
 
     private Vector2 GetRoamingPosition()

@@ -12,11 +12,12 @@ public class CoinCollectable : MonoBehaviour, ICollectable
     }
     public void OnCollected(GameObject player)
     {
-        if (player.GetComponent<CoinManager>().coinCounter == null)
+        if (GameManager.Instance.CoinManager == null)
         {
-            Debug.LogError("No coin counter found. Check if player has coin manager counter. If not, drag the currency to the coin manager slot from the PlayerUI.");
+            Debug.LogError("GameManager has no CoinManager assigned.");
+            return;
         }
-        player.GetComponent<CoinManager>().AddCoin(_coinAmount);
+        GameManager.Instance.CoinManager.AddCoin(_coinAmount);
         if (coinSound)
             AudioSource.PlayClipAtPoint(coinSound, transform.position);
     }

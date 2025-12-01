@@ -39,7 +39,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/Level1/L1_Room01.unity
     guid: 27c0eb5f31cd548c6948bb14a0a67ba6
   - enabled: 1
-    path: Assets/_Scenes/MonkeyBossFight.unity
+    path: Assets/_Scenes/BossFights/MonkeyBossFight.unity
     guid: 25da58fa0dd0d48e99a90715b4b82b88
   - enabled: 1
     path: Assets/_Scenes/Future/Cyber Cop Execution.unity
@@ -56,6 +56,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Future/Final Boss.unity
     guid: 75fe1b1d90819354f9956dfd82cc37e8
+  - enabled: 1
+    path: Assets/_Scenes/BossFights/MassiveSpiderBoss.unity
+    guid: 4afce2bc565e042cb8423d38151e589c
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

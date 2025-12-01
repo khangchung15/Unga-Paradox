@@ -230,7 +230,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: a36ea01de397c4e918c24401944c5746, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -429,8 +429,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BombMonkey
   detectionRange: 15
   wanderingMoveSpeed: 5
-  chasingMoveSpeed: 10
-  maxHealth: 50
+  chasingMoveSpeed: 5
+  maxHealth: 1
 --- !u!114 &2745625121655421645
 MonoBehaviour:
   m_ObjectHideFlags: 0
