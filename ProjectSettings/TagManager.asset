@@ -11,6 +11,8 @@ TagManager:
   - Rock
   - Ground
   - PlayerUI
+  - Boss
+  - BossSpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -26,7 +28,7 @@ TagManager:
   - No Light
   - Dead
   - PostProcessing
-  - 
+  - Boss
   - 
   - 
   - 

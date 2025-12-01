@@ -1,7 +1,11 @@
 using UnityEngine;
+using Unity.Cinemachine;
+
 
 public class MechController : MonoBehaviour
 {
+    public CinemachineImpulseSource impulseSource;
+
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float moveDistance = 10f;
@@ -30,6 +34,11 @@ public class MechController : MonoBehaviour
     
     void Start()
     {
+        if (impulseSource == null)
+        {
+            impulseSource = GetComponent<CinemachineImpulseSource>();
+        }
+
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -143,9 +152,14 @@ public class MechController : MonoBehaviour
             if (laserAnimator != null)
             {
                 laserAnimator.Play("LaserAttack", -1, 0f);
+                if (impulseSource != null)
+                {
+                    impulseSource.GenerateImpulse();
+                }
             }
         }
         
+
         // Play laser sound
         PlayLaserSound();
     }

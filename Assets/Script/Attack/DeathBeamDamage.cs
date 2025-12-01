@@ -1,65 +1,95 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DeathBeamDamage : MonoBehaviour
 {
-    [SerializeField] private float damage = 10f;
-    [SerializeField] private float damageCooldown = 0.5f;
+    [Header("Damage Settings")]
+    [SerializeField] private float damagePerSecond = 10f;
     [SerializeField] private string targetTag = "Player";
     
-    private float lastDamageTime = -999f;
-    private bool hasDealtDamageThisActivation = false;
-    private int triggerCallCount = 0;
+    [Header("Debug")]
+    [SerializeField] private bool showDebugLogs = true;
+    
+    private HashSet<Collider2D> targetsInBeam = new HashSet<Collider2D>();
     
     private void OnEnable()
     {
-        lastDamageTime = -999f;
-        hasDealtDamageThisActivation = false;
-        triggerCallCount = 0;
+        targetsInBeam.Clear();
     }
     
     private void OnDisable()
     {
-        hasDealtDamageThisActivation = false;
-        triggerCallCount = 0;
+        targetsInBeam.Clear();
     }
     
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Update()
     {
-        triggerCallCount++;
+        if (targetsInBeam.Count == 0) return;
         
-        float timeSinceLastDamage = Time.time - lastDamageTime;
+        List<Collider2D> toRemove = new List<Collider2D>();
         
-        Health playerHealth = other.GetComponent<Health>();
-        if (playerHealth != null)
+        foreach (Collider2D target in targetsInBeam)
         {
-            float healthBefore = playerHealth.currentHealth;
+            if (target == null || !target.gameObject.activeInHierarchy)
+            {
+                toRemove.Add(target);
+                continue;
+            }
             
-            playerHealth.TakeDamage(damage);
-            lastDamageTime = Time.time;
-            hasDealtDamageThisActivation = true;
+            HealthFuture playerHealthFuture = target.GetComponent<HealthFuture>();
+            if (playerHealthFuture != null)
+            {
+                float damageThisFrame = damagePerSecond * Time.deltaTime;
+                playerHealthFuture.TakeDamage(damageThisFrame);
+                
+                if (showDebugLogs)
+                {
+                    Debug.Log($"Beam dealt {damageThisFrame} damage to {target.name} (HP: {playerHealthFuture.currentHealth}/{playerHealthFuture.maxHealth})");
+                }
+                continue;
+            }
             
-            float healthAfter = playerHealth.currentHealth;
+            Health playerHealth = target.GetComponent<Health>();
+            if (playerHealth != null)
+            {
+                float damageThisFrame = damagePerSecond * Time.deltaTime;
+                playerHealth.TakeDamage(damageThisFrame);
+                
+                if (showDebugLogs)
+                {
+                    Debug.Log($"Beam dealt {damageThisFrame} damage to {target.name}");
+                }
+            }
+        }
+        
+        foreach (Collider2D target in toRemove)
+        {
+            targetsInBeam.Remove(target);
         }
     }
     
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        triggerCallCount++;
+        if (!collision.CompareTag(targetTag)) return;
         
-        if (!other.CompareTag(targetTag)) return;
-        if (hasDealtDamageThisActivation) return;
-        if (Time.time < lastDamageTime + damageCooldown) return;
+        targetsInBeam.Add(collision);
         
-        Health playerHealth = other.GetComponent<Health>();
-        if (playerHealth != null)
+        if (showDebugLogs)
         {
-            float healthBefore = playerHealth.currentHealth;
+            Debug.Log($"Beam started hitting {collision.name}");
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (targetsInBeam.Contains(collision))
+        {
+            targetsInBeam.Remove(collision);
             
-            playerHealth.TakeDamage(damage);
-            lastDamageTime = Time.time;
-            hasDealtDamageThisActivation = true;
-            
-            float healthAfter = playerHealth.currentHealth;
+            if (showDebugLogs)
+            {
+                Debug.Log($"Beam stopped hitting {collision.name}");
+            }
         }
     }
 }

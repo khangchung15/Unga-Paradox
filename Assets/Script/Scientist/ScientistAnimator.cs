@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// This class handles interactions with the animator component of the player
-/// It reads the player's state from the controller and animates accordingly
-/// </summary>
 public class ScientistAnimator : MonoBehaviour
 {
     [Header("Settings")]
@@ -14,15 +10,15 @@ public class ScientistAnimator : MonoBehaviour
     [Tooltip("The animator component that controls the player's animations")]
     public Animator animator;
 
+    private bool hasEnteredDeathState = false;
+
     void Start()
     {
-        // Try to get the controller if not assigned
         if (playerController == null)
         {
             playerController = GetComponent<ScientistController>();
         }
         
-        // Try to get the animator if not assigned
         if (animator == null)
         {
             animator = GetComponent<Animator>();
@@ -33,7 +29,10 @@ public class ScientistAnimator : MonoBehaviour
 
     void Update()
     {
-        ReadPlayerStateAndAnimate();
+        if (!hasEnteredDeathState)
+        {
+            ReadPlayerStateAndAnimate();
+        }
     }
 
     void ReadPlayerStateAndAnimate()
@@ -42,8 +41,22 @@ public class ScientistAnimator : MonoBehaviour
         {
             return;
         }
-        animator.SetBool("isIdle", playerController.state == ScientistController.PlayerState.Idle);
-        animator.SetBool("isRunning", playerController.state == ScientistController.PlayerState.Walk);
-        animator.SetBool("isDead", playerController.state == ScientistController.PlayerState.Dead);
+
+        if (playerController.state == ScientistController.PlayerState.Dead)
+        {
+            if (!hasEnteredDeathState)
+            {
+                hasEnteredDeathState = true;
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDead", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("isIdle", playerController.state == ScientistController.PlayerState.Idle);
+            animator.SetBool("isRunning", playerController.state == ScientistController.PlayerState.Walk);
+            animator.SetBool("isDead", false);
+        }
     }
 }
