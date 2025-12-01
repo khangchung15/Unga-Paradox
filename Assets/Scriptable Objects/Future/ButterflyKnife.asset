@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: ButterflyKnife
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
   weaponName: Teleport Device
-  weaponPrefab: {fileID: 8928031994456417205, guid: da6e12ab7893f2348b9f8a59af26b5c3, type: 3}
-  weaponCooldown: 1
-  weaponSprite: {fileID: 4130640169021434097, guid: 9c8dee4bfe1f9524dba853c266f448ff, type: 3}
-  pickupPrefab: {fileID: 8928031994456417205, guid: 3d01927634d997d4391486ce1f73886f, type: 3}
-  weaponName: ButterflyKnife
   weaponPrefab: {fileID: 4002796591295549354, guid: b717f9d20fa6761459f42c79702256ca, type: 3}
-  weaponCooldown: 0.5
+  weaponCooldown: 1
   weaponSprite: {fileID: 1015664615, guid: 80986ce339052d74b9c324969783738e, type: 3}
+  pickupPrefab: {fileID: 0}
+  equipSound: {fileID: 0}

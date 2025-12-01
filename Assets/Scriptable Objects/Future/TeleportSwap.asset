@@ -15,4 +15,6 @@ MonoBehaviour:
   weaponName: TeleportSwap
   weaponPrefab: {fileID: 5228997332152397195, guid: a20ebd0b1184c7c4eb1bc44b55d6adf9, type: 3}
   weaponCooldown: 10
-  weaponSprite: {fileID: 4130640169021434097, guid: 076bb278a3fe4c84ca6b218221a2da96, type: 3}
+  weaponSprite: {fileID: 4130640169021434097, guid: b894d5c7e94e8e341ad411077e4be6bf, type: 3}
+  pickupPrefab: {fileID: 0}
+  equipSound: {fileID: 0}
