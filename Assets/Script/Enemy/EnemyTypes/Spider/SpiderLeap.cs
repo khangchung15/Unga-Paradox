@@ -45,6 +45,7 @@ public class SpiderCombatController : MonoBehaviour
     private EnemyHealth enemyHealth;
     private bool isDead;
     private Coroutine flashRoutine;
+    private SpiderBoss spiderBoss;
 
     private bool busy;
     private float cdTimer;
@@ -66,6 +67,7 @@ public class SpiderCombatController : MonoBehaviour
         }
         var p = GameObject.FindGameObjectWithTag("Player");
         if (p) player = p.transform;
+        spiderBoss = GetComponent<SpiderBoss>();
     }
 
     private void OnDestroy()
@@ -130,7 +132,6 @@ public class SpiderCombatController : MonoBehaviour
         fsm.ChangeState(EnemyStateMachine.EnemyState.BasicAttack); 
         if (anim != null) anim.RestartAttackAnimation();
 
-        // visual telegraph: tint the spider during windup
         if (bodySprite != null)
         {
             bodySprite.color = leapWindupColor;
@@ -140,7 +141,6 @@ public class SpiderCombatController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(leapWindup);
 
-        // snapshot the target direction at leap start so the spider commits to a jump
         Vector2 leapDir = Vector2.zero;
         if (player != null)
         {
@@ -148,6 +148,10 @@ public class SpiderCombatController : MonoBehaviour
         }
 
         rb.linearVelocity = leapDir * leapForce;
+        if (spiderBoss != null)
+        {
+            spiderBoss.BeginWebTrail();
+        }
 
         if (airborneHitboxTime > 0f)
         {
@@ -173,6 +177,10 @@ public class SpiderCombatController : MonoBehaviour
 
         yield return new WaitForSeconds(leapTravelTime);
         rb.linearVelocity = Vector2.zero;
+        if (spiderBoss != null)
+        {
+            spiderBoss.EndWebTrail();
+        }
 
         yield return new WaitForSeconds(leapLandingLag);
 

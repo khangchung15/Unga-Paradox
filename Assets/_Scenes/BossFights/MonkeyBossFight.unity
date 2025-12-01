@@ -332,7 +332,7 @@ PrefabInstance:
       objectReference: {fileID: 1503824681}
     - target: {fileID: 1062774298612417480, guid: deb82fb3d3c85435c8e7dbe8324a5ab4, type: 3}
       propertyPath: destinationSceneName
-      value: BrainiacMonkey
+      value: MassiveSpiderBoss
       objectReference: {fileID: 0}
     - target: {fileID: 1062774298612417480, guid: deb82fb3d3c85435c8e7dbe8324a5ab4, type: 3}
       propertyPath: hurtSounds.Array.size
@@ -956,6 +956,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3317624640688859184, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 1332038932}
+    - target: {fileID: 3317624640688859184, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: playerShield
+      value: 
+      objectReference: {fileID: 1332038941}
+    - target: {fileID: 3317624640688859184, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1332038941}
+    - target: {fileID: 3317624640688859184, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1332038941}
     - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1754.1
@@ -999,6 +1015,10 @@ PrefabInstance:
     - target: {fileID: 7334141972521424664, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8455634248323330024, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: currentCurrency
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1575,6 +1595,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5032008721884754258, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1332038941}
     - target: {fileID: 6208229834505822363, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1599,6 +1623,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6776951567964118835, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7401773813785146620, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1647,7 +1675,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8746270015184998978, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: skillTreePanel
+      value: 
+      objectReference: {fileID: 1283789017}
+    - target: {fileID: 8746270015184998978, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1332038941}
+    m_RemovedComponents:
+    - {fileID: 8746270015184998978, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2272732260900476478, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
@@ -2794,6 +2831,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1283789017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6776951567964118835, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+  m_PrefabInstance: {fileID: 698469202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1332038927 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8146792267698005228, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
@@ -2842,6 +2884,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6717301259787470461, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
   m_PrefabInstance: {fileID: 382920602}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1332038941 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6208056872323571458, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
+  m_PrefabInstance: {fileID: 382920602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332038927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6ee009d37a08c40a17ef12ce8935ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Controller
 --- !u!1 &1452091473
 GameObject:
   m_ObjectHideFlags: 0
@@ -5309,15 +5362,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Monkey with a Gun
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eff1ab6267b1cc341ac7594c94329313, type: 2}
+  m_sharedMaterial: {fileID: 6631174821064826402, guid: eff1ab6267b1cc341ac7594c94329313, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255589
-  m_fontColor: {r: 0.89896035, g: 1, b: 0, a: 1}
+    rgba: 4293322470
+  m_fontColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5340,7 +5393,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535

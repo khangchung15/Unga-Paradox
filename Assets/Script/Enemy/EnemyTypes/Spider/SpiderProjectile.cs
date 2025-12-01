@@ -18,7 +18,7 @@ public class SpiderProjectile : MonoBehaviour
 
     [Header("Auto-Drop Web After Travel")]
     [SerializeField] private float distanceBeforeAutoWeb = 6f;
-    [Tooltip("If false, only one auto-drop happens. If true, drop every N units (see interval).")]
+    [Tooltip("If false, only one auto-drop happens.")]
     [SerializeField] private bool repeatAutoDrop = false;
     [SerializeField] private float repeatInterval = 6f; 
     [SerializeField] private float groundProbeDistance = 2.0f; 

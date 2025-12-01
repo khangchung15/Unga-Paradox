@@ -21,8 +21,14 @@ public class SpiderBoss : Spider
     [SerializeField] private AudioClip spawnSfxClip;
     [SerializeField] private string spawnAnimTrigger = "Spawn";
 
+    [Header("Phase 2 Web Trail")]
+    [SerializeField] private GameObject webTrailPrefab;
+    [SerializeField] private Transform webTrailSpawnPoint; // optional override; can be null
+    [SerializeField] private float webTrailInterval = 0.25f;
+
     private bool inPhase2 = false;
     private Coroutine spawnRoutine;
+    private Coroutine webTrailRoutine;
 
     protected override void Awake()
     {
@@ -63,10 +69,7 @@ public class SpiderBoss : Spider
     {
         inPhase2 = true;
         Debug.Log("SpiderBoss: Entering phase 2!");
-
-        // You can also tweak movement/attack here:
-        // e.g. increase speed, change attack pattern, etc.
-
+        
         if (minionPrefab != null && minionSpawnPoints != null && minionSpawnPoints.Length > 0)
         {
             spawnRoutine = StartCoroutine(SpawnMinionsLoop());
@@ -83,11 +86,11 @@ public class SpiderBoss : Spider
 
         while (true)
         {
-            // Stop if boss is dead (safety)
+            // Stop if boss is dead
             if (bossHealth == null || bossHealth.CurrentHealth <= 0)
                 yield break;
 
-            // Count current minions in scene (simple tag-based approach)
+            // Count current minions in scene
             int alive = GameObject.FindGameObjectsWithTag("Enemy").Length;
             if (alive < maxMinionsAlive)
             {
@@ -133,6 +136,54 @@ public class SpiderBoss : Spider
         }
     }
 
+    public void BeginWebTrail()
+    {
+        if (!inPhase2)
+            return; // Only drop webs in phase 2
+
+        if (webTrailPrefab == null)
+        {
+            Debug.LogWarning("SpiderBoss: webTrailPrefab is not assigned.");
+            return;
+        }
+
+        if (webTrailRoutine == null)
+        {
+            webTrailRoutine = StartCoroutine(WebTrailLoop());
+        }
+    }
+
+    public void EndWebTrail()
+    {
+        if (webTrailRoutine != null)
+        {
+            StopCoroutine(webTrailRoutine);
+            webTrailRoutine = null;
+        }
+    }
+
+    private IEnumerator WebTrailLoop()
+    {
+        var wait = new WaitForSeconds(webTrailInterval);
+
+        while (true)
+        {
+            if (bossHealth == null || bossHealth.CurrentHealth <= 0)
+            {
+                // Boss died; stop spawning webs
+                yield break;
+            }
+
+            Vector3 spawnPos = webTrailSpawnPoint != null
+                ? webTrailSpawnPoint.position
+                : transform.position;
+
+            Instantiate(webTrailPrefab, spawnPos, Quaternion.identity);
+
+            yield return wait;
+        }
+    }
+
     private void OnBossDeath()
     {
         Debug.Log("SpiderBoss: Boss died, stopping phase 2 behaviour.");
@@ -141,6 +192,12 @@ public class SpiderBoss : Spider
         {
             StopCoroutine(spawnRoutine);
             spawnRoutine = null;
+        }
+
+        if (webTrailRoutine != null)
+        {
+            StopCoroutine(webTrailRoutine);
+            webTrailRoutine = null;
         }
     }
 

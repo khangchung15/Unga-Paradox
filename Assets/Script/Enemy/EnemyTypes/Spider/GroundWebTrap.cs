@@ -14,6 +14,21 @@ public class GroundWebTrap : MonoBehaviour
 
     private void Start()
     {
+        var col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            col.isTrigger = true;
+        }
+
+        var rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody2D>();
+        }
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.gravityScale = 0f;
+        rb.simulated = true;
+
         if (lifetime > 0f) Destroy(gameObject, lifetime);
     }
 
@@ -33,7 +48,6 @@ public class GroundWebTrap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Accept root or child collider allow tag on root RB
         if (!other.CompareTag(targetTag) && !(other.attachedRigidbody && other.attachedRigidbody.CompareTag(targetTag)))
             return;
 
@@ -73,4 +87,3 @@ public class GroundWebTrap : MonoBehaviour
         affected.Clear();
     }
 }
-

@@ -6,6 +6,7 @@ public class CoinManager : MonoBehaviour
     public static CoinManager Instance { get; private set; }
 
     public int currentCurrency = 0;
+    public int CurrentCurrency => currentCurrency;
     private CoinCounter coinCounter;
 
     private void Awake()
@@ -20,10 +21,8 @@ public class CoinManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void AddCoin(int amount)
+    private void UpdateCoinUI()
     {
-        currentCurrency += amount;
-
         if (coinCounter == null)
         {
             coinCounter = FindObjectOfType<CoinCounter>();
@@ -37,5 +36,26 @@ public class CoinManager : MonoBehaviour
         {
             Debug.LogWarning("CoinManager: No CoinCounter found in the scene to display currency.");
         }
+    }
+
+    public void AddCoin(int amount)
+    {
+        if (amount <= 0) return;
+
+        currentCurrency += amount;
+        UpdateCoinUI();
+    }
+
+    public bool TrySpendCoins(int amount)
+    {
+        if (amount <= 0)
+            return false;
+
+        if (currentCurrency < amount)
+            return false;
+
+        currentCurrency -= amount;
+        UpdateCoinUI();
+        return true;
     }
 }

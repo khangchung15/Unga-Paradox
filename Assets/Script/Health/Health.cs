@@ -54,7 +54,7 @@ public class Health : MonoBehaviour
             {
                 StartCoroutine(EndInvincibleRoutine());
             }
-            // If parrying, we simply ignore this damage instance
+            // If parrying we ignore this damage instance
             return;
         }
         
@@ -125,6 +125,32 @@ public class Health : MonoBehaviour
         }
         
 
+    }
+
+    public void SetMaxHealth(float newMaxHealth, bool refillHealth = true)
+    {
+        if (newMaxHealth <= 0f)
+        {
+            Debug.LogWarning($"Health: Attempted to set non-positive maxHealth ({newMaxHealth}) on {gameObject.name}.");
+            return;
+        }
+
+        maxHealth = newMaxHealth;
+
+        if (refillHealth || currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        if (healthBar == null)
+        {
+            TryAssignHealthBar();
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.SetValue((int)currentHealth);
+        }
     }
     
     private void TryAssignHealthBar()

@@ -19,6 +19,12 @@ public class PlayerController : Singleton<PlayerController>
     public Camera playerCamera;
     [SerializeField] private TrailRenderer myTrailRenderer;
 
+    [Header("Trail Cosmetic Settings")]
+    [Tooltip("If true, the player's trail will use a rainbow gradient.")]
+    [SerializeField] private bool useRainbowTrail = false;
+
+    private Gradient _defaultTrailGradient;
+
 
     [Header("Movement Settings")]
     [Tooltip("The speed at which to move the player")]
@@ -80,6 +86,11 @@ public class PlayerController : Singleton<PlayerController>
         base.Awake();
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
+
+        if (myTrailRenderer != null)
+        {
+            _defaultTrailGradient = myTrailRenderer.colorGradient;
+        }
     }
 
     private void FixedUpdate()
@@ -125,6 +136,11 @@ public class PlayerController : Singleton<PlayerController>
     {
         baseMovementSpeed = movementSpeed;
         RefreshCameraReference();
+
+        if (useRainbowTrail)
+        {
+            ApplyRainbowTrail();
+        }
 
         if (parryVisual != null)
         {
@@ -438,5 +454,76 @@ public class PlayerController : Singleton<PlayerController>
     public void UpdateDashPermission()
     {
         canDash = (dashBlockers == 0);
+    }
+
+    public void SetBaseMovementSpeed(float newBaseSpeed)
+    {
+        if (newBaseSpeed <= 0f)
+        {
+            Debug.LogWarning($"PlayerController: Attempted to set non-positive baseMovementSpeed ({newBaseSpeed}) on {gameObject.name}.");
+            return;
+        }
+
+        baseMovementSpeed = newBaseSpeed;
+        RecomputeMovementSpeed();
+    }
+
+    public float GetBaseMovementSpeed()
+    {
+        return baseMovementSpeed;
+    }
+
+    public void EnableRainbowTrail()
+    {
+        useRainbowTrail = true;
+        ApplyRainbowTrail();
+    }
+
+    public void DisableRainbowTrail()
+    {
+        useRainbowTrail = false;
+
+        if (myTrailRenderer != null && _defaultTrailGradient != null)
+        {
+            myTrailRenderer.colorGradient = _defaultTrailGradient;
+        }
+    }
+
+    private void ApplyRainbowTrail()
+    {
+        if (myTrailRenderer == null)
+            return;
+
+        Gradient rainbow = new Gradient();
+
+        var colorKeys = new GradientColorKey[]
+        {
+            new GradientColorKey(Color.red, 0f),
+            new GradientColorKey(Color.yellow, 0.2f),
+            new GradientColorKey(Color.green, 0.4f),
+            new GradientColorKey(Color.cyan, 0.6f),
+            new GradientColorKey(Color.blue, 0.8f),
+            new GradientColorKey(Color.magenta, 1f)
+        };
+
+        var alphaKeys = new GradientAlphaKey[]
+        {
+            new GradientAlphaKey(1f, 0f),
+            new GradientAlphaKey(0f, 1f)
+        };
+
+        rainbow.SetKeys(colorKeys, alphaKeys);
+        myTrailRenderer.colorGradient = rainbow;
+    }
+
+    public void SetParryCooldown(float newCooldown)
+    {
+        // Prevent zero/negative cooldowns
+        parryCooldown = Mathf.Max(0.05f, newCooldown);
+    }
+
+    public float GetParryCooldown()
+    {
+        return parryCooldown;
     }
 }
