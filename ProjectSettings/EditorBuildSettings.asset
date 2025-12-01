@@ -57,11 +57,11 @@ EditorBuildSettings:
     path: Assets/_Scenes/Menu.unity
     guid: 577b70227744a4b42a161395320879c0
   - enabled: 1
-    path: Assets/_Scenes/Future/Final Boss PreFight.unity
-    guid: f0c52b082e094ac45a91f68c7264fe5a
-  - enabled: 1
     path: Assets/_Scenes/Future/Final Boss.unity
     guid: 75fe1b1d90819354f9956dfd82cc37e8
+  - enabled: 1
+    path: Assets/_Scenes/Future/Epilogue.unity
+    guid: 616eecb1f36f5074886e977c3bcab65f
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

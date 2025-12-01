@@ -441,6 +441,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: scientist_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 818171d53f4265c47932edc8b2292c06
+      internalID: -553007533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -464,6 +486,7 @@ TextureImporter:
       scientist_12: 141124353
       scientist_13: -2086851291
       scientist_14: 1685562817
+      scientist_15: -553007533
       scientist_2: 5843917373465877143
       scientist_3: -2452797923397068180
       scientist_4: 884762670773697752
