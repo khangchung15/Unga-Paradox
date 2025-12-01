@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Class which handles player movement (no gravity version)
@@ -18,6 +19,12 @@ public class PlayerController : Singleton<PlayerController>
     public Camera playerCamera;
     [SerializeField] private TrailRenderer myTrailRenderer;
 
+    [Header("Trail Cosmetic Settings")]
+    [Tooltip("If true, the player's trail will use a rainbow gradient.")]
+    [SerializeField] private bool useRainbowTrail = false;
+
+    private Gradient _defaultTrailGradient;
+
 
     [Header("Movement Settings")]
     [Tooltip("The speed at which to move the player")]
@@ -25,20 +32,10 @@ public class PlayerController : Singleton<PlayerController>
     [Tooltip("The speed at which to dash the player")]
     [SerializeField] private float dashSpeed = 4.0f;
 
-    //[Header("Input Actions & Controls")]
-    //[Tooltip("The input action(s) that map to player movement")]
-    //public InputAction moveAction;
-
     private PlayerControls playerControls;
 
     // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
-
-
-
-    // Movement slow effect
-
-
 
     private int dashBlockers = 0;
     private bool canDash = true;
@@ -49,6 +46,20 @@ public class PlayerController : Singleton<PlayerController>
     private readonly Dictionary<string, float> speedMods = new Dictionary<string, float>();
 
     private bool isDashing = false;
+
+    [Header("Parry Settings")]
+    [SerializeField] private GameObject parryVisual;
+    [SerializeField] private float parryDuration = 0.2f;
+    [SerializeField] private float parryCooldown = 0.5f;
+    [SerializeField] private AudioSource parryAudioSource;
+    [SerializeField] private AudioClip parryStartSFX;
+    [SerializeField] private AudioClip parryReadySFX;
+    [SerializeField] private float parryReadyVolume = 1f;
+    private bool isParrying = false;
+    private bool canParry = true;
+    private Coroutine parryRoutine;
+
+    private Rigidbody2D rb;
 
     #region Player State Variables
     public enum PlayerState
@@ -74,13 +85,34 @@ public class PlayerController : Singleton<PlayerController>
     {
         base.Awake();
         playerControls = new PlayerControls();
+        rb = GetComponent<Rigidbody2D>();
+
+        if (myTrailRenderer != null)
+        {
+            _defaultTrailGradient = myTrailRenderer.colorGradient;
+        }
     }
 
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
 
     public PlayerDirection facing
     {
         get
         {
+            if (playerCamera == null)
+            {
+                RefreshCameraReference();
+                if (playerCamera == null)
+                {
+                    // Fallback: face based on velocity or default to right
+                    if (currentVelocity.x < -0.1f) return PlayerDirection.Left;
+                    return PlayerDirection.Right;
+                }
+            }
+
             Vector2 mousePos = Input.mousePosition;
             Vector2 playerScreenPoint = playerCamera.WorldToScreenPoint(transform.position);
             if (mousePos.x > playerScreenPoint.x)
@@ -97,54 +129,58 @@ public class PlayerController : Singleton<PlayerController>
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
             }
-            //if (currentVelocity.x > 0.1f)
-            //{
-            //    return PlayerDirection.Right;
-            //}
-            //else if (currentVelocity.x < -0.1f)
-            //{
-            //    return PlayerDirection.Left;
-            //}
-            //else
-            //{
-            //    if (spriteRenderer != null && spriteRenderer.flipX == true)
-            //        return PlayerDirection.Left;
-            //    return PlayerDirection.Right;
-            //}
         }
     }
 
     private void Start()
     {
         baseMovementSpeed = movementSpeed;
+        RefreshCameraReference();
 
-        // If no camera is assigned, try to find the main camera
-        if (playerCamera == null)
+        if (useRainbowTrail)
         {
-            playerCamera = Camera.main;
+            ApplyRainbowTrail();
         }
 
-        // Ensure the camera exists
-        if (playerCamera == null)
+        if (parryVisual != null)
         {
-            Debug.LogWarning("No camera assigned to player controller and no main camera found in scene!");
+            Debug.Log($"[Parry] ParryVisual assigned to: {parryVisual.name}");
+            parryVisual.SetActive(false);
         }
+        else
+        {
+            Debug.LogWarning("[Parry] ParryVisual is NULL in PlayerController!");
+        }
+        
 
         playerControls.Player.Dash.performed += _ => Dash();
+        playerControls.Player.Parry.performed += _ => TryParry();
     }
 
     private void OnEnable()
     {
         playerControls.Enable();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         playerControls.Disable();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Reacquire the main camera in the new scene
+        playerCamera = Camera.main;
     }
 
     private void Update()
     {
+        if (playerCamera == null)
+        {
+            RefreshCameraReference();
+        }
         ProcessInput();
         HandleSpriteDirection();
         DetermineState();
@@ -160,7 +196,7 @@ public class PlayerController : Singleton<PlayerController>
     private void HandleMovementInput()
     {
         Vector2 input = playerControls.Player.Move.ReadValue<Vector2>();
-        
+
         if (state != PlayerState.Dead)
         {
             currentVelocity = input * movementSpeed;
@@ -173,7 +209,14 @@ public class PlayerController : Singleton<PlayerController>
 
     private void MovePlayer()
     {
-        transform.position += (Vector3)currentVelocity * Time.deltaTime;
+        if (rb == null)
+        {
+            transform.position += (Vector3)currentVelocity * Time.deltaTime;
+            return;
+        }
+
+        Vector2 newPos = rb.position + currentVelocity * Time.fixedDeltaTime;
+        rb.MovePosition(newPos);
     }
 
     /// <summary>
@@ -186,11 +229,24 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     private void UpdateCameraPosition()
     {
-        if (playerCamera != null)
+        if (playerCamera == null)
         {
-            // Keep the camera's Z position unchanged (maintain camera distance)
-            Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, playerCamera.transform.position.z);
-            playerCamera.transform.position = targetPosition;
+            RefreshCameraReference();
+            if (playerCamera == null)
+                return;
+        }
+
+        Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, playerCamera.transform.position.z);
+        playerCamera.transform.position = targetPosition;
+    }
+
+    private void RefreshCameraReference()
+    {
+        playerCamera = Camera.main;
+
+        if (playerCamera == null)
+        {
+            Debug.LogWarning("PlayerController: No main camera found in the current scene!");
         }
     }
 
@@ -225,7 +281,7 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-    private void Dash() 
+    private void Dash()
     {
         if (!isDashing && canDash)
         {
@@ -236,15 +292,97 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
+    private void TryParry()
+    {
+        if (!canParry || state == PlayerState.Dead)
+            return;
+
+        if (parryRoutine != null)
+        {
+            StopCoroutine(parryRoutine);
+        }
+
+        parryRoutine = StartCoroutine(ParryRoutine());
+
+        if (parryAudioSource != null && parryStartSFX != null)
+        {
+            parryAudioSource.PlayOneShot(parryStartSFX);
+        }
+        else
+        {
+            Debug.LogWarning($"[Parry] Start SFX NOT played. parryAudioSource null? {parryAudioSource == null}, parryStartSFX null? {parryStartSFX == null}");
+        }
+    }
+
+    private IEnumerator ParryRoutine()
+    {
+        canParry = false;
+        isParrying = true;
+
+        if (playerHealth != null)
+        {
+            playerHealth.isParrying = true;
+            Debug.Log("[Parry] playerHealth.isParrying = true");
+        }
+
+        if (parryVisual != null)
+        {
+            parryVisual.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("[Parry] parryVisual is NULL when trying to activate!");
+        }
+
+        yield return new WaitForSeconds(parryDuration);
+
+        isParrying = false;
+
+        if (playerHealth != null)
+        {
+            playerHealth.isParrying = false;
+        }
+
+        if (parryVisual != null)
+        {
+            parryVisual.SetActive(false);
+        }
+
+        yield return new WaitForSeconds(parryCooldown);
+
+        canParry = true;
+        parryRoutine = null;
+        
+        if (parryReadySFX != null)
+        {
+            Vector3 soundPos = playerCamera != null ? playerCamera.transform.position : transform.position;
+            AudioSource.PlayClipAtPoint(parryReadySFX, soundPos, parryReadyVolume);
+        }
+        else
+        {
+            Debug.LogWarning("[Parry] Ready SFX NOT played. parryReadySFX is NULL.");
+        }
+
+        yield break;
+    }
+
     private IEnumerator EndDashRoutine()
     {
         float dashTime = 0.2f;
         float dashCD = 0.25f;
+
         GetComponent<Health>().isDashing = true;
-        isDashing = false;
+        isDashing = true;
+        RecomputeMovementSpeed();
+
         yield return new WaitForSeconds(dashTime);
+
+        GetComponent<Health>().isDashing = false;
+        isDashing = false;
         myTrailRenderer.emitting = false;
         RecomputeMovementSpeed();
+
+        canDash = false;
         yield return new WaitForSeconds(dashCD);
         canDash = (dashBlockers == 0);
     }
@@ -263,6 +401,7 @@ public class PlayerController : Singleton<PlayerController>
         currentSlowMultiplier = m;
         RecomputeMovementSpeed();
     }
+
     public void RemoveSpeedMod(string key)
     {
         if (speedMods.Remove(key))
@@ -273,7 +412,6 @@ public class PlayerController : Singleton<PlayerController>
     {
         float dashMul = isDashing ? dashSpeed : 1f;
         movementSpeed = baseMovementSpeed * currentSlowMultiplier * dashMul;
-        Debug.Log($"[Speed] base={baseMovementSpeed}, slowMul={currentSlowMultiplier}, dash={(isDashing ? dashSpeed : 1f)}, active={movementSpeed}");
     }
 
     public void CancelDash()
@@ -318,4 +456,74 @@ public class PlayerController : Singleton<PlayerController>
         canDash = (dashBlockers == 0);
     }
 
+    public void SetBaseMovementSpeed(float newBaseSpeed)
+    {
+        if (newBaseSpeed <= 0f)
+        {
+            Debug.LogWarning($"PlayerController: Attempted to set non-positive baseMovementSpeed ({newBaseSpeed}) on {gameObject.name}.");
+            return;
+        }
+
+        baseMovementSpeed = newBaseSpeed;
+        RecomputeMovementSpeed();
+    }
+
+    public float GetBaseMovementSpeed()
+    {
+        return baseMovementSpeed;
+    }
+
+    public void EnableRainbowTrail()
+    {
+        useRainbowTrail = true;
+        ApplyRainbowTrail();
+    }
+
+    public void DisableRainbowTrail()
+    {
+        useRainbowTrail = false;
+
+        if (myTrailRenderer != null && _defaultTrailGradient != null)
+        {
+            myTrailRenderer.colorGradient = _defaultTrailGradient;
+        }
+    }
+
+    private void ApplyRainbowTrail()
+    {
+        if (myTrailRenderer == null)
+            return;
+
+        Gradient rainbow = new Gradient();
+
+        var colorKeys = new GradientColorKey[]
+        {
+            new GradientColorKey(Color.red, 0f),
+            new GradientColorKey(Color.yellow, 0.2f),
+            new GradientColorKey(Color.green, 0.4f),
+            new GradientColorKey(Color.cyan, 0.6f),
+            new GradientColorKey(Color.blue, 0.8f),
+            new GradientColorKey(Color.magenta, 1f)
+        };
+
+        var alphaKeys = new GradientAlphaKey[]
+        {
+            new GradientAlphaKey(1f, 0f),
+            new GradientAlphaKey(0f, 1f)
+        };
+
+        rainbow.SetKeys(colorKeys, alphaKeys);
+        myTrailRenderer.colorGradient = rainbow;
+    }
+
+    public void SetParryCooldown(float newCooldown)
+    {
+        // Prevent zero/negative cooldowns
+        parryCooldown = Mathf.Max(0.05f, newCooldown);
+    }
+
+    public float GetParryCooldown()
+    {
+        return parryCooldown;
+    }
 }

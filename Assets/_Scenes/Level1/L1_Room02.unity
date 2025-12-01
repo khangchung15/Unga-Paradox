@@ -8054,9 +8054,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8146792267698005228, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
       insertIndex: 1
       addedObject: {fileID: 412372054}
-    - targetCorrespondingSourceObject: {fileID: 8146792267698005228, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 412372053}
   m_SourcePrefab: {fileID: 100100000, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
 --- !u!114 &412372050 stripped
 MonoBehaviour:
@@ -8079,20 +8076,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6717301259787470461, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
   m_PrefabInstance: {fileID: 412372049}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &412372053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412372051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23d8d8ae7579448fdbbbd09807474d2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoinManager
-  currentCurrency: 0
-  coinCounter: {fileID: 1967053911}
 --- !u!50 &412372054
 Rigidbody2D:
   serializedVersion: 5
@@ -9250,6 +9233,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 774739988}
     m_Modifications:
+    - target: {fileID: 3352751602817663253, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: gameOverUI
+      value: 
+      objectReference: {fileID: 1967053913}
     - target: {fileID: 3689750063970472430, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.73951
@@ -28635,6 +28622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97da30158b91f45488450980d2a29d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  interactionIcon: {fileID: 0}
 --- !u!58 &1096527296
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -35941,6 +35929,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7601252743145498859, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 7601252743145498859, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 7808685178444208636, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -36019,6 +36015,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127833216755048b09ee20c0adcccd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBar
+--- !u!1 &1967053913 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2819738513157657247, guid: bc245f71a596743f9937fdb3e1de2bea, type: 3}
+  m_PrefabInstance: {fileID: 1967053909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1996428464
 PrefabInstance:
   m_ObjectHideFlags: 0

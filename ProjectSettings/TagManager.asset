@@ -10,6 +10,7 @@ TagManager:
   - Projectile
   - Rock
   - Ground
+  - PlayerUI
   layers:
   - Default
   - TransparentFX

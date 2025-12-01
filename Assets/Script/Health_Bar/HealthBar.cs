@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -21,10 +22,28 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(InitializeBar());
+    }
+
+    private IEnumerator InitializeBar()
+    {
+        yield return null;
+
         if (_health == null)
         {
-            Debug.LogError("Health Bar from player needs to be assigned. Check PlayerUI canvas in Inspector.");
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                _health = player.GetComponentInChildren<Health>();
+            }
+
+            if (_health == null)
+            {
+                Debug.LogError("HealthBar: Could not find a Health component on the Player. Assign _health in the inspector or ensure the Player has a Health component.");
+                yield break;
+            }
         }
+
         _maxRightMask = _barRect.rect.width - _mask.padding.x - _mask.padding.z;
         _hpIndicator.SetText($"{_health.currentHealth}/{_health.maxHealth}");
         _initialRightMask = _mask.padding.z;

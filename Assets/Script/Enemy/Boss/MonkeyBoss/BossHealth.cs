@@ -24,10 +24,11 @@ public class BossHealth : MonoBehaviour
     private bool alreadySecondStage = false;
     private bool isDead = false;
     
-    //[SerializeField] private GameObject portalPrefab;
-    //[SerializeField] private Vector3 portalOffset = new Vector3(0f, 0.5f, 0f);
-    //[SerializeField] private string destinationSceneName = "Hub";
-    //[SerializeField] private string destinationSpawnTag = "SpawnPoint";
+    [Header("Portal Settings")]
+    [SerializeField] private GameObject portalPrefab;
+    [SerializeField] private Transform portalSpawnPoint;
+    [SerializeField] private string destinationSceneName = "Hub";
+    [SerializeField] private string destinationSpawnPointName = "SpawnPoint";
     
     public UnityEvent onDeath;
     
@@ -95,7 +96,7 @@ public class BossHealth : MonoBehaviour
         if (rb2d) {
             rb2d.linearVelocity = Vector2.zero;
             rb2d.angularVelocity = 0f;
-            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;   // hard-freeze
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;  
         }
         
         if (deathVFXPrefab != null)
@@ -105,7 +106,6 @@ public class BossHealth : MonoBehaviour
 
         if (healthBar != null) Destroy(healthBar.gameObject);
 
-        // Stop Music when he dies
         GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
         Camera.GetComponent<AudioSource>().Stop();
 
@@ -117,14 +117,19 @@ public class BossHealth : MonoBehaviour
         onDeath.Invoke();
 
         
-        // Spawn the portal
-        //if (portalPrefab != null)
-        //{
-            //var portalGo = Instantiate(portalPrefab, transform.position + portalOffset, Quaternion.identity);
-            //var portal = portalGo.GetComponent<Portal>();
-            //if (portal != null)
-                //portal.Configure(destinationSceneName, destinationSpawnTag);
-        //}
+        if (portalPrefab != null)
+        {
+            Vector3 spawnPosition = portalSpawnPoint != null ? portalSpawnPoint.position : transform.position;
+            Quaternion spawnRotation = portalSpawnPoint != null ? portalSpawnPoint.rotation : Quaternion.identity;
+            var portalGo = Instantiate(portalPrefab, spawnPosition, spawnRotation);
+            
+            var scenePortal = portalGo.GetComponent<ScenePortal>();
+            if (scenePortal != null)
+            {
+                scenePortal.sceneName = destinationSceneName;
+                scenePortal.spawnPointName = destinationSpawnPointName;
+            }
+        }
 
         Destroy(gameObject,deathSound.length);
     }

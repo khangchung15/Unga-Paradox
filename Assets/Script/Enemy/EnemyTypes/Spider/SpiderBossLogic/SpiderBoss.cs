@@ -1,0 +1,213 @@
+using System.Collections;
+using UnityEngine;
+
+public class SpiderBoss : Spider
+{
+    [Header("Boss Health")]
+    [SerializeField] private BossHealthLatest bossHealth;
+
+    [Header("Phase 2 Settings")]
+    [Range(0f, 1f)]
+    [SerializeField] private float phase2ThresholdPercent = 0.5f;  // 50% HP
+
+    [Header("Minion Spawning")]
+    [SerializeField] private GameObject minionPrefab;
+    [SerializeField] private Transform[] minionSpawnPoints;
+    [SerializeField] private float spawnInterval = 5f;
+    [SerializeField] private int maxMinionsAlive = 4;
+
+    [Header("Minion Spawn FX")]
+    [SerializeField] private AudioSource spawnSfxSource;
+    [SerializeField] private AudioClip spawnSfxClip;
+    [SerializeField] private string spawnAnimTrigger = "Spawn";
+
+    [Header("Phase 2 Web Trail")]
+    [SerializeField] private GameObject webTrailPrefab;
+    [SerializeField] private Transform webTrailSpawnPoint; // optional override; can be null
+    [SerializeField] private float webTrailInterval = 0.25f;
+
+    private bool inPhase2 = false;
+    private Coroutine spawnRoutine;
+    private Coroutine webTrailRoutine;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        // Get the boss health component (inherits EnemyHealth)
+        if (bossHealth == null)
+            bossHealth = GetComponent<BossHealthLatest>();
+
+        if (bossHealth == null)
+        {
+            Debug.LogError("SpiderBoss: BossHealthLatest component is required on this GameObject.");
+        }
+
+        // Hook death so we can stop spawning, play extra logic, etc.
+        if (enemyHealth != null && enemyHealth.onDeath != null)
+        {
+            enemyHealth.onDeath.AddListener(OnBossDeath);
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (!inPhase2 && bossHealth != null)
+        {
+            // Check if HP dropped under threshold
+            float hpPercent = (float)bossHealth.CurrentHealth / bossHealth.StartingHealth;
+            if (hpPercent <= phase2ThresholdPercent)
+            {
+                EnterPhase2();
+            }
+        }
+    }
+
+    private void EnterPhase2()
+    {
+        inPhase2 = true;
+        Debug.Log("SpiderBoss: Entering phase 2!");
+        
+        if (minionPrefab != null && minionSpawnPoints != null && minionSpawnPoints.Length > 0)
+        {
+            spawnRoutine = StartCoroutine(SpawnMinionsLoop());
+        }
+        else
+        {
+            Debug.LogWarning("SpiderBoss: Phase 2 minion settings are incomplete (no prefab or spawn points).");
+        }
+    }
+
+    private IEnumerator SpawnMinionsLoop()
+    {
+        var wait = new WaitForSeconds(spawnInterval);
+
+        while (true)
+        {
+            // Stop if boss is dead
+            if (bossHealth == null || bossHealth.CurrentHealth <= 0)
+                yield break;
+
+            // Count current minions in scene
+            int alive = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            if (alive < maxMinionsAlive)
+            {
+                // Play spawn sound once per spawn cycle
+                if (spawnSfxSource != null && spawnSfxClip != null)
+                {
+                    spawnSfxSource.PlayOneShot(spawnSfxClip);
+                }
+
+                // Ensure we have at least 2 spawn points
+                if (minionSpawnPoints.Length >= 2)
+                {
+                    Transform p0 = minionSpawnPoints[0];
+                    Transform p1 = minionSpawnPoints[1];
+
+                    if (p0 != null)
+                    {
+                        Instantiate(minionPrefab, p0.position, p0.rotation);
+                        var anim0 = p0.GetComponent<Animator>();
+                        if (anim0 != null && !string.IsNullOrEmpty(spawnAnimTrigger))
+                        {
+                            anim0.SetTrigger(spawnAnimTrigger);
+                        }
+                    }
+
+                    if (p1 != null)
+                    {
+                        Instantiate(minionPrefab, p1.position, p1.rotation);
+                        var anim1 = p1.GetComponent<Animator>();
+                        if (anim1 != null && !string.IsNullOrEmpty(spawnAnimTrigger))
+                        {
+                            anim1.SetTrigger(spawnAnimTrigger);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("SpiderBoss: Requires exactly 2 spawn points for minion spawning.");
+                }
+            }
+
+            yield return wait;
+        }
+    }
+
+    public void BeginWebTrail()
+    {
+        if (!inPhase2)
+            return; // Only drop webs in phase 2
+
+        if (webTrailPrefab == null)
+        {
+            Debug.LogWarning("SpiderBoss: webTrailPrefab is not assigned.");
+            return;
+        }
+
+        if (webTrailRoutine == null)
+        {
+            webTrailRoutine = StartCoroutine(WebTrailLoop());
+        }
+    }
+
+    public void EndWebTrail()
+    {
+        if (webTrailRoutine != null)
+        {
+            StopCoroutine(webTrailRoutine);
+            webTrailRoutine = null;
+        }
+    }
+
+    private IEnumerator WebTrailLoop()
+    {
+        var wait = new WaitForSeconds(webTrailInterval);
+
+        while (true)
+        {
+            if (bossHealth == null || bossHealth.CurrentHealth <= 0)
+            {
+                // Boss died; stop spawning webs
+                yield break;
+            }
+
+            Vector3 spawnPos = webTrailSpawnPoint != null
+                ? webTrailSpawnPoint.position
+                : transform.position;
+
+            Instantiate(webTrailPrefab, spawnPos, Quaternion.identity);
+
+            yield return wait;
+        }
+    }
+
+    private void OnBossDeath()
+    {
+        Debug.Log("SpiderBoss: Boss died, stopping phase 2 behaviour.");
+
+        if (spawnRoutine != null)
+        {
+            StopCoroutine(spawnRoutine);
+            spawnRoutine = null;
+        }
+
+        if (webTrailRoutine != null)
+        {
+            StopCoroutine(webTrailRoutine);
+            webTrailRoutine = null;
+        }
+    }
+
+    protected override void OnDestroy()
+    {
+        if (enemyHealth != null && enemyHealth.onDeath != null)
+        {
+            enemyHealth.onDeath.RemoveListener(OnBossDeath);
+        }
+
+        base.OnDestroy();
+    }
+}
