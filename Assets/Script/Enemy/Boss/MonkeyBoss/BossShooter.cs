@@ -32,11 +32,7 @@ public class BossShooter : MonoBehaviour, IBoss
 
     private void Awake()
     {
-        if (target == null)
-        {
-            var player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null) target = player.transform;
-        }
+        ResolveTarget();
     }
     private void OnValidate()
     {
@@ -57,6 +53,14 @@ public class BossShooter : MonoBehaviour, IBoss
     {
         if (!isShooting)
         {
+            ResolveTarget();
+
+            if (target == null || target.gameObject == null)
+            {
+                Debug.LogWarning("BossShooter: No valid target found to shoot at.");
+                return;
+            }
+
             StartCoroutine(ShootRoutine());
         }
     }
@@ -132,7 +136,21 @@ public class BossShooter : MonoBehaviour, IBoss
 
     private void TargetConeOfInfluence(out float angleStep, out float startAngle, out float currentAngle, out float endAngle)
     {
-        Vector2 targetDirection = target.position - transform.position;
+        if (target == null || target.gameObject == null)
+        {
+            ResolveTarget();
+        }
+
+        Vector2 targetDirection;
+
+        if (target != null && target.gameObject != null)
+        {
+            targetDirection = target.position - transform.position;
+        }
+        else
+        {
+            targetDirection = transform.right;
+        }
 
         float targetAngle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
 
@@ -145,7 +163,7 @@ public class BossShooter : MonoBehaviour, IBoss
 
         if (angleSpread != 0)
         {
-            angleStep = angleSpread / (projectilesPerBurst - 1);
+            angleStep = projectilesPerBurst > 1 ? angleSpread / (projectilesPerBurst - 1) : 0f;
             halfAngleSpread = angleSpread / 2f;
 
             startAngle = targetAngle - halfAngleSpread;
@@ -161,5 +179,25 @@ public class BossShooter : MonoBehaviour, IBoss
 
         Vector2 pos = new Vector2(x, y);
         return pos;
+    }
+
+    private void ResolveTarget()
+    {
+        if (target == null || target.gameObject == null)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                target = player.transform;
+            }
+            else
+            {
+                var controller = FindObjectOfType<PlayerController>();
+                if (controller != null)
+                {
+                    target = controller.transform;
+                }
+            }
+        }
     }
 }

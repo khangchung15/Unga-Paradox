@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum UpgradeType
 {
@@ -57,6 +58,8 @@ public class PlayerUpgrades : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        ResolvePlayerReferences();
     }
 
     [SerializeField] private bool resetUpgradesOnPlay = true;
@@ -249,5 +252,91 @@ public class PlayerUpgrades : MonoBehaviour
             UpgradeType.ShieldCooldown => shieldUpgradeCosts,
             _ => null
         };
+    }
+
+    private void ResolvePlayerReferences()
+    {
+        // detect player references if they are not assigned in the inspector
+        if (playerController == null || playerMovement == null || playerShield == null || playerHealth == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                var controller = player.GetComponent<PlayerController>();
+                if (controller != null)
+                {
+                    if (playerController == null)
+                        playerController = controller;
+                    if (playerMovement == null)
+                        playerMovement = controller;
+                    if (playerShield == null)
+                        playerShield = controller;
+                }
+
+                if (playerHealth == null)
+                {
+                    playerHealth = player.GetComponentInChildren<Health>();
+                }
+            }
+
+            // Fallbacks if the Player tag is not set or components are not found
+            if (playerController == null || playerMovement == null || playerShield == null)
+            {
+                var controllerFallback = FindObjectOfType<PlayerController>();
+                if (controllerFallback != null)
+                {
+                    if (playerController == null)
+                        playerController = controllerFallback;
+                    if (playerMovement == null)
+                        playerMovement = controllerFallback;
+                    if (playerShield == null)
+                        playerShield = controllerFallback;
+                }
+            }
+
+            if (playerHealth == null)
+            {
+                playerHealth = FindObjectOfType<Health>();
+            }
+
+            if (playerController == null)
+            {
+                Debug.LogWarning("PlayerUpgrades: Could not detect PlayerController. Assign it in the inspector if needed.");
+            }
+
+            if (playerHealth == null)
+            {
+                Debug.LogWarning("PlayerUpgrades: Could not detect Health component. Assign playerHealth in the inspector if needed.");
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (playerController == null || playerController.gameObject == null)
+        {
+            playerController = null;
+            playerMovement = null;
+            playerShield = null;
+        }
+
+        if (playerHealth == null || playerHealth.gameObject == null)
+        {
+            playerHealth = null;
+        }
+
+        ResolvePlayerReferences();
+
+        ApplyAllUpgradesToPlayer();
     }
 }

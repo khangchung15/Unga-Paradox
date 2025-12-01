@@ -6694,6 +6694,10 @@ PrefabInstance:
       propertyPath: coinCounter
       value: 
       objectReference: {fileID: 1729793822}
+    - target: {fileID: 8455634248323330024, guid: 8310995d4216c48308af87fc0bf906a0, type: 3}
+      propertyPath: currentCurrency
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16025,6 +16029,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 720000792}
+    - target: {fileID: 3427427672410123108, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6717301259787470461, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.22

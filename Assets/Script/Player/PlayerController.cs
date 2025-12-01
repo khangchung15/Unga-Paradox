@@ -59,6 +59,11 @@ public class PlayerController : Singleton<PlayerController>
     private bool canParry = true;
     private Coroutine parryRoutine;
 
+    // Just to remove the one component from this level since the player gets carried over into different scenes.
+    [Header("Scene-Specific Spotlight")]
+    [SerializeField] private string spotlightSceneName = "L1_Room02";
+    [SerializeField] private GameObject playerSpotlight;
+
     private Rigidbody2D rb;
 
     #region Player State Variables
@@ -165,14 +170,26 @@ public class PlayerController : Singleton<PlayerController>
 
     private void OnDisable()
     {
-        playerControls.Disable();
+        if (playerControls != null)
+        {
+            playerControls.Disable();
+        }
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Reacquire the main camera in the new scene
         playerCamera = Camera.main;
+
+        // For that one scene where the player has a spotlight. Hardcoded since its the only scene where a player has an added component like that
+        if (playerSpotlight != null)
+        {
+            if (scene.name != spotlightSceneName)
+            {
+                Destroy(playerSpotlight);
+                playerSpotlight = null;
+            }
+        }
     }
 
     private void Update()
