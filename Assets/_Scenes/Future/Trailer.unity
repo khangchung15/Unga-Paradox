@@ -203,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 6881885}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -69.8, y: 23.7, z: 0}
+  m_LocalPosition: {x: -69.57, y: 24.82, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5921,8 +5921,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.721
-  m_Color: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
-  m_Intensity: 50
+  m_Color: {r: 0.9622642, g: 0.031772893, b: 0.031772893, a: 1}
+  m_Intensity: 100
   m_LightVolumeIntensity: 0
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 0000000091131784034c6c67239930f5dbb7d211
@@ -10890,6 +10890,184 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!43 &339943585
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 12
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 0
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 0
+    localAABB:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 0
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 0
+    _typelessdata: 
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_MeshUsageFlags: 0
+  m_CookingOptions: 30
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  'm_MeshMetrics[0]': 1
+  'm_MeshMetrics[1]': 1
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
+  m_MeshLodInfo:
+    serializedVersion: 2
+    m_LodSelectionCurve:
+      serializedVersion: 1
+      m_LodSlope: 0
+      m_LodBias: 0
+    m_NumLevels: 1
+    m_SubMeshes:
+    - serializedVersion: 2
+      m_Levels:
+      - serializedVersion: 1
+        m_IndexStart: 0
+        m_IndexCount: 0
 --- !u!1 &377580378
 GameObject:
   m_ObjectHideFlags: 0
@@ -21289,7 +21467,7 @@ MonoBehaviour:
     rid: 8149624315037352059
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 1666628977}
+    m_Mesh: {fileID: 339943585}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0, y: 0, z: 0}
@@ -28316,7 +28494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1077427079}
   - component: {fileID: 1077427081}
-  - component: {fileID: 1077427080}
+  - component: {fileID: 1077427082}
   m_Layer: 0
   m_Name: Light 2D
   m_TagString: Untagged
@@ -28339,30 +28517,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1820294434}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!114 &1077427080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1077427078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 302129eb139916144b7992e24ae23f68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LightColorChanger
-  target: {fileID: 0}
-  detectionRange: 7
-  normalColor: {r: 1, g: 0.23137255, b: 0.23137255, a: 1}
-  detectedColor: {r: 1, g: 0, b: 0, a: 1}
-  colorChangeSpeed: 100
-  keepColorAfterExit: 1
-  changeIntensity: 1
-  normalIntensity: 50
-  detectedIntensity: 500
-  intensityChangeSpeed: 50
-  resetOnDisable: 1
-  manualResetKey: 0
 --- !u!114 &1077427081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28379,8 +28533,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.721
-  m_Color: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
-  m_Intensity: 50
+  m_Color: {r: 0.9622642, g: 0.031772893, b: 0.031772893, a: 1}
+  m_Intensity: 100
   m_LightVolumeIntensity: 0
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 0000000091131784034c6c67239930f5dbb7d211
@@ -28415,6 +28569,22 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &1077427082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077427078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02396cf0840c3425a984c64e6f910540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightFlick
+  minIntensity: 200
+  maxIntensity: 500
+  speed: 5
+  target: {fileID: 1828253242}
 --- !u!1 &1118466086
 GameObject:
   m_ObjectHideFlags: 0
@@ -29374,9 +29544,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37be682cde2765343b1061f8c3ac0ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateToTarget
-  target: {fileID: 0}
+  target: {fileID: 6881887}
   rotationSpeed: 4.49
-  detectionRange: 7
+  detectionRange: 151.51
 --- !u!212 &1460462463
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29520,7 +29690,7 @@ Transform:
   m_GameObject: {fileID: 1511858296}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -69.788, y: 23.7, z: 0}
+  m_LocalPosition: {x: -69.788, y: 24.51, z: 0}
   m_LocalScale: {x: 27, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30201,9 +30371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37be682cde2765343b1061f8c3ac0ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateToTarget
-  target: {fileID: 0}
+  target: {fileID: 6881887}
   rotationSpeed: 4.49
-  detectionRange: 7
+  detectionRange: 151.51
 --- !u!212 &1652552877
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -30262,184 +30432,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!43 &1666628977
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 12
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 0
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 0
-    localAABB:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 0
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 0
-    _typelessdata: 
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_MeshUsageFlags: 0
-  m_CookingOptions: 30
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
-  m_MeshLodInfo:
-    serializedVersion: 2
-    m_LodSelectionCurve:
-      serializedVersion: 1
-      m_LodSlope: 0
-      m_LodBias: 0
-    m_NumLevels: 1
-    m_SubMeshes:
-    - serializedVersion: 2
-      m_Levels:
-      - serializedVersion: 1
-        m_IndexStart: 0
-        m_IndexCount: 0
 --- !u!1 &1687719358
 GameObject:
   m_ObjectHideFlags: 0
@@ -30486,9 +30478,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37be682cde2765343b1061f8c3ac0ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateToTarget
-  target: {fileID: 0}
+  target: {fileID: 6881887}
   rotationSpeed: 4.49
-  detectionRange: 7
+  detectionRange: 151.51
 --- !u!212 &1687719361
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -30661,7 +30653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1702723229}
   - component: {fileID: 1702723231}
-  - component: {fileID: 1702723230}
+  - component: {fileID: 1702723232}
   m_Layer: 0
   m_Name: Light 2D
   m_TagString: Untagged
@@ -30684,30 +30676,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1687719359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!114 &1702723230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702723228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 302129eb139916144b7992e24ae23f68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LightColorChanger
-  target: {fileID: 0}
-  detectionRange: 7
-  normalColor: {r: 1, g: 0.23137255, b: 0.23137255, a: 1}
-  detectedColor: {r: 1, g: 0, b: 0, a: 1}
-  colorChangeSpeed: 100
-  keepColorAfterExit: 1
-  changeIntensity: 1
-  normalIntensity: 50
-  detectedIntensity: 500
-  intensityChangeSpeed: 50
-  resetOnDisable: 1
-  manualResetKey: 0
 --- !u!114 &1702723231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30724,8 +30692,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.721
-  m_Color: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
-  m_Intensity: 50
+  m_Color: {r: 0.9622642, g: 0.031772893, b: 0.031772893, a: 1}
+  m_Intensity: 100
   m_LightVolumeIntensity: 0
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 0000000091131784034c6c67239930f5dbb7d211
@@ -30760,6 +30728,22 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &1702723232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702723228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02396cf0840c3425a984c64e6f910540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightFlick
+  minIntensity: 20
+  maxIntensity: 100
+  speed: 2
+  target: {fileID: 1702723231}
 --- !u!1 &1768367679
 GameObject:
   m_ObjectHideFlags: 0
@@ -30861,9 +30845,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37be682cde2765343b1061f8c3ac0ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateToTarget
-  target: {fileID: 0}
+  target: {fileID: 6881887}
   rotationSpeed: 4.49
-  detectionRange: 7
+  detectionRange: 151.51
 --- !u!212 &1820294436
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -30932,7 +30916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1828253240}
   - component: {fileID: 1828253242}
-  - component: {fileID: 1828253241}
+  - component: {fileID: 1828253243}
   m_Layer: 0
   m_Name: Light 2D
   m_TagString: Untagged
@@ -30955,30 +30939,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1652552875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!114 &1828253241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1828253239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 302129eb139916144b7992e24ae23f68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LightColorChanger
-  target: {fileID: 0}
-  detectionRange: 7
-  normalColor: {r: 1, g: 0.23137255, b: 0.23137255, a: 1}
-  detectedColor: {r: 1, g: 0, b: 0, a: 1}
-  colorChangeSpeed: 100
-  keepColorAfterExit: 1
-  changeIntensity: 1
-  normalIntensity: 50
-  detectedIntensity: 500
-  intensityChangeSpeed: 50
-  resetOnDisable: 1
-  manualResetKey: 0
 --- !u!114 &1828253242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30995,8 +30955,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.721
-  m_Color: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
-  m_Intensity: 50
+  m_Color: {r: 0.9622642, g: 0.031772893, b: 0.031772893, a: 1}
+  m_Intensity: 100
   m_LightVolumeIntensity: 0
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 0000000091131784034c6c67239930f5dbb7d211
@@ -31031,6 +30991,22 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &1828253243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828253239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02396cf0840c3425a984c64e6f910540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightFlick
+  minIntensity: 200
+  maxIntensity: 1000
+  speed: 5
+  target: {fileID: 1828253242}
 --- !u!1 &1866875810
 GameObject:
   m_ObjectHideFlags: 0
