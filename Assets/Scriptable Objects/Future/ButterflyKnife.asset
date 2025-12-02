@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
   m_Name: ButterflyKnife
   m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
-  weaponName: Teleport Device
+  weaponName: ButterflyKnife
   weaponPrefab: {fileID: 4002796591295549354, guid: b717f9d20fa6761459f42c79702256ca, type: 3}
   weaponCooldown: 1
   weaponSprite: {fileID: 1015664615, guid: 80986ce339052d74b9c324969783738e, type: 3}

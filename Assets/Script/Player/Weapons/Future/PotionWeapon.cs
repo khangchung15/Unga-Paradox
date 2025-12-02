@@ -138,6 +138,7 @@ public class PotionWeapon : MonoBehaviour, IWeapon
         GameObject potion = Instantiate(currentPotion.potionPrefab, playerTransform.position, Quaternion.identity);
         
         Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
+        ThrownPotion thrownPotion = potion.GetComponent<ThrownPotion>();
         if (potionRb != null)
         {
             potionRb.AddForce(directionToBoss * throwForceTowardsBoss, ForceMode2D.Impulse);
@@ -146,6 +147,12 @@ public class PotionWeapon : MonoBehaviour, IWeapon
         if (audioSource != null && throwSound != null)
         {
             audioSource.PlayOneShot(throwSound);
+        }
+        if (potionRb != null && thrownPotion != null)
+        {
+            Vector2 initialVelocity = directionToBoss * (throwForceTowardsBoss * 0.3f);
+            potionRb.linearVelocity = initialVelocity;
+            thrownPotion.SetThrowDirection(directionToBoss);
         }
         
         SelectRandomPotion();
@@ -174,6 +181,7 @@ public class PotionWeapon : MonoBehaviour, IWeapon
         GameObject potion = Instantiate(currentPotion.potionPrefab, playerTransform.position, Quaternion.identity);
         
         Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
+        ThrownPotion thrownPotion = potion.GetComponent<ThrownPotion>();
         if (potionRb != null)
         {
             potionRb.AddForce(Vector2.up * throwForceUpward, ForceMode2D.Impulse);
@@ -182,6 +190,12 @@ public class PotionWeapon : MonoBehaviour, IWeapon
         if (audioSource != null && throwSound != null)
         {
             audioSource.PlayOneShot(throwSound);
+        }
+        if (potionRb != null && thrownPotion != null)
+        {
+            Vector2 initialVelocity = Vector2.up * (throwForceUpward * 0.3f);
+            potionRb.linearVelocity = initialVelocity;
+            thrownPotion.SetThrowDirection(Vector2.up);
         }
         
         SelectRandomPotion();

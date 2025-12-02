@@ -20,16 +20,21 @@ public class AnimatedKnife : MonoBehaviour
     private int bossThrowDamage;
     private int playerBackfireDamage;
     private int currentDamage;
-    
+
     private float hoverTimer = 0f;
+    private float aimingTimer = 0f;
     private bool hasHit = false;
     
     private enum KnifeState
     {
         FlyingUp,
         Hovering,
+        Aiming,
         FlyingToTarget
     }
+
+    private const float AIMING_DURATION = 1.2f;
+
     
     private KnifeState currentState = KnifeState.FlyingUp;
     
@@ -86,6 +91,8 @@ public class AnimatedKnife : MonoBehaviour
         bossThrowDamage = bossDamage;
         playerBackfireDamage = playerDamage;
         
+        transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+        
         if (knifeCollider != null)
         {
             knifeCollider.enabled = false;
@@ -104,8 +111,10 @@ public class AnimatedKnife : MonoBehaviour
         
         currentState = KnifeState.FlyingUp;
         hoverTimer = 0f;
+        aimingTimer = 0f;
         hasHit = false;
     }
+
     
     private void Update()
     {
@@ -119,11 +128,16 @@ public class AnimatedKnife : MonoBehaviour
                 HoverAndCheckConditions();
                 break;
                 
+            case KnifeState.Aiming:
+                AimAtTarget();
+                break;
+                
             case KnifeState.FlyingToTarget:
                 FlyToTarget();
                 break;
         }
     }
+
     
     private void FlyToHoverPosition()
     {
@@ -193,27 +207,48 @@ public class AnimatedKnife : MonoBehaviour
     {
         currentTarget = bossTransform;
         currentDamage = bossThrowDamage;
-        
-        if (knifeCollider != null)
-        {
-            knifeCollider.enabled = true;
-        }
-        
-        currentState = KnifeState.FlyingToTarget;
+        aimingTimer = 0f;
+        currentState = KnifeState.Aiming;
     }
-    
+
     private void StartFlyingToPlayer()
     {
         currentTarget = playerTransform;
         currentDamage = playerBackfireDamage;
+        aimingTimer = 0f;
+        currentState = KnifeState.Aiming;
+    }
+
+    private void AimAtTarget()
+    {
+        if (currentTarget == null) return;
         
-        if (knifeCollider != null)
+        transform.position = hoverPosition;
+        
+        if (rb != null)
         {
-            knifeCollider.enabled = true;
+            rb.linearVelocity = Vector2.zero;
         }
         
-        currentState = KnifeState.FlyingToTarget;
+        Vector2 direction = (currentTarget.position - transform.position).normalized;
+        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        
+        float currentAngle = transform.rotation.eulerAngles.z;
+        float smoothAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * 10f);
+        transform.rotation = Quaternion.Euler(0f, 0f, smoothAngle);
+        
+        aimingTimer += Time.deltaTime;
+        
+        if (aimingTimer >= AIMING_DURATION)
+        {
+            if (knifeCollider != null)
+            {
+                knifeCollider.enabled = true;
+            }
+            currentState = KnifeState.FlyingToTarget;
+        }
     }
+
     
     private void FlyToTarget()
     {

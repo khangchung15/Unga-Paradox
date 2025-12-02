@@ -145,8 +145,8 @@ MonoBehaviour:
     potionSprite: {fileID: 4130640169021434097, guid: 9b2d0cbcce9f1af40905688e8199055c, type: 3}
     potionPrefab: {fileID: 869407172955108571, guid: c93e8fe2eaa3b81449759a9ea0a20269, type: 3}
   potionSpriteRenderer: {fileID: 7292043784899507328}
-  throwForceTowardsBoss: 15
-  throwForceUpward: 7
+  throwForceTowardsBoss: 50
+  throwForceUpward: 20
   bossTag: Boss
   throwSound: {fileID: 0}
 --- !u!82 &5178349627152620651

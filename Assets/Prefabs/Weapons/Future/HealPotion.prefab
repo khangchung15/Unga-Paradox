@@ -177,6 +177,9 @@ MonoBehaviour:
   reflectedActivationDelay: 0.05
   rb: {fileID: 6295420782359975043}
   spriteRenderer: {fileID: 3969000994819706869}
+  spinSpeed: 360
+  accelerationForce: 10
+  maxSpeed: 25
 --- !u!114 &8874534021695473246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +212,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0

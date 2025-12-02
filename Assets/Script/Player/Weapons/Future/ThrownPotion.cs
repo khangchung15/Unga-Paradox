@@ -11,14 +11,22 @@ public class ThrownPotion : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private PotionEffect potionEffect;
-    
+
+    [Header("Visual Settings")]
+    [SerializeField] private float spinSpeed = 360f;
+
+    [Header("Acceleration Settings")]
+    [SerializeField] private float accelerationForce = 10f;
+    [SerializeField] private float maxSpeed = 25f;
+
     private bool hasTriggered = false;
     private bool isActive = false;
     private bool isReflected = false;
     private bool isBeingReflected = false;
     private float activationTimer = 0f;
     private float currentActivationDelay;
-    
+    private Vector2 throwDirection;
+
     private void Awake()
     {
         if (rb == null)
@@ -57,8 +65,38 @@ public class ThrownPotion : MonoBehaviour
         currentActivationDelay = reflectedActivationDelay;
     }
     
+    public void SetThrowDirection(Vector2 direction)
+    {
+        throwDirection = direction.normalized;
+    }
+
+    private void FixedUpdate()
+    {
+        if (rb != null && throwDirection != Vector2.zero && !hasTriggered)
+        {
+            Vector2 horizontalForce = new Vector2(throwDirection.x, 0) * accelerationForce;
+            rb.AddForce(horizontalForce);
+            
+            Vector2 horizontalVelocity = new Vector2(rb.linearVelocity.x, 0);
+            if (horizontalVelocity.magnitude > maxSpeed)
+            {
+                rb.linearVelocity = new Vector2(
+                    Mathf.Sign(rb.linearVelocity.x) * maxSpeed,
+                    rb.linearVelocity.y
+                );
+            }
+        }
+    }
+
+
+
     private void Update()
     {
+        if (!hasTriggered && spriteRenderer != null && spriteRenderer.enabled)
+        {
+            transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
+        }
+        
         if (!isActive && !isBeingReflected)
         {
             activationTimer += Time.deltaTime;
@@ -68,6 +106,7 @@ public class ThrownPotion : MonoBehaviour
             }
         }
     }
+
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -93,6 +132,7 @@ public class ThrownPotion : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log($"Trigger hit: {collision.gameObject.name}, Layer: {LayerMask.LayerToName(collision.gameObject.layer)}, Tag: {collision.tag}, IsActive: {isActive}");
         if (hasTriggered || isBeingReflected) return;
         
         if (IsShieldCollision(collision.gameObject))
