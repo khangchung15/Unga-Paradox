@@ -9,6 +9,12 @@ public class BossHealthFuture : MonoBehaviour
     [SerializeField] private GameObject deathVFXPrefab;
     [SerializeField] private BossHealthBar healthBar;
     [SerializeField] private BossShooter shots;
+    [SerializeField] private Sprite defeatedSprite;
+
+    [Header("Objects to Disable on Death")]
+    [Tooltip("GameObjects that will be disabled when boss dies (e.g., player weapons, inventory UI)")]
+    [SerializeField] private GameObject[] objectsToDisableOnDeath;
+
     public AudioClip hurtSound1;
     public AudioClip hurtSound2;
     public AudioClip deathSound;
@@ -27,15 +33,19 @@ public class BossHealthFuture : MonoBehaviour
     public UnityEvent onDeath;
     
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         knockback = GetComponent<Knockback>();
         audioSource = GetComponent<AudioSource>();
         shots = GetComponent<BossShooter>();
         rb2d = GetComponent<Rigidbody2D>();
     }
+
     
     private void Start()
     {
@@ -65,7 +75,6 @@ public class BossHealthFuture : MonoBehaviour
             healthBar.SetValue(currentHealth);
         }
         
-        Debug.Log($"[BossHealth] Boss took {damageAmount} damage. Current HP: {currentHealth}/{maxHealth}");
         
         if (currentHealth > 0)
         {
@@ -95,7 +104,6 @@ public class BossHealthFuture : MonoBehaviour
                 audioSource.PlayOneShot(tpSound);
             }
             
-            Debug.Log("[BossHealth] Boss entered second stage!");
         }
         
         if (currentHealth <= 0)
@@ -119,16 +127,12 @@ public class BossHealthFuture : MonoBehaviour
         {
             healthBar.SetValue(currentHealth);
         }
-        
-        Debug.Log($"[BossHealth] Boss healed for {healAmount}. Current HP: {currentHealth}/{maxHealth}");
     }
 
     private void DetectDeath()
     {
         if (isDead) return;
         isDead = true;
-        
-        Debug.Log("[BossHealth] Boss died!");
         
         if (audioSource != null && deathSound != null)
         {
@@ -138,25 +142,72 @@ public class BossHealthFuture : MonoBehaviour
         if (shots != null)
             shots.enabled = false;
         
-        if (animator != null)
+        GameObject bossDeathSpawn = GameObject.Find("Boss Death Spawn");
+        if (bossDeathSpawn != null)
         {
-            animator.ResetTrigger("Dead");
-            animator.SetTrigger("Dead");
-        }
+            transform.position = bossDeathSpawn.transform.position;
+            
+            if (rb2d != null)
+            {
+                rb2d.linearVelocity = Vector2.zero;
+                rb2d.angularVelocity = 0f;
+                rb2d.bodyType = RigidbodyType2D.Kinematic;
+                rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+            
+            BossController bossController = GetComponent<BossController>();
+            if (bossController != null)
+            {
+                bossController.enabled = false;
+            }
+            
+            foreach (GameObject obj in objectsToDisableOnDeath)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
+            }
 
-        if (rb2d != null)
-        {
-            rb2d.linearVelocity = Vector2.zero;
-            rb2d.angularVelocity = 0f;
-            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            DeathBeamShooter[] beamShooters = FindObjectsOfType<DeathBeamShooter>();
+            foreach (DeathBeamShooter shooter in beamShooters)
+            {
+                if (shooter != null)
+                {
+                    shooter.ForceStop();
+                    shooter.enabled = false;
+                }
+            }
+            
+            if (animator != null)
+            {
+                animator.Play("Recover", 0, 0f);
+                animator.speed = 0f;
+            }
+            
+            SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+            foreach (SpriteRenderer sr in spriteRenderers)
+            {
+                if (sr.gameObject.name == "Shield")
+                {
+                    sr.enabled = false;
+                }
+            }
+            
+            if (spriteRenderer != null && defeatedSprite != null)
+            {
+                spriteRenderer.sprite = defeatedSprite;
+            }
+            
+            BossDeathSequence deathSequence = bossDeathSpawn.GetComponent<BossDeathSequence>();
+            if (deathSequence != null)
+            {
+                deathSequence.StartDeathSequence();
+            }
         }
         
-        if (deathVFXPrefab != null)
-        {
-            Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
-        }
-
-        if (healthBar != null) Destroy(healthBar.gameObject);
+        if (healthBar != null) 
+            Destroy(healthBar.gameObject);
 
         GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         if (mainCamera != null)
@@ -169,8 +220,6 @@ public class BossHealthFuture : MonoBehaviour
         }
         
         onDeath.Invoke();
-
-        float destroyDelay = (deathSound != null) ? deathSound.length : 1f;
-        Destroy(gameObject, destroyDelay);
     }
+
 }

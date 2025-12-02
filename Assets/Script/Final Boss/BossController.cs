@@ -85,10 +85,6 @@ public class BossController : MonoBehaviour
         {
             bossSpawnPoint = spawnPoint.transform;
         }
-        else
-        {
-            Debug.LogWarning($"[BossController] Boss Spawn Point with tag '{bossSpawnPointTag}' not found!");
-        }
     }
     
     private void Start()
@@ -190,7 +186,6 @@ public class BossController : MonoBehaviour
     {
         if (bossSpawnPoint != null)
         {
-            Debug.Log("[BossController] Boss stuck! Teleporting to spawn point.");
             transform.position = bossSpawnPoint.position;
             startPosition = bossSpawnPoint.position;
             rb.linearVelocity = Vector2.zero;

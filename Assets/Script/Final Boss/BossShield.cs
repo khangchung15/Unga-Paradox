@@ -74,14 +74,12 @@ public class BossShield : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag(playerTag);
         if (player == null)
         {
-            Debug.LogWarning("[BossShield] Player not found for reflection!");
             return;
         }
         
         Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
         if (potionRb == null)
         {
-            Debug.LogWarning("[BossShield] Potion has no Rigidbody2D!");
             return;
         }
         
