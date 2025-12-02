@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class DeathBeamShooter : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class DeathBeamShooter : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private bool showDebugLogs = false;
+
+    [Header("Camera Shake")]
+    [SerializeField] private CinemachineImpulseSource impulseSource;
+
     
     private AudioSource audioSource;
     private float shootTimer;
@@ -64,7 +69,13 @@ public class DeathBeamShooter : MonoBehaviour
         {
             attackIndicatorManager = FindObjectOfType<AttackIndicatorManager>();
         }
+        
+        if (impulseSource == null)
+        {
+            impulseSource = GetComponent<CinemachineImpulseSource>();
+        }
     }
+
     
     private void Start()
     {
@@ -226,11 +237,17 @@ public class DeathBeamShooter : MonoBehaviour
             }
         }
         
+        if (impulseSource != null)
+        {
+            impulseSource.GenerateImpulse();
+        }
+        
         if (audioSource != null && shootSound != null)
         {
             audioSource.PlayOneShot(shootSound);
         }
     }
+
     
     private void StopShooting()
     {
