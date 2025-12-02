@@ -40,7 +40,7 @@ public class EnemyCollision : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log(HelperFuncs.GetOwnerName(transform) + " Collided With Enemy. Preventing push and choosing new wander point.");
+            //Debug.Log(HelperFuncs.GetOwnerName(transform) + " Collided With Enemy. Preventing push and choosing new wander point.");
 
             // zero both rigidbodies' velocities to stop any pushing effect
             TryZeroRigidbodyVelocity(myRb);
@@ -62,7 +62,7 @@ public class EnemyCollision : MonoBehaviour
         
         if (other.CompareTag("Player"))
         {
-            Debug.Log(HelperFuncs.GetOwnerName(transform) + " Collided With Player. Preventing push.");
+            //Debug.Log(HelperFuncs.GetOwnerName(transform) + " Collided With Player. Preventing push.");
 
             // zero both rigidbodies' velocities to stop any pushing effect
             TryZeroRigidbodyVelocity(myRb);

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ScientistController : Singleton<ScientistController>
+public class ScientistController : MonoBehaviour
 {
     [Header("Game Object and Component References")]
     [Tooltip("The sprite renderer that represents the player.")]
     public SpriteRenderer spriteRenderer = null;
     [Tooltip("The health component attached to the player.")]
     public Health playerHealth;
+    [Tooltip("The HealthFuture component attached to the player.")]
+    public HealthFuture playerHealthFuture;
     [Tooltip("The camera that will follow the player.")]
     public Camera playerCamera;
 
@@ -65,11 +67,6 @@ public class ScientistController : Singleton<ScientistController>
     }
     #endregion
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     void OnEnable()
     {
         moveAction.Enable();
@@ -104,6 +101,16 @@ public class ScientistController : Singleton<ScientistController>
         {
             playerCamera = Camera.main;
         }
+
+        if (playerHealthFuture == null)
+        {
+            playerHealthFuture = GetComponent<HealthFuture>();
+        }
+
+        if (playerHealth == null)
+        {
+            playerHealth = GetComponent<Health>();
+        }
     }
 
     private void Update()
@@ -136,7 +143,10 @@ public class ScientistController : Singleton<ScientistController>
 
     private void MovePlayer()
     {
-        transform.position += (Vector3)currentVelocity * Time.deltaTime;
+        if (state != PlayerState.Dead)
+        {
+            transform.position += (Vector3)currentVelocity * Time.deltaTime;
+        }
     }
 
     private void UpdateCameraPosition()
@@ -150,6 +160,8 @@ public class ScientistController : Singleton<ScientistController>
 
     private void HandleSpriteDirection()
     {
+        if (state == PlayerState.Dead) return;
+
         if (currentVelocity.x > 0.1f)
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -162,7 +174,18 @@ public class ScientistController : Singleton<ScientistController>
 
     private void DetermineState()
     {
-        if (playerHealth != null && playerHealth.currentHealth <= 0)
+        bool isDead = false;
+
+        if (playerHealthFuture != null)
+        {
+            isDead = playerHealthFuture.currentHealth <= 0;
+        }
+        else if (playerHealth != null)
+        {
+            isDead = playerHealth.currentHealth <= 0;
+        }
+
+        if (isDead)
         {
             state = PlayerState.Dead;
         }

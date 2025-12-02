@@ -13,4 +13,7 @@ public class WeaponInfo : ScriptableObject
 
     [Header("World Pickup")]
     public GameObject pickupPrefab;
+    
+    [Header("Audio Settings")]
+    public AudioClip equipSound;
 }

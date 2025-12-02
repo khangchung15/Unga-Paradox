@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class DeathBeamShooter : MonoBehaviour
 {
@@ -9,8 +10,6 @@ public class DeathBeamShooter : MonoBehaviour
     [Header("Shooting Settings")]
     [SerializeField] private float shootInterval = 2f;
     [SerializeField] private float shootDuration = 0.5f;
-    [SerializeField] private float beamRange = 20f;
-    [SerializeField] private float damage = 10f;
     
     [Header("Beam Visual")]
     [SerializeField] private GameObject beamObject;
@@ -18,35 +17,62 @@ public class DeathBeamShooter : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip shootSound;
     
+    [Header("Attack Indicator")]
+    [SerializeField] private AttackIndicatorManager attackIndicatorManager;
+    [SerializeField] private float chargeTime = 1.5f;
+    
+    [Header("Rotation Lock")]
+    [SerializeField] private float rotationLockBeforeShoot = 0.5f;
+
+    [Header("Boss Reference")]
+    [SerializeField] private BossController bossController;
+
+    [Header("Debug")]
+    [SerializeField] private bool showDebugLogs = false;
+    
     private AudioSource audioSource;
     private float shootTimer;
     private bool isShooting;
     private float shootingTimer;
-    private RotateToTarget rotateToTarget;
+    private DeathBeamRotateToTarget rotateToTarget;
     private Animator beamAnimator;
+    
+    private float chargeTimer;
+    private bool isCharging;
+    private AttackIndicator currentIndicator;
+    private bool isRotationLocked = false;
     
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        rotateToTarget = GetComponent<RotateToTarget>();
         
-        if (rotateToTarget == null)
+        if (audioSource == null)
         {
-            Debug.LogError("RotateToTarget component not found on " + gameObject.name);
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
         }
+        
+        rotateToTarget = GetComponent<DeathBeamRotateToTarget>();
         
         if (beamObject != null)
         {
             beamAnimator = beamObject.GetComponent<Animator>();
-            if (beamAnimator == null)
-            {
-                Debug.LogWarning("Animator component not found on beam object: " + beamObject.name);
-            }
+        }
+        
+        if (attackIndicatorManager == null)
+        {
+            attackIndicatorManager = FindObjectOfType<AttackIndicatorManager>();
         }
     }
     
     private void Start()
     {
+        if (bossController == null)
+        {
+            bossController = FindObjectOfType<BossController>();
+        }
+
         if (target == null)
         {
             GameObject targetObject = GameObject.FindGameObjectWithTag(targetTag);
@@ -58,10 +84,6 @@ public class DeathBeamShooter : MonoBehaviour
                 {
                     rotateToTarget.target = target;
                 }
-            }
-            else
-            {
-                Debug.LogWarning("Target with tag '" + targetTag + "' not found");
             }
         }
         
@@ -75,18 +97,55 @@ public class DeathBeamShooter : MonoBehaviour
     
     private void Update()
     {
-        if (target == null) return;
+        if (target == null || !target.gameObject.activeInHierarchy) return;
         
-        if (!isShooting)
+        if (bossController != null && !bossController.CanAttack())
+        {
+            if (isCharging || isShooting)
+            {
+                CancelCharging();
+                StopShooting();
+            }
+            return;
+        }
+        
+        if (!isCharging && !isShooting)
         {
             shootTimer -= Time.deltaTime;
             
             if (shootTimer <= 0f)
             {
-                StartShooting();
+                StartCharging();
             }
         }
-        else
+        else if (isCharging)
+        {
+            if (currentIndicator == null)
+            {
+                CancelCharging();
+                return;
+            }
+            
+            chargeTimer += Time.deltaTime;
+            float chargeProgress = chargeTimer / chargeTime;
+            
+            float lockTime = chargeTime - rotationLockBeforeShoot;
+            if (!isRotationLocked && chargeTimer >= lockTime)
+            {
+                LockRotation();
+            }
+            
+            if (currentIndicator != null)
+            {
+                currentIndicator.SetFillAmount(chargeProgress);
+            }
+            
+            if (chargeTimer >= chargeTime)
+            {
+                FinishCharging();
+            }
+        }
+        else if (isShooting)
         {
             shootingTimer -= Time.deltaTime;
             
@@ -94,11 +153,62 @@ public class DeathBeamShooter : MonoBehaviour
             {
                 StopShooting();
             }
-            else
+        }
+    }
+    
+    private void StartCharging()
+    {
+        if (attackIndicatorManager != null)
+        {
+            currentIndicator = attackIndicatorManager.RequestIndicator(this);
+            
+            if (currentIndicator == null)
             {
-                PerformBeamDamage();
+                shootTimer = 0.5f;
+                return;
             }
         }
+        
+        isCharging = true;
+        chargeTimer = 0f;
+        
+        if (bossController != null)
+        {
+            bossController.PlayAttackAnimation();
+        }
+        
+    }
+
+    
+    private void CancelCharging()
+    {
+        if (!isCharging) return;
+        
+        isCharging = false;
+        chargeTimer = 0f;
+        shootTimer = shootInterval;
+        
+        UnlockRotation();
+        
+        if (attackIndicatorManager != null && currentIndicator != null)
+        {
+            attackIndicatorManager.ReleaseIndicator(this);
+            currentIndicator = null;
+        }
+    }
+
+    
+    private void FinishCharging()
+    {
+        isCharging = false;
+        
+        if (attackIndicatorManager != null && currentIndicator != null)
+        {
+            attackIndicatorManager.ReleaseIndicator(this);
+            currentIndicator = null;
+        }
+        
+        StartShooting();
     }
     
     private void StartShooting()
@@ -124,6 +234,8 @@ public class DeathBeamShooter : MonoBehaviour
     
     private void StopShooting()
     {
+        if (!isShooting) return;
+        
         isShooting = false;
         shootTimer = shootInterval;
         
@@ -131,32 +243,75 @@ public class DeathBeamShooter : MonoBehaviour
         {
             beamObject.SetActive(false);
         }
-    }
-    
-    private void PerformBeamDamage()
-    {
-        Vector2 direction = (target.position - transform.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, beamRange);
         
-        if (hit.collider != null)
+        UnlockRotation();
+        
+        if (bossController != null)
         {
-            Health playerHealth = hit.collider.GetComponent<Health>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(damage * Time.deltaTime);
-            }
+            bossController.ReturnToIdle();
+        }
+    }
+
+    
+    private void LockRotation()
+    {
+        if (rotateToTarget != null && !isRotationLocked)
+        {
+            rotateToTarget.LockRotation();
+            isRotationLocked = true;
+            
         }
     }
     
-    private void OnDrawGizmosSelected()
+    private void UnlockRotation()
     {
-        if (target != null)
+        if (rotateToTarget != null && isRotationLocked)
         {
-            Gizmos.color = isShooting ? Color.red : Color.yellow;
+            rotateToTarget.UnlockRotation();
+            isRotationLocked = false;
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        if (attackIndicatorManager != null && currentIndicator != null)
+        {
+            attackIndicatorManager.ReleaseIndicator(this);
+        }
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (target != null && isShooting)
+        {
+            Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, target.position);
         }
-        
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, beamRange);
     }
+    public void ForceStop()
+    {
+        if (isCharging)
+        {
+            CancelCharging();
+        }
+        
+        if (isShooting)
+        {
+            isShooting = false;
+            shootTimer = shootInterval;
+            
+            if (beamObject != null)
+            {
+                beamObject.SetActive(false);
+            }
+            
+            UnlockRotation();
+        }
+    }
+
+    public bool IsShooting()
+    {
+        return isShooting;
+    }
+
 }

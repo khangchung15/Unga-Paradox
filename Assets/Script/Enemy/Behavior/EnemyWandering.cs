@@ -201,8 +201,8 @@ public class EnemyWandering : MonoBehaviour
             }
             else
             {
-                Debug.Log(HelperFuncs.GetOwnerName(transform) +
-                    " Oops! I chose a wall, silly me :P . At: " + potentialPoint);
+                //Debug.Log(HelperFuncs.GetOwnerName(transform) +
+                    //" Oops! I chose a wall, silly me :P . At: " + potentialPoint);
             }
         }
         return homeLocation; // if no valid point found, return to home location

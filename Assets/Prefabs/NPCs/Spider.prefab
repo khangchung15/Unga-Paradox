@@ -58,8 +58,8 @@ Transform:
   m_GameObject: {fileID: 1215420703996448149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13871, y: 0.14782, z: 0}
-  m_LocalScale: {x: 0.48725256, y: 0.48725256, z: 0.48725256}
+  m_LocalPosition: {x: -0.15717, y: 0.16346, z: 0}
+  m_LocalScale: {x: 0.55234396, y: 0.55234396, z: 0.55234396}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6444716294368159702}
@@ -98,8 +98,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.2759614, y: -0.30372527}
-  m_Radius: 0.4722365
+  m_Offset: {x: 0.28338364, y: -0.30069935}
+  m_Radius: 0.142256
 --- !u!114 &8976486095998392607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,8 +219,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 15
+  m_Mass: 100
+  m_LinearDamping: 0
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -571,14 +571,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpiderLeaping
   nextAttack: 0
   globalCooldown: 1.3
-  minLeapDistance: 1.5
-  maxLeapDistance: 5
+  minLeapDistance: 2
+  maxLeapDistance: 6
   leapForce: 12
-  leapWindup: 0.15
-  leapLandingLag: 0.15
-  airborneHitboxTime: 0.2
+  leapTravelTime: 1
+  leapWindup: 0.5
+  leapLandingLag: 0.2
+  airborneHitboxTime: 0.5
+  airborneHitboxDelay: 0.2
+  leapWindupColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  leapIndicatorSprite: {fileID: 3216804136881140658}
+  indicatorIdleColor: {r: 1, g: 1, b: 1, a: 1}
+  indicatorFlashColor: {r: 1, g: 0, b: 0, a: 1}
+  indicatorFlashInterval: 0.05
+  bodySprite: {fileID: 3216804136881140658}
+  defaultBodyColor: {r: 1, g: 1, b: 1, a: 1}
+  leapFlashColor: {r: 1, g: 0, b: 0, a: 1}
+  leapFlashInterval: 0.05
   maxShootDistance: 10
-  shootWindup: 0.1
+  shootWindup: 0.15
   firePoint: {fileID: 2568325754847986554}
   projectilePrefab: {fileID: -8834212538324575615, guid: fbd1cf21d52f94a9cb51bd8b7986421d, type: 3}
 --- !u!1 &4966890062097548575

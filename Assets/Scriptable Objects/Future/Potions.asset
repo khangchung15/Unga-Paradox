@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653276b728faec943bd527f0a69da98e, type: 3}
+  m_Name: Potions
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponInfo
+  weaponName: Potions
+  weaponPrefab: {fileID: 7500469200729446997, guid: a48458fb76953954096cc3b200484beb, type: 3}
+  weaponCooldown: 0.7
+  weaponSprite: {fileID: -2174827668884051896, guid: 496da0b0ff469b44b861804c66b42990, type: 3}
