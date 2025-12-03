@@ -347,6 +347,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14680bbc5a061ef45aed1466cfe49eec, type: 3}
+--- !u!1 &179009007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 179009008}
+  m_Layer: 7
+  m_Name: Spawn_From_Forest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &179009008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179009007}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.46, y: -0.21, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &273502629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1066,6 +1097,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14680bbc5a061ef45aed1466cfe49eec, type: 3}
+--- !u!1 &497787222 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8146792267698005228, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
+  m_PrefabInstance: {fileID: 1321544797}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &497787233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497787222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8ff0f6c74714762a30ee2fc0d790ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnHandler
 --- !u!1 &651165189
 GameObject:
   m_ObjectHideFlags: 0
@@ -145595,7 +145643,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8146792267698005228, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 497787233}
   m_SourcePrefab: {fileID: 100100000, guid: a0995df1e6372453dbb0037b20b08507, type: 3}
 --- !u!1001 &1330905584
 PrefabInstance:
@@ -209208,7 +209259,7 @@ GameObject:
   - component: {fileID: 2122053606}
   m_Layer: 7
   m_Name: To_Forest_Level
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -209222,10 +209273,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2122053605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd01466aef2094805a2d99da77933564, type: 3}
+  m_Script: {fileID: 11500000, guid: c63a134f3f33a433d9d6ed54f8443b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneToLoad: Forest_Level
+  entryPointName: Spawn_From_Maze
 --- !u!61 &2122053607
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -209294,6 +209346,7 @@ SceneRoots:
   - {fileID: 1316438186}
   - {fileID: 727586522}
   - {fileID: 2122053608}
+  - {fileID: 179009008}
   - {fileID: 1321544797}
   - {fileID: 1044662658}
   - {fileID: 1149167827}
