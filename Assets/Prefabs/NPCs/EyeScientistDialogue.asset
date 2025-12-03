@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   dialogueLines:
   - speakerName: Eye
-    speakerPortrait: {fileID: -855298285791758126, guid: d93db940e1c2f104da9594a3fffb0e3c, type: 3}
+    speakerPortrait: {fileID: 4130640169021434097, guid: 72b9f165f90a98a45ad41836b58c75a4, type: 3}
     text: Subject G-09, do not move
+    voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
+    voicePitch: 1
+    typingSpeed: 0.05
+  - speakerName: Eye
+    speakerPortrait: {fileID: 4130640169021434097, guid: 72b9f165f90a98a45ad41836b58c75a4, type: 3}
+    text: You are coming with us, one way or another
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05

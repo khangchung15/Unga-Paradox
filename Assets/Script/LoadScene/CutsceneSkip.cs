@@ -308,7 +308,7 @@ public class CutsceneSkip : MonoBehaviour
         // Don't hide prompt completely, just dim it
         if (skipPromptCanvasGroup != null)
         {
-            skipPromptCanvasGroup.alpha = 0.3f;
+            skipPromptCanvasGroup.alpha = 0f;
         }
     }
 
