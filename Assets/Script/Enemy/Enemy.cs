@@ -78,7 +78,7 @@ public class Enemy : MonoBehaviour
     // Called whenever the state machine actually changes state
     private void HandleStateChanged(EnemyStateMachine.EnemyState oldState, EnemyStateMachine.EnemyState newState)
     {
-        Debug.Log($"{name} state changed: {oldState} -> {newState}");
+        //Debug.Log($"{name} state changed: {oldState} -> {newState}");
         ApplyBehaviorsForState(newState);
 
         // If we just entered Dead, schedule destruction with blink (only once) and disable producers

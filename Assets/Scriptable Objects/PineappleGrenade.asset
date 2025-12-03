@@ -17,3 +17,4 @@ MonoBehaviour:
   weaponPrefab: {fileID: 8727429313196867675, guid: 9d69bd6f4b2168444b52c96f45bf5518, type: 3}
   weaponCooldown: 1
   weaponSprite: {fileID: 5907130587529274049, guid: 50810e36569fc3e429f59751973598bd, type: 3}
+  pickupPrefab: {fileID: 8727429313196867675, guid: f817fb5b2b85a4a418abf90f45ebc919, type: 3}

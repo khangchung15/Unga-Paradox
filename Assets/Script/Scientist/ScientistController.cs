@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Class which handles player movement (no gravity version)
-/// </summary>
 public class ScientistController : MonoBehaviour
 {
     [Header("Game Object and Component References")]
@@ -13,6 +10,8 @@ public class ScientistController : MonoBehaviour
     public SpriteRenderer spriteRenderer = null;
     [Tooltip("The health component attached to the player.")]
     public Health playerHealth;
+    [Tooltip("The HealthFuture component attached to the player.")]
+    public HealthFuture playerHealthFuture;
     [Tooltip("The camera that will follow the player.")]
     public Camera playerCamera;
 
@@ -26,7 +25,6 @@ public class ScientistController : MonoBehaviour
     [Tooltip("The input action for interaction")]
     public InputAction interactAction;
 
-    // Current movement velocity
     private Vector2 currentVelocity = Vector2.zero;
 
     #region Player State Variables
@@ -61,7 +59,6 @@ public class ScientistController : MonoBehaviour
             }
             else
             {
-                // Return current rotation-based facing
                 if (transform.rotation.eulerAngles.y == 180f)
                     return PlayerDirection.Left;
                 return PlayerDirection.Right;
@@ -100,10 +97,19 @@ public class ScientistController : MonoBehaviour
 
     private void Start()
     {
-        // If no camera is assigned, try to find the main camera
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
+        }
+
+        if (playerHealthFuture == null)
+        {
+            playerHealthFuture = GetComponent<HealthFuture>();
+        }
+
+        if (playerHealth == null)
+        {
+            playerHealth = GetComponent<Health>();
         }
     }
 
@@ -137,22 +143,16 @@ public class ScientistController : MonoBehaviour
 
     private void MovePlayer()
     {
-        transform.position += (Vector3)currentVelocity * Time.deltaTime;
+        if (state != PlayerState.Dead)
+        {
+            transform.position += (Vector3)currentVelocity * Time.deltaTime;
+        }
     }
 
-    /// <summary>
-    /// Description:
-    /// Updates the camera position to follow the player
-    /// Inputs: 
-    /// none
-    /// Returns: 
-    /// void (no return)
-    /// </summary>
     private void UpdateCameraPosition()
     {
         if (playerCamera != null)
         {
-            // Keep the camera's Z position unchanged (maintain camera distance)
             Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, playerCamera.transform.position.z);
             playerCamera.transform.position = targetPosition;
         }
@@ -160,21 +160,32 @@ public class ScientistController : MonoBehaviour
 
     private void HandleSpriteDirection()
     {
-        // Use transform rotation instead of sprite flipping
-        if (currentVelocity.x > 0.1f) // Moving right
+        if (state == PlayerState.Dead) return;
+
+        if (currentVelocity.x > 0.1f)
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        else if (currentVelocity.x < -0.1f) // Moving left
+        else if (currentVelocity.x < -0.1f)
         {
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
-        // If not moving significantly, maintain current rotation
     }
 
     private void DetermineState()
     {
-        if (playerHealth != null && playerHealth.currentHealth <= 0)
+        bool isDead = false;
+
+        if (playerHealthFuture != null)
+        {
+            isDead = playerHealthFuture.currentHealth <= 0;
+        }
+        else if (playerHealth != null)
+        {
+            isDead = playerHealth.currentHealth <= 0;
+        }
+
+        if (isDead)
         {
             state = PlayerState.Dead;
         }

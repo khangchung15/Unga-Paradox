@@ -1,0 +1,191 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class BossShield : MonoBehaviour
+{
+    [Header("Components")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private Collider2D shieldCollider;
+    
+    [Header("Animation Names")]
+    [SerializeField] private string chargedAnimationName = "charged";
+    [SerializeField] private string brokenAnimationName = "broken";
+    [SerializeField] private string regenerateAnimationName = "regenerate";
+    
+    [Header("Regeneration Settings")]
+    [SerializeField] private float regenerationDelay = 3f;
+    [SerializeField] private float frozenRegenerationMultiplier = 0.5f;
+    
+    [Header("Potion Reflection")]
+    [SerializeField] private float reflectionForce = 15f;
+    [SerializeField] private string playerTag = "Player";
+    
+    [Header("Boss Damage")]
+    [SerializeField] private BossHealth bossHealth;
+    [SerializeField] private int damagePerHit = 25;
+    
+    public UnityAction<DeathBeamShooter> OnShieldBroken;
+    public UnityAction OnShieldRegenerateComplete;
+    
+    private bool isBroken = false;
+    private bool isFrozen = false;
+    
+    public bool IsShieldActive => !isBroken;
+    
+    private void Awake()
+    {
+        if (animator == null)
+            animator = GetComponent<Animator>();
+            
+        if (shieldCollider == null)
+            shieldCollider = GetComponent<Collider2D>();
+            
+        if (bossHealth == null)
+            bossHealth = GetComponentInParent<BossHealth>();
+    }
+    
+    public void SetFrozen(bool frozen)
+    {
+        isFrozen = frozen;
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isBroken) return;
+        
+        DeathBeamDamage deathBeam = collision.GetComponent<DeathBeamDamage>();
+        if (deathBeam != null)
+        {
+            DeathBeamShooter shooter = deathBeam.GetComponentInParent<DeathBeamShooter>();
+            BreakShield(shooter);
+            return;
+        }
+        
+        ThrownPotion potion = collision.GetComponent<ThrownPotion>();
+        if (potion != null && !isBroken)
+        {
+            ReflectPotion(potion);
+        }
+    }
+    
+    private void ReflectPotion(ThrownPotion potion)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player == null)
+        {
+            return;
+        }
+        
+        Rigidbody2D potionRb = potion.GetComponent<Rigidbody2D>();
+        if (potionRb == null)
+        {
+            return;
+        }
+        
+        Vector2 directionToPlayer = (player.transform.position - potion.transform.position).normalized;
+        
+        potionRb.linearVelocity = Vector2.zero;
+        potionRb.angularVelocity = 0f;
+        
+        potionRb.AddForce(directionToPlayer * reflectionForce, ForceMode2D.Impulse);
+        
+        potion.MarkAsReflected();
+        
+    }
+    
+    private void BreakShield(DeathBeamShooter shooter)
+    {
+        isBroken = true;
+        
+        animator.Play(brokenAnimationName);
+        
+        DamageBoss();
+        
+        OnShieldBroken?.Invoke(shooter);
+        
+        StartCoroutine(RegenerateShieldAfterDelay());
+    }
+    
+    private IEnumerator RegenerateShieldAfterDelay()
+    {
+        AnimationClip brokenClip = GetAnimationClip(brokenAnimationName);
+        if (brokenClip != null)
+        {
+            yield return new WaitForSeconds(brokenClip.length);
+        }
+        
+        float actualDelay = regenerationDelay;
+        
+        if (isFrozen)
+        {
+            actualDelay *= frozenRegenerationMultiplier;
+        }
+        
+        float elapsed = 0f;
+        while (elapsed < regenerationDelay)
+        {
+            float deltaTime = Time.deltaTime;
+            
+            if (isFrozen)
+            {
+                deltaTime *= frozenRegenerationMultiplier;
+            }
+            
+            elapsed += deltaTime;
+            yield return null;
+        }
+        
+        UnfreezeBoss();
+        
+        animator.Play(regenerateAnimationName);
+        
+        AnimationClip regenerateClip = GetAnimationClip(regenerateAnimationName);
+        if (regenerateClip != null)
+        {
+            yield return new WaitForSeconds(regenerateClip.length);
+        }
+        
+        animator.Play(chargedAnimationName);
+        
+        isBroken = false;
+        
+        OnShieldRegenerateComplete?.Invoke();
+    }
+    
+    private void UnfreezeBoss()
+    {
+        Transform bossTransform = transform.parent;
+        if (bossTransform == null)
+        {
+            return;
+        }
+        
+        FrozenEntity frozenEntity = bossTransform.GetComponent<FrozenEntity>();
+        if (frozenEntity != null && frozenEntity.IsFrozen)
+        {
+            frozenEntity.Unfreeze();
+        }
+    }
+    
+    private void DamageBoss()
+    {
+        if (bossHealth != null)
+        {
+            bossHealth.TakeDamage(damagePerHit);
+        }
+    }
+    
+    private AnimationClip GetAnimationClip(string clipName)
+    {
+        if (animator == null || animator.runtimeAnimatorController == null)
+            return null;
+            
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == clipName)
+                return clip;
+        }
+        return null;
+    }
+}

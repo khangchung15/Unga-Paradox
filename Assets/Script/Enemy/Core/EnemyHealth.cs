@@ -3,18 +3,10 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 
-public class EnemyHealth : MonoBehaviour//, IDataPersistence
+public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private string id;
-
-    [ContextMenu("Generate guid for id")]
-    private void GenerateGuid()
-    {
-        id = System.Guid.NewGuid().ToString();
-    }
-
     protected int startingHealth = 100;
-    [SerializeField] protected int currentHealth;
+    protected int currentHealth;
     //public AudioClip deathSound;
     public AudioClip hurtSound;
     public AudioClip deathSound;
@@ -32,48 +24,7 @@ public class EnemyHealth : MonoBehaviour//, IDataPersistence
         get => startingHealth;
         set => startingHealth = value;
     }
-    private bool isDead = false;
-
-    // TODO - Fix health starting at 0 when loading due to currentHealth starting at 0
-    // TODO - Fix position starting at (0,0,0) when loading due to not tracking position when starting new game
-    //public void LoadData(GameData data)
-    //{
-    //    data.enemiesKilled.TryGetValue(id, out isDead);
-    //    //data.enemiesHealth.TryGetValue(id, out currentHealth);
-    //    //data.enemiesPosition.TryGetValue(id, out Vector3 position);
-
-    //    //transform.position = position;
-
-    //    if (isDead)
-    //    {
-    //        gameObject.SetActive(false);
-    //    }
-    //}
-
-    //// TODO - Fix position not being saved properly because enemy is destroyed on death
-    //public void SaveData(ref GameData data)
-    //{
-    //    if (data.enemiesKilled.ContainsKey(id))
-    //    {
-    //        data.enemiesKilled.Remove(id);
-    //    }
-
-    //    //if (data.enemiesHealth.ContainsKey(id))
-    //    //{
-    //    //    data.enemiesHealth.Remove(id);
-    //    //}
-
-    //    //if (data.enemiesPosition.ContainsKey(id))
-    //    //{
-    //    //    data.enemiesPosition.Remove(id);
-    //    //}
-
-    //    data.enemiesKilled.Add(id, isDead);
-    //    //data.enemiesHealth.Add(id, currentHealth);
-    //    //data.enemiesPosition.Add(id, transform.position);
-    //}
-
-    private void Start()
+    protected virtual void Start()
     {
         currentHealth = StartingHealth;
         audioSource = GetComponent<AudioSource>();
@@ -104,7 +55,6 @@ public class EnemyHealth : MonoBehaviour//, IDataPersistence
 
         if (currentHealth <= 0)
         {
-            isDead = true;
             DetectDeath();
         }
         Debug.Log(currentHealth);

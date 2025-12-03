@@ -1,52 +1,65 @@
-using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IDataPersistence
+public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] private int slotIndex;
-    [SerializeField] private WeaponInfo weaponInfo;
-    private string weaponID;
-    private WeaponsManager weapons;
+    [Header("Weapon Data")]
+    [SerializeField] public WeaponInfo weaponInfo;   
+    [SerializeField] public Image itemImage;         
+    public bool isHotbarSlot = false;
+
 
     private void Awake()
     {
-        weapons = FindAnyObjectByType<WeaponsManager>();
+        if (itemImage == null)
+            itemImage = GetComponent<Image>();
     }
 
-    public void LoadData(GameData data)
+    private void Start()
     {
-        data.weaponHotbar.TryGetValue(slotIndex, out weaponID);
-
-
-        if (weaponID != weaponInfo.id && weaponID != null)
-        {
-            weapons.weaponDictionary.TryGetValue(weaponID, out weaponInfo);
-            Transform item = transform.Find("Item");
-            if (item != null)
-            {
-                item.GetComponent<Image>().sprite = weaponInfo.weaponSprite;
-            }
-        }
+        RefreshSlot();
     }
 
-    public void SaveData(ref GameData data)
-    {
-        if (data.weaponHotbar.ContainsKey(slotIndex))
-        {
-            data.weaponHotbar.Remove(slotIndex);
-        }
-
-        data.weaponHotbar.Add(slotIndex, weaponInfo.id);
-    }
-
+    
     public WeaponInfo GetWeaponInfo()
     {
         return weaponInfo;
     }
 
-    public void SetWeaponInfo(WeaponInfo info)
+    public void SetWeaponInfo(WeaponInfo newInfo)
     {
-        weaponInfo = info;
+        weaponInfo = newInfo;
+        RefreshSlot();
+    }
+
+    public bool HasWeapon()
+    {
+        return weaponInfo != null;
+    }
+
+    
+    public void SetWeapon(WeaponInfo newInfo)
+    {
+        SetWeaponInfo(newInfo);
+    }
+
+    public bool HasItem => HasWeapon();
+
+    
+    private void RefreshSlot()
+    {
+        if (itemImage == null)
+            return;
+
+        if (weaponInfo == null)
+        {
+            itemImage.enabled = false;
+            itemImage.sprite = null;
+        }
+        else
+        {
+            itemImage.enabled = true;
+            itemImage.sprite = weaponInfo.weaponSprite;
+        }
     }
 }

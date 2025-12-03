@@ -5,12 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class Health : MonoBehaviour, IDataPersistence
+public class Health : MonoBehaviour
 {
     public float currentHealth;
     public float maxHealth;
     public bool isInvincible;
     public bool isDashing;
+    public bool isParrying;
     public float dashInvincibleTime = 0.2f;
     
     [Tooltip("Drag and drop the health bar from canvas onto here.")]
@@ -30,16 +31,9 @@ public class Health : MonoBehaviour, IDataPersistence
     
     public UnityEvent OnHealed;
 
-    public void LoadData(GameData data)
+    private void Awake()
     {
-        this.currentHealth = data.playerHealth;
-        Debug.Log("Loaded Health: " + currentHealth);
-    }
-
-    public void SaveData(ref GameData data)
-    {
-        data.playerHealth = this.currentHealth;
-        Debug.Log("Saved Health: " + currentHealth);
+        TryAssignHealthBar();
     }
 
     public void TakeDamage(float damage)
@@ -54,9 +48,13 @@ public class Health : MonoBehaviour, IDataPersistence
             return;
         }
 
-        if (isDashing)
+        if (isDashing || isParrying)
         {
-            StartCoroutine(EndInvincibleRoutine());
+            if (isDashing)
+            {
+                StartCoroutine(EndInvincibleRoutine());
+            }
+            // If parrying we ignore this damage instance
             return;
         }
         
@@ -64,8 +62,12 @@ public class Health : MonoBehaviour, IDataPersistence
         
         if (healthBar == null)
         {
-            Debug.LogError("HealthBar is not assigned on " + gameObject.name);
-            return;
+            TryAssignHealthBar();
+            if (healthBar == null)
+            {
+                Debug.LogError("HealthBar is not assigned or found for " + gameObject.name);
+                return;
+            }
         }
         
         healthBar.SetValue((int)currentHealth);
@@ -104,6 +106,15 @@ public class Health : MonoBehaviour, IDataPersistence
         currentHealth += amount;
         Debug.Log(currentHealth);
         Debug.Log(amount);
+        if (healthBar == null)
+        {
+            TryAssignHealthBar();
+            if (healthBar == null)
+            {
+                Debug.LogError("HealthBar is not assigned or found for " + gameObject.name);
+                return;
+            }
+        }
         healthBar.SetValue((int)currentHealth);
         OnHealed?.Invoke();
         
@@ -114,6 +125,44 @@ public class Health : MonoBehaviour, IDataPersistence
         }
         
 
+    }
+
+    public void SetMaxHealth(float newMaxHealth, bool refillHealth = true)
+    {
+        if (newMaxHealth <= 0f)
+        {
+            Debug.LogWarning($"Health: Attempted to set non-positive maxHealth ({newMaxHealth}) on {gameObject.name}.");
+            return;
+        }
+
+        maxHealth = newMaxHealth;
+
+        if (refillHealth || currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        if (healthBar == null)
+        {
+            TryAssignHealthBar();
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.SetValue((int)currentHealth);
+        }
+    }
+    
+    private void TryAssignHealthBar()
+    {
+        if (healthBar == null)
+        {
+            healthBar = FindObjectOfType<HealthBar>();
+            if (healthBar == null)
+            {
+                Debug.LogWarning("Health: No HealthBar found in the scene for " + gameObject.name);
+            }
+        }
     }
     
 }

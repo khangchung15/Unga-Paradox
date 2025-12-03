@@ -18,5 +18,11 @@ public class WeaponInfo : ScriptableObject
     public float weaponCooldown;
 
     [Header("UI Settings")]
-    public Sprite weaponSprite;        
+    public Sprite weaponSprite;
+
+    [Header("World Pickup")]
+    public GameObject pickupPrefab;
+    
+    [Header("Audio Settings")]
+    public AudioClip equipSound;
 }

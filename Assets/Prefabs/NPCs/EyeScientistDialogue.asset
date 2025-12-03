@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343f22fbc319f40df97cd7d0984ab6fb, type: 3}
+  m_Name: EyeScientistDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  dialogueLines:
+  - speakerName: Eye
+    speakerPortrait: {fileID: 4130640169021434097, guid: 72b9f165f90a98a45ad41836b58c75a4, type: 3}
+    text: Subject G-09, do not move
+    voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
+    voicePitch: 1
+    typingSpeed: 0.05
+  - speakerName: Eye
+    speakerPortrait: {fileID: 4130640169021434097, guid: 72b9f165f90a98a45ad41836b58c75a4, type: 3}
+    text: You are coming with us, one way or another
+    voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
+    voicePitch: 1
+    typingSpeed: 0.05
+  autoProgressLines: 
+  autoProgressDelay: 1.5
+  defaultVoiceSound: {fileID: 0}
+  defaultVoicePitch: 1
+  defaultTypingSpeed: 0.05
