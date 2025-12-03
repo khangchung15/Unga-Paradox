@@ -79,8 +79,16 @@ public class CutsceneTrigger2 : MonoBehaviour, IInteractable
             interactionIcon.SetActive(false);
         
         timeline.Play();
+        
+        CreditsScroller creditsScroller = FindObjectOfType<CreditsScroller>();
+        if (creditsScroller != null)
+        {
+            creditsScroller.StartCredits();
+        }
+        
         StartCoroutine(WaitForCutsceneToEnd());
     }
+
 
     private void FindAndLockPlayer()
     {
