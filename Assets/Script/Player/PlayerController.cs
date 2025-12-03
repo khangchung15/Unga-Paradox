@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Class which handles player movement (no gravity version)
 /// </summary>
-public class PlayerController : Singleton<PlayerController>, IDataPersistence
+public class PlayerController : Singleton<PlayerController>//, IDataPersistence
 {
     [Header("Game Object and Component References")]
     [Tooltip("The sprite renderer that represents the player.")]
@@ -24,6 +25,10 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
     [SerializeField] private float movementSpeed = 4.0f;
     [Tooltip("The speed at which to dash the player")]
     [SerializeField] private float dashSpeed = 4.0f;
+    [Tooltip("How long the player is dashing for")]
+    [SerializeField] private float dashTime = 0.2f;
+    [Tooltip("Cooldown between dashes")]
+    [SerializeField] private float dashCD = 0.50f;
 
     //[Header("Input Actions & Controls")]
     //[Tooltip("The input action(s) that map to player movement")]
@@ -70,24 +75,37 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     #endregion
 
-    public void LoadData(GameData data)
-    {
-        Debug.Log("Loading Player Data from contoller: " + this.transform.position);
-        Debug.Log("Loading Player Data from Game Data: " + data.playerPosition);
-        // Load player position
-        this.transform.position = data.playerPosition;
-    }
+    //public void LoadData(GameData data)
+    //{
+    //    Debug.Log("Loading Player Data from contoller: " + this.transform.position);
+    //    Debug.Log("Loading Player Data from Game Data: " + data.playerPosition);
+    //    // Load player position
 
-    public void SaveData(ref GameData data)
-    {
-        // Save player position
-        data.playerPosition = this.transform.position;
-    }
+    //    if (SceneManager.GetActiveScene().name == data.sceneName)
+    //    {
+    //        this.transform.position = data.playerPosition;
+    //    }
+    //}
 
+    //public void SaveData(ref GameData data)
+    //{
+    //    // Save player position
+    //    data.playerPosition = this.transform.position;
+    //}
+    
+    //public static PlayerController instance { get; private set; }
     protected override void Awake()
     {
+        //if (instance != null)
+        //{
+        //    Destroy(this.gameObject);
+        //    return;
+        //}
+        //instance = this;
         base.Awake();
         playerControls = new PlayerControls();
+        //if (GameObject.Find("Scientist") == null)
+        //    DontDestroyOnLoad(this.gameObject);
     }
 
 
@@ -147,6 +165,15 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
         playerControls.Player.Dash.performed += _ => Dash();
     }
 
+    // When loading new level change playerCamera to new camera
+    private void OnSceneChange()
+    {
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+        }
+    }
+
     private void OnEnable()
     {
         playerControls.Enable();
@@ -159,6 +186,7 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     private void Update()
     {
+        OnSceneChange();
         ProcessInput();
         HandleSpriteDirection();
         DetermineState();
@@ -252,8 +280,6 @@ public class PlayerController : Singleton<PlayerController>, IDataPersistence
 
     private IEnumerator EndDashRoutine()
     {
-        float dashTime = 0.2f;
-        float dashCD = 0.25f;
         GetComponent<Health>().isDashing = true;
         isDashing = false;
         yield return new WaitForSeconds(dashTime);

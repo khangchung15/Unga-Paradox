@@ -22,6 +22,7 @@ public class LevelLoadButton : MonoBehaviour
     /// 
 
     [SerializeField] private Button continueGameButton;
+    private GameData gameData;
 
     private void Start()
     {
@@ -29,6 +30,8 @@ public class LevelLoadButton : MonoBehaviour
         {
             continueGameButton.interactable = false;
         }
+
+        gameData = DataPersistenceManager.instance.getGameData();
     }
 
     public void OnNewGameClicked(string levelToLoadName)
@@ -44,7 +47,7 @@ public class LevelLoadButton : MonoBehaviour
     {
         // load the next scene - which will in turn load the game beacuse of
         // OnSceneLoaded() in the DataPersistence Manager
-        SceneManager.LoadSceneAsync(DataPersistenceManager.instance.gameData.sceneName);
+        SceneManager.LoadSceneAsync(gameData.sceneName);
     }
 
     public void LoadLevelByName(string levelToLoadName)

@@ -12,6 +12,18 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverUI;
+    public static GameManager instance { get; private set; }
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        instance = this;
+        if (GameObject.Find("Scientist") == null)
+            DontDestroyOnLoad(this.gameObject);
+    }
 
     public void GameOver()
     {

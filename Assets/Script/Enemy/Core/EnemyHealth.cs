@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 
-public class EnemyHealth : MonoBehaviour, IDataPersistence
+public class EnemyHealth : MonoBehaviour//, IDataPersistence
 {
     [SerializeField] private string id;
 
@@ -36,42 +36,42 @@ public class EnemyHealth : MonoBehaviour, IDataPersistence
 
     // TODO - Fix health starting at 0 when loading due to currentHealth starting at 0
     // TODO - Fix position starting at (0,0,0) when loading due to not tracking position when starting new game
-    public void LoadData(GameData data)
-    {
-        data.enemiesKilled.TryGetValue(id, out isDead);
-        //data.enemiesHealth.TryGetValue(id, out currentHealth);
-        //data.enemiesPosition.TryGetValue(id, out Vector3 position);
+    //public void LoadData(GameData data)
+    //{
+    //    data.enemiesKilled.TryGetValue(id, out isDead);
+    //    //data.enemiesHealth.TryGetValue(id, out currentHealth);
+    //    //data.enemiesPosition.TryGetValue(id, out Vector3 position);
 
-        //transform.position = position;
+    //    //transform.position = position;
 
-        if (isDead)
-        {
-            gameObject.SetActive(false);
-        }
-    }
+    //    if (isDead)
+    //    {
+    //        gameObject.SetActive(false);
+    //    }
+    //}
 
-    // TODO - Fix position not being saved properly because enemy is destroyed on death
-    public void SaveData(ref GameData data)
-    {
-        if (data.enemiesKilled.ContainsKey(id))
-        {
-            data.enemiesKilled.Remove(id);
-        }
+    //// TODO - Fix position not being saved properly because enemy is destroyed on death
+    //public void SaveData(ref GameData data)
+    //{
+    //    if (data.enemiesKilled.ContainsKey(id))
+    //    {
+    //        data.enemiesKilled.Remove(id);
+    //    }
 
-        //if (data.enemiesHealth.ContainsKey(id))
-        //{
-        //    data.enemiesHealth.Remove(id);
-        //}
+    //    //if (data.enemiesHealth.ContainsKey(id))
+    //    //{
+    //    //    data.enemiesHealth.Remove(id);
+    //    //}
 
-        //if (data.enemiesPosition.ContainsKey(id))
-        //{
-        //    data.enemiesPosition.Remove(id);
-        //}
+    //    //if (data.enemiesPosition.ContainsKey(id))
+    //    //{
+    //    //    data.enemiesPosition.Remove(id);
+    //    //}
 
-        data.enemiesKilled.Add(id, isDead);
-        //data.enemiesHealth.Add(id, currentHealth);
-        //data.enemiesPosition.Add(id, transform.position);
-    }
+    //    data.enemiesKilled.Add(id, isDead);
+    //    //data.enemiesHealth.Add(id, currentHealth);
+    //    //data.enemiesPosition.Add(id, transform.position);
+    //}
 
     private void Start()
     {

@@ -56,3 +56,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 215fd52b0f0718f458e520247ee47695, type: 2}
   - {fileID: 11400000, guid: 565f43f27277952458f615720374f521, type: 2}
   - {fileID: 11400000, guid: 5990c0401e4a256468d0c2fdbd053ff6, type: 2}
+  weaponDictionary:
+    keys: []
+    values: []

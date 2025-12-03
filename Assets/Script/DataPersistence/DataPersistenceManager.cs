@@ -13,7 +13,7 @@ public class DataPersistenceManager : MonoBehaviour
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
 
-    public GameData gameData;
+    [SerializeField] private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
     private Vector3 playerPosition;
@@ -67,7 +67,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame()
     {
-        this.gameData = new GameData(playerPosition);
+        this.gameData = new GameData();
     }
 
     public void LoadGame()
@@ -105,7 +105,10 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         // Save Scene Name
-        gameData.sceneName = SceneManager.GetActiveScene().name;
+        if (SceneManager.GetActiveScene().name != "Menu")
+        {
+            gameData.sceneName = SceneManager.GetActiveScene().name;
+        }
 
         // pass the data to other scripts so they can update it
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
@@ -117,10 +120,10 @@ public class DataPersistenceManager : MonoBehaviour
         dataHandler.Save(gameData);
     }
 
-    private void OnApplicationQuit()
-    {
-        SaveGame();
-    }
+    //private void OnApplicationQuit()
+    //{
+    //    SaveGame();
+    //}
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
@@ -133,5 +136,10 @@ public class DataPersistenceManager : MonoBehaviour
     public bool HasGameData()
     {
         return gameData != null;
+    }
+
+    public GameData getGameData()
+    {
+        return gameData;
     }
 }
