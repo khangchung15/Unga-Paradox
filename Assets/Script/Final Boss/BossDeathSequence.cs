@@ -20,6 +20,12 @@ public class BossDeathSequence : MonoBehaviour
     [SerializeField] private string targetSceneName = "";
     [SerializeField] private float transitionDelay = 0f;
 
+    [Header("Audio Settings")]
+    [SerializeField] private float audioFadeOutDuration = 2f;
+    [SerializeField] private bool fadeAllAudioSources = true;
+    [SerializeField] private AudioSource cutsceneAudioSource;
+
+
     private GameObject player;
     private ScientistController playerController;
     private InteractionDetector interactionDetector;
@@ -73,6 +79,7 @@ public class BossDeathSequence : MonoBehaviour
 
     private IEnumerator DeathSequenceCoroutine()
     {
+        StartCoroutine(FadeOutAllAudio());
         if (firstCutscene != null)
         {
             DisablePlayerMovement();
@@ -112,6 +119,11 @@ public class BossDeathSequence : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         
+        if (cutsceneAudioSource != null && cutsceneAudioSource.clip != null)
+        {
+            cutsceneAudioSource.Play();
+        }
+        
         if (finalCutscene != null)
         {
             DisablePlayerMovement();
@@ -145,6 +157,7 @@ public class BossDeathSequence : MonoBehaviour
             EnablePlayerMovement();
         }
     }
+
 
     private void DisablePlayerMovement()
     {
@@ -185,4 +198,60 @@ public class BossDeathSequence : MonoBehaviour
             interactionDetector.enabled = true;
         }
     }
+
+    private IEnumerator FadeOutAllAudio()
+    {
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+        
+        if (allAudioSources.Length == 0)
+        {
+            yield break;
+        }
+
+        System.Collections.Generic.Dictionary<AudioSource, float> originalVolumes = new System.Collections.Generic.Dictionary<AudioSource, float>();
+        
+        foreach (AudioSource audioSource in allAudioSources)
+        {
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                if (fadeAllAudioSources || audioSource.loop)
+                {
+                    originalVolumes[audioSource] = audioSource.volume;
+                }
+            }
+        }
+        
+        if (originalVolumes.Count == 0)
+        {
+            yield break;
+        }
+        
+        float elapsed = 0f;
+        
+        while (elapsed < audioFadeOutDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / audioFadeOutDuration;
+            
+            foreach (var kvp in originalVolumes)
+            {
+                if (kvp.Key != null)
+                {
+                    kvp.Key.volume = Mathf.Lerp(kvp.Value, 0f, t);
+                }
+            }
+            
+            yield return null;
+        }
+        
+        foreach (var kvp in originalVolumes)
+        {
+            if (kvp.Key != null)
+            {
+                kvp.Key.volume = 0f;
+                kvp.Key.Stop();
+            }
+        }
+    }
+
 }

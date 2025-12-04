@@ -33,6 +33,12 @@ MonoBehaviour:
     typingSpeed: 0.05
   - speakerName: Scientist
     speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+    text: Oh, didn't see you there
+    voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
+    voicePitch: 1
+    typingSpeed: 0.05
+  - speakerName: Scientist
+    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
     text: I am your creator, you are a clone of mine
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1

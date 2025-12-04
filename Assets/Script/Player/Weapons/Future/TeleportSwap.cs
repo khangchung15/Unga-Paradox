@@ -8,6 +8,7 @@ public class TeleportSwap : MonoBehaviour, IWeapon
     [SerializeField] private string bossTag = "Boss";
     [SerializeField] private GameObject teleportEffectPrefab;
     [SerializeField] private AudioClip teleportSound;
+    [SerializeField] [Range(0f, 2f)] private float soundVolume = 1f;
     
     private AudioSource audioSource;
     private Transform playerTransform;
@@ -15,6 +16,10 @@ public class TeleportSwap : MonoBehaviour, IWeapon
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+        }
     }
     
     private void Start()
@@ -49,9 +54,28 @@ public class TeleportSwap : MonoBehaviour, IWeapon
         
         SwapPositions(playerTransform, boss.transform);
         
-        if (teleportSound != null && audioSource != null)
+        if (teleportSound != null)
         {
-            audioSource.PlayOneShot(teleportSound);
+            if (audioSource != null)
+            {
+                GameObject soundObject = new GameObject("TeleportSound");
+                soundObject.transform.position = playerTransform.position;
+                
+                AudioSource tempSource = soundObject.AddComponent<AudioSource>();
+                tempSource.clip = teleportSound;
+                tempSource.volume = audioSource.volume * soundVolume;
+                tempSource.pitch = audioSource.pitch;
+                tempSource.spatialBlend = audioSource.spatialBlend;
+                tempSource.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
+                tempSource.priority = audioSource.priority;
+                tempSource.Play();
+                
+                Destroy(soundObject, teleportSound.length + 0.1f);
+            }
+            else
+            {
+                AudioSource.PlayClipAtPoint(teleportSound, playerTransform.position, soundVolume);
+            }
         }
     }
     

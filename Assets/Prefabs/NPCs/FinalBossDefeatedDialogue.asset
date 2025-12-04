@@ -15,13 +15,7 @@ MonoBehaviour:
   dialogueLines:
   - speakerName: Voras
     speakerPortrait: {fileID: 4130640169021434097, guid: 401552c703435b14fbef998fd2cf7d52, type: 3}
-    text: You defeated me, Subject G-09
-    voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
-    voicePitch: 1
-    typingSpeed: 0.05
-  - speakerName: Voras
-    speakerPortrait: {fileID: 4130640169021434097, guid: 401552c703435b14fbef998fd2cf7d52, type: 3}
-    text: But we will both go down
+    text: We will both fall, Subject G-09
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05

@@ -108,6 +108,7 @@ MonoBehaviour:
   bossTag: Boss
   teleportEffectPrefab: {fileID: 0}
   teleportSound: {fileID: 8300000, guid: ad8361e92abd1c44085d41cad84e720a, type: 3}
+  soundVolume: 2
 --- !u!82 &9182826927813087064
 AudioSource:
   m_ObjectHideFlags: 0
