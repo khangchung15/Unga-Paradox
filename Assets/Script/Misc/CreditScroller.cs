@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class CreditsScroller : MonoBehaviour
 {
@@ -31,10 +32,14 @@ public class CreditsScroller : MonoBehaviour
     [SerializeField] private bool loopCredits = false;
     [SerializeField] private float restartDelay = 3f;
     
+    [Header("Events")]
+    public UnityEvent onCreditsFinished;
+    
     private List<TextMeshPro> creditLines = new List<TextMeshPro>();
     private bool isScrolling = false;
     private float scrollTimer = 0f;
     private GameObject creditsContainer;
+    private bool hasFinished = false;
 
     void Start()
     {
@@ -49,12 +54,18 @@ public class CreditsScroller : MonoBehaviour
         CreateCreditLines();
         isScrolling = true;
         scrollTimer = 0f;
+        hasFinished = false;
     }
 
     public void StopCredits()
     {
         isScrolling = false;
         ClearCredits();
+    }
+    
+    public bool IsFinished()
+    {
+        return hasFinished;
     }
 
     void Update()
@@ -86,9 +97,11 @@ public class CreditsScroller : MonoBehaviour
             ClearCredits();
             Invoke(nameof(StartCredits), restartDelay);
         }
-        else if (allLinesOutOfView)
+        else if (allLinesOutOfView && !hasFinished)
         {
             isScrolling = false;
+            hasFinished = true;
+            onCreditsFinished?.Invoke();
         }
     }
 
