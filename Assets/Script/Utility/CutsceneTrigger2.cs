@@ -12,6 +12,14 @@ public class CutsceneTrigger2 : MonoBehaviour, IInteractable
     [Header("Interaction Visuals")]
     [SerializeField] private GameObject interactionIcon;
     
+    [Header("Credits Timing")]
+    [SerializeField] private float delayAfterCredits = 1f;
+    
+    [Header("Audio Fade Settings")]
+    [SerializeField] private float audioFadeOutDuration = 2f;
+    [Tooltip("If true, fades out all AudioSources in the scene. If false, only fades looping music.")]
+    [SerializeField] private bool fadeAllAudioSources = true;
+    
     [Header("Scene Transition")]
     [SerializeField] private string targetSceneName = "";
     [SerializeField] private float sceneTransitionDelay = 0f;
@@ -23,6 +31,7 @@ public class CutsceneTrigger2 : MonoBehaviour, IInteractable
     private InteractionDetector interactionDetector;
     private Rigidbody2D playerRigidbody;
     private Vector3 lockedPosition;
+    private CreditsScroller creditsScroller;
 
     void Start()
     {
@@ -80,15 +89,14 @@ public class CutsceneTrigger2 : MonoBehaviour, IInteractable
         
         timeline.Play();
         
-        CreditsScroller creditsScroller = FindObjectOfType<CreditsScroller>();
+        creditsScroller = FindObjectOfType<CreditsScroller>();
         if (creditsScroller != null)
         {
             creditsScroller.StartCredits();
         }
         
-        StartCoroutine(WaitForCutsceneToEnd());
+        StartCoroutine(WaitForCreditsToFinish());
     }
-
 
     private void FindAndLockPlayer()
     {
@@ -120,15 +128,82 @@ public class CutsceneTrigger2 : MonoBehaviour, IInteractable
             if (interactionDetector.interactionIcon != null)
                 interactionDetector.interactionIcon.SetActive(false);
         }
-
-        
     }
 
-    private IEnumerator WaitForCutsceneToEnd()
+    private IEnumerator WaitForCreditsToFinish()
     {
-        yield return new WaitUntil(() => timeline.state != PlayState.Playing);
+        if (creditsScroller == null)
+        {
+            yield return StartCoroutine(FadeOutAllAudio());
+            yield return StartCoroutine(TransitionToNewScene());
+            yield break;
+        }
+        
+        yield return new WaitUntil(() => creditsScroller.IsFinished());
+        
+        if (delayAfterCredits > 0)
+        {
+            yield return new WaitForSeconds(delayAfterCredits);
+        }
+        
+        yield return StartCoroutine(FadeOutAllAudio());
         
         yield return StartCoroutine(TransitionToNewScene());
+    }
+
+    private IEnumerator FadeOutAllAudio()
+    {
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+        
+        if (allAudioSources.Length == 0)
+        {
+            yield break;
+        }
+
+        System.Collections.Generic.Dictionary<AudioSource, float> originalVolumes = new System.Collections.Generic.Dictionary<AudioSource, float>();
+        
+        foreach (AudioSource audioSource in allAudioSources)
+        {
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                if (fadeAllAudioSources || audioSource.loop)
+                {
+                    originalVolumes[audioSource] = audioSource.volume;
+                }
+            }
+        }
+        
+        if (originalVolumes.Count == 0)
+        {
+            yield break;
+        }
+        
+        float elapsed = 0f;
+        
+        while (elapsed < audioFadeOutDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / audioFadeOutDuration;
+            
+            foreach (var kvp in originalVolumes)
+            {
+                if (kvp.Key != null)
+                {
+                    kvp.Key.volume = Mathf.Lerp(kvp.Value, 0f, t);
+                }
+            }
+            
+            yield return null;
+        }
+        
+        foreach (var kvp in originalVolumes)
+        {
+            if (kvp.Key != null)
+            {
+                kvp.Key.volume = 0f;
+                kvp.Key.Stop();
+            }
+        }
     }
 
     private IEnumerator TransitionToNewScene()

@@ -13,27 +13,39 @@ MonoBehaviour:
   m_Name: 2ScientistsDialogue
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   dialogueLines:
-  - speakerName: Cyber Cop
-    speakerPortrait: {fileID: -1569934834, guid: d826385b0073d2f47b5664fe633a2240, type: 3}
-    text: My Lord, he got away in his time machine
+  - speakerName: Scientist
+    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+    text: Soon, you will be the savior of this nation
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05
-  - speakerName: Commander Voras
-    speakerPortrait: {fileID: -7206288168892714318, guid: 5760e7bf7ce9a9c4d809d3c57eaa0425, type: 3}
-    text: Part of you still believe the clone can save the people of this nation
+  - speakerName: Scientist
+    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+    text: You will liberate the people and restore the city to its glory
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05
-  - speakerName: Commander Voras
-    speakerPortrait: {fileID: -7206288168892714318, guid: 5760e7bf7ce9a9c4d809d3c57eaa0425, type: 3}
-    text: Maybe that's why you were hesitant to capture him.
+  - speakerName: G-09
+    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+    text: What are you?
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05
-  - speakerName: Commander Voras
-    speakerPortrait: {fileID: -7206288168892714318, guid: 5760e7bf7ce9a9c4d809d3c57eaa0425, type: 3}
-    text: If you can't be my followers, then you shall be an example
+  - speakerName: Scientist
+    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+    text: I am your creator, you are a clone of mine
+    voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
+    voicePitch: 1
+    typingSpeed: 0.05
+  - speakerName: Scientist
+    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+    text: Seeing that you are here, my guess is you have finished the mission?
+    voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
+    voicePitch: 1
+    typingSpeed: 0.05
+  - speakerName: Scientist
+    speakerPortrait: {fileID: 381005096, guid: 68ea3e390e0a74f389c540a768b115b1, type: 3}
+    text: Then join me on the balcony up there
     voiceSound: {fileID: 8300000, guid: 5c360740b2aeb45a09a180abf0fe5beb, type: 3}
     voicePitch: 1
     typingSpeed: 0.05
