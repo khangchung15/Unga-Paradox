@@ -7052,61 +7052,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &75475241
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 75475242}
-  - component: {fileID: 75475243}
-  m_Layer: 0
-  m_Name: Hazard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &75475242
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75475241}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 60.26, y: 11.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 209466408}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &75475243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75475241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e739f1e3ce8c446028f65260fb38f47a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  player: {fileID: 0}
-  rockPrefab: {fileID: 783349397912723171, guid: 6e249bc24325146309f95637d60746ab, type: 3}
-  dustPrefab: {fileID: 0}
-  xRangeLeft: -11.8
-  xRangeRight: 11.1
-  yOffset: 2.81
-  intervalRange: {x: 1, y: 1.3}
-  warningTime: 0.45
-  rocksPerWave: {x: 2, y: 4}
-  aimAtPlayerChance: 0.4
-  aimJitter: 2
 --- !u!1 &76570226
 GameObject:
   m_ObjectHideFlags: 0
@@ -8943,9 +8888,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 75475242}
-  - {fileID: 479386456}
+  m_Children: []
   m_Father: {fileID: 738831707}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &216685641
@@ -9971,7 +9914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2439c7db913ea4154aac6e3d64e08b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  rockRain: {fileID: 479386457}
+  rockRain: {fileID: 0}
   collidersToEnable:
   - {fileID: 261018885}
   - {fileID: 261039553}
@@ -11723,61 +11666,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f78b2533686d6c47ad5ddd9fbc58b62, type: 3}
---- !u!1 &479386455
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 479386456}
-  - component: {fileID: 479386457}
-  m_Layer: 0
-  m_Name: Hazard (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &479386456
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479386455}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 107.87, y: 12.67, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 209466408}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &479386457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479386455}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e739f1e3ce8c446028f65260fb38f47a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  player: {fileID: 0}
-  rockPrefab: {fileID: 783349397912723171, guid: 6e249bc24325146309f95637d60746ab, type: 3}
-  dustPrefab: {fileID: 0}
-  xRangeLeft: -10.6
-  xRangeRight: 10.1
-  yOffset: 2.81
-  intervalRange: {x: 1, y: 1.3}
-  warningTime: 0.45
-  rocksPerWave: {x: 2, y: 4}
-  aimAtPlayerChance: 0.4
-  aimJitter: 2
 --- !u!1001 &492440800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30514,7 +30402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2439c7db913ea4154aac6e3d64e08b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  rockRain: {fileID: 75475243}
+  rockRain: {fileID: 0}
   collidersToEnable: []
   behavioursToEnable:
   - {fileID: 931801388}
