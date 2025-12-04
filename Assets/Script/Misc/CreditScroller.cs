@@ -204,6 +204,29 @@ public class CreditsScroller : MonoBehaviour
         }
     }
 
+    public float GetScrollProgress()
+    {
+        if (creditLines.Count == 0) return 0f;
+
+        float minY = fadeZoneBottom - fadeDistance - 2f;
+        float maxY = fadeZoneTop + fadeDistance;
+        
+        float firstLineStartY = minY;
+        float lastLineEndY = maxY + (creditLines.Count * lineSpacing);
+        
+        float totalDistance = lastLineEndY - firstLineStartY;
+        
+        if (creditLines.Count > 0 && creditLines[0] != null)
+        {
+            float currentY = creditLines[0].transform.position.y;
+            float traveled = currentY - firstLineStartY;
+            return Mathf.Clamp01(traveled / totalDistance);
+        }
+        
+        return 0f;
+    }
+
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

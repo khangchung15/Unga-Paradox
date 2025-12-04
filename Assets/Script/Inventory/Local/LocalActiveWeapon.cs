@@ -11,6 +11,9 @@ public class LocalActiveWeapon : MonoBehaviour
     private bool isSecondaryAttacking = false;
     private AudioSource weaponEquipAudioSource;
     private GameObject playerObject;
+    
+    private Coroutine attackCooldownCoroutine;
+    private Coroutine secondaryAttackCooldownCoroutine;
 
     private void Awake()
     {
@@ -88,6 +91,18 @@ public class LocalActiveWeapon : MonoBehaviour
         isAttacking = false;
         isSecondaryAttacking = false;
         
+        if (attackCooldownCoroutine != null)
+        {
+            StopCoroutine(attackCooldownCoroutine);
+            attackCooldownCoroutine = null;
+        }
+        
+        if (secondaryAttackCooldownCoroutine != null)
+        {
+            StopCoroutine(secondaryAttackCooldownCoroutine);
+            secondaryAttackCooldownCoroutine = null;
+        }
+        
         SetWeaponSortingLayer(newWeapon.gameObject);
         PlayEquipSound(weaponInfo);
     }
@@ -125,14 +140,20 @@ public class LocalActiveWeapon : MonoBehaviour
     private void AttackCooldown()
     {
         isAttacking = true;
-        StopAllCoroutines();
-        StartCoroutine(TimeBetweenAttacksRoutine());
+        
+        if (attackCooldownCoroutine != null)
+        {
+            StopCoroutine(attackCooldownCoroutine);
+        }
+        
+        attackCooldownCoroutine = StartCoroutine(TimeBetweenAttacksRoutine());
     }
 
     private System.Collections.IEnumerator TimeBetweenAttacksRoutine()
     {
         yield return new WaitForSeconds(timeBetweenAttacks);
         isAttacking = false;
+        attackCooldownCoroutine = null;
     }
 
     private void StartAttacking()
@@ -173,7 +194,12 @@ public class LocalActiveWeapon : MonoBehaviour
                 potionWeapon.SecondaryAttack();
             }
             
-            StartCoroutine(SecondaryAttackCooldownRoutine());
+            if (secondaryAttackCooldownCoroutine != null)
+            {
+                StopCoroutine(secondaryAttackCooldownCoroutine);
+            }
+            
+            secondaryAttackCooldownCoroutine = StartCoroutine(SecondaryAttackCooldownRoutine());
         }
     }
 
@@ -182,5 +208,6 @@ public class LocalActiveWeapon : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBetweenAttacks);
         isSecondaryAttacking = false;
+        secondaryAttackCooldownCoroutine = null;
     }
 }
