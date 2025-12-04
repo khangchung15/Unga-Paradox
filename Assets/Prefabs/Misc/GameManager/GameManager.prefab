@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d8d8ae7579448fdbbbd09807474d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  totalCurrency: 0
   currentCurrency: 0
 --- !u!114 &3352751602817663253
 MonoBehaviour:
@@ -74,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerUpgrades
   baseMaxHealth: 100
-  baseMoveSpeed: 5
+  baseMoveSpeed: 4
   baseShieldCooldown: 5
   healthPerLevel: 35
   speedPerLevel: 1
@@ -82,9 +83,10 @@ MonoBehaviour:
   maxHealthLevel: 3
   maxSpeedLevel: 3
   maxShieldLevel: 3
-  healthUpgradeCosts: 050000000a0000000f000000
-  speedUpgradeCosts: 050000000a0000000f000000
-  shieldUpgradeCosts: 050000000a0000000f000000
+  rainbowTrailCost: 2
+  healthUpgradeCosts: 020000000500000007000000
+  speedUpgradeCosts: 020000000500000007000000
+  shieldUpgradeCosts: 020000000500000007000000
   playerHealth: {fileID: 0}
   playerMovement: {fileID: 0}
   playerShield: {fileID: 0}
@@ -92,4 +94,5 @@ MonoBehaviour:
   healthLevel: 0
   speedLevel: 0
   shieldLevel: 0
+  rainbowTrailUnlocked: 0
   resetUpgradesOnPlay: 1

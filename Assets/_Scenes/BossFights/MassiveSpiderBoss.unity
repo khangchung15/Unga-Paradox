@@ -120852,7 +120852,7 @@ MonoBehaviour:
   detectionRange: 15
   wanderingMoveSpeed: 1.5
   chasingMoveSpeed: 4
-  maxHealth: 500
+  maxHealth: 1000
   bossHealth: {fileID: 1819249552}
   phase2ThresholdPercent: 0.5
   minionPrefab: {fileID: 1096702420579633633, guid: 3d867be52a4cc4d73ade9e09997b97c3, type: 3}

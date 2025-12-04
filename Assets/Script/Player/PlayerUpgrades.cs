@@ -20,7 +20,7 @@ public class PlayerUpgrades : MonoBehaviour
 
     [Header("Per-Level Values")]
     [SerializeField] private float healthPerLevel = 20f;
-    [SerializeField] private float speedPerLevel = 1f;
+    [SerializeField] private float speedPerLevel = 0.5f;
     [SerializeField] private float shieldCooldownPerLevel = -0.5f; // negative to reduce cooldown
 
     [Header("Max Levels")]
@@ -30,12 +30,12 @@ public class PlayerUpgrades : MonoBehaviour
 
     [Header("Rainbow Trail Upgrade")]
     [Tooltip("Coin cost to unlock the rainbow trail cosmetic.")]
-    [SerializeField] private int rainbowTrailCost = 5;
+    [SerializeField] private int rainbowTrailCost = 2;
 
     [Header("Coin Costs Per Level")]
-    [SerializeField] private int[] healthUpgradeCosts = { 5, 10, 15 };
-    [SerializeField] private int[] speedUpgradeCosts = { 5, 10, 15};
-    [SerializeField] private int[] shieldUpgradeCosts = { 5, 10, 15 };
+    [SerializeField] private int[] healthUpgradeCosts = { 2, 5, 7 };
+    [SerializeField] private int[] speedUpgradeCosts = { 2, 5, 7};
+    [SerializeField] private int[] shieldUpgradeCosts = { 2, 5, 7 };
 
     [Header("References To Player Components")]
     [SerializeField] private Health playerHealth;    // health script
