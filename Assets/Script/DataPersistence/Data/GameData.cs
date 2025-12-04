@@ -7,7 +7,7 @@ public class GameData
 {
     public string sceneName;
     //public int currentCurrency;
-    public int totalCurrency;
+    //public int totalCurrency;
     //public float playerHealth;
     //public float playerMaxHealth;
     //public float playerSpeed;
@@ -23,7 +23,7 @@ public class GameData
     {
         sceneName = "";
         //this.currentCurrency = 0;
-        this.totalCurrency = 0;
+        //this.totalCurrency = 0;
         //this.playerHealth = 100;
         //this.playerMaxHealth = 100;
         //this.playerSpeed = 4;

@@ -62,7 +62,6 @@ public class DataPersistenceManager : MonoBehaviour
             firstLoad = false;
             LoadGame();
         }
-        SaveGame();
     }
 
     public void OnSceneUnloaded(Scene scene)
@@ -98,6 +97,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.LoadData(gameData);
         }
+        Debug.Log("Coins Loaded: " + gameData.totalCurrency);
     }
 
     public void SaveGame()
@@ -123,12 +123,14 @@ public class DataPersistenceManager : MonoBehaviour
 
         // save the data to a file using the data handler
         dataHandler.Save(gameData);
+        Debug.Log("Coins Saved: " + gameData.totalCurrency);
+
     }
 
-    //private void OnApplicationQuit()
-    //{
-    //    SaveGame();
-    //}
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {

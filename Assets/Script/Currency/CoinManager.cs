@@ -2,7 +2,7 @@ using System;
 //using UnityEditor.TerrainTools;
 using UnityEngine;
 
-public class CoinManager : MonoBehaviour, IDataPersistence
+public class CoinManager : MonoBehaviour//, IDataPersistence
 {
     public static CoinManager Instance { get; private set; }
 
@@ -15,6 +15,7 @@ public class CoinManager : MonoBehaviour, IDataPersistence
     {
         if (Instance != null && Instance != this)
         {
+            Debug.Log("GameManager already exists, destroying object.");
             Destroy(gameObject);
             return;
         }
@@ -40,15 +41,17 @@ public class CoinManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void LoadData(GameData data)
-    {
-        this.currentCurrency = data.totalCurrency;
-    }
+    //public void LoadData(GameData data)
+    //{
+    //    Debug.Log("Loading currency: " + data.totalCurrency);
+    //    this.currentCurrency = data.totalCurrency;
+    //}
 
-    public void SaveData(ref GameData data)
-    {
-        data.totalCurrency = this.totalCurrency;
-    }
+    //public void SaveData(ref GameData data)
+    //{
+    //    Debug.Log("Saving currency: " + this.totalCurrency);
+    //    data.totalCurrency = this.totalCurrency;
+    //}
 
     private void OnSceneChange()
     {
