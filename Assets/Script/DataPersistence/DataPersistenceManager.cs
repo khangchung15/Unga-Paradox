@@ -9,6 +9,7 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [Header("Debugging")]
     [SerializeField] private bool initializeDataIfNull = false;
+    private bool firstLoad = true;
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
@@ -16,7 +17,7 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
-    private Vector3 playerPosition;
+    //private Vector3 playerPosition;
 
     public static DataPersistenceManager instance { get; private set; }
 
@@ -49,15 +50,19 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        //if (GameObject.Find("Player") != null && this.gameData.playerPosition == null)
-        //{
-        //    Debug.Log("Player Data position in scene " + GameObject.Find("Player").transform.position);
-        //    this.gameData.playerPosition = GameObject.Find("Player").transform.position;
-        //    dataHandler.Save(gameData);
-        //}
-
-        LoadGame();
+        if (firstLoad)
+        {
+            this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+            //if (GameObject.Find("Player") != null && this.gameData.playerPosition == null)
+            //{
+            //    Debug.Log("Player Data position in scene " + GameObject.Find("Player").transform.position);
+            //    this.gameData.playerPosition = GameObject.Find("Player").transform.position;
+            //    dataHandler.Save(gameData);
+            //}
+            firstLoad = false;
+            LoadGame();
+        }
+        SaveGame();
     }
 
     public void OnSceneUnloaded(Scene scene)

@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 public class GameData
 {
     public string sceneName;
-    public int currentCurrency;
-    public float playerHealth;
+    //public int currentCurrency;
+    public int totalCurrency;
+    //public float playerHealth;
+    //public float playerMaxHealth;
+    //public float playerSpeed;
     //public Vector3 playerPosition;
     //public SerializableDictionary<string, bool> enemiesKilled;
-    public SerializableDictionary<int, string> weaponHotbar;
+    //public SerializableDictionary<int, string> weaponHotbar;
     //public SerializableDictionary<string, int> enemiesHealth;
     //public SerializableDictionary<string, Vector3> enemiesPosition;
 
@@ -19,11 +22,14 @@ public class GameData
     public GameData()
     {
         sceneName = "";
-        this.currentCurrency = 0;
-        this.playerHealth = 100;
+        //this.currentCurrency = 0;
+        this.totalCurrency = 0;
+        //this.playerHealth = 100;
+        //this.playerMaxHealth = 100;
+        //this.playerSpeed = 4;
         //playerPosition = Vector3.zero;
         //enemiesKilled = new SerializableDictionary<string, bool>();
-        weaponHotbar = new SerializableDictionary<int, string>();
+        //weaponHotbar = new SerializableDictionary<int, string>();
         //enemiesHealth = new SerializableDictionary<string, int>();
         //enemiesPosition = new SerializableDictionary<string, Vector3>();
     }

@@ -21,14 +21,15 @@ public class LevelLoadButton : MonoBehaviour
     /// <param name="levelToLoadName">The name of the level to load</param>
     /// 
 
-    [SerializeField] private Button continueGameButton;
+    [SerializeField] private GameObject continueButton;
     private GameData gameData;
 
     private void Start()
     {
         if (!DataPersistenceManager.instance.HasGameData())
         {
-            continueGameButton.interactable = false;
+            if (continueButton)
+                continueButton.SetActive(false);
         }
 
         gameData = DataPersistenceManager.instance.getGameData();

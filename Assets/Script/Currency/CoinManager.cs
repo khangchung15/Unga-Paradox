@@ -1,11 +1,12 @@
 using System;
-using UnityEditor.TerrainTools;
+//using UnityEditor.TerrainTools;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour, IDataPersistence
 {
     public static CoinManager Instance { get; private set; }
 
+    public int totalCurrency = 0;
     public int currentCurrency = 0;
     public int CurrentCurrency => currentCurrency;
     private CoinCounter coinCounter;
@@ -41,12 +42,12 @@ public class CoinManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        this.currentCurrency = data.currentCurrency;
+        this.currentCurrency = data.totalCurrency;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.currentCurrency = this.currentCurrency;
+        data.totalCurrency = this.totalCurrency;
     }
 
     private void OnSceneChange()
@@ -65,6 +66,7 @@ public class CoinManager : MonoBehaviour, IDataPersistence
         if (amount <= 0) return;
 
         currentCurrency += amount;
+        totalCurrency += amount;
         UpdateCoinUI();
     }
 
