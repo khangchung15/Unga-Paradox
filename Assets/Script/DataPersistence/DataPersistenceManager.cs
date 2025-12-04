@@ -97,7 +97,6 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.LoadData(gameData);
         }
-        Debug.Log("Coins Loaded: " + gameData.totalCurrency);
     }
 
     public void SaveGame()
@@ -123,7 +122,6 @@ public class DataPersistenceManager : MonoBehaviour
 
         // save the data to a file using the data handler
         dataHandler.Save(gameData);
-        Debug.Log("Coins Saved: " + gameData.totalCurrency);
 
     }
 
